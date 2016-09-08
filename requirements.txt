@@ -1,0 +1,5 @@
+pyyaml
+praw
+telepot
+pymongo
+requests
