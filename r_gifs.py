@@ -27,16 +27,14 @@ def download_file(url):
     r = requests.get(url, stream=True)
     with open('my.gif', 'wb') as f:
         for chunk in r.iter_content(chunk_size=1024): 
-            if chunk: # filter out keep-alive new chunks
+            if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
                 #f.flush() commented by recommendation from J.F.Sebastian
     return True
 
 
-def was_before(url):
-    client = pymongo.MongoClient()
-    db = client['r_gifs']
-    collection = db['history']
+def was_before(url, config):
+    collection = pymongo.MongoClient()[config['db']][config['collection']]
     result = collection.find_one({'url': url})
     if result is None:
         collection.insert_one({'url': url})
@@ -52,7 +50,7 @@ def do_work(config):
         gif_url = get_url(i)
         if gif_url is None:
             continue
-        if was_before(gif_url):
+        if was_before(gif_url, config):
             continue
         caption = i.title
         link = i.short_link
@@ -63,10 +61,10 @@ def do_work(config):
         # Download gif
         download_file(gif_url)
         # Telegram 50MB limitation
-        if os.path.getsize('my.gif') > 50 * 1024 * 1024:
+        if os.path.getsize('my.gif') > 12 * 1024 * 1024:
             continue
         f = open('my.gif', 'rb')
-        bot.sendDocument('@r_gifs', f, caption=text)
+        bot.sendDocument(config['channel'], f, caption=text)
         f.close()
         break
 
