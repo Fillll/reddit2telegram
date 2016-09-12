@@ -33,8 +33,8 @@ def download_file(url):
     return True
 
 
-def was_before(url, config):
-    collection = pymongo.MongoClient()[config['db']][config['collection']]
+def was_before(url, channel, config):
+    collection = pymongo.MongoClient()[config['db']][channel[1:]]
     result = collection.find_one({'url': url})
     if result is None:
         collection.insert_one({'url': url})
@@ -43,40 +43,38 @@ def was_before(url, config):
         return True
 
 
-def do_work(config):
+def supply(subreddit, t_channel, config):
     r = praw.Reddit(user_agent=config['user_agent'])
-    submissions = r.get_subreddit('gifs').get_hot(limit=100)
+    submissions = r.get_subreddit(subreddit).get_hot(limit=100)
     for i in submissions:
         gif_url = get_url(i)
         if gif_url is None:
             continue
-        if was_before(gif_url, config):
+        if was_before(gif_url, t_channel, config):
             continue
-        caption = i.title
+        title = i.title
         link = i.short_link
-        bot = telepot.Bot(config['telegram_token'])
-        print('Gif url =', gif_url)
-        text = '%s\n%s\n\nby @r_gifs' % (caption, link)
-
+        caption = '%s\n%s\n\nby @r_gifs' % (title, link)
         # Download gif
         download_file(gif_url)
         # Telegram 50MB limitation
         if os.path.getsize('my.gif') > 12 * 1024 * 1024:
             continue
         f = open('my.gif', 'rb')
-        bot.sendDocument(config['channel'], f, caption=text)
+        bot = telepot.Bot(config['telegram_token'])
+        bot.sendDocument(t_channel, f, caption=caption)
         f.close()
         break
 
 
-def main():
+def main(subreddit, t_channel):
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', default='prod.yml')
     args = parser.parse_args()
     with open(args.config) as config_file:
         config = yaml.load(config_file.read())
-    do_work(config)
+    supply(subreddit, t_channel, config)
 
 
 if __name__ == '__main__':
-    main()
+    main('gifs', '@r_gifs')
