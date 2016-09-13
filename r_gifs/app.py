@@ -54,15 +54,15 @@ def supply(subreddit, t_channel, config):
             continue
         title = i.title
         link = i.short_link
-        caption = '%s\n%s\n\nby @r_gifs' % (title, link)
+        text = '%s\n%s\n\nby @r_gifs' % (title, link)
         # Download gif
         download_file(gif_url)
-        # Telegram 50MB limitation
+        # Telegram will not autoplay big gifs
         if os.path.getsize('my.gif') > 12 * 1024 * 1024:
             continue
         f = open('my.gif', 'rb')
         bot = telepot.Bot(config['telegram_token'])
-        bot.sendDocument(t_channel, f, caption=caption)
+        bot.sendDocument(t_channel, f, caption=text)
         f.close()
         break
 
