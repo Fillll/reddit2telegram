@@ -58,7 +58,7 @@ def supply(subreddit, t_channel, config):
         # Download gif
         download_file(gif_url)
         # Telegram will not autoplay big gifs
-        if os.path.getsize('my.gif') > 12 * 1024 * 1024:
+        if os.path.getsize('my.gif') > 10 * 1024 * 1024:
             continue
         f = open('my.gif', 'rb')
         bot = telepot.Bot(config['telegram_token'])
