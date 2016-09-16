@@ -2,7 +2,7 @@
 
 
 subreddit = 'jokes'
-t_channel = '@r_gifs_test'
+t_channel = '@r_jokes'
 
 
 def send_post(submission, bot):
