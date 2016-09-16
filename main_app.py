@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 import argparse
+import importlib
 
 import yaml
 import praw
@@ -18,29 +19,32 @@ def was_before(url, channel, config):
         return True
 
 
-def do_work(subreddit, t_channel, config):
-    r = praw.Reddit(user_agent=config['user_agent'])
-    submissions = r.get_subreddit(subreddit).get_hot(limit=100)
-    for i in submissions:
-        link = i.short_link
-        if was_before(link, t_channel, config):
+def supply(subreddit, config):
+    submodule = importlib.import_module('channels.r_{}.app'.format(subreddit))
+    # sub_module = getattr(channels, 'r_%s' % subreddit)
+    reddit = praw.Reddit(user_agent=config['user_agent'])
+    submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
+    for submission in submissions:
+        link = submission.short_link
+        if was_before(link, submodule.t_channel, config):
             continue
-        title = i.title
-        punchline = i.selftext
-        text = '%s\n\n%s\n\n%s' % (title, punchline, link)
         bot = telepot.Bot(config['telegram_token'])
-        bot.sendMessage(t_channel, text)
-        break
+        success = submodule.send_post(submission, bot)
+        if success:
+            break
+        else:
+            continue
 
 
-def main(subreddit, t_channel):
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', default='prod.yml')
+    parser.add_argument('--sub')
     args = parser.parse_args()
     with open(args.config) as config_file:
         config = yaml.load(config_file.read())
-    do_work(subreddit, t_channel, config)
+    supply(args.sub, config)
 
 
 if __name__ == '__main__':
-    main('jokes', '@r_jokes')
+    main()
