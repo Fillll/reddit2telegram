@@ -19,4 +19,5 @@ Currently alive channels
 
 1. [@r_gifs](https://telegram.me/r_gifs)
 2. [@r_jokes](https://telegram.me/r_jokes)
-3. ... be the next one ...
+3. [@r_funny](https://telegram.me/r_funny)
+4. ... be the next one ...
