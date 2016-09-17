@@ -6,7 +6,7 @@ import requests
 
 
 subreddit = 'gifs'
-t_channel = '@r_gifs'
+t_channel = '@r_gifs_test'
 
 
 def get_url(submission):
@@ -34,6 +34,8 @@ def download_file(url):
 
 def send_post(submission, bot):
     gif_url = get_url(submission)
+    if gif_url is None:
+        return False
     # Download gif
     download_file(gif_url)
     # Telegram will not autoplay big gifs
