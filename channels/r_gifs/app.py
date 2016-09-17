@@ -6,7 +6,7 @@ import requests
 
 
 subreddit = 'gifs'
-t_channel = '@r_gifs_test'
+t_channel = '@r_gifs'
 
 
 def get_url(submission):
