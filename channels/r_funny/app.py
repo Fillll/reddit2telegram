@@ -2,6 +2,7 @@
 
 import os
 from urllib.parse import urlparse
+import imghdr
 
 import requests
 
@@ -17,12 +18,10 @@ def get_url(submission):
         return 'gif', url
     elif url.endswith('.gifv'):
         return 'gif', url[0:-1]
-    elif url.endswith('.jpg'):
-        return 'pic', url
     elif urlparse(url).netloc == 'www.reddit.com':
         return 'text', None
     else:
-        return None, None
+        return 'other', url
 
 
 def download_file(url, filename):
@@ -46,29 +45,31 @@ def send_post(submission, bot):
         text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
         bot.sendMessage(t_channel, text)
         return True
-    elif what == 'gif':
-        filename = 'r_funny.gif'
-        download_file(url, filename)
-        if os.path.getsize(filename) > 10 * 1024 * 1024:
-            return False
-        title = submission.title
-        link = submission.short_link
-        text = '%s\n%s' % (title, link)
-        f = open(filename, 'rb')
-        bot.sendDocument(t_channel, f, caption=text)
-        f.close()
-        return True
-    elif what == 'pic':
-        filename = 'r_funny.jpg'
-        download_file(url, filename)
-        if os.path.getsize(filename) > 10 * 1024 * 1024:
-            return False
-        title = submission.title
-        link = submission.short_link
-        text = '%s\n%s' % (title, link)
-        f = open(filename, 'rb')
-        bot.sendPhoto(t_channel, f, caption=text)
-        f.close()
-        return True
     else:
-        return False
+        title = submission.title
+        link = submission.short_link
+        text = '{}\n{}'.format(title, link)
+        filename = 'r_funny.file'
+        if not download_file(url, filename):
+            return False
+        new_filename = '{}.{}'.format(filename, imghdr.what(filename))
+        os.rename(filename, new_filename)
+        if what == 'gif':
+            if os.path.getsize(new_filename) > 10 * 1024 * 1024:
+                return False
+            f = open(new_filename, 'rb')
+            bot.sendDocument(t_channel, f, caption=text)
+            f.close()
+            return True
+        elif what == 'other':
+            if imghdr.what(new_filename) in ('jpeg', 'bmp', 'png'):
+                f = open(new_filename, 'rb')
+                bot.sendPhoto(t_channel, f, caption=text)
+                f.close()
+                return True
+            else:
+                text = '{}\n{}\n\n{}'.format(title, url, link)
+                bot.sendMessage(t_channel, text)
+                return True
+        else:
+            return False
