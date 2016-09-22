@@ -18,20 +18,24 @@ def weighted_random(d):
 
 
 def define_channel_for_today():
-    channels = {'dataisbeautiful': 1,
-        'MapPorn': 1,
+    channels = {'dataisbeautiful': 8,
+        'MapPorn': 5,
         'datasets': 1,
-        'datascience': 1,
-        'MachineLearning': 1,
+        'datascience': 2,
+        'MachineLearning': 2,
         'visualization': 1,
-        'Infographics': 1,
-        'wordcloud': 1,
-        'SampleSize': 1,
-        'dataisugly': 1,
-        'FunnyCharts': 1,
-        'usdataisbeautiful': 1,
-        'mathpics': 1,
-        'statistics': 1
+        'Infographics': 2,
+        'wordcloud': 0.7,
+        'SampleSize': 0.7,
+        'dataisugly': 1.2,
+        'FunnyCharts': 0.6,
+        'usdataisbeautiful': 0.2,
+        'mathpics': 0.5,
+        'statistics': 1,
+        'pystats': 0.5,
+        'opendata': 0.3,
+        'bigdatajobs': 0.1,
+        'bigdata': 0.2
     }
     return weighted_random(channels)
 
