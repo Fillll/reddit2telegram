@@ -1,8 +1,9 @@
 #encoding:utf-8
 
 import os
-from utils import get_url, download_file
 import imghdr
+
+from utils import get_url, download_file, telegram_autoplay_limit
 
 
 subreddit = 'funny'
@@ -28,7 +29,7 @@ def send_post(submission, bot):
         new_filename = '{}.{}'.format(filename, imghdr.what(filename))
         os.rename(filename, new_filename)
         if what == 'gif':
-            if os.path.getsize(new_filename) > 10 * 1024 * 1024:
+            if os.path.getsize(new_filename) > telegram_autoplay_limite:
                 return False
             f = open(new_filename, 'rb')
             bot.sendDocument(t_channel, f, caption=text)

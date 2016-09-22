@@ -4,7 +4,7 @@ import os
 import imghdr
 import random
 
-from utils import get_url, download_file
+from utils import get_url, download_file, telegram_autoplay_limit
 
 
 def weighted_random(d):
@@ -49,14 +49,14 @@ def send_post(submission, bot):
         bot.sendMessage(t_channel, text)
         return True
     else:
-        text = '{}\n/r/{}\n{}'.format(title, subreddit, link)
+        text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
         filename = 'r_data_related.file'
         if not download_file(url, filename):
             return False
         new_filename = '{}.{}'.format(filename, imghdr.what(filename))
         os.rename(filename, new_filename)
         if what == 'gif':
-            if os.path.getsize(new_filename) > 10 * 1024 * 1024:
+            if os.path.getsize(new_filename) > telegram_autoplay_limit:
                 return False
             f = open(new_filename, 'rb')
             bot.sendDocument(t_channel, f, caption=text)

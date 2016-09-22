@@ -1,5 +1,11 @@
+# encoding:utf-8
+
 from urllib.parse import urlparse
 import requests
+
+
+telegram_autoplay_limit = 10 * 1024 * 1024
+
 
 def get_url(submission):
     url = submission.url
