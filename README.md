@@ -21,4 +21,5 @@ Currently alive channels
 2. [@r_jokes](https://telegram.me/r_jokes)
 3. [@r_funny](https://telegram.me/r_funny)
 4. [@DataScientology](https://telegram.me/datascientology)
-5. ... be the next one ...
+5. [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute)
+6. ... be the next one ...
