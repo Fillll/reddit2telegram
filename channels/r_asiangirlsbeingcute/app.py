@@ -28,7 +28,7 @@ def get_gif(submission):
 
 def send_post(submission, bot):
     what, gif_url = get_gif(submission)
-    if what != ('gif' or 'mp4'):
+    if what not in ('gif', 'mp4'):
         return False
     # Determine file
     if what == 'gif':
