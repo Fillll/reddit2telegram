@@ -43,25 +43,35 @@ subreddit = define_channel_for_today()
 t_channel = '@datascientology'
 
 
+def just_send_message(submission, bot):
+    title = submission.title
+    link = submission.short_link
+    if submission.is_self is True:    
+        punchline = submission.selftext
+        text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
+    else:
+        url = submission.url
+        text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
+    bot.sendMessage(t_channel, text)
+    return True
+
+
 def send_post(submission, bot):
     what, url = get_url(submission)
     title = submission.title
     link = submission.short_link
     if what == 'text':
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
-        bot.sendMessage(t_channel, text)
-        return True
+        return just_send_message(submission, bot)
     else:
         text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
         filename = 'r_data_related.file'
         if not download_file(url, filename):
-            return False
+            return just_send_message(submission, bot)
         new_filename = '{}.{}'.format(filename, imghdr.what(filename))
         os.rename(filename, new_filename)
         if what == 'gif':
             if os.path.getsize(new_filename) > telegram_autoplay_limit:
-                return False
+                return just_send_message(submission, bot)
             f = open(new_filename, 'rb')
             bot.sendDocument(t_channel, f, caption=text)
             f.close()
