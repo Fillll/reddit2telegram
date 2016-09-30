@@ -39,7 +39,7 @@ def send_post(submission, bot):
     if what == 'text':
         punchline = submission.selftext
         text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
-        bot.sendMessage(t_channel, text)
+        bot.sendMessage(t_channel, text, parse_mode='Markdown')
         return True
     else:
         text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
@@ -63,7 +63,7 @@ def send_post(submission, bot):
                 return True
             else:
                 text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-                bot.sendMessage(t_channel, text)
+                bot.sendMessage(t_channel, text, parse_mode='Markdown')
                 return True
         else:
             return False
