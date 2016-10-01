@@ -19,11 +19,13 @@ def weighted_random(d):
 def define_channel_for_today():
     channels = {
         'flask': 3,
-        'Python': 8,
-        'django': 1,
-        'MachineLearning': 2,
-        'lua': 5,
-        'djangolearning': 4
+        'Python': 6,
+        'django': 4,
+        'MachineLearning': 1,
+        'djangolearning': 1,
+        'IPython': 5,
+        'pystats': 4,
+        'JupyterNotebooks': 3
     }
     return weighted_random(channels)
 
@@ -39,7 +41,7 @@ def send_post(submission, bot):
     if what == 'text':
         punchline = submission.selftext
         text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
-        bot.sendMessage(t_channel, text, parse_mode='Markdown')
+        bot.sendMessage(t_channel, text)
         return True
     else:
         text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
@@ -63,7 +65,7 @@ def send_post(submission, bot):
                 return True
             else:
                 text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-                bot.sendMessage(t_channel, text, parse_mode='Markdown')
+                bot.sendMessage(t_channel, text)
                 return True
         else:
             return False
