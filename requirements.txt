@@ -3,3 +3,4 @@ praw
 telepot
 pymongo
 requests
+imgurpython

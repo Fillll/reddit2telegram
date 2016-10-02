@@ -14,7 +14,7 @@ def get_url(submission):
         return 'gif', url
     elif url.endswith('.gifv'):
         return 'gif', url[0:-1]
-    elif urlparse(url).netloc == 'www.reddit.com':
+    elif submission.is_self is True:
         return 'text', None
     else:
         return 'other', url
