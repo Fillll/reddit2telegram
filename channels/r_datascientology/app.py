@@ -42,7 +42,7 @@ def define_channel_for_today():
 
 
 subreddit = define_channel_for_today()
-t_channel = '@datascientology'
+t_channel = '@r_channels_test'
 
 
 def just_send_message(submission, bot):
@@ -64,7 +64,7 @@ def send_post(submission, bot):
     link = submission.short_link
     if what == 'text':
         return just_send_message(submission, bot)
-    else:
+    elif what in ('other', 'gif'):
         text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
         filename = 'r_data_related.file'
         if not download_file(url, filename):
@@ -90,3 +90,9 @@ def send_post(submission, bot):
                 return True
         else:
             return False
+    elif what == 'album':
+        just_send_message(submission, bot)
+        just_send_an_album(t_channel, story, bot)
+        return True
+    else:
+        return False

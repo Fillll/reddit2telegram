@@ -3,6 +3,9 @@
 from urllib.parse import urlparse
 import requests
 import yaml
+import os
+import imghdr
+import time
 
 from imgurpython import ImgurClient
 
@@ -36,13 +39,13 @@ def get_url(submission):
         elif path_parts[1] == 'a':
             # An imgur album
             album = imgur_client.get_album(path_parts[2])
-            story = {'behind': {}, 'gifs': {}}
+            story = {}
             for num, img in enumerate(album.images):
                 number = num + 1
-                if img['animated'] is False:
-                    story['behind'][number] = img['link']
-                else:
-                    story['gifs'][number] = img['link']
+                story[number] = {
+                    'link': img['link'],
+                    'gif': img['animated']
+                }
             return 'album', story
 
     else:
@@ -64,3 +67,44 @@ def download_file(url, filename):
                 if chunk_counter > 50 * 1024:
                     return False
     return True
+
+
+def just_send_an_album(t_channel, story, bot):
+    def just_send(num, item, bot):
+        text = '# {}\n{}'.format(num, item)
+        bot.sendMessage(t_channel, text)
+
+    for num, item in sorted(story.items(), key=lambda x: x[0]):
+        filename = '{}.file'.format(t_channel[1:])
+        if download_file(item['link'], filename):
+            what_inside = imghdr.what(filename)
+            if item['gif'] is False:
+                # Not animated, no gif.
+                if what_inside in ('jpeg', 'bmp', 'png'):
+                    # Good pic
+                    new_filename = '{}.{}'.format(filename, what_inside)
+                    os.rename(filename, new_filename)
+                    f = open(new_filename, 'rb')
+                    text = '# {}'.format(num)
+                    bot.sendPhoto(t_channel, f, caption=text)
+                    f.close()
+                else:
+                    # Not a pic
+                    just_send(num, item['link'], bot)
+            else:
+                # Animated, gif
+                new_filename = '{}.gif'.format(t_channel[1:])
+                os.rename(filename, new_filename)
+                if what_inside == 'gif' and os.path.getsize(new_filename) <= telegram_autoplay_limit:
+                    # It is small and it is gif
+                    f = open(new_filename, 'rb')
+                    text = '# {}'.format(num)
+                    bot.sendDocument(t_channel, f, caption=text)
+                    f.close()
+                else:
+                    # Not small or not gif
+                    just_send(num, item['link'], bot)
+        else:
+            # Can not download
+            just_send(num, item['link'], bot)
+        time.sleep(2)

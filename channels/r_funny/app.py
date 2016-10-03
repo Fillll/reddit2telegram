@@ -13,13 +13,13 @@ t_channel = '@r_funny'
 def send_post(submission, bot):
     what, url = get_url(submission)
     if what == 'text':
-        title = submission.title
+        title = submission.titleув
         punchline = submission.selftext
         link = submission.short_link
         text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
         bot.sendMessage(t_channel, text)
         return True
-    else:
+    elif what in ('other', 'gif'):
         title = submission.title
         link = submission.short_link
         text = '{}\n{}'.format(title, link)
@@ -29,7 +29,7 @@ def send_post(submission, bot):
         new_filename = '{}.{}'.format(filename, imghdr.what(filename))
         os.rename(filename, new_filename)
         if what == 'gif':
-            if os.path.getsize(new_filename) > telegram_autoplay_limite:
+            if os.path.getsize(new_filename) > telegram_autoplay_limit:
                 return False
             f = open(new_filename, 'rb')
             bot.sendDocument(t_channel, f, caption=text)
@@ -47,3 +47,5 @@ def send_post(submission, bot):
                 return True
         else:
             return False
+    else:
+        return False

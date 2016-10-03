@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 subreddit = 'asiangirlsbeingcute'
 t_channel = '@asiangirlsbeingcute'
 
+
 def get_gif(submission):
     url = submission.url
     # TODO: Better url validation
@@ -30,6 +31,8 @@ def send_post(submission, bot):
     what, gif_url = get_gif(submission)
     if what not in ('gif', 'mp4'):
         return False
+    title = submission.title
+    link = submission.short_link
     # Determine file
     if what == 'gif':
         t_file = 'asiangirlsbeingcute.gif'
@@ -39,13 +42,15 @@ def send_post(submission, bot):
         # Telegram will not autoplay big gifs
         if os.path.getsize(t_file) > telegram_autoplay_limit:
             return False
-    title = submission.title
-    if what == 'mp4':
-        link = gif_url
+        text = '{}\n{}'.format(title, link)
+        f = open(t_file, 'rb')
+        bot.sendDocument(t_channel, f, caption=text)
+        f.close()
+        return True
+    elif what == 'mp4':
+        url = gif_url
+        text = '{}\n{}\n\n{}'.format(title, url, link)
+        bot.sendMessage(t_channel, text)
+        return True
     else:
-        link = submission.short_link
-    text = '%s\n%s' % (title, link)
-    f = open(t_file, 'rb')
-    bot.sendDocument(t_channel, f, caption=text)
-    f.close()
-    return True
+        return False
