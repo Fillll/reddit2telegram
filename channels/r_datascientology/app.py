@@ -34,7 +34,9 @@ def define_channel_for_today():
         'pystats': 0.5,
         'opendata': 0.3,
         'bigdatajobs': 0.1,
-        'bigdata': 0.2
+        'bigdata': 0.2,
+        'IPython': 0.05,
+        'JupyterNotebooks': 0.05
     }
     return weighted_random(channels)
 
