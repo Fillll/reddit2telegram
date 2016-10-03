@@ -33,16 +33,17 @@ def send_post(submission, bot):
     # Determine file
     if what == 'gif':
         t_file = 'asiangirlsbeingcute.gif'
-    elif what == 'mp4':
-        t_file = 'asiangirlsbeingcute.mp4'
-    #Download file    
-    if not download_file(gif_url, t_file):
-        return False
-    # Telegram will not autoplay big gifs
-    if os.path.getsize(t_file) > telegram_autoplay_limit:
-        return False
+        #Download file    
+        if not download_file(gif_url, t_file):
+            return False
+        # Telegram will not autoplay big gifs
+        if os.path.getsize(t_file) > telegram_autoplay_limit:
+            return False
     title = submission.title
-    link = submission.short_link
+    if what == 'mp4':
+        link = gif_url
+    else:
+        link = submission.short_link
     text = '%s\n%s' % (title, link)
     f = open(t_file, 'rb')
     bot.sendDocument(t_channel, f, caption=text)
