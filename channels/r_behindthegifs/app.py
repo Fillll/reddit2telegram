@@ -8,35 +8,15 @@ import time
 import yaml
 from imgurpython import ImgurClient
 
-from utils import download_file, telegram_autoplay_limit
+from utils import get_url, download_file, telegram_autoplay_limit
 
 
 subreddit = 'behindthegifs'
 t_channel = '@r_behindthegifs'
 
 
-def get_album(submission):
-    url = submission.url
-    # TODO: Better url validation
-    if urlparse(url).netloc == 'imgur.com':
-        path_parts = urlparse(url).path.split('/')
-        if path_parts[1] == 'a':
-            imgur_config = yaml.load(open('imgur.yml').read())
-            imgur_client = ImgurClient(imgur_config['client_id'], imgur_config['client_secret'])
-            album = imgur_client.get_album(path_parts[2])
-            story = {'behind': {}, 'gifs': {}}
-            for num, img in enumerate(album.images):
-                number = num + 1
-                if img['animated'] is False:
-                    story['behind'][number] = img['link']
-                else:
-                    story['gifs'][number] = img['link']
-            return 'album', story
-    return 'other', url
-
-
 def send_post(submission, bot):
-    what, story = get_album(submission)
+    what, story = get_url(submission)
     if what != 'album':
         return False
 
