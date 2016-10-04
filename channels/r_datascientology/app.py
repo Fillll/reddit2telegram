@@ -35,14 +35,15 @@ def define_channel_for_today():
         'opendata': 0.3,
         'bigdatajobs': 0.1,
         'bigdata': 0.2,
-        'IPython': 0.05,
-        'JupyterNotebooks': 0.05
+        'IPython': 0.1,
+        'JupyterNotebooks': 0.1
     }
     return weighted_random(channels)
 
 
 subreddit = define_channel_for_today()
-t_channel = '@datascientology'
+# t_channel = '@datascientology'
+t_channel = '@r_channels_test'
 
 
 def just_send_message(submission, bot):
@@ -85,9 +86,7 @@ def send_post(submission, bot):
                 f.close()
                 return True
             else:
-                text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-                bot.sendMessage(t_channel, text)
-                return True
+                return just_send_message(submission, bot)
         else:
             return False
     elif what == 'album':
