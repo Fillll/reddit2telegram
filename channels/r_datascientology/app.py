@@ -4,7 +4,8 @@ import os
 import imghdr
 import random
 
-from utils import get_url, download_file, telegram_autoplay_limit
+from utils import (get_url, download_file, telegram_autoplay_limit,
+                   just_send_an_album)
 
 
 def weighted_random(d):
