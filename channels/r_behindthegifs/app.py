@@ -5,8 +5,7 @@ from utils import (get_url, download_file, telegram_autoplay_limit,
 
 
 subreddit = 'behindthegifs'
-# t_channel = '@r_behindthegifs'
-t_channel = '@r_channels_test'
+t_channel = '@r_behindthegifs'
 
 
 def send_post(submission, bot):
