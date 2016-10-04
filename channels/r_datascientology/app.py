@@ -43,8 +43,7 @@ def define_channel_for_today():
 
 
 subreddit = define_channel_for_today()
-# t_channel = '@datascientology'
-t_channel = '@r_channels_test'
+t_channel = '@datascientology'
 
 
 def just_send_message(submission, bot):
