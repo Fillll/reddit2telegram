@@ -91,7 +91,7 @@ def send_post(submission, bot):
             return False
     elif what == 'album':
         just_send_message(submission, bot)
-        just_send_an_album(t_channel, story, bot)
+        just_send_an_album(t_channel, url, bot)
         return True
     else:
         return False
