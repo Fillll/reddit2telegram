@@ -9,7 +9,7 @@ t_channel = '@r_behindthegifs'
 
 
 def send_post(submission, bot):
-    what, story = get_url(submission)
+    what, story, _ = get_url(submission)
     if what != 'album':
         return False
 

@@ -10,7 +10,7 @@ t_channel = '@r_gifs'
 
 
 def send_post(submission, bot):
-    what, gif_url = get_url(submission)
+    what, gif_url, _ = get_url(submission)
     if what != 'gif':
         return False
     # Download gif
@@ -21,7 +21,7 @@ def send_post(submission, bot):
         return False
     title = submission.title
     link = submission.short_link
-    text = '%s\n%s\n\nby @r_gifs' % (title, link)
+    text = '{}\n{}\n\nby @r_gifs'.format(title, link)
     f = open('r_gifs.gif', 'rb')
     bot.sendDocument(t_channel, f, caption=text)
     f.close()

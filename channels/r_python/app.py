@@ -34,38 +34,53 @@ subreddit = define_channel_for_today()
 t_channel = '@pythondaily'
 
 
-def send_post(submission, bot):
-    what, url = get_url(submission)
+def just_send_message(submission, bot):
     title = submission.title
     link = submission.short_link
-    if what == 'text':
+    if submission.is_self is True:    
         punchline = submission.selftext
         text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
-        bot.sendMessage(t_channel, text)
-        return True
     else:
-        text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
-        filename = 'r_data_related.file'
-        if not download_file(url, filename):
-            return False
-        new_filename = '{}.{}'.format(filename, imghdr.what(filename))
-        os.rename(filename, new_filename)
-        if what == 'gif':
-            if os.path.getsize(new_filename) > telegram_autoplay_limit:
-                return False
-            f = open(new_filename, 'rb')
-            bot.sendDocument(t_channel, f, caption=text)
-            f.close()
-            return True
-        elif what == 'other':
-            if imghdr.what(new_filename) in ('jpeg', 'bmp', 'png'):
-                f = open(new_filename, 'rb')
-                bot.sendPhoto(t_channel, f, caption=text)
-                f.close()
-                return True
-            else:
-                text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-                bot.sendMessage(t_channel, text)
-                return True
-        else:
-            return False
+        url = submission.url
+        text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
+    bot.sendMessage(t_channel, text)
+    return True
+
+
+def send_post(submission, bot):
+    what, url, ext = get_url(submission)
+    title = submission.title
+    link = submission.short_link
+    text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
+
+    if what == 'text':
+        return just_send_message(submission, bot)
+
+    elif what == 'other':
+        return just_send_message(submission, bot)
+
+    filename = 'r_data_related.{}'.format(ext)
+    if not download_file(url, filename):
+        return just_send_message(submission, bot)
+    if os.path.getsize(filename) > telegram_autoplay_limit:
+        return just_send_message(submission, bot)
+
+    if what == 'gif':
+        f = open(filename, 'rb')
+        bot.sendDocument(t_channel, f, caption=text)
+        f.close()
+        return True
+
+    elif what == 'img':
+        f = open(filename, 'rb')
+        bot.sendPhoto(t_channel, f, caption=text)
+        f.close()
+        return True
+
+    elif what == 'album':
+        just_send_message(submission, bot)
+        just_send_an_album(t_channel, url, bot)
+        return True
+
+    else:
+        return False
