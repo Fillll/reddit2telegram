@@ -1,6 +1,7 @@
 pyyaml
 praw
 telepot
+pytgbot==2.2.0
 pymongo
 requests
 imgurpython
