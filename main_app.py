@@ -10,7 +10,7 @@ import pymongo
 
 
 def was_before(url, channel, config):
-    collection = pymongo.MongoClient()[config['db']][channel[1:]]
+    collection = pymongo.MongoClient(host=config['db_host'])[config['db']][channel[1:]]
     result = collection.find_one({'url': url})
     if result is None:
         collection.insert_one({'url': url})
