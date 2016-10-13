@@ -24,10 +24,6 @@ def was_before(url, channel, config):
 @report_error
 def supply(subreddit, config):
     submodule = importlib.import_module('channels.r_{}.app'.format(subreddit))
-    # logger = logging.basicConfig(format='%(asctime)s %(message)s',
-    #                              datefmt='%m/%d/%Y %H:%M:%S',
-    #                              filename='{}.log'.format(subreddit),
-    #                              filemode = 'a')
     reddit = praw.Reddit(user_agent=config['user_agent'])
     submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
     for submission in submissions:

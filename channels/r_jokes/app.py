@@ -4,8 +4,8 @@
 # Write here subreddit name. Like this one for /r/jokes.
 subreddit = 'jokes'
 # This is for your public telegram channel.
-# t_channel = '@r_jokes'
-t_channel = '@r_channels_test'
+t_channel = '@r_jokes'
+
 
 def send_post(submission, bot):
     # To read more about dealing with reddit submission please
