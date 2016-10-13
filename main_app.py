@@ -2,7 +2,6 @@
 
 import argparse
 import importlib
-# import logging
 
 import yaml
 import praw
