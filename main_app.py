@@ -7,6 +7,7 @@ import yaml
 import praw
 import telepot
 import pymongo
+from sentry import report_error
 
 
 def was_before(url, channel, config):
@@ -19,6 +20,7 @@ def was_before(url, channel, config):
         return True
 
 
+@report_error
 def supply(subreddit, config):
     submodule = importlib.import_module('channels.r_{}.app'.format(subreddit))
     reddit = praw.Reddit(user_agent=config['user_agent'])
