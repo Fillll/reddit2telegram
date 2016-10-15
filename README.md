@@ -26,3 +26,38 @@ Currently alive channels
 7. [@pythondaily](https://telegram.me/pythondaily)
 8. [@r_unexpected](https://telegram.me/r_unexpected)
 9. ... be the next one ...
+
+Running it
+----------
+Easiest way is to do it with docker. It will set up the mongo database dependency.
+
+#### Config
+Make your copy of `prod.yml` and `imgur.yml`. 
+```shell
+cp prod.yml.example prod.yml
+cp imgur.yml.example imgur.yml
+```
+
+Now edit the files, replacing the values with real ones.
+
+> Note: When using docker, `db_host: "mongo"` must be set in `prod.yml`. 
+ 
+#### Launching
+```shell
+docker-compose up -d
+```
+- `-d` is detach. Leave out to see output.
+
+#### Changing code
+```shell
+docker-compose up reddit2tg --build
+```
+Assuming you already started `mongo` in detached mode (above).
+This rebuilds the reddit2tg image and launches it.
+- `reddit2tg`: the service name of the bot part (as opposed to the database `mongo`)
+- `--build` if you changed code and need a new build version
+
+#### Note
+The `reddit2tg` docker image is terminating pretty quickly as the python script was made for a cron script.
+Currently you have to either start the container over and over again (`docker-compose up -d reddit2tg`)
+or finally write a cron like script in the docker container. (Send a PR please!)

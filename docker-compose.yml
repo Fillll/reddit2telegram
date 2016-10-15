@@ -1,0 +1,11 @@
+version: "2"
+services:
+  reddit2tg:
+    build: .
+
+  mongo:
+    # if you chage the name to something else, remember to change reddit2tg's db_host in the prod.yml
+    image: mongo
+    volumes:
+      - /data/reddit2telegram:/data/db
+      # host dir /data/reddit2telegram is served inside the volume as /data/db where mongo writes on it.
