@@ -24,7 +24,8 @@ Currently alive channels
 5. [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute)
 6. [@r_behindthegifs](https://telegram.me/r_behindthegifs)
 7. [@pythondaily](https://telegram.me/pythondaily)
-8. ... be the next one ...
+8. [@r_unexpected](https://telegram.me/r_unexpected)
+9. ... be the next one ...
 
 Running it
 ----------

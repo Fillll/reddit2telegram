@@ -5,3 +5,4 @@ pytgbot>=2.2.1a2
 pymongo
 requests
 imgurpython
+raven

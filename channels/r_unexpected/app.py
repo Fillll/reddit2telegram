@@ -3,6 +3,7 @@
 from utils import get_url
 import logging
 from pytgbot.bot import Bot
+from pytgbot.exceptions import TgApiException
 
 logger = logging.getLogger(__name__)
 
@@ -29,5 +30,9 @@ def send_post(submission, bot):
         return True
     text = '{title}\n{link}\n\nby {channel}'.format(title=title, link=link, channel=t_channel)
     logger.info("{channel} Posting {gif_url}:\n{text}".format(channel=t_channel, gif_url=gif_url, text=text))
-    bot.send_document(t_channel, document=gif_url, caption=text)
+    try:
+        bot.send_document(t_channel, document=gif_url, caption=text)
+    except TgApiException:
+        from pytgbot.api_types.sendable.files import InputFileFromURL
+        bot.send_document(t_channel, document=InputFileFromURL(gif_url), caption=text)
     return True
