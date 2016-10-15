@@ -67,6 +67,11 @@ def send_post(submission, bot):
     if what == 'text':
         return just_send_message(submission, bot)
 
+    elif what == 'album':
+        just_send_message(submission, bot)
+        just_send_an_album(t_channel, url, bot)
+        return True
+
     elif what == 'other':
         return just_send_message(submission, bot)
 
@@ -86,11 +91,6 @@ def send_post(submission, bot):
         f = open(filename, 'rb')
         bot.sendPhoto(t_channel, f, caption=text)
         f.close()
-        return True
-
-    elif what == 'album':
-        just_send_message(submission, bot)
-        just_send_an_album(t_channel, url, bot)
         return True
 
     else:
