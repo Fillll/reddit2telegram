@@ -14,5 +14,5 @@ def report_error(fn):
             fn(*args, **kwargs)
         except Exception:
             client.captureException()
-            raise
+            # raise
     return wrapper
