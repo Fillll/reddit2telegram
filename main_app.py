@@ -25,11 +25,11 @@ def supply(subreddit, config):
     submodule = importlib.import_module('channels.r_{}.app'.format(subreddit))
     reddit = praw.Reddit(user_agent=config['user_agent'])
     submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
+    bot = telepot.Bot(config['telegram_token'])
     for submission in submissions:
         link = submission.short_link
         if was_before(link, submodule.t_channel, config):
             continue
-        bot = telepot.Bot(config['telegram_token'])
         success = submodule.send_post(submission, bot)
         if success:
             break
