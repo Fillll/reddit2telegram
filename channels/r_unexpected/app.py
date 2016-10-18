@@ -40,7 +40,7 @@ def send_post(submission, bot):
     logger.info("{channel} Posting {gif_url}:\n{text}".format(channel=t_channel, gif_url=gif_url, text=text))
     try:
         # try sending as gif
-        send_gif(bot, t_channel, gif_url, caption=text)
+        return send_gif(bot, t_channel, gif_url, caption=text)
     except Exception:
         # sending it link-only
         text = '{url}\n{title}\n\n{link}\n\nby {channel}'.format(
