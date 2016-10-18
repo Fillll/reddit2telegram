@@ -2,7 +2,7 @@
 
 import os
 
-from utils import get_url, download_file, telegram_autoplay_limit
+from utils import get_url, download_file, telegram_autoplay_limit, just_send_an_album
 
 
 subreddit = 'funny'
@@ -18,6 +18,11 @@ def send_post(submission, bot):
         punchline = submission.selftext        
         text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
         bot.sendMessage(t_channel, text)
+        return True
+    elif what == 'album':
+        text = '{}\n{}\n\n{}'.format(title, submission.url, link)
+        bot.sendMessage(t_channel, text)
+        just_send_an_album(t_channel, url, bot)
         return True
 
     filename = 'r_funny.{}'.format(ext)

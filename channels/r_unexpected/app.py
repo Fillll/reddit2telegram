@@ -1,20 +1,27 @@
 # encoding: utf-8
 
-from utils import get_url
 import logging
+
 from pytgbot.bot import Bot
 from pytgbot.exceptions import TgApiException
 
+from utils import get_url
+
+
 logger = logging.getLogger(__name__)
+
 
 subreddit = 'unexpected'
 t_channel = '@r_unexpected'
 
-NSFW_emoji = u"\U0001F51E"
+
+NSFW_emoji = u'\U0001F51E'
+
 
 
 def send_post(submission, bot):
-    bot = Bot(bot._token)
+    bot_old = bot
+    bot = Bot(bot_old._token)
     what, gif_url, _ = get_url(submission)
     if what != 'gif':
         return False
@@ -58,7 +65,7 @@ def send_gif(bot, channel, url, caption):
             return send_gif(bot, channel, url_mp4, caption)
         except:
             pass
-        # end try
+            # end try
     # end if
 
     try:
@@ -66,11 +73,18 @@ def send_gif(bot, channel, url, caption):
     except TgApiException:
         logger.warning("Gif via Telegram failed: {url}\n{caption}".format(url=url, caption=caption))
     # end try
+    from pytgbot.api_types.sendable.files import InputFileFromURL, InputFileFromDisk
     try:
-        from pytgbot.api_types.sendable.files import InputFileFromURL
         bot.send_document(channel, document=InputFileFromURL(url), caption=caption)
     except (TgApiException, MagicException):
         logger.warning("Gif via InputFileFromURL failed: {url}\n{caption}".format(url=url, caption=caption))
-        raise
+        import os
+        from utils import download_file, telegram_autoplay_limit
+        filename = '{channel}.{suffix}'.format(channel=channel, suffix=".gif" if url.endswith(".gif") else ".mp4")
+        if not download_file(url, filename):
+            return False
+        if os.path.getsize(filename) > telegram_autoplay_limit:
+            return False
+        bot.send_document(channel, InputFileFromDisk(file_path=filename, file_name=filename, file_mime="image/gif" if url.endswith(".gif") else "video/mp4"), caption=caption)
     # end try
 # end def send_gif

@@ -22,10 +22,8 @@ def get_url(submission):
             return ''
 
     url = submission.url
-    print(submission.short_link)
 
     url_content = what_is_inside(url)
-    print(url_content)
     if ('image/jpeg' == url_content or 'image/png' == url_content):
         return 'img', url, url_content.split('/')[1]
 
@@ -48,6 +46,9 @@ def get_url(submission):
         if path_parts[1] == 'gallery':
             # TODO: gallary handling
             return 'other', url, None
+        elif path_parts[1] == 'topic':
+            # TODO: topic handling
+            return 'other', url, None
         elif path_parts[1] == 'a':
             # An imgur album
             album = imgur_client.get_album(path_parts[2])
@@ -61,7 +62,7 @@ def get_url(submission):
                 }
             return 'album', story, None
         else:
-            # Not an imgur album
+            # Just imgur img
             img = imgur_client.get_image(path_parts[1].split('.')[0])
             if not img.animated:
                 return 'img', img.link, img.type.split('/')[1]
