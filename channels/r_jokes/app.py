@@ -13,12 +13,12 @@ def send_post(submission, bot):
     title = submission.title
     punchline = submission.selftext
     link = submission.short_link
-    text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
+    text = '{}\n\n{}\n\n{}\n{}'.format(title, punchline, link, t_channel)
 
     # To read more about sending massages to telegram please
     # visit https://github.com/nickoala/telepot/tree/master/examples/simple
     # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
-    bot.sendMessage(t_channel, text)
+    bot.sendMessage(t_channel, text, disable_web_page_preview=True)
 
     # Return True, if this submission is suitable for sending and was sent,
     # if not – return False.
