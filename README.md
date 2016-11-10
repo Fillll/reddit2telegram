@@ -31,7 +31,7 @@ Currently alive channels
 If you appreciate it
 --------------------
 
-[![](https://www.paypal.com/en_US/i/scr/pixel.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
+[![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
 
 
 Running it
