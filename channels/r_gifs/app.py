@@ -28,7 +28,7 @@ def send_post(submission, bot):
         return False
     # Telegram will not autoplay big gifs
     if os.path.getsize('r_gifs.gif') > telegram_autoplay_limit:
-        return False    
+        return False
     text = '{}\n{}\n\nby @r_gifs'.format(title, link)
     f = open('r_gifs.gif', 'rb')
     bot.sendDocument(t_channel, f, caption=text)

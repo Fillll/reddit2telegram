@@ -67,9 +67,8 @@ def get_url(submission):
             if not img.animated:
                 return 'img', img.link, img.type.split('/')[1]
             else:
-                return 'gif', img.link, 'gif'
-            
-
+                # return 'gif', img.link, 'gif'
+                return 'gif', img.gifv[:-1], 'gif'
     else:
         return 'other', url, None
 
