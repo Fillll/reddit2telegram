@@ -27,6 +27,13 @@ Currently alive channels
 8. [@r_unexpected](https://telegram.me/r_unexpected)
 9. ... be the next one ...
 
+
+If you appreciate it
+--------------------
+
+[![](https://www.paypal.com/en_US/i/scr/pixel.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
+
+
 Running it
 ----------
 Easiest way is to do it with docker. It will set up the mongo database dependency.
