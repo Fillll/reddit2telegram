@@ -63,7 +63,7 @@ def just_send_message(submission, bot):
         text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
     else:
         url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, url, slink)
+        text = '{}\n{}\n\n{}'.format(title, url, link)
     bot.sendMessage(t_channel, text)
     return True
 
