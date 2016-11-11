@@ -75,7 +75,7 @@ def send_post(submission, bot):
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
-        return just_send_message(submission, bot)
+        return False
 
     elif what == 'album':
         just_send_message(submission, bot)
@@ -83,7 +83,7 @@ def send_post(submission, bot):
         return True
 
     elif what == 'other':
-        return just_send_message(submission, bot)
+        return False
 
     filename = 'r_history.{}'.format(ext)
     if not download_file(url, filename):
