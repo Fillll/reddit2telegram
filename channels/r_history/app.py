@@ -18,7 +18,7 @@ def weighted_random(d):
 
 def define_channel_for_today():
     channels = {'HistoryPorn': 8,
-        'ArchivePorn': 0.5
+        'ArchivePorn': 0.5,
         # Add something from this list:
         # /r/ADifferentEra
         # /r/BattlePaintings
@@ -39,7 +39,7 @@ def define_channel_for_today():
         # /r/OldSchoolCool
         # /r/OldSchoolCreepy
         # /r/Presidents
-        # /r/PropagandaPosters
+        'PropagandaPosters': 1,
         # /r/RedditThroughHistory
         # /r/RestofHistoryPorn
         # /r/TheWayWeWere
