@@ -25,7 +25,10 @@ Currently alive channels
 6. [@r_behindthegifs](https://telegram.me/r_behindthegifs)
 7. [@pythondaily](https://telegram.me/pythondaily)
 8. [@r_unexpected](https://telegram.me/r_unexpected)
-9. ... be the next one ...
+9. [@RedditHistory](https://telegram.me/RedditHistory)
+10. [@r_bitcoin](https://telegram.me/r_Bitcoin)
+11. [@r_pics_redux](https://telegram.me/r_pics_redux)
+12. ... be the next one ...
 
 
 If you appreciate it
