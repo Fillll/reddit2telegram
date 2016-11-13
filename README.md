@@ -17,21 +17,32 @@ If you want to obtain your own channel for `/r/%subreddit%`:
 Currently alive channels
 ------------------------
 
-1. [@r_gifs](https://telegram.me/r_gifs)
-2. [@r_jokes](https://telegram.me/r_jokes)
-3. [@r_funny](https://telegram.me/r_funny)
-4. [@DataScientology](https://telegram.me/datascientology)
-5. [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute)
-6. [@r_behindthegifs](https://telegram.me/r_behindthegifs)
-7. [@pythondaily](https://telegram.me/pythondaily)
-8. [@r_unexpected](https://telegram.me/r_unexpected)
-9. ... be the next one ...
+
+| Subreddit | Telegram Channel | Periodicity |
+|-----------|------------------|-------------|
+| [/r/gifs](https://www.reddit.com/r/gifs/) | [@r_gifs](https://telegram.me/r_gifs) | 1 hour |
+| [/r/jokes](https://www.reddit.com/r/jokes/) | [@r_jokes](https://telegram.me/r_jokes) | 1 hour |
+| [/r/funny](https://www.reddit.com/r/funny/) | [@r_funny](https://telegram.me/r_funny) | 1 hour |
+| Some data related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_datascientology/app.py#L20). | [@DataScientology](https://telegram.me/datascientology) | 1 hour |
+| [/r/asiangirlsbeingcute](https://www.reddit.com/r/asiangirlsbeingcute/) | [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute) | 1 hour |
+| [/r/behindthegifs](https://www.reddit.com/r/behindthegifs/) | [@r_behindthegifs](https://telegram.me/r_behindthegifs) | 1 day |
+| Some python related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_python/app.py#L19). | [@pythondaily](https://telegram.me/pythondaily) | 1 hour |
+| [/r/unexpected](https://www.reddit.com/r/unexpected/) | [@r_unexpected](https://telegram.me/r_unexpected) | 1 hour |
+| Some subreddits about history. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_history/app.py#L20). | [@RedditHistory](https://telegram.me/RedditHistory) | 4 hours |
+| [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://telegram.me/r_Bitcoin) | 1 hour |
+| [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://telegram.me/r_pics_redux) | 1 hour |
+|  | ... be the next one ... |  |
 
 
 If you appreciate it
 --------------------
 
 [![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
+
+
+---
+---
+---
 
 
 Running it
