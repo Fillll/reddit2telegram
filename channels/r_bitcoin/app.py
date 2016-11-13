@@ -17,8 +17,8 @@ def weighted_random(d):
 
 
 def define_channel_for_today():
-    channels = {'btc': 0.2,
-        'bitcoin': 0.8
+    channels = {'btc': 0.0,
+        'bitcoin': 1.0
     }
     return weighted_random(channels)
 
