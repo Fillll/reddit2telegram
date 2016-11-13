@@ -21,7 +21,7 @@ Currently alive channels
 | Subreddit | Telegram Channel | Periodicity |
 |-----------|------------------|-------------|
 | [/r/gifs](https://www.reddit.com/r/gifs/) | [@r_gifs](https://telegram.me/r_gifs) | 1 hour |
-| [/r/jokes](https://www.reddit.com/r/jokes/) | [@r_jokes](https://telegram.me/r_jokes) | 1 hour |
+| [/r/jokes](https://www.reddit.com/r/jokes/) | [@r_jokes](https://telegram.me/r_jokes) | 2 hours |
 | [/r/funny](https://www.reddit.com/r/funny/) | [@r_funny](https://telegram.me/r_funny) | 1 hour |
 | Some data related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_datascientology/app.py#L20). | [@DataScientology](https://telegram.me/datascientology) | 1 hour |
 | [/r/asiangirlsbeingcute](https://www.reddit.com/r/asiangirlsbeingcute/) | [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute) | 1 hour |
