@@ -86,6 +86,7 @@ def send_post(submission, bot):
         if domain in ('www.youtube.com', 'youtu.be'):
             text = '{}\n{}\n\n{}'.format(title, url, link)
             bot.sendMessage(t_channel, text)
+            return True
         else:
             return False
 
