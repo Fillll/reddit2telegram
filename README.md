@@ -31,6 +31,7 @@ Currently alive channels
 | Some subreddits about history. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_history/app.py#L20). | [@RedditHistory](https://telegram.me/RedditHistory) | 4 hours |
 | [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://telegram.me/r_Bitcoin) | 1 hour |
 | [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://telegram.me/r_pics_redux) | 1 hour |
+| [/r/politics](https://www.reddit.com/r/politics/) and [/r/news](https://www.reddit.com/r/news/) | [@news756](https://telegram.me/news756) | 1 hour |
 |  | ... be the next one ... |  |
 
 
