@@ -32,6 +32,7 @@ Currently alive channels
 | [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://telegram.me/r_Bitcoin) | 1 hour |
 | [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://telegram.me/r_pics_redux) | 1 hour |
 | [/r/politics](https://www.reddit.com/r/politics/) and [/r/news](https://www.reddit.com/r/news/) | [@news756](https://telegram.me/news756) | 1 hour |
+| Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_cats/app.py#L21). | [@RedditCats](https://telegram.me/redditcats) | ~1 hour |
 |  | ... be the next one ... |  |
 
 
