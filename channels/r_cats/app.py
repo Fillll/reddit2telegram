@@ -33,12 +33,12 @@ def define_channel_for_today():
         'kittyhugs': 1,
         'FunnyCatGifs': 1,
         'LazyCats': 1,
-                'catsinboxes': 1,
-                'CatHighFive': 1,
-                'cathug': 1,
-                'WigglyCats': 1,
-                'catfreakouts': 1,
-                'catremakesofmovies': 1
+        'catsinboxes': 1,
+        'CatHighFive': 1,
+        'cathug': 1,
+        'WigglyCats': 1,
+        'catfreakouts': 1,
+        'catremakesofmovies': 1
     }
     return weighted_random(channels)
 
