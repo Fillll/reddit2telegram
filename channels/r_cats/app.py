@@ -63,12 +63,12 @@ def send_post(submission, bot):
         just_send_an_album(t_channel, url, bot)
         return True
     elif what == 'other':
-        if domain in ('www.youtube.com', 'youtu.be'):
-            text = '{}\n{}\n\n{}'.format(title, url, link)
-            bot.sendMessage(t_channel, text)
-            return True
-        else:
-            return False
+        # if domain in ('www.youtube.com', 'youtu.be'):
+        #     text = '{}\n{}\n\n{}'.format(title, url, link)
+        #     bot.sendMessage(t_channel, text)
+        #     return True
+        # else:
+        return False
 
     filename = 'r_cats.{}'.format(ext)
     if not download_file(url, filename):
