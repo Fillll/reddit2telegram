@@ -27,7 +27,18 @@ def define_channel_for_today():
         'CatsAreAssholes': 1,
         'teefies': 1,
         'CatGifs': 1,
-        'BigCatGifs': 1
+        'BigCatGifs': 1,
+        'catreactiongifs': 1,
+        'kittyhugs': 1,
+        'kittyhugs': 1,
+        'FunnyCatGifs': 1,
+        'LazyCats': 1,
+                'catsinboxes': 1,
+                'CatHighFive': 1,
+                'cathug': 1,
+                'WigglyCats': 1,
+                'catfreakouts': 1,
+                'catremakesofmovies': 1
     }
     return weighted_random(channels)
 
