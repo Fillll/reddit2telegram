@@ -57,7 +57,7 @@ def get_url(submission):
             for num, img in enumerate(album.images):
                 number = num + 1
                 story[number] = {
-                    'link': img['gifv'][:-1] if img['animated'] else 'link': img['link'],
+                    'link': img['gifv'][:-1] if img['animated'] else img['link'],
                     'gif': img['animated'],
                     'type': img['type'].split('/')[1]
                 }
