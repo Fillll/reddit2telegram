@@ -52,12 +52,12 @@ def get_url(submission):
         elif path_parts[1] == 'a':
             # An imgur album
             album = imgur_client.get_album(path_parts[2])
+            print(album.images)
             story = {}
             for num, img in enumerate(album.images):
                 number = num + 1
                 story[number] = {
-                    # 'link': img['link'],
-                    'link': img['gifv'][:-1],
+                    'link': img['gifv'][:-1] if img['animated'] else 'link': img['link'],
                     'gif': img['animated'],
                     'type': img['type'].split('/')[1]
                 }
