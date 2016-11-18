@@ -9,6 +9,8 @@ import telepot
 import pymongo
 from sentry import report_error
 
+import utils
+
 
 def was_before(url, channel, config):
     collection = pymongo.MongoClient(host=config['db_host'])[config['db']][channel[1:]]
@@ -26,11 +28,12 @@ def supply(subreddit, config):
     reddit = praw.Reddit(user_agent=config['user_agent'])
     submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
     bot = telepot.Bot(config['telegram_token'])
+    r2t = utils.reddit2telegram_sender(submodule.t_channel, bot)
     for submission in submissions:
         link = submission.short_link
         if was_before(link, submodule.t_channel, config):
             continue
-        success = submodule.send_post(submission, bot)
+        success = submodule.send_post(submission, r2t)
         if success:
             break
         else:

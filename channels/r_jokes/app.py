@@ -7,7 +7,7 @@ subreddit = 'jokes'
 t_channel = '@r_jokes'
 
 
-def send_post(submission, bot):
+def send_post(submission, r2t):
     # To read more about dealing with reddit submission please
     # visit https://praw.readthedocs.io/.
     title = submission.title
@@ -18,7 +18,7 @@ def send_post(submission, bot):
     # To read more about sending massages to telegram please
     # visit https://github.com/nickoala/telepot/tree/master/examples/simple
     # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
-    bot.sendMessage(t_channel, text, disable_web_page_preview=True)
+    r2t.send_text(text, disable_web_page_preview=True)
 
     # Return True, if this submission is suitable for sending and was sent,
     # if not – return False.

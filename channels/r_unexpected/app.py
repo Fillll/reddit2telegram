@@ -19,7 +19,8 @@ NSFW_emoji = u'\U0001F51E'
 
 
 
-def send_post(submission, bot):
+def send_post(submission, r2t):
+    bot = r2t.telepot_bot
     bot_old = bot
     bot = Bot(bot_old._token)
     what, gif_url, _ = get_url(submission)
