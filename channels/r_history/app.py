@@ -53,8 +53,7 @@ def define_channel_for_today():
     return weighted_random(channels)
 
 
-# subreddit = define_channel_for_today()
-subreddit = 'HistoryPorn'
+subreddit = define_channel_for_today()
 t_channel = '@RedditHistory'
 
 
