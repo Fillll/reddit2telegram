@@ -3,6 +3,7 @@
 import os
 import random
 from urllib.parse import urlparse
+import time
 
 from utils import (get_url, download_file, telegram_autoplay_limit,
                    just_send_an_album)
@@ -52,7 +53,8 @@ def define_channel_for_today():
     return weighted_random(channels)
 
 
-subreddit = define_channel_for_today()
+# subreddit = define_channel_for_today()
+subreddit = 'HistoryPorn'
 t_channel = '@RedditHistory'
 
 
@@ -102,6 +104,10 @@ def send_post(submission, bot):
         f.close()
         return True
     elif what == 'img':
+        if len(text) > 200:
+            text = link
+            bot.sendMessage(t_channel, '{main_text}\n\n@RedditHistory'.format(main_text=title))
+            time.sleep(2)
         f = open(filename, 'rb')
         bot.sendPhoto(t_channel, f, caption=text)
         f.close()
