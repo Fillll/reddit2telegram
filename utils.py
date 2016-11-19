@@ -162,6 +162,11 @@ class reddit2telegram_sender(object):
                 next_text += ' ' + i
         return new_text, next_text
 
+    def _split_4096(self, text):
+        new_text = text[:4096]
+        next_text = text[4096:]
+        return new_text, next_text
+
     def send_gif_img(self, what, url, ext, text):
         if what == TYPE_GIF:
             return self.send_gif(url, ext, text)
@@ -206,8 +211,15 @@ class reddit2telegram_sender(object):
         return True
 
     def send_text(self, text, disable_web_page_preview=False):
-        self.telepot_bot.sendMessage(self.t_channel, text, disable_web_page_preview=disable_web_page_preview)
-        return True
+        if len(text) < 4096:
+            self.telepot_bot.sendMessage(self.t_channel, text, disable_web_page_preview=disable_web_page_preview)
+            return True
+        # If text is longer than 4096 symnols.
+        next_text = text
+        while len(next_text) > 0:
+            new_text, next_text = self._split_4096(next_text)
+            self.telepot_bot.sendMessage(self.t_channel, new_text, disable_web_page_preview=disable_web_page_preview)
+            time.sleep(2)
 
     def send_album(self, story):
         def just_send(num, item):
