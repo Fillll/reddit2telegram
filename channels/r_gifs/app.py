@@ -1,9 +1,6 @@
 #encoding:utf-8
 
-import os
-
-from utils import get_url, download_file, telegram_autoplay_limit
-
+from utils import get_url
 
 subreddit = 'gifs'
 t_channel = '@r_gifs'
