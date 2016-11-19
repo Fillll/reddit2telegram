@@ -17,7 +17,7 @@ def send_post(submission, r2t):
     if submission.over_18:
         url = submission.url
         text = 'NSFW\n{}\n{}\n\n{}\n\nby @r_gifs'.format(url, title, link)
-        return r2t.sent_text(text, disable_web_page_preview=True)
+        return r2t.send_text(text, disable_web_page_preview=True)
 
     text = '{}\n{}\n\nby @r_gifs'.format(title, link)
     return r2t.send_gif(gif_url, ext, text)
