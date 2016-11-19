@@ -1,6 +1,5 @@
 #encoding:utf-8
 
-import os
 import random
 from urllib.parse import urlparse
 
