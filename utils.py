@@ -220,6 +220,7 @@ class reddit2telegram_sender(object):
             new_text, next_text = self._split_4096(next_text)
             self.telepot_bot.sendMessage(self.t_channel, new_text, disable_web_page_preview=disable_web_page_preview)
             time.sleep(2)
+        return True
 
     def send_album(self, story):
         def just_send(num, item):
