@@ -27,6 +27,10 @@ def send_post(submission, r2t):
     text = '{title}\n\n{body}\n\n{link}\n{channel}'.format(
             title=title, body=punchline, link=link, channel=t_channel)
 
+    # Long jokes are weired.
+    if len(text) > 3456:
+        return False
+
     # To read more about sending massages to telegram please
     # visit https://github.com/nickoala/telepot/tree/master/examples/simple
     # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
