@@ -19,4 +19,4 @@ def send_post(submission, r2t):
     #     just_send_an_album(t_channel, url, bot)
     #     return True
 
-    return r2t.send_img(url, ext)
+    return r2t.send_img(url, ext, text)
