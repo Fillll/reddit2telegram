@@ -1,10 +1,8 @@
 #encoding:utf-8
 
-import os
 import random
 
-from utils import (get_url, download_file, telegram_autoplay_limit,
-                   just_send_an_album)
+from utils import get_url, just_send_an_album
 
 
 def weighted_random(d):
