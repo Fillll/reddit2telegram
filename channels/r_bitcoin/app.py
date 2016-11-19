@@ -1,28 +1,13 @@
 #encoding:utf-8
 
-import random
-
-from utils import get_url, just_send_an_album
+from utils import get_url, weighted_random_subreddit
 
 
-def weighted_random(d):
-    r = random.uniform(0, sum(val for val in d.values()))
-    s = 0.0
-    for k, w in d.items():
-        s += w
-        if r < s: return k
-    return k
-
-
-def define_channel_for_today():
-    channels = {'btc': 0.0,
-        'bitcoin': 1.0
-    }
-    return weighted_random(channels)
-
-
-subreddit = define_channel_for_today()
 t_channel = '@r_bitcoin'
+subreddit = weighted_random_subreddit({
+    'btc': 0.0,
+    'bitcoin': 1.0
+})
 
 
 def send_post(submission, r2t):
@@ -43,7 +28,7 @@ def send_post(submission, r2t):
         base_url = submission.url
         text = '{}\n{}\n\n{}'.format(title, base_url, link)
         r2t.send_text(text)
-        just_send_an_album(url, r2t)
+        r2t.send_album(url)
         return True
     elif what in ('gif', 'img'):
         return r2t.send_gif_img(what, url, ext, text)
