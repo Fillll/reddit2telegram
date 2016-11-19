@@ -16,6 +16,6 @@ def send_post(submission, r2t):
     url = submission.url
     link = submission.short_link
     text = '{}\n{}\n\n{}'.format(title, url, link)
-    r2t.sent_text(text)
+    r2t.send_text(text)
     just_send_an_album(story, r2t)
     return True
