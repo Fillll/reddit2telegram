@@ -1,12 +1,9 @@
 #encoding:utf-8
 
-import os
 import random
 from urllib.parse import urlparse
-import time
 
-from utils import (get_url, download_file, telegram_autoplay_limit,
-                   just_send_an_album)
+from utils import get_url, just_send_an_album
 
 
 def weighted_random(d):
@@ -55,19 +52,6 @@ def define_channel_for_today():
 
 subreddit = define_channel_for_today()
 t_channel = '@RedditHistory'
-
-
-def just_send_message(submission, bot):
-    title = submission.title
-    link = submission.short_link
-    if submission.is_self is True:    
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
-    else:
-        url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, url, link)
-    bot.sendMessage(t_channel, text)
-    return True
 
 
 def send_post(submission, r2t):
