@@ -50,7 +50,6 @@ def send_post(submission, r2t):
     title = submission.title
     link = submission.short_link
     text = '{}\n{}'.format(title, link)
-    domain = urlparse(url).netloc
 
     if what in ('text', 'other'):
         return False
