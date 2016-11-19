@@ -2,7 +2,7 @@
 
 import os
 
-from utils import get_url, just_send_an_album
+from utils import get_url
 
 
 subreddit = 'funny'
@@ -23,7 +23,7 @@ def send_post(submission, r2t):
         base_url = submission.url
         text = '{}\n{}\n\n{}'.format(title, base_url, link)
         r2t.send_text(text)
-        just_send_an_album(url, r2t)
+        r2t.send_album(url)
         return True
     elif what in ('gif', 'img'):
         return r2t.send_gif_img(what, url, ext, text)
