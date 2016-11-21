@@ -23,12 +23,23 @@ def was_before(url, channel, config):
         return True
 
 
+def store_stats(channel, bot, config):
+    collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['stats']
+    stat = {
+        'channel': channel,
+        'ts': datetime.utcnow(),
+        'membres_cnt': bot.getChatMembersCount(channel)
+    }
+    collection.insert_one(stat)
+
+
 @report_error
 def supply(subreddit, config):
     submodule = importlib.import_module('channels.r_{}.app'.format(subreddit))
     reddit = praw.Reddit(user_agent=config['user_agent'])
     submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
     bot = telepot.Bot(config['telegram_token'])
+    store_stats(submodule.t_channel, bot, config)
     r2t = utils.reddit2telegram_sender(submodule.t_channel, bot)
     for submission in submissions:
         link = submission.short_link
