@@ -2,6 +2,7 @@
 
 import argparse
 import importlib
+from datetime import datetime
 
 import yaml
 import praw
@@ -16,7 +17,7 @@ def was_before(url, channel, config):
     collection = pymongo.MongoClient(host=config['db_host'])[config['db']][channel[1:]]
     result = collection.find_one({'url': url})
     if result is None:
-        collection.insert_one({'url': url})
+        collection.insert_one({'url': url, 'ts': datetime.utcnow()})
         return False
     else:
         return True
