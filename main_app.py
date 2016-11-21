@@ -28,7 +28,7 @@ def store_stats(channel, bot, config):
     stat = {
         'channel': channel,
         'ts': datetime.utcnow(),
-        'membres_cnt': bot.getChatMembersCount(channel)
+        'members_cnt': bot.getChatMembersCount(channel)
     }
     collection.insert_one(stat)
 
