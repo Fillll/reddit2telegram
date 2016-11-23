@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 subreddit = 'unexpected'
-# t_channel = '@r_unexpected'
-t_channel = '@r_channels_test'
+t_channel = '@r_unexpected'
+
 
 NSFW_emoji = u'\U0001F51E'
 
