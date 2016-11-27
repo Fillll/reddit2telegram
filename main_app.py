@@ -30,7 +30,7 @@ def was_before(url, channel, config):
 def store_stats(channel, bot, config):
     collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['stats']
     stat = {
-        'channel': channel,
+        'channel': channel.lower(),
         'ts': datetime.utcnow(),
         'members_cnt': bot.getChatMembersCount(channel)
     }
