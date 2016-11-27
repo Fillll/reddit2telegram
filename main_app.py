@@ -3,6 +3,7 @@
 import argparse
 import importlib
 from datetime import datetime
+import logging
 
 import yaml
 import praw
@@ -11,6 +12,9 @@ import pymongo
 from sentry import report_error
 
 import utils
+
+
+logger = logging.getLogger(__name__)
 
 
 def was_before(url, channel, config):
@@ -41,6 +45,7 @@ def supply(subreddit, config):
     bot = telepot.Bot(config['telegram_token'])
     store_stats(submodule.t_channel, bot, config)
     r2t = utils.reddit2telegram_sender(submodule.t_channel, bot)
+    success = False
     for submission in submissions:
         link = submission.short_link
         if was_before(link, submodule.t_channel, config):
@@ -50,6 +55,9 @@ def supply(subreddit, config):
             break
         else:
             continue
+    if not success:
+        logger.warning('Nothing to post from {sub} to {channel}.'.format(
+                    sub=submodule.subreddit, channel=submodule.t_channel))
 
 
 def main():
