@@ -26,12 +26,13 @@ Currently alive channels
 | Some data related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_datascientology/app.py#L20). | [@DataScientology](https://telegram.me/datascientology) | 1 hour |
 | [/r/asiangirlsbeingcute](https://www.reddit.com/r/asiangirlsbeingcute/) | [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute) | 1 hour |
 | [/r/behindthegifs](https://www.reddit.com/r/behindthegifs/) | [@r_behindthegifs](https://telegram.me/r_behindthegifs) | 1 day |
-| Some python related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_python/app.py#L19). | [@pythondaily](https://telegram.me/pythondaily) | 1 hour |
+| Some python related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_python/app.py#L8). | [@pythondaily](https://telegram.me/pythondaily) | 1 hour |
 | [/r/unexpected](https://www.reddit.com/r/unexpected/) | [@r_unexpected](https://telegram.me/r_unexpected) | 1 hour |
 | Some subreddits about history. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_history/app.py#L20). | [@RedditHistory](https://telegram.me/RedditHistory) | 4 hours |
 | [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://telegram.me/r_Bitcoin) | 1 hour |
 | [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://telegram.me/r_pics_redux) | 1 hour |
 | [/r/politics](https://www.reddit.com/r/politics/) and [/r/news](https://www.reddit.com/r/news/) | [@news756](https://telegram.me/news756) | 1 hour |
+| Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_cats/app.py#L21). | [@RedditCats](https://telegram.me/redditcats) | ~1 hour |
 |  | ... be the next one ... |  |
 
 

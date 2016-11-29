@@ -1,85 +1,42 @@
 #encoding:utf-8
 
-import os
-import random
-
-from utils import get_url, download_file, telegram_autoplay_limit
+from utils import get_url, weighted_random_subreddit
 
 
-def weighted_random(d):
-    r = random.uniform(0, sum(val for val in d.values()))
-    s = 0.0
-    for k, w in d.items():
-        s += w
-        if r < s: return k
-    return k
-
-
-def define_channel_for_today():
-    channels = {
-        'flask': 3,
-        'Python': 6,
-        'django': 4,
-        'MachineLearning': 1,
-        'djangolearning': 1,
-        'IPython': 5,
-        'pystats': 4,
-        'JupyterNotebooks': 3
-    }
-    return weighted_random(channels)
-
-
-subreddit = define_channel_for_today()
 t_channel = '@pythondaily'
+subreddit = weighted_random_subreddit({
+    'flask': 3,
+    'Python': 6,
+    'django': 4,
+    'MachineLearning': 1,
+    'djangolearning': 1,
+    'IPython': 5,
+    'pystats': 4,
+    'JupyterNotebooks': 3
+})
 
 
-def just_send_message(submission, bot):
-    title = submission.title
-    link = submission.short_link
-    if submission.is_self is True:    
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
-    else:
-        url = submission.url
-        text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-    bot.sendMessage(t_channel, text)
-    return True
-
-
-def send_post(submission, bot):
+def send_post(submission, r2t):
     what, url, ext = get_url(submission)
     title = submission.title
     link = submission.short_link
     text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
 
     if what == 'text':
-        return just_send_message(submission, bot)
-
+        punchline = submission.selftext
+        text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
+        return r2t.send_text(text)
     elif what == 'other':
-        return just_send_message(submission, bot)
-
-    filename = 'r_data_related.{}'.format(ext)
-    if not download_file(url, filename):
-        return just_send_message(submission, bot)
-    if os.path.getsize(filename) > telegram_autoplay_limit:
-        return just_send_message(submission, bot)
-
-    if what == 'gif':
-        f = open(filename, 'rb')
-        bot.sendDocument(t_channel, f, caption=text)
-        f.close()
-        return True
-
-    elif what == 'img':
-        f = open(filename, 'rb')
-        bot.sendPhoto(t_channel, f, caption=text)
-        f.close()
-        return True
-
+        url = submission.url
+        text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
+        return r2t.send_text(text)
     elif what == 'album':
-        just_send_message(submission, bot)
-        just_send_an_album(t_channel, url, bot)
+        base_url = submission.url
+        text = '{}\n{}\n\n/r/{}\n{}'.format(title, base_url, subreddit, link)
+        r2t.send_text(text)
+        r2t.send_album(url)
         return True
-
+    elif what in ('gif', 'img'):
+        return r2t.send_gif_img(what, url, ext, text)
     else:
         return False
