@@ -23,9 +23,6 @@ def send_post(submission, r2t):
     elif what == 'other':
         return False
     elif what == 'album':
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
-        r2t.send_text(text)
         r2t.send_album(url)
         return True
     elif what in ('gif', 'img'):
