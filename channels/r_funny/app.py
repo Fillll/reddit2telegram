@@ -1,7 +1,5 @@
 #encoding:utf-8
 
-import os
-
 from utils import get_url
 
 
