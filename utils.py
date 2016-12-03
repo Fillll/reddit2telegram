@@ -136,12 +136,12 @@ def weighted_random_subreddit(d):
     return k
 
 
-class reddit2telegram_sender(object):
+class Reddit2TelegramSender(object):
     '''
     docstring for reddit2telegram
     '''
     def __init__(self, t_channel, telepot_bot):
-        super(reddit2telegram_sender, self).__init__()
+        super(Reddit2TelegramSender, self).__init__()
         self.telepot_bot = telepot_bot
         self.t_channel = t_channel
 

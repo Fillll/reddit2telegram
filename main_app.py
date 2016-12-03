@@ -48,7 +48,7 @@ def supply(subreddit, config):
     submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
     bot = telepot.Bot(config['telegram_token'])
     store_stats(submodule.t_channel, bot, config)
-    r2t = utils.reddit2telegram_sender(submodule.t_channel, bot)
+    r2t = utils.Reddit2TelegramSender(submodule.t_channel, bot)
     success = False
     for submission in submissions:
         link = submission.short_link
