@@ -1,7 +1,7 @@
 #enconding:utf-8
 import logging
-import yaml
 
+import yaml
 from raven import Client
 from raven.handlers.logging import SentryHandler
 from raven.conf import setup_logging

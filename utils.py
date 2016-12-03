@@ -2,7 +2,6 @@
 
 from urllib.parse import urlparse
 import requests
-import yaml
 import os
 import imghdr
 import time
@@ -10,6 +9,7 @@ import random
 import re
 
 from imgurpython import ImgurClient
+import yaml
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
