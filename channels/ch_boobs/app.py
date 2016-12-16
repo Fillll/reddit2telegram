@@ -11,7 +11,7 @@ fake_channel = '@r_channels_test'
 
 t_channel = weighted_random_subreddit({
     main_channel: 0.05,
-    fake_channel: 0.095
+    fake_channel: 0.95
 })
 subreddit = 'boobs' if t_channel == main_channel else 'all'
 
