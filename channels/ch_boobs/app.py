@@ -9,11 +9,11 @@ main_channel = '-1001052042617'
 fake_channel = '@r_channels_test'
 
 
-t_channel = weighted_random_subreddit({
-    main_channel: 0.05,
-    fake_channel: 0.95
+subreddit = weighted_random_subreddit({
+    'boobs': 0.05,
+    'all': 0.95
 })
-subreddit = 'boobs' if t_channel == main_channel else 'all'
+t_channel = fake_channel if subreddit == 'all' else main_channel
 
 
 def send_post(submission, r2t):
@@ -22,7 +22,7 @@ def send_post(submission, r2t):
     link = submission.short_link
     text = '{}\n{}'.format(title, link)
 
-    if t_channel == 'boobs':
+    if t_channel == main_channel:
         if what in ('gif', 'img'):
             r2t.send_text('🔞🔞🔞🔞🔞🔞')
             time.sleep(10)
