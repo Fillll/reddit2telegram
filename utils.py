@@ -160,7 +160,7 @@ class Reddit2TelegramSender(object):
             else:
                 switched = True
                 next_text += ' ' + i
-        return new_text, next_text
+        return new_text + ' ...', '... ' + next_text
 
     def _split_4096(self, text):
         new_text = text[:4096]
