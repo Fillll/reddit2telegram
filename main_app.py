@@ -51,13 +51,13 @@ def supply(subreddit, config):
     reddit = praw.Reddit(user_agent=config['reddit']['user_agent'],
                         client_id=config['reddit']['client_id'],
                         client_secret=config['reddit']['client_secret'])
-    submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
+    submissions = reddit.subreddit(submodule.subreddit).hot(limit=100)
     bot = telepot.Bot(config['telegram_token'])
     store_stats(submodule.t_channel, bot, config)
     r2t = utils.Reddit2TelegramSender(submodule.t_channel, bot)
     success = False
     for submission in submissions:
-        link = submission.short_link
+        link = submission.shortlink
         if was_before(link, submodule.t_channel, config):
             continue
         success = submodule.send_post(submission, r2t)
