@@ -23,7 +23,7 @@ CONTENT_GIF = 'image/gif'
 CONTENT_MP4 = 'video/mp4'
 
 
-TEMP_FOLDER = '.'
+TEMP_FOLDER = 'tmp'
 
 
 def get_url(submission, mp4_instead_gif=True):

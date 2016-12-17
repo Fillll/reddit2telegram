@@ -48,7 +48,9 @@ def store_stats(channel, bot, config):
 @report_error
 def supply(subreddit, config):
     submodule = importlib.import_module('channels.{}.app'.format(subreddit))
-    reddit = praw.Reddit(user_agent=config['user_agent'])
+    reddit = praw.Reddit(user_agent=config['reddit']['user_agent'],
+                        client_id=config['reddit']['client_id'],
+                        client_secret=config['reddit']['client_secret'])
     submissions = reddit.get_subreddit(submodule.subreddit).get_hot(limit=100)
     bot = telepot.Bot(config['telegram_token'])
     store_stats(submodule.t_channel, bot, config)
