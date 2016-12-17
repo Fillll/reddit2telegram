@@ -1,5 +1,8 @@
 db: "telegram2reddit"
 db_host: "localhost"
-user_agent: "Secret:Reddit_user_agent:v01 (by any /u/redditor)"
 telegram_token: "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
 sentry: "https://TOP:SECRET@sentry.io/CODE"
+reddit:
+  user_agent: "Secret:Reddit_user_agent:v01 (by any /u/redditor)"
+  client_id: "client_id"
+  client_secret: "client_secret"
