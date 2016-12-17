@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 def was_before(url, channel, config):
     collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['urls']
-    result = collection.find_one({'channel': channel.lower(), 'url': url})
+    result = collection.find_one({'channel': channel.lower(), 'url': {'$regex': url.split('/')[-1]}})
     if result is None:
         return False
     else:
