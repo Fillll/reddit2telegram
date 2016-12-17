@@ -21,14 +21,18 @@ def was_before(url, channel, config):
     collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['urls']
     result = collection.find_one({'channel': channel.lower(), 'url': url})
     if result is None:
-        collection.insert_one({
-            'url': url,
-            'ts': datetime.utcnow(),
-            'channel': channel.lower()
-        })
         return False
     else:
         return True
+
+
+def mark_as_was_before(url, channel, config):
+    collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['urls']
+    collection.insert_one({
+        'url': url,
+        'ts': datetime.utcnow(),
+        'channel': channel.lower()
+    })
 
 
 def store_stats(channel, bot, config):
@@ -55,24 +59,30 @@ def supply(subreddit, config):
         if was_before(link, submodule.t_channel, config):
             continue
         success = submodule.send_post(submission, r2t)
-        if success:
+        if success is True:
+            # Every thing is ok, post was sent
+            mark_as_was_before(link, submodule.t_channel, config)
             break
-        else:
+        elif success is False:
+            # Do not want to send this post
+            mark_as_was_before(link, submodule.t_channel, config)
             continue
+        else:
+            break
     if not success:
-        logger.warning('Nothing to post from {sub} to {channel}.'.format(
+        logger.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))
 
 
-def main():
+def main(config_filename, sub):
+    with open(config_filename) as config_file:
+        config = yaml.load(config_file.read())
+    supply(sub, config)
+
+
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', default='prod.yml')
     parser.add_argument('--sub')
     args = parser.parse_args()
-    with open(args.config) as config_file:
-        config = yaml.load(config_file.read())
-    supply(args.sub, config)
-
-
-if __name__ == '__main__':
-    main()
+    main(args.config, args.sub)
