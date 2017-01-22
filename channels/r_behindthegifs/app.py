@@ -14,7 +14,7 @@ def send_post(submission, r2t):
 
     title = submission.title
     url = submission.url
-    link = submission.short_link
+    link = submission.shortlink
     text = '{}\n{}\n\n{}'.format(title, url, link)
     r2t.send_text(text)
     r2t.send_album(story)

@@ -3,10 +3,12 @@
 from utils import get_url, weighted_random_subreddit
 
 
-t_channel = '@r_bitcoin'
+# Group chat https://yal.sh/dvdahoy
+t_channel = '-1001065558871'
 subreddit = weighted_random_subreddit({
-    'btc': 0.0,
-    'bitcoin': 1.0
+    'ANormalDayInRussia': 1.0,
+    'ANormalDayInAmerica': 0.1,
+    'ANormalDayInJapan': 0.01
 })
 
 
@@ -17,17 +19,10 @@ def send_post(submission, r2t):
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
-        return r2t.send_text(text)
+        return False
     elif what == 'other':
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
-        return r2t.send_text(text)
+        return False
     elif what == 'album':
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
-        r2t.send_text(text)
         r2t.send_album(url)
         return True
     elif what in ('gif', 'img'):

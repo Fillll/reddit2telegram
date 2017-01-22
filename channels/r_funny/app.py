@@ -1,7 +1,5 @@
 #encoding:utf-8
 
-import os
-
 from utils import get_url
 
 
@@ -12,7 +10,7 @@ t_channel = '@r_funny'
 def send_post(submission, r2t):
     what, url, ext = get_url(submission)
     title = submission.title
-    link = submission.short_link
+    link = submission.shortlink
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':

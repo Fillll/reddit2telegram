@@ -36,7 +36,7 @@ def send_post(submission, r2t):
     # if what not in ('gif', 'mp4'):
     #     return False
     title = submission.title
-    link = submission.short_link
+    link = submission.shortlink
     text = '{}\n{}'.format(title, link)
     what, url, ext = get_url(submission)
     return r2t.send_gif_img(what, url, ext, text)

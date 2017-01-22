@@ -1,13 +1,12 @@
 #encoding:utf-8
 
-from utils import get_url, weighted_random_subreddit
+from urllib.parse import urlparse
+
+from utils import get_url
 
 
-t_channel = '@r_bitcoin'
-subreddit = weighted_random_subreddit({
-    'btc': 0.0,
-    'bitcoin': 1.0
-})
+t_channel = '@r_mlp'
+subreddit = 'mylittlepony'
 
 
 def send_post(submission, r2t):
@@ -17,19 +16,20 @@ def send_post(submission, r2t):
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
-        return r2t.send_text(text)
-    elif what == 'other':
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
-        return r2t.send_text(text)
+        return False
     elif what == 'album':
         base_url = submission.url
         text = '{}\n{}\n\n{}'.format(title, base_url, link)
         r2t.send_text(text)
         r2t.send_album(url)
         return True
+    elif what == 'other':
+        domain = urlparse(url).netloc
+        if domain in ('www.youtube.com', 'youtu.be'):
+            text = '{}\n{}\n\n{}'.format(title, url, link)
+            return r2t.send_text(text)
+        else:
+            return False
     elif what in ('gif', 'img'):
         return r2t.send_gif_img(what, url, ext, text)
     else:

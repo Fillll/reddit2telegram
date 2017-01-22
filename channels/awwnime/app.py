@@ -1,13 +1,10 @@
 #encoding:utf-8
 
-from utils import get_url, weighted_random_subreddit
+from utils import get_url
 
 
-t_channel = '@r_bitcoin'
-subreddit = weighted_random_subreddit({
-    'btc': 0.0,
-    'bitcoin': 1.0
-})
+t_channel = '@awwnime'
+subreddit = 'awwnime'
 
 
 def send_post(submission, r2t):

@@ -2,7 +2,6 @@
 
 from urllib.parse import urlparse
 import requests
-import yaml
 import os
 import imghdr
 import time
@@ -10,6 +9,7 @@ import random
 import re
 
 from imgurpython import ImgurClient
+import yaml
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
@@ -23,7 +23,7 @@ CONTENT_GIF = 'image/gif'
 CONTENT_MP4 = 'video/mp4'
 
 
-TEMP_FOLDER = '.'
+TEMP_FOLDER = 'tmp'
 
 
 def get_url(submission, mp4_instead_gif=True):
@@ -136,12 +136,12 @@ def weighted_random_subreddit(d):
     return k
 
 
-class reddit2telegram_sender(object):
+class Reddit2TelegramSender(object):
     '''
     docstring for reddit2telegram
     '''
     def __init__(self, t_channel, telepot_bot):
-        super(reddit2telegram_sender, self).__init__()
+        super(Reddit2TelegramSender, self).__init__()
         self.telepot_bot = telepot_bot
         self.t_channel = t_channel
 
@@ -160,7 +160,7 @@ class reddit2telegram_sender(object):
             else:
                 switched = True
                 next_text += ' ' + i
-        return new_text, next_text
+        return new_text + ' ...', '... ' + next_text
 
     def _split_4096(self, text):
         new_text = text[:4096]

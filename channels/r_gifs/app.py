@@ -12,7 +12,7 @@ def send_post(submission, r2t):
         return False
 
     title = submission.title
-    link = submission.short_link
+    link = submission.shortlink
 
     if submission.over_18:
         url = submission.url

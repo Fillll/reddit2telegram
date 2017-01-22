@@ -23,7 +23,7 @@ def send_post(submission, r2t):
     # visit https://praw.readthedocs.io/.
     title = submission.title
     punchline = submission.selftext
-    link = submission.short_link
+    link = submission.shortlink
     text = '{title}\n\n{body}\n\n{link}\n{channel}'.format(
             title=title, body=punchline, link=link, channel=t_channel)
 
