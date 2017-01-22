@@ -28,7 +28,7 @@ def send_post(submission, r2t):
         if domain in ('www.youtube.com', 'youtu.be'):
             text = '{}\n{}\n\n{}'.format(title, url, link)
             return r2t.send_text(text)
-        elif submission.score > 10:
+        elif submission.score >= 4:
             text = '{}\n{}\n\n{}'.format(title, url, link)
             return r2t.send_text(text)
         else:
