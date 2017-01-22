@@ -35,6 +35,7 @@ Currently alive channels
 | Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/cats/app.py#L21). | [@RedditCats](https://telegram.me/redditcats) | ~1 hour |
 | [/r/TIL](https://www.reddit.com/r/todayilearned/) | [@r_TIL](https://telegram.me/r_til) | 8 hours |
 | [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://telegram.me/awwnime) | 1 hour |
+| [/r/mlp](https://www.reddit.com/r/mylittlepony/) | [@r_mlp](https://t.me/r_mlp) | 1 hour |
 |  | ... be the next one ... |  |
 
 
