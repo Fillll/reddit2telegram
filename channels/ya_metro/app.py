@@ -2,11 +2,13 @@
 
 from urllib.parse import urlparse
 
-from utils import get_url
+from utils import get_url, weighted_random_subreddit
 
 
 t_channel = '@ya_metro'
-subreddit = 'Subways'
+subreddit = weighted_random_subreddit({'Subways': 0.6,
+    'LondonUnderground': 0.4
+})
 
 
 def send_post(submission, r2t):
@@ -16,7 +18,13 @@ def send_post(submission, r2t):
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
-        return False
+        if submission.score >= 4:
+            punchline = submission.selftext
+            text = '{title}\n\n{body}\n\n{link}'.format(
+                title=title, body=punchline, link=link)
+            return r2t.send_text(text, disable_web_page_preview=True)
+        else:
+            return False
     elif what == 'album':
         base_url = submission.url
         text = '{}\n{}\n\n{}'.format(title, base_url, link)
