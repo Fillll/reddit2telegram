@@ -18,14 +18,4 @@ def send_post(submission, r2t):
     link = submission.shortlink
     text = '{}\n{}'.format(title, link)
 
-    if what == 'text':
-        return False
-    elif what == 'other':
-        return False
-    elif what == 'album':
-        r2t.send_album(url)
-        return True
-    elif what in ('gif', 'img'):
-        return r2t.send_gif_img(what, url, ext, text)
-    else:
-        return False
+    return r2t.send_gif_img(what, url, ext, text)
