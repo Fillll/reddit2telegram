@@ -26,6 +26,9 @@ def send_post(submission, r2t):
     if what != 'gif':
         return False
 
+    if r2t.dup_check_and_mark(gif_url) is True:
+        return False
+
     title = submission.title
     link = submission.shortlink
 

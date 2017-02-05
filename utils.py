@@ -7,9 +7,13 @@ import imghdr
 import time
 import random
 import re
+import hashlib
+from datetime import datetime
 
 from imgurpython import ImgurClient
 import yaml
+import pymongo
+import telepot
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
@@ -127,6 +131,29 @@ def download_file(url, filename):
     return True
 
 
+def md5_sum_from_url(url):
+    r = requests.get(url, stream=True)
+    chunk_counter = 0
+    hash_store = hashlib.md5()
+    for chunk in r.iter_content(chunk_size=1024):
+        if chunk:  # filter out keep-alive new chunks
+            hash_store.update(chunk)
+            chunk_counter += 1
+            # It is not possible to send greater than 50 MB via Telegram
+            if chunk_counter > 50 * 1024:
+                return None
+    return hash_store.hexdigest()
+
+
+# def md5_sum_from_file(filename):
+#     # http://stackoverflow.com/questions/7829499/using-hashlib-to-compute-md5-digest-of-a-file-in-python-3
+#     with open(filename, mode='rb') as f:
+#         d = hashlib.md5()
+#         for buf in iter(partial(f.read, 1024), b''):
+#             d.update(buf)
+#     return d.hexdigest()
+
+
 def weighted_random_subreddit(d):
     r = random.uniform(0, sum(val for val in d.values()))
     s = 0.0
@@ -140,10 +167,25 @@ class Reddit2TelegramSender(object):
     '''
     docstring for reddit2telegram
     '''
-    def __init__(self, t_channel, telepot_bot):
+    def __init__(self, t_channel, config):
         super(Reddit2TelegramSender, self).__init__()
-        self.telepot_bot = telepot_bot
+        self.config = config
+        self.telepot_bot = telepot.Bot(self.config['telegram_token'])
         self.t_channel = t_channel
+        self._make_mongo_connections()
+        self._store_stats()
+
+    def _make_mongo_connections(self):
+        self.stats = pymongo.MongoClient(host=self.config['db_host'])[self.config['db']]['stats']
+        self.urls = pymongo.MongoClient(host=self.config['db_host'])[self.config['db']]['urls']
+        self.contents = pymongo.MongoClient(host=self.config['db_host'])[self.config['db']]['contents']
+
+    def _store_stats(self):
+        self.stats.insert_one({
+            'channel': self.t_channel.lower(),
+            'ts': datetime.utcnow(),
+            'members_cnt': self.telepot_bot.getChatMembersCount(self.t_channel)
+        })
 
     def _get_file_name(self, ext):
         return os.path.join(TEMP_FOLDER,
@@ -166,6 +208,72 @@ class Reddit2TelegramSender(object):
         new_text = text[:4096]
         next_text = text[4096:]
         return new_text, next_text
+
+    def was_before(self, url):
+        result = self.urls.find_one({
+            'channel': self.t_channel.lower(),
+            'url': {'$regex': url.split('/')[-1]}
+        })
+        if result is None:
+            return False
+        else:
+            return True
+
+    def mark_as_was_before(self, url):
+        self.urls.insert_one({
+            'url': url,
+            'ts': datetime.utcnow(),
+            'channel': self.t_channel.lower()
+        })
+
+    def dup_check_and_mark(self, url):
+        md5_sum = md5_sum_from_url(url)
+        if md5_sum is None:
+            return False
+        result = self.contents.find_one({
+            'channel': self.t_channel.lower(),
+            'md5_sum': md5_sum
+        })
+        if result is None:
+            self.contents.insert_one({
+                'md5_sum': md5_sum,
+                'ts': datetime.utcnow(),
+                'channel': self.t_channel.lower()
+            })
+            return False
+        else:
+            return True
+
+    # def dup_content(self, url):
+    #     md5_sum = md5_sum_from_url(url)
+    #     if md5_sum is None:
+    #         return None
+    #     result = self.contents.find_one({
+    #         'channel': self.t_channel.lower(),
+    #         'md5_sum': md5_sum
+    #     })
+    #     if result is None:
+    #         return False
+    #     else:
+    #         return True
+
+    # def mark_as_dup_content_url(self, url):
+    #     md5_sum = md5_sum_from_url(url)
+    #     if md5_sum is None:
+    #         return
+    #     self.contents.insert_one({
+    #         'md5_sum': md5_sum,
+    #         'ts': datetime.utcnow(),
+    #         'channel': self.t_channel.lower()
+    #     })
+
+    # def mark_as_dup_content_file(self, content_filename):
+    #     md5_sum = md5_sum_from_file(content_filename)
+    #     self.contents.insert_one({
+    #         'md5_sum': md5_sum,
+    #         'ts': datetime.utcnow(),
+    #         'channel': self.t_channel.lower()
+    #     })
 
     def send_gif_img(self, what, url, ext, text):
         if what == TYPE_GIF:

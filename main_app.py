@@ -1,48 +1,16 @@
 #encoding:utf-8
 
-import argparse
 import importlib
-from datetime import datetime
 import logging
 
 import yaml
 import praw
-import telepot
-import pymongo
 from sentry import report_error
 
 import utils
 
 
 logger = logging.getLogger(__name__)
-
-
-def was_before(url, channel, config):
-    collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['urls']
-    result = collection.find_one({'channel': channel.lower(), 'url': {'$regex': url.split('/')[-1]}})
-    if result is None:
-        return False
-    else:
-        return True
-
-
-def mark_as_was_before(url, channel, config):
-    collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['urls']
-    collection.insert_one({
-        'url': url,
-        'ts': datetime.utcnow(),
-        'channel': channel.lower()
-    })
-
-
-def store_stats(channel, bot, config):
-    collection = pymongo.MongoClient(host=config['db_host'])[config['db']]['stats']
-    stat = {
-        'channel': channel.lower(),
-        'ts': datetime.utcnow(),
-        'members_cnt': bot.getChatMembersCount(channel)
-    }
-    collection.insert_one(stat)
 
 
 @report_error
@@ -52,26 +20,25 @@ def supply(subreddit, config):
                         client_id=config['reddit']['client_id'],
                         client_secret=config['reddit']['client_secret'])
     submissions = reddit.subreddit(submodule.subreddit).hot(limit=100)
-    bot = telepot.Bot(config['telegram_token'])
-    store_stats(submodule.t_channel, bot, config)
-    r2t = utils.Reddit2TelegramSender(submodule.t_channel, bot)
+    r2t = utils.Reddit2TelegramSender(submodule.t_channel, config)
     success = False
     for submission in submissions:
         link = submission.shortlink
-        if was_before(link, submodule.t_channel, config):
+        if r2t.was_before(link):
             continue
         success = submodule.send_post(submission, r2t)
         if success is True:
             # Every thing is ok, post was sent
-            mark_as_was_before(link, submodule.t_channel, config)
+            r2t.mark_as_was_before(link)
             break
         elif success is False:
             # Do not want to send this post
-            mark_as_was_before(link, submodule.t_channel, config)
+            r2t.mark_as_was_before(link)
             continue
         else:
+            # If None — do not want to send anything this time
             break
-    if not success:
+    if success is False:
         logger.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))
 
@@ -83,6 +50,7 @@ def main(config_filename, sub):
 
 
 if __name__ == '__main__':
+    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', default='prod.yml')
     parser.add_argument('--sub')
