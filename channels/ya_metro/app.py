@@ -7,7 +7,8 @@ from utils import get_url, weighted_random_subreddit
 
 t_channel = '@ya_metro'
 subreddit = weighted_random_subreddit({'Subways': 0.6,
-    'LondonUnderground': 0.4
+    'LondonUnderground': 0.4,
+    'Trams': 0.3
 })
 
 

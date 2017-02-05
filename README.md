@@ -8,7 +8,7 @@ These bots just send latest hot submissions from subreddit **/r/%subreddit%** to
 If you want to obtain your own channel for `/r/%subreddit%`:
 
 1. Create new public telegram channel `@r_%subreddit%`.
-2. Add `@reddit2telegram_bot` as administrator to this channel.
+2. Add [`@reddit2telegram_bot`](https://t.me/reddit2telegram_bot) as administrator to this channel.
 3. Make a pull request to this repo with new script to make posts (use `/channels/r_jokes/app.py` as draft).
 4. Then I will make it alive :)
 5. For any questions do not hesitate to contact me in [this group](https://telegram.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
@@ -35,6 +35,7 @@ Currently alive channels
 | Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/cats/app.py#L21). | [@RedditCats](https://telegram.me/redditcats) | ~1 hour |
 | [/r/TIL](https://www.reddit.com/r/todayilearned/) | [@r_TIL](https://telegram.me/r_til) | 8 hours |
 | [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://telegram.me/awwnime) | 1 hour |
+| [/r/mlp](https://www.reddit.com/r/mylittlepony/) | [@r_mlp](https://t.me/r_mlp) | 1 hour |
 |  | ... be the next one ... |  |
 
 
