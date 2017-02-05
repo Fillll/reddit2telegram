@@ -3,15 +3,15 @@ reddit2telegram
 
 Hi there!
 
-These bots just send latest hot submissions from subreddit **/r/%subreddit%** to telegram channel **@r_%subreddit%** hourly. For example [/r/gifs](https://www.reddit.com/r/gifs/) → [@r_gifs](https://telegram.me/r_gifs).
+These bots just send latest hot submissions from subreddit **/r/%subreddit%** to telegram channel **@r_%subreddit%** hourly. For example [/r/gifs](https://www.reddit.com/r/gifs/) → [@r_gifs](https://t.me/r_gifs).
 
 If you want to obtain your own channel for `/r/%subreddit%`:
 
 1. Create new public telegram channel `@r_%subreddit%`.
 2. Add [`@reddit2telegram_bot`](https://t.me/reddit2telegram_bot) as administrator to this channel.
-3. Make a pull request to this repo with new script to make posts (use `/channels/r_jokes/app.py` as draft).
+3. Make a pull request to this repo with new script to make posts (use `/channels/r_funnny/app.py` as draft).
 4. Then I will make it alive :)
-5. For any questions do not hesitate to contact me in [this group](https://telegram.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
+5. For any questions do not hesitate to contact me in [this group](https://t.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
 
 
 Currently alive channels
@@ -20,21 +20,21 @@ Currently alive channels
 
 | Subreddit | Telegram Channel | Periodicity |
 |-----------|------------------|-------------|
-| [/r/gifs](https://www.reddit.com/r/gifs/) | [@r_gifs](https://telegram.me/r_gifs) | 1 hour |
-| [/r/jokes](https://www.reddit.com/r/jokes/) | [@r_jokes](https://telegram.me/r_jokes) | 2 hours |
-| [/r/funny](https://www.reddit.com/r/funny/) | [@r_funny](https://telegram.me/r_funny) | 1 hour |
-| Some data related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/datascientology/app.py#L20). | [@DataScientology](https://telegram.me/datascientology) | 1 hour |
-| [/r/asiangirlsbeingcute](https://www.reddit.com/r/asiangirlsbeingcute/) | [@asiangirlsbeingcute](https://telegram.me/asiangirlsbeingcute) | 1 hour |
-| [/r/behindthegifs](https://www.reddit.com/r/behindthegifs/) | [@r_behindthegifs](https://telegram.me/r_behindthegifs) | 1 day |
-| Some python related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/pythondaily/app.py#L8). | [@pythondaily](https://telegram.me/pythondaily) | 1 hour |
-| [/r/unexpected](https://www.reddit.com/r/unexpected/) | [@r_unexpected](https://telegram.me/r_unexpected) | 1 hour |
-| Some subreddits about history. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/history/app.py#L20). | [@RedditHistory](https://telegram.me/RedditHistory) | 4 hours |
-| [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://telegram.me/r_Bitcoin) | 1 hour |
-| [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://telegram.me/r_pics_redux) | 1 hour |
-| [/r/politics](https://www.reddit.com/r/politics/) and [/r/news](https://www.reddit.com/r/news/) | [@news756](https://telegram.me/news756) | 1 hour |
-| Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/cats/app.py#L21). | [@RedditCats](https://telegram.me/redditcats) | ~1 hour |
-| [/r/TIL](https://www.reddit.com/r/todayilearned/) | [@r_TIL](https://telegram.me/r_til) | 8 hours |
-| [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://telegram.me/awwnime) | 1 hour |
+| [/r/gifs](https://www.reddit.com/r/gifs/) | [@r_gifs](https://t.me/r_gifs) | 1 hour |
+| [/r/jokes](https://www.reddit.com/r/jokes/) | [@r_jokes](https://t.me/r_jokes) | 2 hours |
+| [/r/funny](https://www.reddit.com/r/funny/) | [@r_funny](https://t.me/r_funny) | 1 hour |
+| Some data related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/datascientology/app.py#L20). | [@DataScientology](https://t.me/datascientology) | 1 hour |
+| [/r/asiangirlsbeingcute](https://www.reddit.com/r/asiangirlsbeingcute/) | [@asiangirlsbeingcute](https://t.me/asiangirlsbeingcute) | 1 hour |
+| [/r/behindthegifs](https://www.reddit.com/r/behindthegifs/) | [@r_behindthegifs](https://t.me/r_behindthegifs) | 1 day |
+| Some python related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/channels/pythondaily/app.py#L8). | [@pythondaily](https://t.me/pythondaily) | 1 hour |
+| [/r/unexpected](https://www.reddit.com/r/unexpected/) | [@r_unexpected](https://t.me/r_unexpected) | 1 hour |
+| Some subreddits about history. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/history/app.py#L20). | [@RedditHistory](https://t.me/RedditHistory) | 4 hours |
+| [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://t.me/r_Bitcoin) | 1 hour |
+| [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://t.me/r_pics_redux) | 1 hour |
+| [/r/politics](https://www.reddit.com/r/politics/) and [/r/news](https://www.reddit.com/r/news/) | [@news756](https://t.me/news756) | 1 hour |
+| Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/channels/cats/app.py#L21). | [@RedditCats](https://t.me/redditcats) | ~1 hour |
+| [/r/TIL](https://www.reddit.com/r/todayilearned/) | [@r_TIL](https://t.me/r_til) | 8 hours |
+| [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://t.me/awwnime) | 1 hour |
 | [/r/mlp](https://www.reddit.com/r/mylittlepony/) | [@r_mlp](https://t.me/r_mlp) | 1 hour |
 |  | ... be the next one ... |  |
 

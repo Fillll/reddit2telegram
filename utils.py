@@ -145,15 +145,6 @@ def md5_sum_from_url(url):
     return hash_store.hexdigest()
 
 
-# def md5_sum_from_file(filename):
-#     # http://stackoverflow.com/questions/7829499/using-hashlib-to-compute-md5-digest-of-a-file-in-python-3
-#     with open(filename, mode='rb') as f:
-#         d = hashlib.md5()
-#         for buf in iter(partial(f.read, 1024), b''):
-#             d.update(buf)
-#     return d.hexdigest()
-
-
 def weighted_random_subreddit(d):
     r = random.uniform(0, sum(val for val in d.values()))
     s = 0.0
@@ -243,37 +234,6 @@ class Reddit2TelegramSender(object):
             return False
         else:
             return True
-
-    # def dup_content(self, url):
-    #     md5_sum = md5_sum_from_url(url)
-    #     if md5_sum is None:
-    #         return None
-    #     result = self.contents.find_one({
-    #         'channel': self.t_channel.lower(),
-    #         'md5_sum': md5_sum
-    #     })
-    #     if result is None:
-    #         return False
-    #     else:
-    #         return True
-
-    # def mark_as_dup_content_url(self, url):
-    #     md5_sum = md5_sum_from_url(url)
-    #     if md5_sum is None:
-    #         return
-    #     self.contents.insert_one({
-    #         'md5_sum': md5_sum,
-    #         'ts': datetime.utcnow(),
-    #         'channel': self.t_channel.lower()
-    #     })
-
-    # def mark_as_dup_content_file(self, content_filename):
-    #     md5_sum = md5_sum_from_file(content_filename)
-    #     self.contents.insert_one({
-    #         'md5_sum': md5_sum,
-    #         'ts': datetime.utcnow(),
-    #         'channel': self.t_channel.lower()
-    #     })
 
     def send_gif_img(self, what, url, ext, text):
         if what == TYPE_GIF:
