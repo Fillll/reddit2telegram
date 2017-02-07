@@ -17,14 +17,9 @@ t_channel = '@r_funny'
 def send_post(submission, r2t):
     what, url, ext = get_url(submission)
 
-    # Check if content has already appeared in
-    # out telegram channel.
-    if r2t.dup_check_and_mark(url) is True:
-        # If this func returns:
-        # False – it means that we will not send
-        # this submission, let's move to the next.
-        return False
-    # Other return possibilities:
+    # If this func returns:
+    # False – it means that we will not send
+    # this submission, let's move to the next.
     # True – everything is ok, we send the submission
     # None – we do not want to send anything this time,
     # let's just sleep.
@@ -50,6 +45,11 @@ def send_post(submission, r2t):
         return True
     elif what in ('gif', 'img'):
         # Also it is ok if it is gif or any kind of image.
+
+        # Check if content has already appeared in
+        # out telegram channel.
+        if r2t.dup_check_and_mark(url) is True:
+            return False
         return r2t.send_gif_img(what, url, ext, text)
     else:
         return False
