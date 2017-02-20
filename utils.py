@@ -2,6 +2,7 @@
 
 from urllib.parse import urlparse
 import requests
+from requests.exceptions import InvalidSchema
 import os
 import imghdr
 import time
@@ -9,6 +10,7 @@ import random
 import re
 import hashlib
 from datetime import datetime
+import logging
 
 from imgurpython import ImgurClient
 import yaml
@@ -132,7 +134,11 @@ def download_file(url, filename):
 
 
 def md5_sum_from_url(url):
-    r = requests.get(url, stream=True)
+    try:
+        r = requests.get(url, stream=True)
+    except InvalidSchema:
+        logging.error('Invalid Schema!')
+        return None
     chunk_counter = 0
     hash_store = hashlib.md5()
     for chunk in r.iter_content(chunk_size=1024):
