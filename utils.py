@@ -27,6 +27,9 @@ CONTENT_PNG = 'image/png'
 TYPE_GIF = 'gif'
 CONTENT_GIF = 'image/gif'
 CONTENT_MP4 = 'video/mp4'
+TYPE_TEXT = 'text'
+TYPE_OTHER = 'other'
+TYPE_ALBUM = 'album'
 
 
 TEMP_FOLDER = 'tmp'
@@ -69,7 +72,7 @@ def get_url(submission, mp4_instead_gif=True):
 
     if submission.is_self is True:
         # Self submission with text
-        return 'text', None, None
+        return TYPE_TEXT, None, None
 
     if urlparse(url).netloc == 'imgur.com':
         # Imgur
@@ -78,14 +81,14 @@ def get_url(submission, mp4_instead_gif=True):
         path_parts = urlparse(url).path.split('/')
         if path_parts[1] == 'gallery':
             # TODO: gallary handling
-            return 'other', url, None
+            return TYPE_OTHER, url, None
         elif path_parts[1] == 'topic':
             # TODO: topic handling
-            return 'other', url, None
+            return TYPE_OTHER, url, None
         elif path_parts[1] == 'a':
             # An imgur album
             album = imgur_client.get_album(path_parts[2])
-            story = {}
+            story = dict()
             for num, img in enumerate(album.images):
                 number = num + 1
                 what = TYPE_IMG
@@ -100,7 +103,10 @@ def get_url(submission, mp4_instead_gif=True):
                     'what': what,
                     'ext': ext
                 }
-            return 'album', story, None
+            if len(story) == 1:
+                logging.warning('Album to common img.')
+                return story[1]['what'], story[1]['url'], story[1]['ext']
+            return TYPE_ALBUM, story, None
         else:
             # Just imgur img
             img = imgur_client.get_image(path_parts[1].split('.')[0])
@@ -113,7 +119,7 @@ def get_url(submission, mp4_instead_gif=True):
                     # return 'gif', img.link, 'gif'
                     return TYPE_GIF, img.gifv[:-1], 'gif'
     else:
-        return 'other', url, None
+        return TYPE_OTHER, url, None
 
 
 def download_file(url, filename):
@@ -137,7 +143,6 @@ def md5_sum_from_url(url):
     try:
         r = requests.get(url, stream=True)
     except InvalidSchema:
-        logging.error('Invalid Schema!')
         return None
     chunk_counter = 0
     hash_store = hashlib.md5()
