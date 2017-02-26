@@ -104,7 +104,6 @@ def get_url(submission, mp4_instead_gif=True):
                     'ext': ext
                 }
             if len(story) == 1:
-                logging.warning('Album to common img.')
                 return story[1]['what'], story[1]['url'], story[1]['ext']
             return TYPE_ALBUM, story, None
         else:
