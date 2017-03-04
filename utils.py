@@ -143,6 +143,8 @@ def md5_sum_from_url(url):
         r = requests.get(url, stream=True)
     except InvalidSchema:
         return None
+    except MissingSchema:
+        return None
     chunk_counter = 0
     hash_store = hashlib.md5()
     for chunk in r.iter_content(chunk_size=1024):
