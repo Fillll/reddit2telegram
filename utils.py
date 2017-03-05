@@ -2,7 +2,7 @@
 
 from urllib.parse import urlparse
 import requests
-from requests.exceptions import InvalidSchema
+from requests.exceptions import InvalidSchema, MissingSchema
 import os
 import imghdr
 import time
