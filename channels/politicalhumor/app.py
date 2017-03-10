@@ -12,7 +12,7 @@ def send_post(submission, r2t):
 
     title = submission.title
     link = submission.shortlink
-    text = '{}\n{}'.format(title, link)
+    text = '{}\n{}\n\nby @PoliticalHumor'.format(title, link)
 
     if what == 'text':
         return False
@@ -20,7 +20,7 @@ def send_post(submission, r2t):
         return False
     elif what == 'album':
         base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
+        text = '{}\n{}\n\n{}\n\nby @PoliticalHumor'.format(title, base_url, link)
         r2t.send_text(text)
         r2t.send_album(url)
         return True
