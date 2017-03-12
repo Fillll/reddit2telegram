@@ -37,6 +37,13 @@ Currently alive channels
 | [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://t.me/awwnime) | 1 hour |
 | [/r/mylittlepony](https://www.reddit.com/r/mylittlepony/) | [@r_mlp](https://t.me/r_mlp) | 1 hour |
 | [/r/hmmm/](https://www.reddit.com/r/hmmm/) | [@r_hmmm](https://t.me/r_hmmm) | 1 hour |
+| [/r/Showerthoughts/](https://www.reddit.com/r/Showerthoughts/) | [@r_Showerthoughts](https://t.me/r_Showerthoughts) | 1 hour |
+| [/r/HighQualityGifs/](https://www.reddit.com/r/HighQualityGifs/) | [@r_HighQualityGifs](https://t.me/r_HighQualityGifs) | 1 hour |
+| [/r/dankmemes/](https://www.reddit.com/r/dankmemes/) | [@r_dankmemes](https://t.me/r_dankmemes) | 1 hour |
+| [/r/me_irl/](https://www.reddit.com/r/me_irl/) | [@r_me_irl](https://t.me/r_me_irl) | 1 hour |
+| [/r/PoliticalHumor/](https://www.reddit.com/r/PoliticalHumor/) | [@PoliticalHumor](https://t.me/PoliticalHumor) | 1 hour |
+| [/r/OldSchoolCool/](https://www.reddit.com/r/OldSchoolCool/) | [@OldSchoolCool](https://t.me/OldSchoolCool) | 1 hour |
+| [/r/food/](https://www.reddit.com/r/food/) | [@reddit_food](https://t.me/reddit_food) | 1 hour |
 |  | ... be the next one ... |  |
 
 
