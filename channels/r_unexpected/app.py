@@ -8,7 +8,7 @@ from yandex_translate import YandexTranslate
 
 
 subreddit = 'unexpected'
-t_channel = '@r_channels_test'
+t_channel = '@r_unexpected'
 yandex_key = yaml.load(open('ya.translate.yml'))['translate_api_key']  # to be filled by conf
 NSFW_EMOJI = u'\U0001F51E'
 
