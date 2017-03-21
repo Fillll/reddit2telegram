@@ -17,7 +17,7 @@ def translate_yandex(text, src="auto", dst="en"):
     # end if
     from yandex_translate import YandexTranslate
     langdex = YandexTranslate(yandex_key)
-    result = DictObject.objectify(langdex.translate(text, lang))
+    result = langdex.translate(text, lang)
     assert result['code'] == 200
     return result['text'][0]
 # end try
@@ -38,6 +38,7 @@ def send_post(submission, r2t):
         text = '{title}\n{translation}\n{link}\n\nby {channel}'.format(title=title, translation=translation, link=link, channel=t_channel)
     except:    
         text = '{title}\n{link}\n\nby {channel}'.format(title=title, link=link, channel=t_channel)
+        # TODO: Sentry error logging here!
     # end try
 
     if submission.over_18:
