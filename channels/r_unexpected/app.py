@@ -5,9 +5,23 @@ from utils import get_url
 
 subreddit = 'unexpected'
 t_channel = '@r_unexpected'
-
+yandex_key = None  # to be filled by conf
 
 NSFW_EMOJI = u'\U0001F51E'
+
+def translate_yandex(text, src="auto", dst="en"):
+    if src != "auto":
+        lang = "{src}-{dst}".format(src=src, dst=dst)
+    else:
+        lang = dst
+    # end if
+    from yandex_translate import YandexTranslate
+    langdex = YandexTranslate(yandex_key)
+    result = DictObject.objectify(langdex.translate(text, lang))
+    assert result['code'] == 200
+    return result['text'][0]
+# end try
+
 
 
 def send_post(submission, r2t):
@@ -15,7 +29,16 @@ def send_post(submission, r2t):
 
     title = submission.title
     link = submission.shortlink
-    text = '{title}\n{link}\n\nby {channel}'.format(title=title, link=link, channel=t_channel)
+
+    try:
+        translation = translate_yandex(title)
+        if translation.lower() == title.lower():
+            raise ValueError("lol, k")
+        # end if
+        text = '{title}\n{translation}\n{link}\n\nby {channel}'.format(title=title, translation=translation, link=link, channel=t_channel)
+    except:    
+        text = '{title}\n{link}\n\nby {channel}'.format(title=title, link=link, channel=t_channel)
+    # end try
 
     if submission.over_18:
         url = submission.url
