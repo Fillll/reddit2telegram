@@ -1,13 +1,17 @@
 # encoding: utf-8
 
+import logging
+import yaml
+
 from utils import get_url
+from yandex_translate import YandexTranslate
 
 
 subreddit = 'unexpected'
-t_channel = '@r_unexpected'
-yandex_key = None  # to be filled by conf
-
+t_channel = '@r_channels_test'
+yandex_key = yaml.load(open('ya.translate.yml'))['translate_api_key']  # to be filled by conf
 NSFW_EMOJI = u'\U0001F51E'
+
 
 def translate_yandex(text, src="auto", dst="en"):
     if src != "auto":
@@ -15,7 +19,6 @@ def translate_yandex(text, src="auto", dst="en"):
     else:
         lang = dst
     # end if
-    from yandex_translate import YandexTranslate
     langdex = YandexTranslate(yandex_key)
     result = langdex.translate(text, lang)
     assert result['code'] == 200
@@ -35,10 +38,10 @@ def send_post(submission, r2t):
         if translation.lower() == title.lower():
             raise ValueError("lol, k")
         # end if
-        text = '{title}\n{translation}\n{link}\n\nby {channel}'.format(title=title, translation=translation, link=link, channel=t_channel)
-    except:    
+        text = '{title}\n\n{translation}\n{link}\n\nby {channel}'.format(title=title, translation=translation, link=link, channel=t_channel)
+    except Exception as e:
         text = '{title}\n{link}\n\nby {channel}'.format(title=title, link=link, channel=t_channel)
-        # TODO: Sentry error logging here!
+        logging.warning('Ya.Translate: {}.'.format(e))
     # end try
 
     if submission.over_18:

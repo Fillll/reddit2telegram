@@ -1,8 +1,7 @@
 pyyaml
 praw
 telepot
-wheel
-pytgbot>=2.2.1a3
+yandex.translate
 pymongo
 requests
 imgurpython
