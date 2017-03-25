@@ -18,13 +18,10 @@ def translate_yandex(text, src="auto", dst="en"):
         lang = "{src}-{dst}".format(src=src, dst=dst)
     else:
         lang = dst
-    # end if
     langdex = YandexTranslate(yandex_key)
     result = langdex.translate(text, lang)
     assert result['code'] == 200
     return result['text'][0]
-# end try
-
 
 
 def send_post(submission, r2t):
@@ -33,16 +30,19 @@ def send_post(submission, r2t):
     title = submission.title
     link = submission.shortlink
 
+    main_text = [title]
+    # Translation magic
     try:
         translation = translate_yandex(title)
         if translation.lower() == title.lower():
-            raise ValueError("lol, k")
-        # end if
-        text = '{title}\n\n{translation}\n{link}\n\nby {channel}'.format(title=title, translation=translation, link=link, channel=t_channel)
+            pass
+        else:
+            main_text.append(translation)
     except Exception as e:
-        text = '{title}\n{link}\n\nby {channel}'.format(title=title, link=link, channel=t_channel)
         logging.warning('Ya.Translate: {}.'.format(e))
-    # end try
+    # End of translation mahic
+    main_text = '\n\n'.join(main_text)
+    text = '{text}\n{link}\n\nby {channel}'.format(text=main_text, link=link, channel=t_channel)
 
     if submission.over_18:
         url = submission.url
