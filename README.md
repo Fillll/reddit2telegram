@@ -44,6 +44,8 @@ Currently alive channels
 | [/r/PoliticalHumor/](https://www.reddit.com/r/PoliticalHumor/) | [@PoliticalHumor](https://t.me/PoliticalHumor) | 1 hour |
 | [/r/OldSchoolCool/](https://www.reddit.com/r/OldSchoolCool/) | [@OldSchoolCool](https://t.me/OldSchoolCool) | 1 hour |
 | [/r/food/](https://www.reddit.com/r/food/) | [@reddit_food](https://t.me/reddit_food) | 1 hour |
+| [Some gifs](https://github.com/Fillll/reddit2telegram/blob/master/channels/rddit/app.py#L7). | [@rddit](https://t.me/rddit) | 3 hours |
+| [/r/denpasong/](https://www.reddit.com/r/denpasong/) and [/r/denpa/](https://www.reddit.com/r/denpa/) | [@denpasong](https://t.me/denpasong) | 1 hour |
 |  | ... be the next one ... |  |
 
 
