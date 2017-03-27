@@ -46,6 +46,7 @@ Currently alive channels
 | [/r/food/](https://www.reddit.com/r/food/) | [@reddit_food](https://t.me/reddit_food) | 1 hour |
 | [Some gifs](https://github.com/Fillll/reddit2telegram/blob/master/channels/rddit/app.py#L7). | [@rddit](https://t.me/rddit) | 3 hours |
 | [/r/denpasong/](https://www.reddit.com/r/denpasong/) and [/r/denpa/](https://www.reddit.com/r/denpa/) | [@denpasong](https://t.me/denpasong) | 1 hour |
+| [/r/movies/](https://www.reddit.com/r/movies/), [/r/CineShots/](https://www.reddit.com/r/CineShots/) and [/r/MoviePosterPorn/](https://www.reddit.com/r/MoviePosterPorn/)  | [@r_movies](https://t.me/r_movies) | 1 hour |
 |  | ... be the next one ... |  |
 
 
