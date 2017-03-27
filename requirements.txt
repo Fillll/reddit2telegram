@@ -6,3 +6,4 @@ pymongo
 requests
 imgurpython
 raven
+gfycat

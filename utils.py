@@ -16,6 +16,7 @@ from imgurpython import ImgurClient
 import yaml
 import pymongo
 import telepot
+from gfycat.client import GfycatClient
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
@@ -117,6 +118,15 @@ def get_url(submission, mp4_instead_gif=True):
                 else:
                     # return 'gif', img.link, 'gif'
                     return TYPE_GIF, img.gifv[:-1], 'gif'
+    elif 'gfycat.com' in urlparse(url).netloc:
+        client = GfycatClient()
+        rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
+        urls = client.query_gfy(rname)['gfyItem']
+        logging.warning('Gfy url!')
+        if mp4_instead_gif:
+            return TYPE_GIF, urls['mp4Url'], 'mp4'
+        else:
+            return TYPE_GIF, urls['max5mbGif'], 'gif'
     else:
         return TYPE_OTHER, url, None
 
