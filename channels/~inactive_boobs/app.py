@@ -13,11 +13,12 @@ subreddit = weighted_random_subreddit({
     'BustyPetite': 0.2,
     'TittyDrop': 0.2
 })
-t_channel = '-1001052042617'
+t_channel = '@r_channels_test'
 
 
 def send_post(submission, r2t):
     if random.uniform(0, 1) > 0.05:
+        # Send with relatively small probability.
         return None
 
     what, url, ext = get_url(submission)
