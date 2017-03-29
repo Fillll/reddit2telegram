@@ -47,6 +47,8 @@ Currently alive channels
 | [Some gifs](https://github.com/Fillll/reddit2telegram/blob/master/channels/rddit/app.py#L7). | [@rddit](https://t.me/rddit) | 3 hours |
 | [/r/denpasong/](https://www.reddit.com/r/denpasong/) and [/r/denpa/](https://www.reddit.com/r/denpa/) | [@denpasong](https://t.me/denpasong) | 1 hour |
 | [/r/movies/](https://www.reddit.com/r/movies/), [/r/CineShots/](https://www.reddit.com/r/CineShots/), and [/r/MoviePosterPorn/](https://www.reddit.com/r/MoviePosterPorn/)  | [@r_movies](https://t.me/r_movies) | 1 hour |
+| BeautifulFemales from [list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_gentlemanboners/app.py#L9).  | [@r_gentlemanboners](https://t.me/r_gentlemanboners) | 1 hour |
+| Best from [/r/all](https://www.reddit.com/r/all/).  | [@reddit_all](https://t.me/reddit_all) | 12 hours |
 |  | ... be the next one ... |  |
 
 
