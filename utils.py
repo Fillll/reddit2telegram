@@ -123,12 +123,12 @@ def get_url(submission, mp4_instead_gif=True):
         rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
         try:
             urls = client.query_gfy(rname)['gfyItem']
-            logging.warning('Gfy url!')
             if mp4_instead_gif:
                 return TYPE_GIF, urls['mp4Url'], 'mp4'
             else:
                 return TYPE_GIF, urls['max5mbGif'], 'gif'
         except KeyError:
+            logging.warning('Gfy fail prevented!')
             return TYPE_OTHER, url, None
     else:
         return TYPE_OTHER, url, None
