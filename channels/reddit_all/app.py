@@ -12,23 +12,47 @@ def send_post(submission, r2t):
     title = submission.title
     link = submission.shortlink
     sub = submission.subreddit
-    text = '{}\n\n/r/{}\n{}'.format(title, sub, link)
+    upvotes = submission.score
+    
 
     if what == 'text':
         punchline = submission.selftext
-        text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, sub, link)
+        text = '{title}\n\n{main_text}\n\n{votes} upvotes\n/r/{subreddit}\n{link}'.format(
+            title=title,
+            main_text=punchline,
+            subreddit=sub,
+            link=link,
+            votes=upvotes)
         return r2t.send_text(text)
-    elif what == 'other':
+
+    if what == 'other':
         base_url = submission.url
-        text = '{}\n{}\n\n/r/{}\n{}'.format(title, base_url, sub, link)
+        text = '{title}\n{base_url}\n\n{votes} upvotes\n/r/{subreddit}\n{link}'.format(
+            title=title,
+            base_url=base_url,
+            subreddit=sub,
+            link=link,
+            votes=upvotes)
         return r2t.send_text(text)
-    elif what == 'album':
+
+    if what == 'album':
         base_url = submission.url
-        text = '{}\n{}\n\n/r/{}\n{}'.format(title, base_url, sub, link)
+        text = '{title}\n{base_url}\n\n{votes} upvotes\n/r/{subreddit}\n{link}'.format(
+            title=title,
+            base_url=base_url,
+            subreddit=sub,
+            link=link,
+            votes=upvotes)
         r2t.send_text(text)
         r2t.send_album(url)
         return True
-    elif what in ('gif', 'img'):
+
+    if what in ('gif', 'img'):
+        text = '{title}\n\n{votes} upvotes\n/r/{subreddit}\n{}link'.format(
+            title=title,
+            subreddit=sub,
+            link=link,
+            votes=upvotes)
         return r2t.send_gif_img(what, url, ext, text)
-    else:
-        return False
+
+    return False
