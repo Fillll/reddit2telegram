@@ -13,7 +13,6 @@ def send_post(submission, r2t):
     link = submission.shortlink
     sub = submission.subreddit
     upvotes = submission.score
-    
 
     if what == 'text':
         punchline = submission.selftext
