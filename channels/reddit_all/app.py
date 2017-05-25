@@ -47,7 +47,7 @@ def send_post(submission, r2t):
         return True
 
     if what in ('gif', 'img'):
-        text = '{title}\n\n{votes} upvotes\n/r/{subreddit}\n{}link'.format(
+        text = '{title}\n\n{votes} upvotes\n/r/{subreddit}\n{link}'.format(
             title=title,
             subreddit=sub,
             link=link,
