@@ -48,7 +48,11 @@ Currently alive channels
 | [/r/denpasong/](https://www.reddit.com/r/denpasong/) and [/r/denpa/](https://www.reddit.com/r/denpa/) | [@denpasong](https://t.me/denpasong) | 1 hour |
 | [/r/movies/](https://www.reddit.com/r/movies/), [/r/CineShots/](https://www.reddit.com/r/CineShots/), and [/r/MoviePosterPorn/](https://www.reddit.com/r/MoviePosterPorn/)  | [@r_movies](https://t.me/r_movies) | 1 hour |
 | BeautifulFemales from [list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_gentlemanboners/app.py#L9).  | [@r_gentlemanboners](https://t.me/r_gentlemanboners) | 1 hour |
-| Best from [/r/all](https://www.reddit.com/r/all/).  | [@reddit_all](https://t.me/reddit_all) | 12 hours |
+| Best from [/r/all](https://www.reddit.com/r/all/).  | [@reddit_all](https://t.me/reddit_all) | 6 hours |
+| [/r/AskReddit](https://www.reddit.com/r/AskReddit/).  | [@r_AskReddit](https://t.me/r_AskReddit) | 1 hour |
+| [/r/AskReddit](https://www.reddit.com/r/AskReddit/).  | [@r_AskReddit](https://t.me/r_AskReddit) | 1 hour |
+| [/r/changemyview](https://www.reddit.com/r/changemyview/).  | [@r_changemyview](https://t.me/r_changemyview) | 1 hour |
+| [/r/explainlikeimfive](https://www.reddit.com/r/explainlikeimfive/).  | [@r_explainmelikeimfive](https://t.me/r_explainmelikeimfive) | 1 hour |
 |  | ... be the next one ... |  |
 
 
