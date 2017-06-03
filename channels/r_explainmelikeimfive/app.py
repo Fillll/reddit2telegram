@@ -3,8 +3,8 @@
 from utils import get_url
 
 
-t_channel = '@r_AskReddit'
-subreddit = 'AskReddit'
+t_channel = '@r_explainmelikeimfive'
+subreddit = 'explainlikeimfive'
 
 
 def send_post(submission, r2t):
