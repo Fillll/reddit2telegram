@@ -1,8 +1,11 @@
 #encoding:utf-8
 
-from utils import get_url
+from utils import get_url, weighted_random_subreddit
 
-subreddit = 'hmmmgifs'
+subreddit = weighted_random_subreddit({
+    'hmmmgifs': 1/3,
+    'hmmm': 2/3
+})
 t_channel = '@just_hmmm'
 
 
