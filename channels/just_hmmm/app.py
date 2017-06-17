@@ -10,7 +10,7 @@ t_channel = '@just_hmmm'
 
 
 def send_post(submission, r2t):
-    what, gif_url, ext = get_url(submission)
+    what, url, ext = get_url(submission)
     if what not in ('gif', 'img'):
         return False
 
@@ -23,4 +23,4 @@ def send_post(submission, r2t):
         return r2t.send_text(text, disable_web_page_preview=True)
 
     text = '{}\n{}\n\nby @just_hmmm'.format(title, link)
-    return r2t.send_gif_img(gif_url, ext, text)
+    return r2t.send_gif_img(what, url, ext, text)
