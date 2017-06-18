@@ -53,6 +53,7 @@ Currently alive channels
 | [/r/changemyview](https://www.reddit.com/r/changemyview/) | [@r_changemyview](https://t.me/r_changemyview) | 1 hour |
 | [/r/explainlikeimfive](https://www.reddit.com/r/explainlikeimfive/) | [@r_explainmelikeimfive](https://t.me/r_explainmelikeimfive) | 1 hour |
 | [/r/hmmmgifs](https://www.reddit.com/r/hmmmgifs/) and [/r/hmmm/](https://www.reddit.com/r/hmmm/) | [@just_hmmm](https://t.me/just_hmmm) | ½ hour |
+| [/r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/) | [@programmer_humor](https://t.me/programmer_humor) | 1 hour |
 |  | ... be the next one ... |  |
 
 
