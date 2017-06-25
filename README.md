@@ -36,7 +36,6 @@ Currently alive channels
 | [/r/TIL](https://www.reddit.com/r/todayilearned/) | [@r_TIL](https://t.me/r_til) | 8 hours |
 | [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://t.me/awwnime) | 1 hour |
 | [/r/mylittlepony](https://www.reddit.com/r/mylittlepony/) | [@r_mlp](https://t.me/r_mlp) | 1 hour |
-| [/r/hmmm/](https://www.reddit.com/r/hmmm/) | [@r_hmmm](https://t.me/r_hmmm) | 1 hour |
 | [/r/Showerthoughts/](https://www.reddit.com/r/Showerthoughts/) | [@r_Showerthoughts](https://t.me/r_Showerthoughts) | 1 hour |
 | [/r/HighQualityGifs/](https://www.reddit.com/r/HighQualityGifs/) | [@r_HighQualityGifs](https://t.me/r_HighQualityGifs) | 1 hour |
 | [/r/dankmemes/](https://www.reddit.com/r/dankmemes/) | [@r_dankmemes](https://t.me/r_dankmemes) | 1 hour |
@@ -54,6 +53,7 @@ Currently alive channels
 | [/r/explainlikeimfive](https://www.reddit.com/r/explainlikeimfive/) | [@r_explainmelikeimfive](https://t.me/r_explainmelikeimfive) | 1 hour |
 | [/r/hmmmgifs](https://www.reddit.com/r/hmmmgifs/) and [/r/hmmm/](https://www.reddit.com/r/hmmm/) | [@just_hmmm](https://t.me/just_hmmm) | ½ hour |
 | [/r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/) | [@programmer_humor](https://t.me/programmer_humor) | 1 hour |
+| [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
 |  | ... be the next one ... |  |
 
 
