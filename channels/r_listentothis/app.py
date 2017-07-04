@@ -11,7 +11,7 @@ subreddit = weighted_random_subreddit({
     # 'any_other_subreddit': 0.02
 })
 # Telegram channel with @reddit2telegram_bot as an admin
-t_channel = '@r_listetothis'
+t_channel = '@r_listentothis'
 
 
 def send_post(submission, r2t):
