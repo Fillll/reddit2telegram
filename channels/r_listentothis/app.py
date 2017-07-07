@@ -14,7 +14,11 @@ subreddit = weighted_random_subreddit({
 t_channel = '@r_listentothis'
 
 
+print('HI!!!')
+
+
 def send_post(submission, r2t):
+    print('h!!i')
     what, url, ext = get_url(submission)
 
     # If this func returns:
@@ -25,17 +29,19 @@ def send_post(submission, r2t):
     # let's just sleep.
 
     # Get all data from submission that we need
+
     title = submission.title
     link = submission.shortlink
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
         # If it is text submission, it is not really funny.
-        # return r2t.send_text(submission.selftext)
-        return False
+        return r2t.send_text(submission.selftext)
+        # return False
     elif what == 'other':
         # Also we are not interesting in any other content.
-        return False
+        text = '{}\n{}\n\n{}'.format(title, url, link)
+        return r2t.send_text(text)
     elif what == 'album':
         # It is ok if it is an album.
         base_url = submission.url
