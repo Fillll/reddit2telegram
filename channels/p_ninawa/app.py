@@ -6,6 +6,7 @@ from utils import get_url, weighted_random_subreddit
 t_channel = '-1001141585715'
 subreddit = weighted_random_subreddit({
     'ahoge': 1,
+    'animebikinis': 1,
     'awwnime': 1,
     'cutelittlefangs': 1,
     'ecchi': 1,
@@ -15,6 +16,7 @@ subreddit = weighted_random_subreddit({
     'pantsu': 1,
     'pouts': 1,
     'Sukebei': 1,
+    'swimsuithentai': 1,
     'twintails': 1,
     'tyingherhairup': 1,
     'wholesomeyuri': 1,
