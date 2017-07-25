@@ -47,7 +47,7 @@ Currently alive channels
 | [/r/denpasong/](https://www.reddit.com/r/denpasong/) and [/r/denpa/](https://www.reddit.com/r/denpa/) | [@denpasong](https://t.me/denpasong) | 1 hour |
 | [/r/movies/](https://www.reddit.com/r/movies/), [/r/CineShots/](https://www.reddit.com/r/CineShots/), and [/r/MoviePosterPorn/](https://www.reddit.com/r/MoviePosterPorn/)  | [@r_movies](https://t.me/r_movies) | 1 hour |
 | BeautifulFemales from [list](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_gentlemanboners/app.py#L9). | [@r_gentlemanboners](https://t.me/r_gentlemanboners) | 2 hours |
-| Best from [/r/all](https://www.reddit.com/r/all/). | [@reddit_all](https://t.me/reddit_all) | 6 hours |
+| Best from [/r/all](https://www.reddit.com/r/all/). | [@reddit_all](https://t.me/reddit_all) | 3 hours |
 | [/r/AskReddit](https://www.reddit.com/r/AskReddit/) | [@r_AskReddit](https://t.me/r_AskReddit) | 1 hour |
 | [/r/changemyview](https://www.reddit.com/r/changemyview/) | [@r_changemyview](https://t.me/r_changemyview) | 1 hour |
 | [/r/explainlikeimfive](https://www.reddit.com/r/explainlikeimfive/) | [@r_explainmelikeimfive](https://t.me/r_explainmelikeimfive) | 1 hour |
@@ -56,7 +56,9 @@ Currently alive channels
 | [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
 | [/r/foodporn](https://www.reddit.com/r/foodporn/) | [@dailyfoodporn](https://t.me/dailyfoodporn) | 1 hour |
 | [/r/overwatch](https://www.reddit.com/r/overwatch/) | [@r_overwatch](https://t.me/r_overwatch) | 1 hour |
-| [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_ocryptocurrency](https://t.me/r_ocryptocurrency) | 2 hours |
+| [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
+| [/r/pantsu](https://www.reddit.com/r/pantsu/) | [@r_pantsu](https://t.me/r_pantsu) | 1 hours |
+| [/r/listentothis](https://www.reddit.com/r/listentothis/) | [@r_listentothis](https://t.me/r_listentothis) | 1 hours |
 |  | ... be the next one ... |  |
 
 
