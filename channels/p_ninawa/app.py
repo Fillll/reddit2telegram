@@ -23,7 +23,9 @@ subreddit = weighted_random_subreddit({
     'inumimi': 1,
     'kitsunemimi': 1,
     'Nekomimi': 1,
-    'Usagimimi': 1
+    'Usagimimi': 1,
+    'swimsuithentai': 1,
+    'animebikinis': 1
 })
 
 
