@@ -22,6 +22,8 @@ def send_post(submission, r2t):
             subreddit=sub,
             link=link,
             votes=upvotes)
+        if len(text) > 2345:
+            return False
         return r2t.send_text(text)
 
     if what == 'other':
