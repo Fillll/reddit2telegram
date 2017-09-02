@@ -59,6 +59,7 @@ Currently alive channels
 | [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
 | [/r/pantsu](https://www.reddit.com/r/pantsu/) | [@r_pantsu](https://t.me/r_pantsu) | 1 hours |
 | [/r/listentothis](https://www.reddit.com/r/listentothis/) | [@r_listentothis](https://t.me/r_listentothis) | 1 hours |
+| [/r/ramen](https://www.reddit.com/r/ramen/) | [@r_ramen](https://t.me/r_ramen) | 1 hours |
 |  | ... be the next one ... |  |
 
 
