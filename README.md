@@ -61,6 +61,7 @@ Currently alive channels
 | [/r/listentothis](https://www.reddit.com/r/listentothis/) | [@r_listentothis](https://t.me/r_listentothis) | 1 hours |
 | [/r/ramen](https://www.reddit.com/r/ramen/) | [@r_ramen](https://t.me/r_ramen) | 1 hours |
 | [/r/freefolk](https://www.reddit.com/r/freefolk/) | [@r_freefolk](https://t.me/r_freefolk) | 1 hours |
+| [/r/fantheories](https://www.reddit.com/r/fantheories/) | [@r_fantheories](https://t.me/r_fantheories) | 1 hours |
 |  | ... be the next one ... |  |
 
 
