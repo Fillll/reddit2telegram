@@ -57,11 +57,12 @@ Currently alive channels
 | [/r/foodporn](https://www.reddit.com/r/foodporn/) | [@dailyfoodporn](https://t.me/dailyfoodporn) | 1 hour |
 | [/r/overwatch](https://www.reddit.com/r/overwatch/) | [@r_overwatch](https://t.me/r_overwatch) | 1 hour |
 | [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
-| [/r/pantsu](https://www.reddit.com/r/pantsu/) | [@r_pantsu](https://t.me/r_pantsu) | 1 hours |
-| [/r/listentothis](https://www.reddit.com/r/listentothis/) | [@r_listentothis](https://t.me/r_listentothis) | 1 hours |
-| [/r/ramen](https://www.reddit.com/r/ramen/) | [@r_ramen](https://t.me/r_ramen) | 1 hours |
-| [/r/freefolk](https://www.reddit.com/r/freefolk/) | [@r_freefolk](https://t.me/r_freefolk) | 1 hours |
-| [/r/fantheories](https://www.reddit.com/r/fantheories/) | [@r_fantheories](https://t.me/r_fantheories) | 1 hours |
+| [/r/pantsu](https://www.reddit.com/r/pantsu/) | [@r_pantsu](https://t.me/r_pantsu) | 1 hour |
+| [/r/listentothis](https://www.reddit.com/r/listentothis/) | [@r_listentothis](https://t.me/r_listentothis) | 1 hour |
+| [/r/ramen](https://www.reddit.com/r/ramen/) | [@r_ramen](https://t.me/r_ramen) | 1 hour |
+| [/r/freefolk](https://www.reddit.com/r/freefolk/) | [@r_freefolk](https://t.me/r_freefolk) | 1 hour |
+| [/r/fantheories](https://www.reddit.com/r/fantheories/) | [@r_fantheories](https://t.me/r_fantheories) | 1 hour |
+| [/r/slimerancher](https://www.reddit.com/r/slimerancher/) | [@r_slimerancher](https://t.me/r_slimerancher) | 1 hour |
 |  | ... be the next one ... |  |
 
 
