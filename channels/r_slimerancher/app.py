@@ -2,6 +2,7 @@
 
 from utils import get_url
 
+
 # Subreddit that will be a source of content
 subreddit = 'slimerancher'
 # Telegram channel with @reddit2telegram_bot as an admin
@@ -19,25 +20,40 @@ def send_post(submission, r2t):
     # let's just sleep.
 
     # Get all data from submission that we need
-    title = submission.title
-    link = submission.shortlink
-    text = '{}\n\n{}'.format(title, link)
+    title = submission.title # Tilte of the submission
+    punchline = submission.selftext # Text content of the submission (not always)
+    link = submission.shortlink # Link of the submission (not always)
+    base_url = submission.url # Reddit link to the submission
 
+    # Create a text for a tg post
+    # Base text (for every case)
+    text = title + "\n\n"
+
+    # Add text content if exists
+    if punchline: # is not None or Empty
+        text += punchline + "\n\n"
+
+    # Add link if exists
+    if link: # is not None or Empty
+        text += link + "\n\n"
+
+    # Add another new line if there is a text content or a link
+    if punchline or link: # is not None or Empty
+        text += "\n"
+
+    # Base text (for every case)
+    text += base_url
+
+    # How to send a post
     if what == 'text':
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n\n{}'.format(title, punchline, link)
-        return r2t.send_text(text)
+        return r2t.send_text(text) # returns True
     elif what == 'other':
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
-        return r2t.send_text(text)
+        return r2t.send_text(text) # returns True
     elif what == 'album':
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
         r2t.send_text(text)
         r2t.send_album(url)
         return True
     elif what in ('gif', 'img'):
-        return r2t.send_gif_img(what, url, ext, text)
+        return r2t.send_gif_img(what, url, ext, text) # returns True
     else:
         return False
