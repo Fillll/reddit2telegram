@@ -42,7 +42,7 @@ def send_post(submission, r2t):
         text += "\n"
 
     # Base text (for every case)
-    text += base_url
+    # text += base_url
 
     # How to send a post
     if what == 'text':
