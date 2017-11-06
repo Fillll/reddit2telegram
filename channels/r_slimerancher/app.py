@@ -22,8 +22,8 @@ def send_post(submission, r2t):
     # Get all data from submission that we need
     title = submission.title # Tilte of the submission
     punchline = submission.selftext # Text content of the submission (not always)
-    link = submission.shortlink # Link of the submission (not always)
-    base_url = submission.url # Reddit link to the submission
+    base_url = submission.url # Link of the submission (not always)
+    link = submission.shortlink # Reddit link to the submission
 
     # Create a text for a tg post
     # Base text (for every case)
@@ -34,15 +34,15 @@ def send_post(submission, r2t):
         text += punchline + "\n\n"
 
     # Add link if exists
-    if link: # is not None or Empty
-        text += link + "\n\n"
+    if base_url and what == 'other': # base_url is not None or Empty and what is other
+        text += base_url + "\n\n"
 
     # Add another new line if there is a text content or a link
-    if punchline or link: # is not None or Empty
+    if punchline or (base_url and what == 'other'): # is not None or Empty
         text += "\n"
 
     # Base text (for every case)
-    # text += base_url
+    text += link
 
     # How to send a post
     if what == 'text':
