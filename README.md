@@ -63,6 +63,7 @@ Currently alive channels
 | [/r/freefolk](https://www.reddit.com/r/freefolk/) | [@r_freefolk](https://t.me/r_freefolk) | 1 hour |
 | [/r/fantheories](https://www.reddit.com/r/fantheories/) | [@r_fantheories](https://t.me/r_fantheories) | 1 hour |
 | [/r/slimerancher](https://www.reddit.com/r/slimerancher/) | [@r_slimerancher](https://t.me/r_slimerancher) | 1 hour |
+| [/r/googleplaydeals](https://www.reddit.com/r/googleplaydeals/) | [@r_googleplaydeals](https://t.me/r_googleplaydeals) | 1 hour |
 |  | ... be the next one ... |  |
 
 
