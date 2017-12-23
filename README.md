@@ -65,6 +65,7 @@ Currently alive channels
 | [/r/slimerancher](https://www.reddit.com/r/slimerancher/) | [@r_slimerancher](https://t.me/r_slimerancher) | 1 hour |
 | [/r/googleplaydeals](https://www.reddit.com/r/googleplaydeals/) | [@r_googleplaydeals](https://t.me/r_googleplaydeals) | 1 hour |
 | [/r/Tinder](https://www.reddit.com/r/Tinder/) | [@rtinder](https://t.me/rtinder) | 1 hour |
+| [/r/Indiancelebs](https://www.reddit.com/r/Indiancelebs/) | [@Indiancelebs](https://t.me/Indiancelebs) | 1 hour |
 |  | ... be the next one ... |  |
 
 
