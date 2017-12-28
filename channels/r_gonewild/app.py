@@ -60,7 +60,7 @@ subreddit = weighted_random_subreddit({
     'underweargw': 0.0158730158730159,
     'weddingsgonewild': 0.0158730158730159,
     'workoutgonewild': 0.0158730158730159,
-    'workgonewild': 0.0158730158730
+    'workgonewild': 0.0158730158730159
 })
 # Telegram channel with @reddit2telegram_bot as an admin
 t_channel = '@r_gonewild'
