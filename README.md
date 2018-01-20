@@ -67,7 +67,9 @@ Currently alive channels
 | [/r/Tinder](https://www.reddit.com/r/Tinder/) | [@rtinder](https://t.me/rtinder) | 1 hour |
 | [/r/Indiancelebs](https://www.reddit.com/r/Indiancelebs/) | [@Indiancelebs](https://t.me/Indiancelebs) | 1 hour |
 | [/r/pcmasterrace](https://www.reddit.com/r/pcmasterrace/) | [@r_pcmasterrace](https://t.me/r_pcmasterrace) | 1 hour |
-|  | ... be the next one ... |  |
+| [/r/rupaulsdragrace](https://www.reddit.com/r/rupaulsdragrace/) | [@r_rupaulsdragrace](https://t.me/r_rupaulsdragrace) | 1 hour |
+| [/r/gifs](https://www.reddit.com/r/gifs/) | [@GIFFFs](https://t.me/GIFFFs) | 1 hour |
+|  | ... be the next one ... |  |@
 
 
 If you appreciate it
