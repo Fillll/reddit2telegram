@@ -27,5 +27,5 @@ def send_post(submission, r2t):
     # To read more about sending massages to telegram please
     # visit https://github.com/nickoala/telepot/tree/master/examples/simple
     # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
-    text = '{}\n{}\n\n@GIFFFs 🤖'.format(title, link)
+    text = '{}\n@GIFFFs 🤖'.format(title)
     return r2t.send_gif(gif_url, ext, text)
