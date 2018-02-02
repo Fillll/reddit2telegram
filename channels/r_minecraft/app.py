@@ -3,8 +3,8 @@
 from utils import get_url
 
 
-t_channel = '@r_changemyview'
-subreddit = 'changemyview'
+t_channel = '@r_minecraft'
+subreddit = 'minecraft'
 
 
 def send_post(submission, r2t):
