@@ -14,6 +14,16 @@ If you want to obtain your own channel for `/r/%subreddit%`:
 5. For any questions do not hesitate to contact me in [this group](https://t.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
 
 
+If you appreciate it
+--------------------
+
+[![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
+
+BTC: `1HR9Y8v4aPG5qcQwhiwQu2qHufD6JE5w8c`
+
+ETH: `0x1987b8DFEBc3F52f91b2Af033f616c9D20Fde7ad`
+
+
 Currently alive channels
 ------------------------
 
@@ -69,13 +79,9 @@ Currently alive channels
 | [/r/pcmasterrace](https://www.reddit.com/r/pcmasterrace/) | [@r_pcmasterrace](https://t.me/r_pcmasterrace) | 1 hour |
 | [/r/rupaulsdragrace](https://www.reddit.com/r/rupaulsdragrace/) | [@r_rupaulsdragrace](https://t.me/r_rupaulsdragrace) | 1 hour |
 | [/r/gifs](https://www.reddit.com/r/gifs/) | [@GIFFFs](https://t.me/GIFFFs) | 1 hour |
+| [/r/wow](https://www.reddit.com/r/wow/) | [@r_wow](https://t.me/r_wow) | 1 hour |
+| [/r/minecraft](https://www.reddit.com/r/minecraft/) | [@r_minecraft](https://t.me/r_minecraft) | 1 hour |
 |  | ... be the next one ... |  |@
-
-
-If you appreciate it
---------------------
-
-[![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
 
 
 ---
