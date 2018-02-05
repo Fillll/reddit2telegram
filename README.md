@@ -11,7 +11,7 @@ If you want to obtain your own channel for `/r/%subreddit%`:
 2. Add [`@reddit2telegram_bot`](https://t.me/reddit2telegram_bot) as administrator to this channel.
 3. Make a pull request to this repo with new script to make posts (use `/channels/r_funnny/app.py` as draft).
 4. Then I will make it alive :)
-5. For any questions do not hesitate to contact me in [this group](https://t.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
+5. For any questions do not hesitate to contact me in [@r_channels group](https://t.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
 
 
 If you appreciate it
@@ -66,7 +66,6 @@ Currently alive channels
 | [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
 | [/r/foodporn](https://www.reddit.com/r/foodporn/) | [@dailyfoodporn](https://t.me/dailyfoodporn) | 1 hour |
 | [/r/overwatch](https://www.reddit.com/r/overwatch/) | [@r_overwatch](https://t.me/r_overwatch) | 1 hour |
-| [/r/cryptocurrency](https://www.reddit.com/r/cryptocurrency/) | [@r_cryptocurrency](https://t.me/r_cryptocurrency) | 2 hours |
 | [/r/pantsu](https://www.reddit.com/r/pantsu/) | [@r_pantsu](https://t.me/r_pantsu) | 1 hour |
 | [/r/listentothis](https://www.reddit.com/r/listentothis/) | [@r_listentothis](https://t.me/r_listentothis) | 1 hour |
 | [/r/ramen](https://www.reddit.com/r/ramen/) | [@r_ramen](https://t.me/r_ramen) | 1 hour |
