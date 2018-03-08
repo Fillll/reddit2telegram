@@ -5,13 +5,13 @@ from utils import get_url, weighted_random_subreddit
 
 # Subreddit that will be a source of content
 subreddit = weighted_random_subreddit({
-    'BetterEveryLoop': 1.0,
+    'arthelpreddit': 1.0,
     # If we want get content from several subreddits
     # please provide here 'subreddit': probability
     # 'any_other_subreddit': 0.02
 })
 # Telegram channel with @reddit2telegram_bot as an admin
-t_channel = '@r_BetterEveryLoop'
+t_channel = '@arthelpreddit'
 
 
 def send_post(submission, r2t):
@@ -53,4 +53,3 @@ def send_post(submission, r2t):
         return r2t.send_gif_img(what, url, ext, text)
     else:
         return False
-
