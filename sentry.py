@@ -1,6 +1,5 @@
 #enconding:utf-8
 import logging
-import traceback
 import sys
 
 import yaml
@@ -29,7 +28,8 @@ def send_report_to_dev_chat(exc):
     local_vars = sys.exc_info()[2].tb_next.tb_frame.f_locals
     line = '_______________'
     submodule = local_vars['subreddit']
-    title = '{}\n{}'.format(submodule, line)
+    channel = local_vars['submodule'].t_channel
+    title = 'submodule: {}\nchannel: {}\n{}'.format(submodule, channel, line)
     if 'submission' in local_vars:
         link = local_vars['submission'].shortlink
         title = '{}\n{}\n{}'.format(title, link, line)
