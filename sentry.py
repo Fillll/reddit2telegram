@@ -1,5 +1,7 @@
 #enconding:utf-8
 import logging
+import traceback
+import sys
 
 import yaml
 from raven import Client
@@ -19,7 +21,18 @@ if 'sentry' in config:
     setup_logging(handler)
 else:
     client = None
-    logging.info("Sentry.io not loaded")
+    logging.info('Sentry.io not loaded')
+
+
+def send_report_to_dev_chat(exc):
+    r2t = utils.Reddit2TelegramSender(config['telegram_dev_chat'], config)
+    local_vars = sys.exc_info()[2].tb_next.tb_frame.f_locals
+    subreddit = local_vars['subreddit']
+    report = '{subreddit}\n______\n{exeption}'.format(
+        subreddit=subreddit,
+        exeption=str(exc)
+    )
+    r2t.send_text(report)
 
 
 def report_error(fn):
@@ -27,10 +40,9 @@ def report_error(fn):
         try:
             fn(*args, **kwargs)
         except Exception as e:
-            r2t = utils.Reddit2TelegramSender(config['telegram_dev_chat'], config)
-            r2t.send_text(str(e))
+            send_report_to_dev_chat(e)
             if client:  # has sentry instance
                 client.captureException()
             else:
-                logging.exception("Exception Ignored.")
+                logging.exception('Exception Ignored.')
     return wrapper
