@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 @report_error
-def supply(subreddit, config):
-    submodule = importlib.import_module('channels.{}.app'.format(subreddit))
+def supply(submodule_name, config):
+    submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
     reddit = praw.Reddit(user_agent=config['reddit']['user_agent'],
                         client_id=config['reddit']['client_id'],
                         client_secret=config['reddit']['client_secret'])

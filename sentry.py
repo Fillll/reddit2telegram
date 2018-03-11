@@ -26,7 +26,7 @@ else:
 def send_report_to_dev_chat(exc):
     r2t = utils.Reddit2TelegramSender(config['telegram_dev_chat'], config)
     local_vars = sys.exc_info()[2].tb_next.tb_frame.f_locals
-    submodule = local_vars['subreddit']
+    submodule = local_vars['submodule_name']
     channel = local_vars['submodule'].t_channel
     title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
     if 'submission' in local_vars:
