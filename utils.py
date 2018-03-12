@@ -258,7 +258,7 @@ class Reddit2TelegramSender(object):
             })
             return False
         else:
-            logging.warning('Duplicated found!')
+            logging.info('Duplicated found!')
             return True
 
     def send_gif_img(self, what, url, ext, text):

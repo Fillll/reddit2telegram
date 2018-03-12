@@ -2,8 +2,10 @@
 
 from utils import get_url, weighted_random_subreddit
 
+
 t_channel = '@r_wholesomememes'
 subreddit = 'wholesomeMemes+wholesomeAnimemes+wholesomeGifs+wholesomeComics'
+
 
 def send_post(submission, r2t):
     what, url, ext = get_url(submission)
@@ -22,4 +24,4 @@ def send_post(submission, r2t):
         r2t.send_album(url)
         return True
     else:
-        r2t.send_text(text)
+        return r2t.send_text(text)

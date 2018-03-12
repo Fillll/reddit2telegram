@@ -30,26 +30,20 @@ def send_post(submission, r2t):
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
-        # If it is text submission, it is not really funny.
-        # return r2t.send_text(submission.selftext)
-        return False
+        punchline = submission.selftext
+        text = '{t}\n\n{p}\n\n{l}'.format(t=title, p=punchline, l=link)
+        return r2t.send_text(text)
     elif what == 'other':
-        # Also we are not interesting in any other content.
-        return False
-    elif what == 'album':
-        # It is ok if it is an album.
         base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
+        text = '{t}\n{b}\n\n{l}'.format(t=title, b=base_url, l=link)
+        return r2t.send_text(text)
+    elif what == 'album':
+        base_url = submission.url
+        text = '{t}\n{b}\n\n{l}'.format(t=title, b=base_url, l=link)
         r2t.send_text(text)
         r2t.send_album(url)
         return True
     elif what in ('gif', 'img'):
-        # Also it is ok if it is gif or any kind of image.
-
-        # Check if content has already appeared in
-        # out telegram channel.
-        if r2t.dup_check_and_mark(url) is True:
-            return False
         return r2t.send_gif_img(what, url, ext, text)
     else:
         return False
