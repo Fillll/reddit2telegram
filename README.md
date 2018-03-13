@@ -87,6 +87,7 @@ Currently alive channels
 | [/r/arthelpreddit](https://www.reddit.com/r/arthelpreddit/) | [@arthelpreddit](https://t.me/r_streetwear) | 1 hour |
 | [/r/malefashion](https://www.reddit.com/r/malefashion/) | [@r_malefashion](https://t.me/r_malefashion) | 1 hour |
 | [/r/fashion](https://www.reddit.com/r/fashion/) | [@reddit_fashion](https://t.me/reddit_fashion) | 1 hour |
+| [/r/opensignups](https://www.reddit.com/r/opensignups/) | [@r_opensignups](https://t.me/r_opensignups) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
