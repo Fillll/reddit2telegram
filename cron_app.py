@@ -25,6 +25,7 @@ def read_own_cron(own_cron_filename, config):
             diff = now - prev_run
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 60.0:
+                # print(row['submodule_name'], diff_seconds)
                 supply(row['submodule_name'], config)
 
 
