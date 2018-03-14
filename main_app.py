@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 import importlib
+import logging
 
 import yaml
 import praw
@@ -35,7 +36,7 @@ def supply(submodule_name, config):
             # If None — do not want to send anything this time
             break
     if success is False:
-        logger.info('Nothing to post from {sub} to {channel}.'.format(
+        logging.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))
 
 
