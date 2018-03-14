@@ -1,16 +1,12 @@
 #encoding:utf-8
 
 import importlib
-import logging
 
 import yaml
 import praw
-from sentry import report_error
 
 import utils
-
-
-logger = logging.getLogger(__name__)
+from reporting_stuff import report_error
 
 
 @report_error
