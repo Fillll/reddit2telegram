@@ -11,31 +11,35 @@ t_channel = '@r_BigAnimeTiddies'
 
 
 def send_post(submission, r2t):
-    # Check what is inside this submission.
-    what, _, _ = get_url(submission)
+    what, url, ext = get_url(submission)
 
-    # If inside is something but not text
-    # then we do not need this submission.
-    if what != 'text':
-        False
+    # If this func returns:
+    # False – it means that we will not send
+    # this submission, let's move to the next.
+    # True – everything is ok, we send the submission
+    # None – we do not want to send anything this time,
+    # let's just sleep.
 
-    # To read more about dealing with reddit submission please
-    # visit https://praw.readthedocs.io/.
+    # Get all data from submission that we need
     title = submission.title
-    punchline = submission.selftext
     link = submission.shortlink
-    text = '{title}\n\n{body}\n\n{link}\n{channel}'.format(
-            title=title, body=punchline, link=link, channel=t_channel)
+    text = '{}\n{}'.format(title, link)
 
-    # Long jokes are weired.
-    if len(text) > 3456:
+    if what == 'text':
+        punchline = submission.selftext
+        text = '{t}\n\n{p}\n\n{l}'.format(t=title, p=punchline, l=link)
+        return r2t.send_text(text)
+    elif what == 'other':
+        base_url = submission.url
+        text = '{t}\n{b}\n\n{l}'.format(t=title, b=base_url, l=link)
+        return r2t.send_text(text)
+    elif what == 'album':
+        base_url = submission.url
+        text = '{t}\n{b}\n\n{l}'.format(t=title, b=base_url, l=link)
+        r2t.send_text(text)
+        r2t.send_album(url)
+        return True
+    elif what in ('gif', 'img'):
+        return r2t.send_gif_img(what, url, ext, text)
+    else:
         return False
-
-    # To read more about sending massages to telegram please
-    # visit https://github.com/nickoala/telepot/tree/master/examples/simple
-    # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
-    r2t.send_text(text, disable_web_page_preview=True)
-
-    # Return True, if this submission is suitable for sending and was sent,
-    # if not – return False.
-    return True

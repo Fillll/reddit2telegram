@@ -87,6 +87,8 @@ Currently alive channels
 | [/r/arthelpreddit](https://www.reddit.com/r/arthelpreddit/) | [@arthelpreddit](https://t.me/arthelpreddit) | 1 hour |
 | [/r/fashion](https://www.reddit.com/r/fashion/) | [@reddit_fashion](https://t.me/reddit_fashion) | 1 hour |
 | [/r/opensignups](https://www.reddit.com/r/opensignups/) | [@r_opensignups](https://t.me/r_opensignups) | 1 hour |
+| [/r/BigAnimeTiddies](https://www.reddit.com/r/BigAnimeTiddies/) | [@r_BigAnimeTiddies](https://t.me/r_BigAnimeTiddies) | 1 hour |
+| [/r/Damnthatsinteresting](https://www.reddit.com/r/Damnthatsinteresting/) | [@r_Damnthatsinteresting](https://t.me/r_Damnthatsinteresting) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
