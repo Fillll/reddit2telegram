@@ -261,15 +261,15 @@ class Reddit2TelegramSender(object):
             logging.info('Duplicated found!')
             return True
 
-    def send_gif_img(self, what, url, ext, text):
+    def send_gif_img(self, what, url, ext, text, parse_mode=None):
         if what == TYPE_GIF:
-            return self.send_gif(url, ext, text)
+            return self.send_gif(url, ext, text, parse_mode)
         elif what == TYPE_IMG:
-            return self.send_img(url, ext, text)
+            return self.send_img(url, ext, text, parse_mode)
         else:
             return False
 
-    def send_gif(self, url, ext, text):
+    def send_gif(self, url, ext, text, parse_mode=None):
         filename = self._get_file_name(ext)
         # Download gif
         if not download_file(url, filename):
@@ -281,14 +281,14 @@ class Reddit2TelegramSender(object):
         if len(text) > 200:
             text, next_text = self._split_200(text)
         f = open(filename, 'rb')
-        self.telepot_bot.sendDocument(self.t_channel, f, caption=text)
+        self.telepot_bot.sendDocument(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             time.sleep(2)
-            self.send_text(next_text, disable_web_page_preview=True)
+            self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return True
 
-    def send_img(self, url, ext, text):
+    def send_img(self, url, ext, text, parse_mode=None):
         filename = self._get_file_name(ext)
         # Download file
         if not download_file(url, filename):
@@ -297,11 +297,11 @@ class Reddit2TelegramSender(object):
         if len(text) > 200:
             text, next_text = self._split_200(text)
         f = open(filename, 'rb')
-        self.telepot_bot.sendPhoto(self.t_channel, f, caption=text)
+        self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             time.sleep(2)
-            self.send_text(next_text, disable_web_page_preview=True)
+            self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return True
 
     def send_text(self, text, disable_web_page_preview=False):
