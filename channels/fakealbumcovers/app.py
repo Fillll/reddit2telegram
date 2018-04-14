@@ -23,8 +23,8 @@ def send_post(submission, r2t):
     for sep in separators:
         if sep in fullTitle:
             if sep == " by ":
-                artist = fullTitle[fullTitle.find(sep)+len(sep):]]
-                title = fullTitle[:fullTitle.find(sep)
+                artist = fullTitle[fullTitle.find(sep)+len(sep):]
+                title = fullTitle[:fullTitle.find(sep)]
             else:
                 artist = fullTitle[:fullTitle.find(sep)]
                 title = fullTitle[fullTitle.find(sep)+len(sep):]
@@ -36,8 +36,8 @@ def send_post(submission, r2t):
     else:
         text = '{title}\n\n▶️{link}\n🎵{channel}'.format(
                 title=title, link=link, channel=t_channel)
-        
-       
+    
+    
     if what in ['text', 'other', 'album']:
         return False
     elif what == 'img':

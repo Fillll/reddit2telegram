@@ -89,6 +89,8 @@ Currently alive channels
 | [/r/opensignups](https://www.reddit.com/r/opensignups/) | [@r_opensignups](https://t.me/r_opensignups) | 1 hour |
 | [/r/BigAnimeTiddies](https://www.reddit.com/r/BigAnimeTiddies/) | [@r_BigAnimeTiddies](https://t.me/r_BigAnimeTiddies) | 1 hour |
 | [/r/Damnthatsinteresting](https://www.reddit.com/r/Damnthatsinteresting/) | [@r_Damnthatsinteresting](https://t.me/r_Damnthatsinteresting) | 1 hour |
+| [/r/fakealbumcovers](https://www.reddit.com/r/fakealbumcovers/) | [@fakealbumcovers](https://t.me/fakealbumcovers) | 1 hour |
+| [/r/Roadcam](https://www.reddit.com/r/Roadcam/) | [@dash_cams](https://t.me/dash_cams) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
