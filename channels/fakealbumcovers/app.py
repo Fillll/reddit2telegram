@@ -29,6 +29,9 @@ def send_post(submission, r2t):
                 artist = fullTitle[:fullTitle.find(sep)]
                 title = fullTitle[fullTitle.find(sep)+len(sep):]
             break
+     
+    if title.lower() == "self titled":
+        title = artist
     
     if artist != "":
         text = '<b>{title}</b>\n<i>{artist}</i>\n\n▶️ {link}\n🎵 {channel}'.format(
