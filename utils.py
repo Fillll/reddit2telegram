@@ -304,7 +304,7 @@ class Reddit2TelegramSender(object):
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return True
 
-    def send_text(self, text, disable_web_page_preview=False):
+    def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
             self.telepot_bot.sendMessage(self.t_channel, text, disable_web_page_preview=disable_web_page_preview)
             return True
