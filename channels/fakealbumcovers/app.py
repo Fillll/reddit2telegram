@@ -9,13 +9,16 @@ subreddit = 'fakealbumcovers'
 # This is for your public telegram channel.
 t_channel = '@fakealbumcovers'
 
-separators = [" - ", " | ", "- ", "-", " by "]
+separators = [" - ", " — ", " | ", "- ", "-", " by "]
 
 def send_post(submission, r2t):
     what, url, ext = get_url(submission)
     
     fullTitle = submission.title
     link = submission.shortlink
+    
+    if fullTitle.lower().startswith("[request]"):
+        return False
     
     title = fullTitle
     artist = ""
