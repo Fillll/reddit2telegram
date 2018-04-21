@@ -2,6 +2,7 @@
 
 # Some utils can be useful.
 from utils import get_url
+from utils import SupplyResult
 
 
 # Write here subreddit name. Like this one for /r/jokes.
@@ -17,7 +18,7 @@ def send_post(submission, r2t):
     # If inside is something but not text
     # then we do not need this submission.
     if what != 'text':
-        False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     # To read more about dealing with reddit submission please
     # visit https://praw.readthedocs.io/.
@@ -29,13 +30,12 @@ def send_post(submission, r2t):
 
     # Long jokes are weired.
     if len(text) > 3456:
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     # To read more about sending massages to telegram please
     # visit https://github.com/nickoala/telepot/tree/master/examples/simple
     # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
-    r2t.send_text(text, disable_web_page_preview=True)
 
     # Return True, if this submission is suitable for sending and was sent,
     # if not – return False.
-    return True
+    return r2t.send_text(text, disable_web_page_preview=True)
