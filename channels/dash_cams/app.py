@@ -1,5 +1,4 @@
 #encoding:utf-8
-
 from urllib.parse import urlparse
 
 from utils import get_url, weighted_random_subreddit

@@ -91,6 +91,7 @@ Currently alive channels
 | [/r/Damnthatsinteresting](https://www.reddit.com/r/Damnthatsinteresting/) | [@r_Damnthatsinteresting](https://t.me/r_Damnthatsinteresting) | 1 hour |
 | [/r/fakealbumcovers](https://www.reddit.com/r/fakealbumcovers/) | [@fakealbumcovers](https://t.me/fakealbumcovers) | 1 hour |
 | [/r/Roadcam](https://www.reddit.com/r/Roadcam/) | [@dash_cams](https://t.me/dash_cams) | 1 hour |
+| [/r/mildlyinteresting](https://www.reddit.com/r/mildlyinteresting/) | [@r_mild](https://t.me/r_mild) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
