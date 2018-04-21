@@ -35,7 +35,7 @@ def send_post(submission, r2t):
     # what, gif_url = get_gif(submission)
     # if what not in ('gif', 'mp4'):
     #     return False
-    return r2t.simple_send(submission, text=False, other=False)
+    return r2t.send_simple(submission, text=False, other=False)
     # # Determine file
     # if what == 'gif':
     #     t_file = 'asiangirlsbeingcute.gif'
