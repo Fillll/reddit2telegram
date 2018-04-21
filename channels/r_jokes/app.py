@@ -29,7 +29,7 @@ def send_post(submission, r2t):
             title=title, body=punchline, link=link, channel=t_channel)
 
     # Long jokes are weired.
-    if len(text) > 3456:
+    if len(text) > 3210:
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     # To read more about sending massages to telegram please
