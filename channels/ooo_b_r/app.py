@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-from utils import get_url, weighted_random_subreddit
+from utils import weighted_random_subreddit
 
 
 # Group chat https://yal.sh/dvdahoy
@@ -13,9 +13,10 @@ subreddit = weighted_random_subreddit({
 
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
-    title = submission.title
-    link = submission.shortlink
-    text = '{}\n{}'.format(title, link)
-
-    return r2t.send_gif_img(what, url, ext, text)
+    return r2t.send_simple(submission,
+        text=False,
+        gif='{title}\n{short_link}',
+        img='{title}\n{short_link}',
+        album=False,
+        other=False
+    )

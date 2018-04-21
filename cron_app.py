@@ -7,7 +7,7 @@ import logging
 import yaml
 from croniter import croniter
 
-from main_app import supply
+from supplier import supply
 
 
 logger = logging.getLogger(__name__)

@@ -1,8 +1,6 @@
 #encoding:utf-8
 
-import os
-
-from utils import get_url, weighted_random_subreddit
+from utils import weighted_random_subreddit
 
 
 subreddit = weighted_random_subreddit({
@@ -15,8 +13,10 @@ t_channel = '@r_gentlemanboners'
 
 
 def send_post(submission, r2t):
-    title = submission.title
-    link = submission.shortlink
-    text = '{}\n{}'.format(title, link)
-    what, url, ext = get_url(submission)
-    return r2t.send_gif_img(what, url, ext, text)
+    return r2t.send_simple(submission,
+        text=False,
+        gif=True,
+        img=True,
+        album=False,
+        other=False
+    )

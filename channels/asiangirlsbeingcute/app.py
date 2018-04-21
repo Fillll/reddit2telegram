@@ -1,9 +1,9 @@
 #encoding:utf-8
 
-import os
+# import os
 
-from utils import get_url
-from urllib.parse import urlparse
+# from utils import get_url
+# from urllib.parse import urlparse
 
 subreddit = 'asiangirlsbeingcute'
 t_channel = '@asiangirlsbeingcute'
@@ -35,11 +35,7 @@ def send_post(submission, r2t):
     # what, gif_url = get_gif(submission)
     # if what not in ('gif', 'mp4'):
     #     return False
-    title = submission.title
-    link = submission.shortlink
-    text = '{}\n{}'.format(title, link)
-    what, url, ext = get_url(submission)
-    return r2t.send_gif_img(what, url, ext, text)
+    return r2t.simple_send(submission, text=False, other=False)
     # # Determine file
     # if what == 'gif':
     #     t_file = 'asiangirlsbeingcute.gif'

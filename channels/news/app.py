@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-from utils import get_url, weighted_random_subreddit
+from utils import weighted_random_subreddit
 
 
 t_channel = '@news756'
@@ -11,26 +11,10 @@ subreddit = weighted_random_subreddit({
 
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
-    title = submission.title
-    link = submission.shortlink
-    text = '{}\n\n/r/{}\n{}'.format(title, subreddit, link)
-
-    if what == 'text':
-        punchline = submission.selftext
-        text = '{}\n\n{}\n\n/r/{}\n{}'.format(title, punchline, subreddit, link)
-        return r2t.send_text(text)
-    elif what == 'other':
-        url = submission.url
-        text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-        return r2t.send_text(text)
-    elif what == 'album':
-        url = submission.url
-        text = '{}\n{}\n\n/r/{}\n{}'.format(title, url, subreddit, link)
-        r2t.send_text(text)
-        r2t.send_album(url)
-        return True
-    elif what in ('gif', 'img'):
-        return r2t.send_gif_img(what, url, ext, text)
-    else:
-        return False
+    return r2t.send_simple(submission,
+        text='{title}\n\n{self_text}\n\n/r/{subreddit_name}\n{short_link}',
+        gif='{title}\n\n/r/{subreddit_name}\n{short_link}',
+        img='{title}\n\n/r/{subreddit_name}\n{short_link}',
+        album='{title}\n{link}\n\n/r/{subreddit_name}\n{short_link}',
+        other='{title}\n{link}\n\n/r/{subreddit_name}\n{short_link}'
+    )

@@ -14,9 +14,6 @@ subreddit = weighted_random_subreddit({
 t_channel = '@r_listentothis'
 
 
-print('HI!!!')
-
-
 def send_post(submission, r2t):
     print('h!!i')
     what, url, ext = get_url(submission)

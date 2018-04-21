@@ -11,6 +11,7 @@ import re
 import hashlib
 from datetime import datetime
 import logging
+import enum
 
 from imgurpython import ImgurClient
 import yaml
@@ -22,18 +23,31 @@ from gfycat.client import GfycatClient
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
 
 
+ALBUM_LIMIT = 20
+
+
 TYPE_IMG = 'img'
 CONTENT_JPEG = 'image/jpeg'
 CONTENT_PNG = 'image/png'
+
 TYPE_GIF = 'gif'
 CONTENT_GIF = 'image/gif'
 CONTENT_MP4 = 'video/mp4'
+
 TYPE_TEXT = 'text'
 TYPE_OTHER = 'other'
 TYPE_ALBUM = 'album'
 
 
 TEMP_FOLDER = 'tmp'
+
+
+@enum.unique
+class SupplyResult(enum.Enum):
+    SUCCESSFULLY = 0
+    DO_NOT_WANT_THIS_SUBMISSION = 1
+    SKIP_FOR_NOW = 2
+    STOP_THIS_SUPPLY = 3
 
 
 def get_url(submission, mp4_instead_gif=True):
@@ -77,7 +91,7 @@ def get_url(submission, mp4_instead_gif=True):
 
     if urlparse(url).netloc == 'imgur.com':
         # Imgur
-        imgur_config = yaml.load(open('imgur.yml').read())
+        imgur_config = yaml.load(open(os.path.join('configs', 'imgur.yml')).read())
         imgur_client = ImgurClient(imgur_config['client_id'], imgur_config['client_secret'])
         path_parts = urlparse(url).path.split('/')
         if path_parts[1] == 'gallery':
@@ -170,12 +184,13 @@ def md5_sum_from_url(url):
     return hash_store.hexdigest()
 
 
-def weighted_random_subreddit(d):
-    r = random.uniform(0, sum(val for val in d.values()))
-    s = 0.0
-    for k, w in d.items():
-        s += w
-        if r < s: return k
+def weighted_random_subreddit(weights):
+    random_value = random.uniform(0, sum(val for val in weights.values()))
+    cumulative_sum = 0.0
+    for k, w in weights.items():
+        cumulative_sum += w
+        if random_value < cumulative_sum:
+            return k
     return k
 
 
@@ -186,15 +201,15 @@ class Reddit2TelegramSender(object):
     def __init__(self, t_channel, config):
         super(Reddit2TelegramSender, self).__init__()
         self.config = config
-        self.telepot_bot = telepot.Bot(self.config['telegram_token'])
+        self.telepot_bot = telepot.Bot(self.config['telegram']['token'])
         self.t_channel = t_channel
         self._make_mongo_connections()
         self._store_stats()
 
     def _make_mongo_connections(self):
-        self.stats = pymongo.MongoClient(host=self.config['db_host'])[self.config['db']]['stats']
-        self.urls = pymongo.MongoClient(host=self.config['db_host'])[self.config['db']]['urls']
-        self.contents = pymongo.MongoClient(host=self.config['db_host'])[self.config['db']]['contents']
+        self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']
+        self.urls = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['urls']
+        self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
 
     def _store_stats(self):
         self.stats.insert_one({
@@ -267,16 +282,16 @@ class Reddit2TelegramSender(object):
         elif what == TYPE_IMG:
             return self.send_img(url, ext, text, parse_mode)
         else:
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     def send_gif(self, url, ext, text, parse_mode=None):
         filename = self._get_file_name(ext)
         # Download gif
         if not download_file(url, filename):
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         # Telegram will not autoplay big gifs
         if os.path.getsize(filename) > TELEGRAM_AUTOPLAY_LIMIT:
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
         if len(text) > 200:
             text, next_text = self._split_200(text)
@@ -286,35 +301,36 @@ class Reddit2TelegramSender(object):
         if len(next_text) > 1:
             time.sleep(2)
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
-        return True
+        return SupplyResult.SUCCESSFULLY
 
     def send_img(self, url, ext, text, parse_mode=None):
         filename = self._get_file_name(ext)
         # Download file
         if not download_file(url, filename):
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
         if len(text) > 200:
-            text, next_text = self._split_200(text)
+            # text, next_text = self._split_200(text)
+            return self.send_text('[ ](url){t}'.format(t=text), disable_web_page_preview=False, parse_mode='Markdown')
         f = open(filename, 'rb')
         self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             time.sleep(2)
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
-        return True
+        return SupplyResult.SUCCESSFULLY
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
             self.telepot_bot.sendMessage(self.t_channel, text, disable_web_page_preview=disable_web_page_preview)
-            return True
+            return SupplyResult.SUCCESSFULLY
         # If text is longer than 4096 symnols.
         next_text = text
         while len(next_text) > 0:
             new_text, next_text = self._split_4096(next_text)
             self.telepot_bot.sendMessage(self.t_channel, new_text, disable_web_page_preview=disable_web_page_preview)
             time.sleep(2)
-        return True
+        return SupplyResult.SUCCESSFULLY
 
     def send_album(self, story):
         def just_send(num, item):
@@ -331,5 +347,71 @@ class Reddit2TelegramSender(object):
                     just_send(num, item)
             elif item['what'] == 'text':
                 just_send(num, item)
+            if num >= ALBUM_LIMIT:
+                self.send_text('...')
+                return SupplyResult.SUCCESSFULLY
             time.sleep(2)
-        return True
+        return SupplyResult.SUCCESSFULLY
+
+    def send_simple(self, submission, **kwargs):
+        '''
+
+        '''
+        what, url, ext = get_url(submission)
+        formatters = {
+            'what': what,
+            'url': url,
+            'ext': ext,
+            'title': submission.title,
+            'self_text': submission.selftext,
+            'link': submission.url,
+            'short_link': submission.shortlink,
+            'subreddit_name': submission.subreddit,
+            'upvotes': submission.score,
+            'channel': self.t_channel,
+            **kwargs.get('formatter', {})
+        }
+
+        if what == TYPE_GIF:
+            what_to_do = kwargs.get('gif', True)
+            if what_to_do:
+                text = '{title}\n{short_link}\n{channel}'.format(**formatters)
+                if isinstance(what_to_do, str):
+                    text = what_to_do.format(**formatters)
+                return self.send_gif(url, ext, text)
+
+        elif what == TYPE_IMG:
+            what_to_do = kwargs.get('img', True)
+            if what_to_do:
+                text = '{title}\n{short_link}\n{channel}'.format(**formatters)
+                if isinstance(what_to_do, str):
+                    text = what_to_do.format(**formatters)
+                return self.send_img(url, ext, text)
+
+        elif what == TYPE_ALBUM:
+            what_to_do = kwargs.get('album', True)
+            if what_to_do:
+                text = '{title}\n{link}\n\n{short_link}\n{channel}'.format(**formatters)
+                if isinstance(what_to_do, str):
+                    text = what_to_do.format(**formatters)
+                r2t.send_text(text)
+                return r2t.send_album(url)
+
+        elif what == TYPE_TEXT:
+            what_to_do = kwargs.get('text', True)
+            if what_to_do:
+                text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'.format(**formatters)
+                if isinstance(what_to_do, str):
+                    text = what_to_do.format(**formatters)
+                return r2t.send_text(text)
+        
+        elif what == TYPE_OTHER:
+            what_to_do = kwargs.get('other', True)
+            if what_to_do:
+                text = '{title}\n{link}\n\n{short_link}\n{channel}'.format(**formatters)
+                if isinstance(what_to_do, str):
+                    text = what_to_do.format(**formatters)
+                return r2t.send_text(text)
+
+        else:
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION

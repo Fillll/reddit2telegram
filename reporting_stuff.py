@@ -1,6 +1,7 @@
 #enconding:utf-8
 import logging
 import sys
+import os
 
 import yaml
 from raven import Client
@@ -10,7 +11,7 @@ from raven.conf import setup_logging
 import utils
 
 
-with open('prod.yml') as config_file:
+with open(os.path.join('configs', 'prod.yml')) as config_file:
     config = yaml.load(config_file.read())
 
 
@@ -24,7 +25,7 @@ else:
 
 
 def send_report_to_dev_chat(exc):
-    r2t = utils.Reddit2TelegramSender(config['telegram_dev_chat'], config)
+    r2t = utils.Reddit2TelegramSender(config['telegram']['dev_chat'], config)
     local_vars = sys.exc_info()[2].tb_next.tb_frame.f_locals
     submodule = local_vars['submodule_name']
     channel = local_vars['submodule'].t_channel

@@ -24,17 +24,22 @@ def supply(submodule_name, config):
         if r2t.was_before(link):
             continue
         success = submodule.send_post(submission, r2t)
-        if success is True:
+        if success == utils.SupplyResult.SUCCESSFULLY:
             # Every thing is ok, post was sent
             r2t.mark_as_was_before(link)
             break
-        elif success is False:
+        elif success == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION:
             # Do not want to send this post
             r2t.mark_as_was_before(link)
             continue
-        else:
+        elif success == utils.SupplyResult.SKIP_FOR_NOW:
+            # Do not want to send now
+            continue
+        elif success == utils.SupplyResult.STOP_THIS_SUPPLY:
             # If None — do not want to send anything this time
             break
+        else:
+            logging.error('Unknown SupplyResult. {}'.format(success))
     if success is False:
         logging.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))
@@ -49,7 +54,7 @@ def main(config_filename, sub):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', default='prod.yml')
+    parser.add_argument('--config', default='configs/prod.yml')
     parser.add_argument('--sub')
     args = parser.parse_args()
     main(args.config, args.sub)
