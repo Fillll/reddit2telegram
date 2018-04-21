@@ -355,9 +355,6 @@ class Reddit2TelegramSender(object):
         return SupplyResult.SUCCESSFULLY
 
     def send_simple(self, submission, **kwargs):
-        '''
-
-        '''
         what, url, ext = get_url(submission)
         formatters = {
             'what': what,
@@ -372,6 +369,11 @@ class Reddit2TelegramSender(object):
             'channel': self.t_channel,
             **kwargs.get('formatter', {})
         }
+
+        if kwargs.get('check_dups', False):
+            if self.dup_check_and_mark(url):
+                # There is a duplicate
+                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         if what == TYPE_GIF:
             what_to_do = kwargs.get('gif', True)

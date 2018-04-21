@@ -3,6 +3,7 @@
 from urllib.parse import urlparse
 
 from utils import get_url
+from utils import SupplyResult
 
 
 t_channel = '@r_mlp'
@@ -16,21 +17,20 @@ def send_post(submission, r2t):
     text = '{}\n{}'.format(title, link)
 
     if what == 'text':
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     elif what == 'album':
         base_url = submission.url
         text = '{}\n{}\n\n{}'.format(title, base_url, link)
         r2t.send_text(text)
-        r2t.send_album(url)
-        return True
+        return r2t.send_album(url)
     elif what == 'other':
         domain = urlparse(url).netloc
         if domain in ('www.youtube.com', 'youtu.be'):
             text = '{}\n{}\n\n{}'.format(title, url, link)
             return r2t.send_text(text)
         else:
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     elif what in ('gif', 'img'):
         return r2t.send_gif_img(what, url, ext, text)
     else:
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
