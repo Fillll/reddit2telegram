@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 from utils import get_url
+from utils import SupplyResult
 
 
 subreddit = 'Showerthoughts'
@@ -10,7 +11,7 @@ t_channel = '@r_Showerthoughts'
 def send_post(submission, r2t):
     what, _, _ = get_url(submission)
     if what != 'text':
-        False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     texts = [submission.title]
     punchline = submission.selftext.strip()
     if len(punchline) > 0:
@@ -19,5 +20,4 @@ def send_post(submission, r2t):
     link = submission.shortlink
     text = '{main}\n\n{link}'.format(
             main=main_text, link=link)
-    r2t.send_text(text, disable_web_page_preview=True)
-    return True
+    return r2t.send_text(text, disable_web_page_preview=True)
