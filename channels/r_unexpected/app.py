@@ -2,14 +2,16 @@
 
 import logging
 import yaml
+import os
 
 from utils import get_url
+from utils import SupplyResult
 from yandex_translate import YandexTranslate
 
 
 subreddit = 'unexpected'
 t_channel = '@r_unexpected'
-yandex_key = yaml.load(open('ya.translate.yml'))['translate_api_key']  # to be filled by conf
+yandex_key = yaml.load(open(os.path.join('configs','ya.translate.yml')))['translate_api_key']  # to be filled by conf
 NSFW_EMOJI = u'\U0001F51E'
 
 
@@ -52,6 +54,6 @@ def send_post(submission, r2t):
         return r2t.send_text(text, disable_web_page_preview=True)
 
     if r2t.dup_check_and_mark(url) is True:
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     return r2t.send_gif_img(what, url, ext, text)

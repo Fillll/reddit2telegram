@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 from utils import get_url
+from utils import SupplyResult
 
 
 # Subreddit that will be a source of content
@@ -51,9 +52,8 @@ def send_post(submission, r2t):
         return r2t.send_text(text) # returns True
     elif what == 'album':
         r2t.send_text(text)
-        r2t.send_album(url)
-        return True
+        return r2t.send_album(url)
     elif what in ('gif', 'img'):
         return r2t.send_gif_img(what, url, ext, text) # returns True
     else:
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
