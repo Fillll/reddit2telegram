@@ -38,6 +38,6 @@ def main(config_filename):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', default='prod.yml')
+    parser.add_argument('--config', default='configs/prod.yml')
     args = parser.parse_args()
     main(args.config)
