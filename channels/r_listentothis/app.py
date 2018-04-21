@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 from utils import get_url, weighted_random_subreddit
+from utils import SupplyResult
 
 
 # Subreddit that will be a source of content
@@ -44,15 +45,14 @@ def send_post(submission, r2t):
         base_url = submission.url
         text = '{}\n{}\n\n{}'.format(title, base_url, link)
         r2t.send_text(text)
-        r2t.send_album(url)
-        return True
+        return r2t.send_album(url)
     elif what in ('gif', 'img'):
         # Also it is ok if it is gif or any kind of image.
 
         # Check if content has already appeared in
         # out telegram channel.
         if r2t.dup_check_and_mark(url) is True:
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         return r2t.send_gif_img(what, url, ext, text)
     else:
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION

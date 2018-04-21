@@ -2,6 +2,7 @@
 
 # Some utils can be useful.
 from utils import get_url
+from utils import SupplyResult
 
 
 # Write here subreddit name. Like this one for /r/jokes.
@@ -18,7 +19,7 @@ def send_post(submission, r2t):
     link = submission.shortlink
     
     if fullTitle.lower().startswith("[request]"):
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     
     title = fullTitle
     artist = ""
@@ -45,10 +46,10 @@ def send_post(submission, r2t):
     
     
     if what in ['text', 'other', 'album']:
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     elif what == 'img':
         if r2t.dup_check_and_mark(url) is True:
-            return False
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         return r2t.send_gif_img(what, url, ext, text, parse_mode='HTML')
     else:
-      return False
+      return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
