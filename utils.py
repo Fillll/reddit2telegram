@@ -311,6 +311,7 @@ class Reddit2TelegramSender(object):
         next_text = ''
         if len(text) > 200:
             # text, next_text = self._split_200(text)
+            logging.error('Long pic in {}.'.format(self.t_channel))
             return self.send_text('[ ](url){t}'.format(t=text), disable_web_page_preview=False, parse_mode='Markdown')
         f = open(filename, 'rb')
         self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
@@ -394,8 +395,8 @@ class Reddit2TelegramSender(object):
                 text = '{title}\n{link}\n\n{short_link}\n{channel}'.format(**formatters)
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
-                r2t.send_text(text)
-                return r2t.send_album(url)
+                self.send_text(text)
+                return self.send_album(url)
 
         elif what == TYPE_TEXT:
             what_to_do = kwargs.get('text', True)
@@ -403,7 +404,7 @@ class Reddit2TelegramSender(object):
                 text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'.format(**formatters)
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
-                return r2t.send_text(text)
+                return self.send_text(text)
         
         elif what == TYPE_OTHER:
             what_to_do = kwargs.get('other', True)
@@ -411,7 +412,7 @@ class Reddit2TelegramSender(object):
                 text = '{title}\n{link}\n\n{short_link}\n{channel}'.format(**formatters)
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
-                return r2t.send_text(text)
+                return self.send_text(text)
 
         else:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
