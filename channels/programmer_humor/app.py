@@ -1,6 +1,8 @@
 #encoding:utf-8
 
 from utils import get_url
+from utils import SupplyResult
+
 
 subreddit = 'ProgrammerHumor'
 t_channel = '@programmer_humor'
@@ -9,7 +11,7 @@ t_channel = '@programmer_humor'
 def send_post(submission, r2t):
     what, url, ext = get_url(submission)
     if what not in ('gif', 'img'):
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     title = submission.title
     link = submission.shortlink

@@ -16,7 +16,6 @@ t_channel = '@r_listentothis'
 
 
 def send_post(submission, r2t):
-    print('h!!i')
     what, url, ext = get_url(submission)
 
     # If this func returns:

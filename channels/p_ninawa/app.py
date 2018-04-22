@@ -47,9 +47,8 @@ def send_post(submission, r2t):
         base_url = submission.url
         text = '{}\n{}\n\n/r/{}\n{}'.format(title, base_url, subreddit, link)
         r2t.send_text(text)
-        r2t.send_album(url)
-        return True
+        return r2t.send_album(url)
     elif what in ('gif', 'img'):
         return r2t.send_gif_img(what, url, ext, text)
     else:
-        return False
+        pass

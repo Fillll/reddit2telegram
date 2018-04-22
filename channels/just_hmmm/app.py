@@ -1,6 +1,8 @@
 #encoding:utf-8
 
 from utils import get_url, weighted_random_subreddit
+from utils import SupplyResult
+
 
 subreddit = weighted_random_subreddit({
     'hmmmgifs': 1/3,
@@ -12,7 +14,7 @@ t_channel = '@just_hmmm'
 def send_post(submission, r2t):
     what, url, ext = get_url(submission)
     if what not in ('gif', 'img'):
-        return False
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     title = submission.title
     link = submission.shortlink
