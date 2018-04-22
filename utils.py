@@ -312,7 +312,9 @@ class Reddit2TelegramSender(object):
         if len(text) > 200:
             # text, next_text = self._split_200(text)
             logging.error('Long pic in {}.'.format(self.t_channel))
-            return self.send_text('[ ]({url}){t}'.format(t=text, url=url), disable_web_page_preview=False, parse_mode='Markdown')
+            return self.send_text('[﻿]({url}){text}'.format(text=text, url=url),
+                                    disable_web_page_preview=False,
+                                    parse_mode='Markdown')
         f = open(filename, 'rb')
         self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
@@ -323,13 +325,17 @@ class Reddit2TelegramSender(object):
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
-            self.telepot_bot.sendMessage(self.t_channel, text, disable_web_page_preview=disable_web_page_preview)
+            self.telepot_bot.sendMessage(self.t_channel, text,
+                                            disable_web_page_preview=disable_web_page_preview,
+                                            parse_mode=parse_mode)
             return SupplyResult.SUCCESSFULLY
         # If text is longer than 4096 symnols.
         next_text = text
         while len(next_text) > 0:
             new_text, next_text = self._split_4096(next_text)
-            self.telepot_bot.sendMessage(self.t_channel, new_text, disable_web_page_preview=disable_web_page_preview)
+            self.telepot_bot.sendMessage(self.t_channel, new_text,
+                                            disable_web_page_preview=disable_web_page_preview,
+                                            parse_mode=parse_mode)
             time.sleep(2)
         return SupplyResult.SUCCESSFULLY
 
