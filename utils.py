@@ -312,7 +312,7 @@ class Reddit2TelegramSender(object):
         if len(text) > 200:
             # text, next_text = self._split_200(text)
             logging.error('Long pic in {}.'.format(self.t_channel))
-            return self.send_text('[﻿]({url}){text}'.format(text=text, url=url),
+            return self.send_text('[ ]({url}) {text}'.format(text=text, url=url),
                                     disable_web_page_preview=False,
                                     parse_mode='Markdown')
         f = open(filename, 'rb')
