@@ -8,7 +8,7 @@ def send_post(submission, r2t):
     return r2t.send_simple(submission,
         text=False,
         gif=False,
-        img=True,
+        img='{title}\n{short_link}',
         album=False,
         other=False
     )
