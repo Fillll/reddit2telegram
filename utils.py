@@ -362,7 +362,12 @@ class Reddit2TelegramSender(object):
         return SupplyResult.SUCCESSFULLY
 
     def send_simple(self, submission, **kwargs):
-        what, url, ext = get_url(submission)
+        try:
+            what, url, ext = get_url(submission)
+        except Exception as e:
+            logging.info('HTTP fail prevented at {}!'.format(self.t_channel))
+            return SupplyResult.SKIP_FOR_NOW
+        
         formatters = {
             'what': what,
             'url': url,
