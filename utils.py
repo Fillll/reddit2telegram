@@ -312,9 +312,10 @@ class Reddit2TelegramSender(object):
         if len(text) > 200:
             # text, next_text = self._split_200(text)
             logging.error('Long pic in {}.'.format(self.t_channel))
-            return self.send_text('[ ]({url}) {text}'.format(text=text, url=url),
+            moded_text = '<a href="{url}">&#160;</a>{text}'.format(text=text, url=url)
+            return self.send_text(moded_text,
                                     disable_web_page_preview=False,
-                                    parse_mode='Markdown')
+                                    parse_mode='HTML')
         f = open(filename, 'rb')
         self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
