@@ -18,6 +18,7 @@ import yaml
 import pymongo
 import telepot
 from gfycat.client import GfycatClient
+from telepot.exception import TelegramError
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
@@ -303,26 +304,29 @@ class Reddit2TelegramSender(object):
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return SupplyResult.SUCCESSFULLY
 
+    def _send_img_as_link(self, url, text):
+        moded_text = '<a href="{url}">&#160;</a>{text}'.format(text=text, url=url)
+        return self.send_text(moded_text,
+                                disable_web_page_preview=False,
+                                parse_mode='HTML')
+
     def send_img(self, url, ext, text, parse_mode=None):
-        filename = self._get_file_name(ext)
-        # Download file
-        if not download_file(url, filename):
-            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-        next_text = ''
         if len(text) > 200:
-            # text, next_text = self._split_200(text)
-            logging.error('Long pic in {}.'.format(self.t_channel))
-            moded_text = '<a href="{url}">&#160;</a>{text}'.format(text=text, url=url)
-            return self.send_text(moded_text,
-                                    disable_web_page_preview=False,
-                                    parse_mode='HTML')
-        f = open(filename, 'rb')
-        self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
-        f.close()
-        if len(next_text) > 1:
-            time.sleep(2)
-            self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
-        return SupplyResult.SUCCESSFULLY
+            logging.info('Long pic in {}.'.format(self.t_channel))
+            return self._send_img_as_link(url, text)
+        try:
+            # Download and send as regular file
+            filename = self._get_file_name(ext)
+            if not download_file(url, filename):
+                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+            f = open(filename, 'rb')
+            self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
+            f.close()
+            return SupplyResult.SUCCESSFULLY
+        except TelegramError as e:
+            logging.warning('TelegramError prevented at {tc}.'.format(tc=self.t_channel))
+            # No idea how to handle PHOTO_INVALID_DIMENSIONS :(
+            return SupplyResult.SKIP_FOR_NOW
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
@@ -367,7 +371,7 @@ class Reddit2TelegramSender(object):
         except Exception as e:
             logging.info('HTTP fail prevented at {}!'.format(self.t_channel))
             return SupplyResult.SKIP_FOR_NOW
-        
+
         formatters = {
             'what': what,
             'url': url,
