@@ -143,7 +143,7 @@ def get_url(submission, mp4_instead_gif=True):
             else:
                 return TYPE_GIF, urls['max5mbGif'], 'gif'
         except KeyError:
-            logging.warning('Gfy fail prevented!')
+            logging.info('Gfy fail prevented!')
             return TYPE_OTHER, url, None
     else:
         return TYPE_OTHER, url, None
@@ -213,11 +213,14 @@ class Reddit2TelegramSender(object):
         self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
 
     def _store_stats(self):
-        self.stats.insert_one({
-            'channel': self.t_channel.lower(),
-            'ts': datetime.utcnow(),
-            'members_cnt': self.telepot_bot.getChatMembersCount(self.t_channel)
-        })
+        try:
+            self.stats.insert_one({
+                'channel': self.t_channel.lower(),
+                'ts': datetime.utcnow(),
+                'members_cnt': self.telepot_bot.getChatMembersCount(self.t_channel)
+            })
+        except Exception as e:
+            logging.error('Can not get channel stats.')
 
     def _get_file_name(self, ext):
         return os.path.join(TEMP_FOLDER,
