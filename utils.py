@@ -327,7 +327,7 @@ class Reddit2TelegramSender(object):
             f.close()
             return SupplyResult.SUCCESSFULLY
         except TelegramError as e:
-            logging.warning('TelegramError prevented at {tc}.'.format(tc=self.t_channel))
+            logging.info('TelegramError prevented at {tc}.'.format(tc=self.t_channel))
             # No idea how to handle PHOTO_INVALID_DIMENSIONS :(
             return SupplyResult.SKIP_FOR_NOW
 
@@ -401,7 +401,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
                 return self.send_gif(url, ext, text)
-
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_IMG:
             what_to_do = kwargs.get('img', True)
             if what_to_do:
@@ -409,7 +409,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
                 return self.send_img(url, ext, text)
-
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_ALBUM:
             what_to_do = kwargs.get('album', True)
             if what_to_do:
@@ -418,7 +418,7 @@ class Reddit2TelegramSender(object):
                     text = what_to_do.format(**formatters)
                 self.send_text(text)
                 return self.send_album(url)
-
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_TEXT:
             what_to_do = kwargs.get('text', True)
             if what_to_do:
@@ -426,7 +426,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
                 return self.send_text(text)
-        
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_OTHER:
             what_to_do = kwargs.get('other', True)
             if what_to_do:
@@ -434,6 +434,6 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do.format(**formatters)
                 return self.send_text(text)
-
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         else:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
