@@ -386,7 +386,7 @@ class Reddit2TelegramSender(object):
             'subreddit_name': submission.subreddit,
             'upvotes': submission.score,
             'channel': self.t_channel,
-            **kwargs.get('formatter', {})
+            **kwargs
         }
 
         if kwargs.get('check_dups', False):
