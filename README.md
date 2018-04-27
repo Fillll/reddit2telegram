@@ -94,6 +94,7 @@ Currently alive channels
 | [/r/mildlyinteresting](https://www.reddit.com/r/mildlyinteresting/) | [@r_mild](https://t.me/r_mild) | 1 hour |
 | [/r/Eyebleach](https://www.reddit.com/r/Eyebleach/) | [@get_happiness](https://t.me/get_happiness) | 1 hour |
 | [SWFPORN](https://www.reddit.com/r/sfwpornnetwork/wiki/network) | [@r_porn](https://t.me/r_porn) | 1 hour |
+| [/r/formula1](https://www.reddit.com/r/formula1/) | [@r_formula1](https://t.me/r_formula1) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
