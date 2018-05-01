@@ -96,6 +96,7 @@ Currently alive channels
 | [SWFPORN](https://www.reddit.com/r/sfwpornnetwork/wiki/network) | [@r_porn](https://t.me/r_porn) | 1 hour |
 | [/r/formula1](https://www.reddit.com/r/formula1/) | [@r_formula1](https://t.me/r_formula1) | 1 hour |
 | [/r/cpp](https://www.reddit.com/r/cpp/) | [@r_cpp](https://t.me/r_cpp) | 1 hour |
+| [/r/gaming](https://www.reddit.com/r/gaming/) | [@r_gaming](https://t.me/r_gaming) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
