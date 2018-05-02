@@ -108,14 +108,6 @@ subreddit = weighted_random_subreddit({
 t_channel = '@r_porn'
 
 
-def human_format(num, round_to=1):
-    magnitude = 0
-    while abs(num) >= 1000:
-        magnitude += 1
-        num = round(num / 1000.0, round_to)
-    return '{:.{}f}{}'.format(round(num, round_to), round_to, ['', 'k', 'M', 'G', 'T', 'P'][magnitude])
-
-
 def send_post(submission, r2t):
     limit_on_upvotes = {
         'AbandonedPorn': 1000,
@@ -220,14 +212,12 @@ def send_post(submission, r2t):
         'winterporn': 150
     }
 
-    upvotes = submission.score
-    if upvotes < limit_on_upvotes[subreddit]:
-        return SupplyResult.SKIP_FOR_NOW
-
-    return r2t.send_simple(submission, check_dups=True, score_value=human_format(upvotes),
-        text='{title}\n\n{self_text}\n\n{score_value} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
-        other='{title}\n{link}\n\n{score_value} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
-        album='{title}\n{link}\n\n{score_value} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
-        gif='{title}\n\n{score_value} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
-        img='{title}\n\n{score_value} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}'
+    return r2t.send_simple(submission,
+        check_dups=True,
+        upvotes_limit=limit_on_upvotes[subreddit],
+        text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
+        other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
+        album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
+        gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
+        img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}'
     )

@@ -369,6 +369,55 @@ class Reddit2TelegramSender(object):
         return SupplyResult.SUCCESSFULLY
 
     def send_simple(self, submission, **kwargs):
+        '''
+        Universal send method for most of the channels.
+
+        Parameters
+        ----------
+        submission : praw.submission
+            Reddit submission we are going to check.
+        gif : boolean or formatted_string, optional
+            False if this king of submissions is not needed.
+            True (default) if default text if ok.
+            formatted_string if special formatting is needed.
+        img : description is same as for `gif`.
+        album : description is same as for `gif`.
+        text : description is same as for `gif`.
+        other : description is same as for `gif`.
+        check_dups : boolean, optional
+            Will check whether submission content is duplicate or not.
+        upvotes_limit : int, optional
+            If specified, then only post higher that limit will be posted.
+        any other parameter : to be used in formatting.
+
+        Returns
+        -------
+        SupplyResult
+            Is submission posted to telegram or not.
+
+        Raises
+        ------
+        Exception
+            When exception.
+        '''
+        def human_format(num, round_to=1):
+            magnitude = 0
+            while abs(num) >= 1000:
+                magnitude += 1
+                num = round(num / 1000.0, round_to)
+                if magnitude == 5:
+                    break
+            num = str(num)
+            while (num.endswith('0')) and ('.' in num):
+                num = num[0:-1]
+            if num.endswith('.'):
+                num = num[0:-1]
+            return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
+
+        upvotes_limit = kwargs.get('upvotes_limit', None)
+        if (upvotes_limit is not None) and (submission.score < upvotes_limit):
+            return SupplyResult.SKIP_FOR_NOW
+
         try:
             what, url, ext = get_url(submission)
         except Exception as e:
@@ -384,7 +433,8 @@ class Reddit2TelegramSender(object):
             'link': submission.url,
             'short_link': submission.shortlink,
             'subreddit_name': submission.subreddit,
-            'upvotes': submission.score,
+            'score': submission.score,
+            'upvotes': human_format(submission.score),
             'channel': self.t_channel,
             **kwargs
         }
