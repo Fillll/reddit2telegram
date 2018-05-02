@@ -99,6 +99,7 @@ Currently alive channels
 | [/r/gaming](https://www.reddit.com/r/gaming/) | [@r_gaming](https://t.me/r_gaming) | 1 hour |
 | [/r/dontdeadopeninside](https://www.reddit.com/r/dontdeadopeninside/) | [@r_dontdeadopeninside](https://t.me/r_dontdeadopeninside) | 1 hour |
 | [/r/linux](https://www.reddit.com/r/linux/) | [@r_linux](https://t.me/r_linux) | 1 hour |
+| [/r/android](https://www.reddit.com/r/android/) | [@reddit_android](https://t.me/reddit_android) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
