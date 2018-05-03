@@ -440,6 +440,8 @@ class Reddit2TelegramSender(object):
         }
 
         if kwargs.get('check_dups', False):
+            # Check if there is a duplicate
+            # If not — save content
             if self.dup_check_and_mark(url):
                 # There is a duplicate
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
@@ -447,42 +449,47 @@ class Reddit2TelegramSender(object):
         if what == TYPE_GIF:
             what_to_do = kwargs.get('gif', True)
             if what_to_do:
-                text = '{title}\n{short_link}\n{channel}'.format(**formatters)
+                text = '{title}\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
-                    text = what_to_do.format(**formatters)
+                    text = what_to_do
+                text = text.format(**formatters)
                 return self.send_gif(url, ext, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_IMG:
             what_to_do = kwargs.get('img', True)
             if what_to_do:
-                text = '{title}\n{short_link}\n{channel}'.format(**formatters)
+                text = '{title}\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
-                    text = what_to_do.format(**formatters)
+                    text = what_to_do
+                text = text.format(**formatters)
                 return self.send_img(url, ext, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_ALBUM:
             what_to_do = kwargs.get('album', True)
             if what_to_do:
-                text = '{title}\n{link}\n\n{short_link}\n{channel}'.format(**formatters)
+                text = '{title}\n{link}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
-                    text = what_to_do.format(**formatters)
+                    text = what_to_do
+                text = text.format(**formatters)
                 self.send_text(text)
                 return self.send_album(url)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_TEXT:
             what_to_do = kwargs.get('text', True)
             if what_to_do:
-                text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'.format(**formatters)
+                text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
-                    text = what_to_do.format(**formatters)
+                    text = what_to_do
+                text = text.format(**formatters)
                 return self.send_text(text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_OTHER:
             what_to_do = kwargs.get('other', True)
             if what_to_do:
-                text = '{title}\n{link}\n\n{short_link}\n{channel}'.format(**formatters)
+                text = '{title}\n{link}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
-                    text = what_to_do.format(**formatters)
+                    text = what_to_do
+                text = text.format(**formatters)
                 return self.send_text(text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         else:
