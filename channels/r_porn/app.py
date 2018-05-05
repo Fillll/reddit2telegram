@@ -214,7 +214,7 @@ def send_post(submission, r2t):
 
     return r2t.send_simple(submission,
         check_dups=True,
-        upvotes_limit=limit_on_upvotes[subreddit],
+        min_upvotes_limit=limit_on_upvotes[subreddit],
         text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
         other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
         album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',

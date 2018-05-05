@@ -386,7 +386,7 @@ class Reddit2TelegramSender(object):
         other : description is same as for `gif`.
         check_dups : boolean, optional
             Will check whether submission content is duplicate or not.
-        upvotes_limit : int, optional
+        min_upvotes_limit : int, optional
             If specified, then only post higher that limit will be posted.
         any other parameter : to be used in formatting.
 
@@ -414,8 +414,8 @@ class Reddit2TelegramSender(object):
                 num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
-        upvotes_limit = kwargs.get('upvotes_limit', None)
-        if (upvotes_limit is not None) and (submission.score < upvotes_limit):
+        min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
+        if (min_upvotes_limit is not None) and (submission.score < min_upvotes_limit):
             return SupplyResult.SKIP_FOR_NOW
 
         try:
