@@ -12,6 +12,8 @@ def send_post(submission, r2t):
     what, _, _ = get_url(submission)
     if what != 'text':
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+    if submission.score < 111:
+        return SupplyResult.SKIP_FOR_NOW
     texts = [submission.title]
     punchline = submission.selftext.strip()
     if len(punchline) > 0:
