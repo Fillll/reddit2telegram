@@ -1,7 +1,7 @@
 MASK	submodule_name
 00 * * * *	r_gifs
 00 * * * *	r_wholesomememes
-01 * * * *	r_unexpected
+01,30 * * * *	r_unexpected
 01-10 0 * * *	r_til
 02 * * * *	r_funny
 03 * * * *	r_me_irl
@@ -57,7 +57,6 @@ MASK	submodule_name
 29 * * * *	p_ninawa
 29 * * * *	r_indiaa
 30 * * * *	asiangirlsbeingcute
-30 * * * *	r_unexpected
 30 * * * *	pythondaily
 31 * * * *	r_listentothis
 32 * * * *	r_pantsu
