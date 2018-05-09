@@ -213,6 +213,7 @@ class Reddit2TelegramSender(object):
         self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
 
     def _store_stats(self):
+        time.sleep(2)
         try:
             self.stats.insert_one({
                 'channel': self.t_channel.lower(),
@@ -221,6 +222,7 @@ class Reddit2TelegramSender(object):
             })
         except Exception as e:
             logging.error('Can not get channel stats.')
+        time.sleep(2)
 
     def _get_file_name(self, ext):
         return os.path.join(TEMP_FOLDER,
