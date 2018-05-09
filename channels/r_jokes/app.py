@@ -20,6 +20,11 @@ def send_post(submission, r2t):
     if what != 'text':
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
+    # If there is not enough upvotes, let's check this submission
+    # next time.
+    if submission.score < 111:
+        return SupplyResult.SKIP_FOR_NOW
+
     # To read more about dealing with reddit submission please
     # visit https://praw.readthedocs.io/.
     title = submission.title
