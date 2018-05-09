@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-from utils import weighted_random_subreddit, SupplyResult
+from utils import weighted_random_subreddit
 
 
 subreddit = weighted_random_subreddit({
@@ -29,7 +29,7 @@ subreddit = weighted_random_subreddit({
     'DesignPorn': 355,
     'DessertPorn': 46,
     'DestructionPorn': 58,
-    'EarthPorn': 15150,
+    'EarthPorn': 10000,
     'EarthlingPorn': 5,
     'ExposurePorn': 194,
     'F1Porn': 24,
@@ -60,7 +60,7 @@ subreddit = weighted_random_subreddit({
     'MushroomPorn': 8,
     'NewsPorn': 28,
     'OrganizationPorn': 22,
-    'QuotesPorn': 371,
+    'QuotesPorn': 200,
     'RetroGamePorn': 4,
     'RidesPorn': 5,
     'RoomPorn': 721,
@@ -166,7 +166,7 @@ def send_post(submission, r2t):
         'MushroomPorn': 50,
         'NewsPorn': 100,
         'OrganizationPorn': 200,
-        'QuotesPorn': 500,
+        'QuotesPorn': 1000,
         'RetroGamePorn': 50,
         'RidesPorn': 50,
         'RoomPorn': 1600,
