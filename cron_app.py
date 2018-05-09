@@ -3,6 +3,7 @@
 import datetime
 import csv
 import logging
+from multiprocessing import Process
 
 import yaml
 from croniter import croniter
@@ -26,13 +27,15 @@ def read_own_cron(own_cron_filename, config):
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
                 # print(row['submodule_name'], diff_seconds)
-                supply(row['submodule_name'], config)
+                # supply(row['submodule_name'], config)
+                supplying_process = Process(target=supply, args=(row['submodule_name'], config))
+                supplying_process.start()
 
 
 def main(config_filename):
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
-    read_own_cron('own.cron', config)
+        read_own_cron('own.cron', config)
 
 
 if __name__ == '__main__':
