@@ -102,6 +102,7 @@ Currently alive channels
 | [/r/android](https://www.reddit.com/r/android/) | [@reddit_android](https://t.me/reddit_android) | 1 hour |
 | [/r/techsupportgore](https://www.reddit.com/r/techsupportgore/) | [@r_TechSupportGore](https://t.me/r_TechSupportGore) | 1 hour |
 | [/r/india](https://www.reddit.com/r/india/) | [@r_indiaa](https://t.me/r_indiaa) | 1 hour |
+| [/r/dndgreentext](https://www.reddit.com/r/dndgreentext/) | [@r_dndgreentext](https://t.me/r_dndgreentext) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
