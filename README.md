@@ -81,7 +81,7 @@ Currently alive channels
 | [/r/wow](https://www.reddit.com/r/wow/) | [@r_wow](https://t.me/r_wow) | 1 hour |
 | [/r/minecraft](https://www.reddit.com/r/minecraft/) | [@r_minecraft](https://t.me/r_minecraft) | 1 hour |
 | [/r/maybemaybemaybe](https://www.reddit.com/r/maybemaybemaybe/) | [@MaybeMaybeMaybe](https://t.me/MaybeMaybeMaybe) | 1 hour |
-| [/r/wholesomeMemes](https://www.reddit.com/r/wholesomeMemes/), [/r/wholesomeAnimemes](https://www.reddit.com/r/wholesomeAnimemes/), [/r/wholesomeGifs](https://www.reddit.com/r/wholesomeGifs/), [/r/wholesomeComics](https://www.reddit.com/r/wholesomeComics/) | [@r_wholesomememes](https://t.me/r_wholesomememes) | 1 hour |
+| [/r/wholesomeMemes](https://www.reddit.com/r/wholesomeMemes/), [/r/wholesomeAnimemes](https://www.reddit.com/r/wholesomeAnimemes/), [/r/wholesomeGifs](https://www.reddit.com/r/wholesomeGifs/), [/r/wholesomeComics](https://www.reddit.com/r/wholesomeComics/) | [@r_wholesomememes](https://t.me/r_wholesomememes) | 2 hours |
 | [/r/BetterEveryLoop](https://www.reddit.com/r/BetterEveryLoop/) | [@BetterEveryLoop](https://t.me/BetterEveryLoop) | 1 hour |
 | [/r/streetwear](https://www.reddit.com/r/streetwear/), [/r/malefashion](https://www.reddit.com/r/malefashion/) | [@r_streetwear](https://t.me/r_streetwear) | 1 hour |
 | [/r/arthelpreddit](https://www.reddit.com/r/arthelpreddit/) | [@arthelpreddit](https://t.me/arthelpreddit) | 1 hour |
