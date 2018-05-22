@@ -210,6 +210,7 @@ class Reddit2TelegramSender(object):
 
     def _make_mongo_connections(self):
         self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']
+        self.stats.ensure_index([('channel', pymongo.ASCENDING), ('ts', pymongo.ASCENDING)])
         self.urls = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['urls']
         self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
 

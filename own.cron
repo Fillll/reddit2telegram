@@ -70,6 +70,7 @@ MASK	submodule_name
 37 * * * *	r_bitcoin
 38 * * * *	freefolk
 40 * * * *	ya_metro
+40 12 * * sat	tech_weekly_radar
 41 * * * *	r_fantheories
 42 * * * *	r_slimerancher
 43 * * * *	r_googleplaydeals
