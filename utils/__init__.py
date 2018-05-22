@@ -205,7 +205,8 @@ class Reddit2TelegramSender(object):
         self.telepot_bot = telepot.Bot(self.config['telegram']['token'])
         self.t_channel = t_channel
         self._make_mongo_connections()
-        self._store_stats()
+        # self._store_stats()
+        time.sleep(2)
 
     def _make_mongo_connections(self):
         self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']

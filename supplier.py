@@ -48,7 +48,7 @@ def supply(submodule_name, config):
 def main(config_filename, sub):
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
-    supply(sub, config)
+        supply(sub, config)
 
 
 if __name__ == '__main__':

@@ -26,6 +26,10 @@ def get_names(admins):
     return admins_names
 
 
+def get_admins_list(r2t, channel_name):
+    return get_names(r2t.telepot_bot.getChatAdministrators(channel_name))
+
+
 def read_cron_and_get_admins(own_cron_filename, output_filename, config):
     with open(own_cron_filename) as cron_tsv_file, open(output_filename, 'w') as output_admin_file:
         tsv_reader = csv.DictReader(cron_tsv_file, delimiter='\t')
@@ -35,9 +39,11 @@ def read_cron_and_get_admins(own_cron_filename, output_filename, config):
         for row in tsv_reader:
             submodule = importlib.import_module('channels.{}.app'.format(row['submodule_name']))
             channel = submodule.t_channel
-            admins = r2t.telepot_bot.getChatAdministrators(channel)
-            results = {'CHANNEL': channel, 'ADMINS': ', '.join(get_names(admins)), 'SUBMODULE': row['submodule_name']}
-            print(results)
+            results = {
+                'CHANNEL': channel,
+                'ADMINS': ', '.join(get_admins_list(r2t, channel)),
+                'SUBMODULE': row['submodule_name']
+            }
             tsv_writer.writerow(results)
             time.sleep(2)
 
