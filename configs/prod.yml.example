@@ -9,3 +9,4 @@ reddit:
   user_agent: "Secret:Reddit_user_agent:v01 (by any /u/redditor)"
   client_id: "client_id"
   client_secret: "client_secret"
+cron_file: "own.cron"

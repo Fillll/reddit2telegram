@@ -37,7 +37,7 @@ def read_own_cron(own_cron_filename, config):
 def main(config_filename):
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
-        read_own_cron('own.cron', config)
+        read_own_cron(config['cron_file'], config)
 
 
 if __name__ == '__main__':
