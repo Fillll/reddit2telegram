@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-from utils import get_url, weighted_random_subreddit
+from utils import get_url
 from utils import SupplyResult
 
 
