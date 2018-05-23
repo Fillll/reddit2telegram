@@ -106,7 +106,7 @@ Currently alive channels
 | [/r/dndmemes](https://www.reddit.com/r/dndmemes/) | [@r_dndmemes](https://t.me/r_dndmemes) | 1 hour |
 | [/r/gametales](https://www.reddit.com/r/gametales/) | [@r_gametales](https://t.me/r_gametales) | 1 hour |
 | [/r/wheredidthesodago](https://www.reddit.com/r/wheredidthesodago/) | [@r_wheredidthesodago](https://t.me/r_wheredidthesodago) | 1 hour |
-| [/r/chemicalreactionsgifs](https://www.reddit.com/r/chemicalreactionsgifs/) | [@r_chemicalreactionsgifs](https://t.me/r_chemicalreactionsgifs) | 1 hour |
+| [/r/chemicalreactiongifs](https://www.reddit.com/r/chemicalreactiongifs/) | [@r_chemicalreactiongifs](https://t.me/r_chemicalreactiongifs) | 1 hour |
 | [/r/SwitchHacks](https://www.reddit.com/r/SwitchHacks/) | [@r_SwitchHacks](https://t.me/r_SwitchHacks) | 1 hour |
 |  | ... be the next one ... |  |@
 
