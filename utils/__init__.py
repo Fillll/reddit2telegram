@@ -412,10 +412,11 @@ class Reddit2TelegramSender(object):
                 if magnitude == 5:
                     break
             num = str(num)
-            while (num.endswith('0')) and ('.' in num):
-                num = num[0:-1]
-            if num.endswith('.'):
-                num = num[0:-1]
+            if magnitude > 0:
+                while (num.endswith('0')) and ('.' in num):
+                    num = num[0:-1]
+                if num.endswith('.'):
+                    num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
