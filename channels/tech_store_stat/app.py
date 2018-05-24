@@ -4,6 +4,7 @@ import csv
 import importlib
 import time
 from datetime import datetime
+import random
 
 import yaml
 
@@ -40,7 +41,7 @@ def send_post(submission, r2t):
         for row in tsv_reader:
             submodule_name = row['submodule_name']
             all_channels.add(submodule_name)
-    for submodule_name in all_channels:
+    for submodule_name in random.sample(all_channels, k=len(all_channels)):
         time.sleep(10)
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         channel_name = submodule.t_channel
