@@ -412,7 +412,7 @@ class Reddit2TelegramSender(object):
                 if magnitude == 5:
                     break
             num = str(num)
-            if magnitude = 0:
+            if magnitude == 0:
                 while (num.endswith('0')) and ('.' in num):
                     num = num[0:-1]
                 if num.endswith('.'):
