@@ -89,3 +89,18 @@ def get_top_growers_for_last_week(r2t, channels_list):
         if grow >= 10:
             top_growers[channel] = grow
     return sorted(top_growers, key=top_growers.get, reverse=True)[:3]
+
+
+def is_birthday_today(r2t, channel_name):
+    today = datetime.datetime.utcnow().date()
+    first_record_cursor = r2t.stats.find({
+        'channel': channel_name.lower()
+    }).sort([('ts', pymongo.ASCENDING)]).limit(5)
+    for record in first_record_cursor:
+        if 'ts' in record:
+            birth_date = record['ts']
+            break
+    if birth_date.replace(year=today.year).date() == today:
+        return True, today.year - birth_date.year
+    else:
+        return False, None
