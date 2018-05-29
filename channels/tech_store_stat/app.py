@@ -1,22 +1,13 @@
 #encoding:utf-8
 
-import csv
 import importlib
 import time
 from datetime import datetime
 import random
 
-import yaml
-
 from utils import SupplyResult
 from utils.get_all_admins import get_admins_list
-
-
-def get_dev_channel(config_filename=None):
-    config_filename = 'configs/prod.yml'
-    with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
-        return config['telegram']['dev_chat']
+from utils.tech import get_dev_channel, get_all_submodules
 
 
 subreddit = 'all'
@@ -26,22 +17,14 @@ t_channel = get_dev_channel()
 def send_post(submission, r2t):
     r2t.send_text('Regular bypass started.')
     time.sleep(1)
-    config_filename = 'configs/prod.yml'
-    with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
     total = {
         'channels': 0,
         'members': 0,
         'admins': 0,
         'errors': 0
     }
-    all_channels = set()
-    with open(config['cron_file']) as tsv_file:
-        tsv_reader = csv.DictReader(tsv_file, delimiter='\t')
-        for row in tsv_reader:
-            submodule_name = row['submodule_name']
-            all_channels.add(submodule_name)
-    for submodule_name in random.sample(all_channels, k=len(all_channels)):
+    all_submodules = get_all_submodules()
+    for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
         time.sleep(10)
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         channel_name = submodule.t_channel
