@@ -8,7 +8,7 @@ from utils.tech import generate_list_of_channels, get_top_growers_for_last_week
 
 
 subreddit = 'all'
-t_channel = '@r_channels_test'
+t_channel = '@r_channels'
 
 
 def send_post(submission, r2t):
