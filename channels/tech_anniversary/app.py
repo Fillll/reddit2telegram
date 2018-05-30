@@ -23,7 +23,7 @@ def send_post(submission, r2t):
             r2t.send_text('{channel} is {years} year{s} old.'.format(channel=channel, years=years, s=plural))
             time.sleep(10)
             r2t.t_channel = '@r_channels_test'
-            text_to_send = '🎂🎂🎂\nToday channel {channe} is {years_cnt}{s} years old.\n'.format(
+            text_to_send = '🎂🎂🎂\nToday channel {channe} is {years_cnt} year{s} old.\n'.format(
                 channel=channel, years_cnt=years, s=plural)
             text_to_send += 'Congratulations! 🎈🎉🎉\n\n'
             list_of_channels = generate_list_of_channels(channels_list, random_permutation=True)
