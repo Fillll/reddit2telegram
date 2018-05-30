@@ -1,56 +1,46 @@
 #encoding:utf-8
 
-from utils import get_url, weighted_random_subreddit
+# Some utils can be useful.
+from utils import get_url
 from utils import SupplyResult
 
 
-# Subreddit that will be a source of content
-subreddit = weighted_random_subreddit({
-    'funny': 1.0,
-    # If we want get content from several subreddits
-    # please provide here 'subreddit': probability
-    # 'any_other_subreddit': 0.02
-})
-# Telegram channel with @reddit2telegram_bot as an admin
-t_channel = '@r_funny'
+# Write here subreddit name. Like this one for /r/jokes.
+subreddit = 'Saarbrueckerkreis'
+# This is for your public telegram channel.
+t_channel = '@Saarbrueckerkreis'
 
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
+    # Check what is inside this submission.
+    what, _, _ = get_url(submission)
 
-    # If this func returns:
-    # False – it means that we will not send
-    # this submission, let's move to the next.
-    # True – everything is ok, we send the submission
-    # None – we do not want to send anything this time,
-    # let's just sleep.
+    # If inside is something but not text
+    # then we do not need this submission.
+    #if what != 'text':
+    #    return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
-    # Get all data from submission that we need
+    # If there is not enough upvotes, let's check this submission
+    # next time.
+    #if submission.score < 0:
+    #    return SupplyResult.SKIP_FOR_NOW
+
+    # To read more about dealing with reddit submission please
+    # visit https://praw.readthedocs.io/.
     title = submission.title
+    punchline = submission.selftext
     link = submission.shortlink
-    text = '{}\n{}'.format(title, link)
+    text = '{title}\n\n{body}\n\n{link}\n{channel}'.format(
+            title=title, body=punchline, link=link, channel=t_channel)
 
-    if what == 'text':
-        # If it is text submission, it is not really funny.
-        # return r2t.send_text(submission.selftext)
-        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-    elif what == 'other':
-        # Also we are not interesting in any other content.
-        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-    elif what == 'album':
-        # It is ok if it is an album.
-        base_url = submission.url
-        text = '{}\n{}\n\n{}'.format(title, base_url, link)
-        r2t.send_text(text)
-        r2t.send_album(url)
-        return SupplyResult.SUCCESSFULLY
-    elif what in ('gif', 'img'):
-        # Also it is ok if it is gif or any kind of image.
+    # Long jokes are weired.
+    #if len(text) > 3210:
+    #    return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
-        # Check if content has already appeared in
-        # out telegram channel.
-        if r2t.dup_check_and_mark(url) is True:
-            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-        return r2t.send_gif_img(what, url, ext, text)
-    else:
-        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+    # To read more about sending massages to telegram please
+    # visit https://github.com/nickoala/telepot/tree/master/examples/simple
+    # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
+
+    # Return True, if this submission is suitable for sending and was sent,
+    # if not – return False.
+    return r2t.send_text(text, disable_web_page_preview=True)
