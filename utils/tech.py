@@ -104,3 +104,10 @@ def is_birthday_today(r2t, channel_name):
         return True, today.year - birth_date.year
     else:
         return False, None
+
+
+def default_ending():
+    text_to_send = '🙋\nQ: How can I help?\nA: Promote your favorite channels!\n\n'
+    text_to_send += 'Q: How to make similar channels?\nA: Ask here or use manual at https://github.com/Fillll/reddit2telegram.\n\n'
+    text_to_send += 'Q: Where to donate?\nA: http://bit.ly/r2t_donate'
+    return text_to_send
