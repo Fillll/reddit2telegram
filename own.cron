@@ -73,6 +73,7 @@ MASK	submodule_name
 37 * * * *	r_bitcoin
 37 * * * *	r_books
 38 * * * *	freefolk
+38 * * * *	r_suggest
 39 11 * * *	tech_anniversary
 40 * * * *	ya_metro
 40 12 * * sat	tech_weekly_radar

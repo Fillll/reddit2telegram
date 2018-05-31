@@ -109,6 +109,7 @@ Currently alive channels
 | [/r/chemicalreactiongifs](https://www.reddit.com/r/chemicalreactiongifs/) | [@r_chemicalreactiongifs](https://t.me/r_chemicalreactiongifs) | 1 hour |
 | [/r/SwitchHacks](https://www.reddit.com/r/SwitchHacks/) | [@r_SwitchHacks](https://t.me/r_SwitchHacks) | 1 hour |
 | [/r/books](https://www.reddit.com/r/books/) | [@r_books](https://t.me/r_books) | 1 hour |
+| [/r/suggestmeabook](https://www.reddit.com/r/suggestmeabook/) | [@r_suggest](https://t.me/r_suggest) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
