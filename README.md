@@ -108,6 +108,7 @@ Currently alive channels
 | [/r/wheredidthesodago](https://www.reddit.com/r/wheredidthesodago/) | [@r_wheredidthesodago](https://t.me/r_wheredidthesodago) | 1 hour |
 | [/r/chemicalreactiongifs](https://www.reddit.com/r/chemicalreactiongifs/) | [@r_chemicalreactiongifs](https://t.me/r_chemicalreactiongifs) | 1 hour |
 | [/r/SwitchHacks](https://www.reddit.com/r/SwitchHacks/) | [@r_SwitchHacks](https://t.me/r_SwitchHacks) | 1 hour |
+| [/r/books](https://www.reddit.com/r/books/) | [@r_books](https://t.me/r_books) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
