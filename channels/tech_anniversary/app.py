@@ -19,17 +19,20 @@ def send_post(submission, r2t):
         if bd_party:
             time.sleep(10)
             r2t.t_channel = get_dev_channel()
-            plural = 's' if years > 1 else ''
+            plural = 's' if years != 1 else ''
             r2t.send_text('{channel} is {years} year{s} old.'.format(channel=channel, years=years, s=plural))
             time.sleep(10)
             r2t.t_channel = '@r_channels_test'
-            text_to_send = '🎂🎂🎂\nToday channel {channel} is {years_cnt} year{s} old.\n'.format(
+            text_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old. '.format(
                 channel=channel, years_cnt=years, s=plural)
             text_to_send += 'Congratulations! 🎈🎉🎉\n\n'
             list_of_channels = generate_list_of_channels(channels_list, random_permutation=True)
             text_to_send += 'Other channels powered by @r_channels:\n{list_of_channels}\n\n'.format(
                 list_of_channels='\n'.join(list_of_channels))
             text_to_send += default_ending()
+            r2t.send_text(text_to_send)
+            time.sleep(10)
+            r2t.t_channel = get_dev_channel()
             r2t.send_text(text_to_send)
 
     # It's not a proper supply, so just stop.

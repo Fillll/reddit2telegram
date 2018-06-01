@@ -96,18 +96,22 @@ def is_birthday_today(r2t, channel_name):
     first_record_cursor = r2t.stats.find({
         'channel': channel_name.lower()
     }).sort([('ts', pymongo.ASCENDING)]).limit(5)
+    birth_date = None
     for record in first_record_cursor:
         if 'ts' in record:
             birth_date = record['ts']
             break
-    if birth_date.replace(year=today.year).date() == today:
-        return True, today.year - birth_date.year
+    if birth_date is None:
+        return False, None
+    year_diff = today.year - birth_date.year
+    if (birth_date.replace(year=today.year).date() == today) and year_diff > 0:
+        return True, year_diff
     else:
         return False, None
 
 
 def default_ending():
     text_to_send = '🙋\nQ: How can I help?\nA: Promote your favorite channels!\n\n'
-    text_to_send += 'Q: How to make similar channels?\nA: Ask here or use manual at https://github.com/Fillll/reddit2telegram.\n\n'
+    text_to_send += 'Q: How to make similar channels?\nA: Ask at @r_channels or use manual at https://github.com/Fillll/reddit2telegram.\n\n'
     text_to_send += 'Q: Where to donate?\nA: http://bit.ly/r2t_donate'
     return text_to_send
