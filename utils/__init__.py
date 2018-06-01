@@ -250,7 +250,8 @@ class Reddit2TelegramSender(object):
                 'url': url.lower()
             },
             {
-                '$inc': {'cnt': 1}
+                '$inc': {'cnt': 1},
+                '$set': {'ts': datetime.utcnow()}
             },
             projection={'cnt': True, '_id': False},
             return_document=ReturnDocument.AFTER,
