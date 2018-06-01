@@ -264,10 +264,10 @@ class Reddit2TelegramSender(object):
         })
         if result is None:
             return False
-        elif result['cnt'] <= ERRORS_CNT_LIMIT:
-            return False
-        else:
+        elif result['cnt'] >= ERRORS_CNT_LIMIT:
             return True
+        else:
+            return False
 
     def was_before(self, url):
         result = self.urls.find_one({
