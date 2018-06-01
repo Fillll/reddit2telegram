@@ -279,12 +279,12 @@ class Reddit2TelegramSender(object):
         else:
             return True
 
-    def mark_as_was_before(self, url, not_wanted=False):
+    def mark_as_was_before(self, url, not_wanted=True):
         self.urls.insert_one({
             'url': url,
             'ts': datetime.utcnow(),
             'channel': self.t_channel.lower(),
-            'not_wanted': not_wanted
+            'sent': sent
         })
 
     def dup_check_and_mark(self, url):
