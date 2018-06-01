@@ -32,10 +32,15 @@ def send_report_to_dev_chat(exc):
     title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
     if 'submission' in local_vars:
         link = local_vars['submission'].shortlink
-        title = '{}\nlink: {}'.format(title, link)
-    report = '{}\n\n\n{}'.format(
-        title,
-        str(exc)
+        error_cnt = r2t.store_error_link(channel, link)
+        title = '{title}\nlink: {link}\nerror_cnt: {cnt}'.format(
+            title=title,
+            link=link,
+            cnt=error_cnt['cnt']
+        )
+    report = '{t}\n\n\n{e}'.format(
+        t=title,
+        e=exc
     )
     r2t.send_text(report)
 
@@ -45,9 +50,9 @@ def report_error(fn):
         try:
             fn(*args, **kwargs)
         except Exception as e:
-            send_report_to_dev_chat(e)
             if client:  # has sentry instance
                 client.captureException()
             else:
                 logging.exception('Exception Ignored.')
+            send_report_to_dev_chat(e)
     return wrapper

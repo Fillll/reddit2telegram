@@ -16,6 +16,7 @@ import enum
 from imgurpython import ImgurClient
 import yaml
 import pymongo
+from pymongo.collection import ReturnDocument
 import telepot
 from gfycat.client import GfycatClient
 from telepot.exception import TelegramError
@@ -41,6 +42,9 @@ TYPE_ALBUM = 'album'
 
 
 TEMP_FOLDER = 'tmp'
+
+
+ERRORS_CNT_LIMIT = 5
 
 
 @enum.unique
@@ -205,26 +209,17 @@ class Reddit2TelegramSender(object):
         self.telepot_bot = telepot.Bot(self.config['telegram']['token'])
         self.t_channel = t_channel
         self._make_mongo_connections()
-        # self._store_stats()
         time.sleep(2)
 
     def _make_mongo_connections(self):
         self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']
         self.stats.ensure_index([('channel', pymongo.ASCENDING), ('ts', pymongo.ASCENDING)])
         self.urls = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['urls']
+        self.urls.ensure_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
         self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
-
-    def _store_stats(self):
-        time.sleep(2)
-        try:
-            self.stats.insert_one({
-                'channel': self.t_channel.lower(),
-                'ts': datetime.utcnow(),
-                'members_cnt': self.telepot_bot.getChatMembersCount(self.t_channel)
-            })
-        except Exception as e:
-            logging.error('Can not get channel stats.')
-        time.sleep(2)
+        self.contents.ensure_index([('channel', pymongo.ASCENDING), ('md5_sum', pymongo.ASCENDING)])
+        self.errors = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['errors']
+        self.errors.ensure_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
 
     def _get_file_name(self, ext):
         return os.path.join(TEMP_FOLDER,
@@ -248,6 +243,32 @@ class Reddit2TelegramSender(object):
         next_text = text[4096:]
         return new_text, next_text
 
+    def store_error_link(self, channel, url):
+        return self.errors.find_one_and_update(
+            {
+                'channel': channel.lower(),
+                'url': url.lower()
+            },
+            {
+                '$inc': {'cnt': 1}
+            },
+            projection={'cnt': True, '_id': False},
+            return_document=ReturnDocument.AFTER,
+            upsert=True
+        )
+
+    def too_much_errors(self, url):
+        result = self.errors.find_one({
+            'channel': self.t_channel.lower(),
+            'url': url.lower()
+        })
+        if result is None:
+            return False
+        elif result['cnt'] <= ERRORS_CNT_LIMIT:
+            return False
+        else:
+            return True
+
     def was_before(self, url):
         result = self.urls.find_one({
             'channel': self.t_channel.lower(),
@@ -258,11 +279,12 @@ class Reddit2TelegramSender(object):
         else:
             return True
 
-    def mark_as_was_before(self, url):
+    def mark_as_was_before(self, url, not_wanted=False):
         self.urls.insert_one({
             'url': url,
             'ts': datetime.utcnow(),
-            'channel': self.t_channel.lower()
+            'channel': self.t_channel.lower(),
+            'not_wanted': not_wanted
         })
 
     def dup_check_and_mark(self, url):

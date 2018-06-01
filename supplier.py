@@ -23,14 +23,16 @@ def supply(submodule_name, config):
         link = submission.shortlink
         if r2t.was_before(link):
             continue
+        if r2t.too_much_errors(link):
+            continue
         success = submodule.send_post(submission, r2t)
         if success == utils.SupplyResult.SUCCESSFULLY:
             # Every thing is ok, post was sent
-            r2t.mark_as_was_before(link)
+            r2t.mark_as_was_before(link, not_wanted=False)
             break
         elif success == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION:
             # Do not want to send this post
-            r2t.mark_as_was_before(link)
+            r2t.mark_as_was_before(link, not_wanted=True)
             continue
         elif success == utils.SupplyResult.SKIP_FOR_NOW:
             # Do not want to send now
