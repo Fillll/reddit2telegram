@@ -279,7 +279,7 @@ class Reddit2TelegramSender(object):
         else:
             return True
 
-    def mark_as_was_before(self, url, not_wanted=True):
+    def mark_as_was_before(self, url, sent=True):
         self.urls.insert_one({
             'url': url,
             'ts': datetime.utcnow(),
