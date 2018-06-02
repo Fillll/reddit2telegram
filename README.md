@@ -110,6 +110,7 @@ Currently alive channels
 | [/r/SwitchHacks](https://www.reddit.com/r/SwitchHacks/) | [@r_SwitchHacks](https://t.me/r_SwitchHacks) | 1 hour |
 | [/r/books](https://www.reddit.com/r/books/) | [@r_books](https://t.me/r_books) | 1 hour |
 | [/r/suggestmeabook](https://www.reddit.com/r/suggestmeabook/) | [@r_suggest](https://t.me/r_suggest) | 1 hour |
+| [/r/space](https://www.reddit.com/r/space/) | [@r_space](https://t.me/r_space) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
