@@ -22,7 +22,7 @@ def send_post(submission, r2t):
     text_to_send += '🏆 Channel of the week: {channel_name}. Join and enjoy!\n\n'.format(channel_name=random.choice(channels_list))
     if len(top_growers) > 0:
         text_to_send += '🔥 Hottest channels of the week: {channels}.\n\n'.format(channels=', '.join(top_growers))
-    list_of_channels = generate_list_of_channels(channels_list, random_permutation=True)
+    list_of_channels = generate_list_of_channels(channels_list, random_permutation=False)
     text_to_send += '⬇️ All active channels:\n{list_of_channels}\n\n'.format(list_of_channels='\n'.join(list_of_channels))
     text_to_send += default_ending()
     r2t.send_text(text_to_send, parse_mode='HTML')
