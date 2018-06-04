@@ -104,7 +104,7 @@ def is_birthday_today(r2t, channel_name):
     if birth_date is None:
         return False, None
     year_diff = today.year - birth_date.year
-    if (birth_date.replace(year=today.year).date() == today) and year_diff > 0:
+    if birth_date.replace(year=today.year).date() == today:
         return True, year_diff
     else:
         return False, None
