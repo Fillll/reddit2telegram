@@ -53,4 +53,4 @@ def send_post(submission, r2t):
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         return r2t.send_gif_img(what, url, ext, text)
     else:
-return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
