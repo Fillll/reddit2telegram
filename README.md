@@ -112,6 +112,7 @@ Currently alive channels
 | [/r/suggestmeabook](https://www.reddit.com/r/suggestmeabook/) | [@r_suggest](https://t.me/r_suggest) | 1 hour |
 | [/r/space](https://www.reddit.com/r/space/) | [@r_space](https://t.me/r_space) | 1 hour |
 | [/r/slygifs](https://www.reddit.com/r/slygifs/), [/r/WastedGifs](https://www.reddit.com/r/WastedGifs/), [/r/SFWPornGifs](https://www.reddit.com/r/SFWPornGifs/), [/r/NatureGifs](https://www.reddit.com/r/NatureGifs/), [/r/reversegif](https://www.reddit.com/r/reversegif/), [/r/EarthPornGifs](https://www.reddit.com/r/EarthPornGifs/) and [/r/AnimalPornGifs](https://www.reddit.com/r/AnimalPornGifs/) | [@gifsgalore](https://t.me/gifsgalore) | 1 hour |
+| [/r/wasletztepreis](https://www.reddit.com/r/wasletztepreis/) | [@r_wasletztepreis](https://t.me/r_wasletztepreis) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
