@@ -115,6 +115,7 @@ Currently alive channels
 | [/r/wasletztepreis](https://www.reddit.com/r/wasletztepreis/) | [@r_wasletztepreis](https://t.me/r_wasletztepreis) | 1 hour |
 | [/r/greentext](https://www.reddit.com/r/greentext/) | [@r_greentext](https://t.me/r_greentext) | 1 hour |
 | [/r/crappyoffbrands](https://www.reddit.com/r/crappyoffbrands/) | [@r_crappyoffbrands](https://t.me/r_crappyoffbrands) | 1 hour |
+| [/r/chemistry](https://www.reddit.com/r/chemistry/) | [@r_chemistry](https://t.me/r_chemistry) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
