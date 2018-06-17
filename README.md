@@ -114,6 +114,7 @@ Currently alive channels
 | [/r/slygifs](https://www.reddit.com/r/slygifs/), [/r/WastedGifs](https://www.reddit.com/r/WastedGifs/), [/r/SFWPornGifs](https://www.reddit.com/r/SFWPornGifs/), [/r/NatureGifs](https://www.reddit.com/r/NatureGifs/), [/r/reversegif](https://www.reddit.com/r/reversegif/), [/r/EarthPornGifs](https://www.reddit.com/r/EarthPornGifs/) and [/r/AnimalPornGifs](https://www.reddit.com/r/AnimalPornGifs/) | [@gifsgalore](https://t.me/gifsgalore) | 1 hour |
 | [/r/wasletztepreis](https://www.reddit.com/r/wasletztepreis/) | [@r_wasletztepreis](https://t.me/r_wasletztepreis) | 1 hour |
 | [/r/greentext](https://www.reddit.com/r/greentext/) | [@r_greentext](https://t.me/r_greentext) | 1 hour |
+| [/r/crappyoffbrands](https://www.reddit.com/r/crappyoffbrands/) | [@r_crappyoffbrands](https://t.me/r_crappyoffbrands) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
