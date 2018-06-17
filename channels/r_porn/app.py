@@ -5,7 +5,7 @@ from utils import weighted_random_subreddit
 
 subreddit = weighted_random_subreddit({
     'AbandonedPorn': 593,
-    'AdPorn': 81,
+    'AdPorn': 90,
     'AdrenalinePorn': 146,
     'AerialPorn': 20,
     'AgriculturePorn': 12,
@@ -29,7 +29,7 @@ subreddit = weighted_random_subreddit({
     'DesignPorn': 355,
     'DessertPorn': 46,
     'DestructionPorn': 58,
-    'EarthPorn': 10000,
+    'EarthPorn': 7000,
     'EarthlingPorn': 5,
     'ExposurePorn': 194,
     'F1Porn': 24,
