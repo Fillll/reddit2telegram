@@ -116,6 +116,7 @@ Currently alive channels
 | [/r/greentext](https://www.reddit.com/r/greentext/) | [@r_greentext](https://t.me/r_greentext) | 1 hour |
 | [/r/crappyoffbrands](https://www.reddit.com/r/crappyoffbrands/) | [@r_crappyoffbrands](https://t.me/r_crappyoffbrands) | 1 hour |
 | [/r/chemistry](https://www.reddit.com/r/chemistry/) | [@r_chemistry](https://t.me/r_chemistry) | 1 hour |
+| [/r/vim](https://www.reddit.com/r/vim/) | [@r_vim](https://t.me/r_vim) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
