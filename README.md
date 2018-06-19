@@ -119,6 +119,7 @@ Currently alive channels
 | [/r/vim](https://www.reddit.com/r/vim/) | [@r_vim](https://t.me/r_vim) | 1 hour |
 | [/r/talesfromtechsupport](https://www.reddit.com/r/talesfromtechsupport/) | [@r_talesfromtechsupport](https://t.me/r_talesfromtechsupport) | 1 hour |
 | [/r/PewdiepieSubmissions](https://www.reddit.com/r/PewdiepieSubmissions/) | [@r_PewdiepieSubmissions](https://t.me/r_PewdiepieSubmissions) | 1 hour |
+| [/r/dankchristianmemes](https://www.reddit.com/r/dankchristianmemes/) | [@r_dankchristianmemes](https://t.me/r_dankchristianmemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
