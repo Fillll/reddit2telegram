@@ -25,12 +25,13 @@ def supply(submodule_name, config):
     r2t = utils.Reddit2TelegramSender(submodule.t_channel, config)
     success = False
 
-
+	#check if it has send_comment implemented
     if(hasattr(submodule, "send_comment")):
         for top_level_comment in comments:
+			#according to the tutorial http://praw.readthedocs.io/en/latest/tutorials/comments.html
             if isinstance(top_level_comment, MoreComments):
                 continue
-            link = top_level_comment.shortlink
+            link = top_level_comment.permalink()
             if r2t.was_before(link):
                 continue
             success = submodule.send_comment(top_level_comment, r2t)
