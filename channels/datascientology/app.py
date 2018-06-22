@@ -26,7 +26,8 @@ subreddit = weighted_random_subreddit({
     'IPython': 0.1,
     'JupyterNotebooks': 0.1,
     'data_irl': 0.55,
-    'DataArt': 0.12
+    'DataArt': 0.12,
+    'TheoreticalStatistics': 0.05
 })
 
 

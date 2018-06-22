@@ -108,6 +108,18 @@ Currently alive channels
 | [/r/wheredidthesodago](https://www.reddit.com/r/wheredidthesodago/) | [@r_wheredidthesodago](https://t.me/r_wheredidthesodago) | 1 hour |
 | [/r/chemicalreactiongifs](https://www.reddit.com/r/chemicalreactiongifs/) | [@r_chemicalreactiongifs](https://t.me/r_chemicalreactiongifs) | 1 hour |
 | [/r/SwitchHacks](https://www.reddit.com/r/SwitchHacks/) | [@r_SwitchHacks](https://t.me/r_SwitchHacks) | 1 hour |
+| [/r/books](https://www.reddit.com/r/books/) | [@r_books](https://t.me/r_books) | 1 hour |
+| [/r/suggestmeabook](https://www.reddit.com/r/suggestmeabook/) | [@r_suggest](https://t.me/r_suggest) | 1 hour |
+| [/r/space](https://www.reddit.com/r/space/) | [@r_space](https://t.me/r_space) | 1 hour |
+| [/r/slygifs](https://www.reddit.com/r/slygifs/), [/r/WastedGifs](https://www.reddit.com/r/WastedGifs/), [/r/SFWPornGifs](https://www.reddit.com/r/SFWPornGifs/), [/r/NatureGifs](https://www.reddit.com/r/NatureGifs/), [/r/reversegif](https://www.reddit.com/r/reversegif/), [/r/EarthPornGifs](https://www.reddit.com/r/EarthPornGifs/) and [/r/AnimalPornGifs](https://www.reddit.com/r/AnimalPornGifs/) | [@gifsgalore](https://t.me/gifsgalore) | 1 hour |
+| [/r/wasletztepreis](https://www.reddit.com/r/wasletztepreis/) | [@r_wasletztepreis](https://t.me/r_wasletztepreis) | 1 hour |
+| [/r/greentext](https://www.reddit.com/r/greentext/) | [@r_greentext](https://t.me/r_greentext) | 1 hour |
+| [/r/crappyoffbrands](https://www.reddit.com/r/crappyoffbrands/) | [@r_crappyoffbrands](https://t.me/r_crappyoffbrands) | 1 hour |
+| [/r/chemistry](https://www.reddit.com/r/chemistry/) | [@r_chemistry](https://t.me/r_chemistry) | 1 hour |
+| [/r/vim](https://www.reddit.com/r/vim/) | [@r_vim](https://t.me/r_vim) | 1 hour |
+| [/r/talesfromtechsupport](https://www.reddit.com/r/talesfromtechsupport/) | [@r_talesfromtechsupport](https://t.me/r_talesfromtechsupport) | 1 hour |
+| [/r/PewdiepieSubmissions](https://www.reddit.com/r/PewdiepieSubmissions/) | [@r_PewdiepieSubmissions](https://t.me/r_PewdiepieSubmissions) | 1 hour |
+| [/r/dankchristianmemes](https://www.reddit.com/r/dankchristianmemes/) | [@r_dankchristianmemes](https://t.me/r_dankchristianmemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
