@@ -8,7 +8,7 @@ import praw
 
 import utils
 from reporting_stuff import report_error
-
+from praw.models import MoreComments
 
 @report_error
 def supply(submodule_name, config):
@@ -17,7 +17,39 @@ def supply(submodule_name, config):
                         client_id=config['reddit']['client_id'],
                         client_secret=config['reddit']['client_secret'])
     submissions = reddit.subreddit(submodule.subreddit).hot(limit=100)
+    comments = reddit.subreddit(submodule.subreddit).hot(limit=100).comments(limit=25)
     r2t = utils.Reddit2TelegramSender(submodule.t_channel, config)
+    success = False
+
+
+    if(hasattr(submodule, "send_comment")):
+        for top_level_comment in comments:
+            if isinstance(top_level_comment, MoreComments):
+                continue
+            link = top_level_comment.shortlink
+            if r2t.was_before(link):
+                continue
+            success = submodule.send_comment(top_level_comment, r2t)
+            if success == utils.SupplyResult.SUCCESSFULLY:
+                # Every thing is ok, comment was sent
+                r2t.mark_as_was_before(link)
+                break
+            elif success == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION:
+                # Do not want to send this comment
+                r2t.mark_as_was_before(link)
+                continue
+            elif success == utils.SupplyResult.SKIP_FOR_NOW:
+                # Do not want to send now
+                continue
+            elif success == utils.SupplyResult.STOP_THIS_SUPPLY:
+                # If None — do not want to send anything this time
+                break
+            else:
+                logging.error('Unknown SupplyResult. {}'.format(success))
+        if success is False:
+            logging.info('Nothing to post from {sub} to {channel}.'.format(
+                        sub=submodule.subreddit, channel=submodule.t_channel))
+
     success = False
     for submission in submissions:
         link = submission.shortlink
