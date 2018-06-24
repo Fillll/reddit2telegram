@@ -102,8 +102,8 @@ Currently alive channels
 | [/r/android](https://www.reddit.com/r/android/) | [@reddit_android](https://t.me/reddit_android) | 1 hour |
 | [/r/techsupportgore](https://www.reddit.com/r/techsupportgore/) | [@r_TechSupportGore](https://t.me/r_TechSupportGore) | 1 hour |
 | [/r/india](https://www.reddit.com/r/india/) | [@r_indiaa](https://t.me/r_indiaa) | 1 hour |
-| [/r/dndgreentext](https://www.reddit.com/r/dndgreentext/) | [@r_dndgreentext](https://t.me/r_dndgreentext) | 1 hour |
-| [/r/dndmemes](https://www.reddit.com/r/dndmemes/) | [@r_dndmemes](https://t.me/r_dndmemes) | 1 hour |
+| [/r/dndgreentext](https://www.reddit.com/r/dndgreentext/), [/r/gametales](https://www.reddit.com/r/gametales), and [rpghorrorstories](https://www.reddit.com/r/rpghorrorstories) | [@r_dndgreentext](https://t.me/r_dndgreentext) | 1 hour |
+| [/r/dndmemes](https://www.reddit.com/r/dndmemes/) and [/r/DMDadjokes](https://www.reddit.com/r/DMDadjokes/) | [@r_dndmemes](https://t.me/r_dndmemes) | 1 hour |
 | [/r/gametales](https://www.reddit.com/r/gametales/) | [@r_gametales](https://t.me/r_gametales) | 1 hour |
 | [/r/wheredidthesodago](https://www.reddit.com/r/wheredidthesodago/) | [@r_wheredidthesodago](https://t.me/r_wheredidthesodago) | 1 hour |
 | [/r/chemicalreactiongifs](https://www.reddit.com/r/chemicalreactiongifs/) | [@r_chemicalreactiongifs](https://t.me/r_chemicalreactiongifs) | 1 hour |
