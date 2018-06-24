@@ -12,7 +12,7 @@ t_channel = get_dev_channel()
 
 
 def send_post(submission, r2t):
-    channels_list = get_all_public_channels()
+    channels_list = get_all_public_channels(r2t)
 
     for channel in channels_list:
         bd_party, years = is_birthday_today(r2t, channel)

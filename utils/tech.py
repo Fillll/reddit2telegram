@@ -5,13 +5,14 @@ import csv
 import yaml
 import datetime
 import random
+import os
 
 import pymongo
 
 
 def get_dev_channel(config_filename=None):
     if config_filename is None:
-        config_filename = 'configs/prod.yml'
+        config_filename = os.path.join('configs', 'prod.yml')
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
         return config['telegram']['dev_chat']
@@ -19,7 +20,7 @@ def get_dev_channel(config_filename=None):
 
 def get_all_submodules(config_filename=None):
     if config_filename is None:
-        config_filename = 'configs/prod.yml'
+        config_filename = os.path.join('configs', 'prod.yml')
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
         all_submodules = set()
@@ -31,15 +32,19 @@ def get_all_submodules(config_filename=None):
         return all_submodules
 
 
-def get_all_public_channels(config_filename=None):
+def get_all_public_channels(r2t, config_filename=None):
     all_submodules = get_all_submodules(config_filename)
-    channels_list = list()
+    channels_and_dates = dict()
     for submodule_name in all_submodules:
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         channel_name = submodule.t_channel
         if ('@' in channel_name) and (channel_name not in ['@r_channels_test', '@r_channels']):
-            channels_list.append(channel_name)
-    return channels_list
+            first_record_cursor = r2t.urls.find({
+                'channel' : channel_name.lower()
+            }).sort([('ts', pymongo.ASCENDING)]).limit(1)
+            first_record_ts = first_record_cursor.next()['ts']
+            channels_and_dates[channel_name] = first_record_ts
+    return sorted(channels_and_dates.keys(), key=channels_and_dates.get)
 
 
 def generate_list_of_channels(channels_list, random_permutation=False):

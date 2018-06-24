@@ -12,7 +12,7 @@ t_channel = '@r_channels'
 
 
 def send_post(submission, r2t):
-    channels_list = get_all_public_channels()
+    channels_list = get_all_public_channels(r2t)
     newly_active = get_newly_active(r2t, channels_list)
     top_growers = get_top_growers_for_last_week(r2t, channels_list)
 
