@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'dndmemes'
+subreddit = 'dndmemes+DMDadjokes'
 t_channel = '@r_dndmemes'
 
 

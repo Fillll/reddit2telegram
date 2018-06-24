@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'dndgreentext'
+subreddit = 'dndgreentext+gametales+rpghorrorstories'
 t_channel = '@r_dndgreentext'
 
 
