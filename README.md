@@ -104,7 +104,6 @@ Currently alive channels
 | [/r/india](https://www.reddit.com/r/india/) | [@r_indiaa](https://t.me/r_indiaa) | 1 hour |
 | [/r/dndgreentext](https://www.reddit.com/r/dndgreentext/), [/r/gametales](https://www.reddit.com/r/gametales), and [rpghorrorstories](https://www.reddit.com/r/rpghorrorstories) | [@r_dndgreentext](https://t.me/r_dndgreentext) | 1 hour |
 | [/r/dndmemes](https://www.reddit.com/r/dndmemes/) and [/r/DMDadjokes](https://www.reddit.com/r/DMDadjokes/) | [@r_dndmemes](https://t.me/r_dndmemes) | 1 hour |
-| [/r/gametales](https://www.reddit.com/r/gametales/) | [@r_gametales](https://t.me/r_gametales) | 1 hour |
 | [/r/wheredidthesodago](https://www.reddit.com/r/wheredidthesodago/) | [@r_wheredidthesodago](https://t.me/r_wheredidthesodago) | 1 hour |
 | [/r/chemicalreactiongifs](https://www.reddit.com/r/chemicalreactiongifs/) | [@r_chemicalreactiongifs](https://t.me/r_chemicalreactiongifs) | 1 hour |
 | [/r/SwitchHacks](https://www.reddit.com/r/SwitchHacks/) | [@r_SwitchHacks](https://t.me/r_SwitchHacks) | 1 hour |
