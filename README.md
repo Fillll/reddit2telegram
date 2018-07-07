@@ -120,6 +120,7 @@ Currently alive channels
 | [/r/PewdiepieSubmissions](https://www.reddit.com/r/PewdiepieSubmissions/) | [@r_PewdiepieSubmissions](https://t.me/r_PewdiepieSubmissions) | 1 hour |
 | [/r/dankchristianmemes](https://www.reddit.com/r/dankchristianmemes/) | [@r_dankchristianmemes](https://t.me/r_dankchristianmemes) | 1 hour |
 | [/r/disneyvacation](https://www.reddit.com/r/disneyvacation/) | [@r_disneyvacation](https://t.me/r_disneyvacation) | 1 hour |
+| [/r/furry_irl](https://www.reddit.com/r/furry_irl/) | [@r_furryirl](https://t.me/r_furryirl) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
