@@ -119,6 +119,7 @@ Currently alive channels
 | [/r/talesfromtechsupport](https://www.reddit.com/r/talesfromtechsupport/) | [@r_talesfromtechsupport](https://t.me/r_talesfromtechsupport) | 1 hour |
 | [/r/PewdiepieSubmissions](https://www.reddit.com/r/PewdiepieSubmissions/) | [@r_PewdiepieSubmissions](https://t.me/r_PewdiepieSubmissions) | 1 hour |
 | [/r/dankchristianmemes](https://www.reddit.com/r/dankchristianmemes/) | [@r_dankchristianmemes](https://t.me/r_dankchristianmemes) | 1 hour |
+| [/r/disneyvacation](https://www.reddit.com/r/disneyvacation/) | [@r_disneyvacation](https://t.me/r_disneyvacation) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
