@@ -4,6 +4,7 @@ MASK	submodule_name
 01,30 * * * *	r_unexpected
 01-10 0 * * *	r_til
 02 * * * *	r_funny
+02 * * * *	R_Punny
 03 * * * *	r_me_irl
 04 * * * *	r_highqualitygifs
 05 */2 * * *	r_showerthoughts
