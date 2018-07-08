@@ -23,6 +23,7 @@ from telepot.exception import TelegramError
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
+TELEGRAM_VIDEO_LIMIT = 50 * 1024 * 1024
 
 
 ALBUM_LIMIT = 20
@@ -39,6 +40,7 @@ CONTENT_MP4 = 'video/mp4'
 TYPE_TEXT = 'text'
 TYPE_OTHER = 'other'
 TYPE_ALBUM = 'album'
+TYPE_VIDEO = 'video'
 
 
 TEMP_FOLDER = 'tmp'
@@ -70,6 +72,10 @@ def get_url(submission, mp4_instead_gif=True):
 
     url = submission.url
     url_content = what_is_inside(url)
+
+    if submission.is_video:
+        if 'reddit_video' in submission.media:
+            return TYPE_VIDEO, submission.media['reddit_video']['fallback_url'], None
 
     if (CONTENT_JPEG == url_content or CONTENT_PNG == url_content):
         return TYPE_IMG, url, url_content.split('/')[1]
@@ -158,14 +164,15 @@ def download_file(url, filename):
     # NOTE the stream=True parameter
     r = requests.get(url, stream=True)
     chunk_counter = 0
+    chunk_size = 1024
     with open(filename, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=1024):
+        for chunk in r.iter_content(chunk_size=chunk_size):
             if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
                 #f.flush() commented by recommendation from J.F.Sebastian
                 chunk_counter += 1
                 # It is not possible to send greater than 50 MB via Telegram
-                if chunk_counter > 50 * 1024:
+                if chunk_counter > TELEGRAM_VIDEO_LIMIT / chunk_size:
                     return False
     return True
 
@@ -334,6 +341,25 @@ class Reddit2TelegramSender(object):
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return SupplyResult.SUCCESSFULLY
 
+    def send_video(self, url, text, parse_mode=None):
+        filename = self._get_file_name('ext')
+        # Download gif
+        if not download_file(url, filename):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        # Telegram will not autoplay big gifs
+        if os.path.getsize(filename) > TELEGRAM_VIDEO_LIMIT:
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        next_text = ''
+        if len(text) > 200:
+            text, next_text = self._split_200(text)
+        f = open(filename, 'rb')
+        self.telepot_bot.sendVideo(self.t_channel, f, caption=text, parse_mode=parse_mode)
+        f.close()
+        if len(next_text) > 1:
+            time.sleep(2)
+            self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
+        return SupplyResult.SUCCESSFULLY
+
     def _send_img_as_link(self, url, text):
         moded_text = '<a href="{url}">&#160;</a>{text}'.format(text=text, url=url)
         return self.send_text(moded_text,
@@ -442,12 +468,15 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
+        print('here')
+
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
         if (min_upvotes_limit is not None) and (submission.score < min_upvotes_limit):
             return SupplyResult.SKIP_FOR_NOW
 
         try:
             what, url, ext = get_url(submission)
+            print(get_url(submission))
         except Exception as e:
             logging.info('HTTP fail prevented at {}!'.format(self.t_channel))
             return SupplyResult.SKIP_FOR_NOW
@@ -466,6 +495,8 @@ class Reddit2TelegramSender(object):
             'channel': self.t_channel,
             **kwargs
         }
+
+        print(formatters)
 
         if kwargs.get('check_dups', False):
             # Check if there is a duplicate
@@ -510,6 +541,15 @@ class Reddit2TelegramSender(object):
                     text = what_to_do
                 text = text.format(**formatters)
                 return self.send_text(text)
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        elif what == TYPE_VIDEO:
+            what_to_do = kwargs.get('video', True)
+            if what_to_do:
+                text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
+                if isinstance(what_to_do, str):
+                    text = what_to_do
+                text = text.format(**formatters)
+                return self.send_video(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_OTHER:
             what_to_do = kwargs.get('other', True)
