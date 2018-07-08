@@ -5,7 +5,8 @@ from utils import SupplyResult
 
 
 subreddit = 'ProgrammerHumor'
-t_channel = '@programmer_humor'
+# t_channel = '@programmer_humor'
+t_channel = '@r_channels_test'
 
 
 def send_post(submission, r2t):
@@ -15,17 +16,23 @@ def send_post(submission, r2t):
 
     title = submission.title
     link = submission.shortlink
+    fair = submission.link_flair_text
+    fair_text = ''
+    if fair is not None:
+        fair_text = '[{f}] '.format(f=fair)
 
     if submission.over_18:
         url = submission.url
-        text = '🔞NSFW🔞\n{u}\n{t}\n\n{l}\n\nby {c}'.format(
+        text = '🔞NSFW🔞\n{u}\n{f}{t}\n\n{l}\n\nby {c}'.format(
             u=url,
+            f=fair_text,
             t=title,
             l=link,
             c=t_channel)
         return r2t.send_text(text, disable_web_page_preview=True)
 
-    text = '{t}\n{l}\n\nby {c}'.format(
+    text = '{f}{t}\n{l}\n\nby {c}'.format(
+        f=fair_text,
         t=title,
         l=link,
         c=t_channel)
