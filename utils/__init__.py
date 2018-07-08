@@ -468,15 +468,12 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
-        print('here')
-
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
         if (min_upvotes_limit is not None) and (submission.score < min_upvotes_limit):
             return SupplyResult.SKIP_FOR_NOW
 
         try:
             what, url, ext = get_url(submission)
-            print(get_url(submission))
         except Exception as e:
             logging.info('HTTP fail prevented at {}!'.format(self.t_channel))
             return SupplyResult.SKIP_FOR_NOW
@@ -495,8 +492,6 @@ class Reddit2TelegramSender(object):
             'channel': self.t_channel,
             **kwargs
         }
-
-        print(formatters)
 
         if kwargs.get('check_dups', False):
             # Check if there is a duplicate
