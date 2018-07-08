@@ -5,8 +5,7 @@ from utils import SupplyResult
 
 
 subreddit = 'ProgrammerHumor'
-# t_channel = '@programmer_humor'
-t_channel = '@r_channels_test'
+t_channel = '@programmer_humor'
 
 
 def send_post(submission, r2t):
