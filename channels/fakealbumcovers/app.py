@@ -17,8 +17,13 @@ def send_post(submission, r2t):
 
     fullTitle = submission.title
     link = submission.shortlink
+    
+    try:
+        flair = str(submission.link_flair_text)
+    except:
+        flair = ""
 
-    if fullTitle.lower().startswith("[request]") or submission.link_flair_text.strip().lower() == 'request':
+    if fullTitle.lower().startswith("[request]") or flair.strip().lower() == 'request':
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     title = fullTitle
