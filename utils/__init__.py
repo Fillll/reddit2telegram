@@ -540,7 +540,7 @@ class Reddit2TelegramSender(object):
         elif what == TYPE_VIDEO:
             what_to_do = kwargs.get('video', True)
             if what_to_do:
-                text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
+                text = '{title}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
