@@ -75,7 +75,8 @@ def get_url(submission, mp4_instead_gif=True):
 
     if submission.is_video:
         if 'reddit_video' in submission.media:
-            return TYPE_VIDEO, submission.media['reddit_video']['fallback_url'], None
+            # return TYPE_VIDEO, submission.media['reddit_video']['fallback_url'], None
+            return TYPE_OTHER, url, None
 
     if (CONTENT_JPEG == url_content or CONTENT_PNG == url_content):
         return TYPE_IMG, url, url_content.split('/')[1]
