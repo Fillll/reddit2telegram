@@ -124,6 +124,7 @@ Currently alive channels
 | [/r/punny](https://www.reddit.com/r/punny/) | [@R_Punny](https://t.me/R_Punny) | 1 hour |
 | [/r/animalromance](https://www.reddit.com/r/animalromance/) | [@animalromance](https://t.me/animalromance) | 1 hour |
 | [/r/MapPorn](https://www.reddit.com/r/MapPorn/) | [@r_mapporn](https://t.me/r_mapporn) | 1 hour |
+| [/r/softwaregore](https://www.reddit.com/r/softwaregore/) | [@r_softwaregore](https://t.me/r_softwaregore) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
