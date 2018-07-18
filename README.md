@@ -127,6 +127,7 @@ Currently alive channels
 | [/r/softwaregore](https://www.reddit.com/r/softwaregore/) | [@r_softwaregore](https://t.me/r_softwaregore) | 1 hour |
 | [/r/crappydesign](https://www.reddit.com/r/crappydesign/) and [/r/crappydesign2](https://www.reddit.com/r/crappydesign2/) | [@r_crappydesign](https://t.me/r_crappydesign) | 1 hour |
 | [/r/xiaomi](https://www.reddit.com/r/xiaomi/) | [@reddit_xiaomi](https://t.me/reddit_xiaomi) | 1 hour |
+| [/r/comics](https://www.reddit.com/r/comics/) | [@r_comics](https://t.me/r_comics) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
