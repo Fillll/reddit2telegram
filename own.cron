@@ -26,6 +26,7 @@ MASK	submodule_name
 09 * * * *	AMD
 10 * * * *	news
 10 * * * *	r_fashion
+10 * * * *	r_remotejs
 11 * * * *	food
 11 * * * *	r_streetwear
 12 * * * *	oldschoolcool

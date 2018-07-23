@@ -129,6 +129,7 @@ Currently alive channels
 | [/r/xiaomi](https://www.reddit.com/r/xiaomi/) | [@reddit_xiaomi](https://t.me/reddit_xiaomi) | 1 hour |
 | [/r/comics](https://www.reddit.com/r/comics/) | [@r_comics](https://t.me/r_comics) | 1 hour |
 | [/r/AyyMD](https://www.reddit.com/r/AyyMD/) | [@RAyyMD](https://t.me/RAyyMD) | 1 hour |
+| [/r/remotejs](https://www.reddit.com/r/remotejs/) | [@r_remotejs](https://t.me/r_remotejs) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
