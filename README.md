@@ -132,6 +132,7 @@ Currently alive channels
 | [/r/remotejs](https://www.reddit.com/r/remotejs/) | [@r_remotejs](https://t.me/r_remotejs) | 1 hour |
 | [/r/streetmoe](https://www.reddit.com/r/streetmoe/) | [@streetmoe](https://t.me/streetmoe) | 1 hour |
 | [/r/foxes](https://www.reddit.com/r/foxes/) | [@r_foxes](https://t.me/r_foxes) | 1 hour |
+| [/r/digimon](https://www.reddit.com/r/digimon/) | [@r_digimon](https://t.me/r_digimon) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
