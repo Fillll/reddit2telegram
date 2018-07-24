@@ -133,6 +133,7 @@ Currently alive channels
 | [/r/streetmoe](https://www.reddit.com/r/streetmoe/) | [@streetmoe](https://t.me/streetmoe) | 1 hour |
 | [/r/foxes](https://www.reddit.com/r/foxes/) | [@r_foxes](https://t.me/r_foxes) | 1 hour |
 | [/r/digimon](https://www.reddit.com/r/digimon/) | [@r_digimon](https://t.me/r_digimon) | 1 hour |
+| [/r/furry](https://www.reddit.com/r/furry/) | [@r_furry](https://t.me/r_furry) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
