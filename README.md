@@ -135,6 +135,7 @@ Currently alive channels
 | [/r/digimon](https://www.reddit.com/r/digimon/) | [@r_digimon](https://t.me/r_digimon) | 1 hour |
 | [/r/furry](https://www.reddit.com/r/furry/) | [@r_furry](https://t.me/r_furry) | 1 hour |
 | [/r/ik_ihe](https://www.reddit.com/r/ik_ihe/) | [@r_ik_ihe](https://t.me/r_ik_ihe) | 1 hour |
+| [/r/mildlyinfuriating](https://www.reddit.com/r/mildlyinfuriating/) | [@r_mildlyinfuriating](https://t.me/r_mildlyinfuriating) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
