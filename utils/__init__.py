@@ -20,7 +20,6 @@ from pymongo.collection import ReturnDocument
 import telepot
 from gfycat.client import GfycatClient
 from telepot.exception import TelegramError
-import praw
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
