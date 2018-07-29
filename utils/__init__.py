@@ -20,6 +20,7 @@ from pymongo.collection import ReturnDocument
 import telepot
 from gfycat.client import GfycatClient
 from telepot.exception import TelegramError
+import praw
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
@@ -75,8 +76,19 @@ def get_url(submission, mp4_instead_gif=True):
 
     if submission.is_video:
         if 'reddit_video' in submission.media:
+            return TYPE_GIF, submission.media['reddit_video']['fallback_url'], 'mp4'
             # return TYPE_VIDEO, submission.media['reddit_video']['fallback_url'], None
-            return TYPE_OTHER, url, None
+            # return TYPE_OTHER, url, None
+
+    try:
+        if len(submission.crosspost_parent_list) > 0:
+            parent_submission_json = submission.crosspost_parent_list[0]
+            if parent_submission_json['is_video'] == True:
+                if 'reddit_video' in parent_submission_json['media']:
+                    return TYPE_GIF, parent_submission_json['media']['reddit_video']['fallback_url'], 'mp4'
+    except:
+        # Not a crosspost
+        pass
 
     if (CONTENT_JPEG == url_content or CONTENT_PNG == url_content):
         return TYPE_IMG, url, url_content.split('/')[1]
