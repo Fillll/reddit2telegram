@@ -136,6 +136,8 @@ Currently alive channels
 | [/r/furry](https://www.reddit.com/r/furry/) | [@r_furry](https://t.me/r_furry) | 1 hour |
 | [/r/ik_ihe](https://www.reddit.com/r/ik_ihe/) | [@r_ik_ihe](https://t.me/r_ik_ihe) | 1 hour |
 | [/r/mildlyinfuriating](https://www.reddit.com/r/mildlyinfuriating/) | [@r_mildlyinfuriating](https://t.me/r_mildlyinfuriating) | 1 hour |
+| [/r/Animemes](https://www.reddit.com/r/Animemes/) | [@r_Animemes](https://t.me/r_Animemes) | 1 hour |
+| [/r/wellthatsucks](https://www.reddit.com/r/wellthatsucks/) | [@r_wellthatsucks](https://t.me/r_wellthatsucks) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
