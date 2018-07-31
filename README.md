@@ -138,6 +138,7 @@ Currently alive channels
 | [/r/mildlyinfuriating](https://www.reddit.com/r/mildlyinfuriating/) | [@r_mildlyinfuriating](https://t.me/r_mildlyinfuriating) | 1 hour |
 | [/r/Animemes](https://www.reddit.com/r/Animemes/) | [@r_Animemes](https://t.me/r_Animemes) | 1 hour |
 | [/r/wellthatsucks](https://www.reddit.com/r/wellthatsucks/) | [@r_wellthatsucks](https://t.me/r_wellthatsucks) | 1 hour |
+| [/r/tf2memes](https://www.reddit.com/r/tf2memes/) | [@rtf2memes](https://t.me/rtf2memes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
