@@ -139,6 +139,7 @@ Currently alive channels
 | [/r/Animemes](https://www.reddit.com/r/Animemes/) | [@r_Animemes](https://t.me/r_Animemes) | 1 hour |
 | [/r/wellthatsucks](https://www.reddit.com/r/wellthatsucks/) | [@r_wellthatsucks](https://t.me/r_wellthatsucks) | 1 hour |
 | [/r/tf2memes](https://www.reddit.com/r/tf2memes/) | [@rtf2memes](https://t.me/rtf2memes) | 1 hour |
+| [/r/arma](https://www.reddit.com/r/arma/) | [@r_arma](https://t.me/r_arma) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
