@@ -50,10 +50,10 @@ def send_post(submission, r2t):
         if artist != "":
             title = artist
         else:
-            if title[title.lower.find("self titled")-1].lower() in ["(","["]:
-                title = title[:title.lower.find("self titled")-1]
+            if title[title.lower().find("self titled")-1].lower() in ["(","["]:
+                title = title[:title.lower().find("self titled")-1]
             else:
-                title = title[:title.lower.find("self titled")]
+                title = title[:title.lower().find("self titled")]
             artist = title
 
     if title.startswith('"') and title.endswith('"'):
