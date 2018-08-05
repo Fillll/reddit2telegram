@@ -140,7 +140,7 @@ Currently alive channels
 | [/r/wellthatsucks](https://www.reddit.com/r/wellthatsucks/) | [@r_wellthatsucks](https://t.me/r_wellthatsucks) | 1 hour |
 | [/r/tf2memes](https://www.reddit.com/r/tf2memes/) | [@rtf2memes](https://t.me/rtf2memes) | 1 hour |
 | [/r/arma](https://www.reddit.com/r/arma/) | [@r_arma](https://t.me/r_arma) | 1 hour |
-| [/r/arma](https://www.reddit.com/r/arma/) | [@r_grandorder](https://t.me/r_grandorder) | 1 hour |
+| [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@r_grandorder](https://t.me/r_grandorder) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
