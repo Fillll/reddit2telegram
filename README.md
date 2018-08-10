@@ -140,6 +140,7 @@ Currently alive channels
 | [/r/tf2memes](https://www.reddit.com/r/tf2memes/) | [@rtf2memes](https://t.me/rtf2memes) | 1 hour |
 | [/r/arma](https://www.reddit.com/r/arma/) | [@r_arma](https://t.me/r_arma) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@r_grandorder](https://t.me/r_grandorder) | 1 hour |
+| [/r/2meirl4meirl](https://www.reddit.com/r/2meirl4meirl/) | [@r_2meirl4meirl](https://t.me/r_2meirl4meirl) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
