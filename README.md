@@ -141,6 +141,7 @@ Currently alive channels
 | [/r/arma](https://www.reddit.com/r/arma/) | [@r_arma](https://t.me/r_arma) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@r_grandorder](https://t.me/r_grandorder) | 1 hour |
 | [/r/2meirl4meirl](https://www.reddit.com/r/2meirl4meirl/) | [@r_2meirl4meirl](https://t.me/r_2meirl4meirl) | 1 hour |
+| [/r/photoshopbattles](https://www.reddit.com/r/photoshopbattles/) | [@r_photoshopbattles](https://t.me/r_photoshopbattles) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
