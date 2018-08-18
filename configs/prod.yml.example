@@ -1,0 +1,14 @@
+db:
+  name: "telegram2reddit"
+  host: "localhost"
+telegram:
+  token: "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+  dev_chat: "-1001137074864"
+sentry: "https://TOP:SECRET@sentry.io/CODE"
+reddit:
+  user_agent: "Secret:Reddit_user_agent:v01 (by any /u/redditor)"
+  client_id: "client_id"
+  client_secret: "client_secret"
+  username: "reddit2telegram_bot"
+  password: "very strong password"
+cron_file: "own.cron"

@@ -1,43 +1,31 @@
 #encoding:utf-8
 
-import os
-
-from utils import get_url, download_file, telegram_autoplay_limit
+from utils import weighted_random_subreddit
 
 
-subreddit = 'funny'
+# Subreddit that will be a source of content
+subreddit = weighted_random_subreddit({
+    'funny': 1.0,
+    # If we want get content from several subreddits
+    # please provide here 'subreddit': probability
+    # 'any_other_subreddit': 0.02
+})
+# Telegram channel with @reddit2telegram_bot as an admin
 t_channel = '@r_funny'
 
 
-def send_post(submission, bot):
-    what, url, ext = get_url(submission)
-    title = submission.title
-    link = submission.short_link
-
-    if what == 'text':
-        punchline = submission.selftext        
-        text = '{}\n\n{}\n\n{}'.format(title, punchline, link)
-        bot.sendMessage(t_channel, text)
-        return True
-
-    filename = 'r_funny.{}'.format(ext)
-    if not download_file(url, filename):
-        return False
-    if os.path.getsize(filename) > telegram_autoplay_limit:
-        return False
-    text = '{}\n{}'.format(title, link)
-
-    if what == 'gif':
-        f = open(filename, 'rb')
-        bot.sendDocument(t_channel, f, caption=text)
-        f.close()
-        return True
-
-    elif what == 'img':
-        f = open(filename, 'rb')
-        bot.sendPhoto(t_channel, f, caption=text)
-        f.close()
-        return True
-
-    else:
-        return False
+def send_post(submission, r2t):
+    return r2t.send_simple(submission,
+        # Submission should have at least min_upvotes_limit upvotes.
+        min_upvotes_limit=100,
+        # If you do not want text submissions, just pass False.
+        text=False,
+        # If you want gifs, just pass True or text you want under gif.
+        gif=True,
+        # If you want images, just pass True or text you want under image.
+        img=True,
+        # If you want albums, just pass True or text you want under albums.
+        album=True,
+        # If you do not want othe submissions, just pass False.
+        other=False
+    )

@@ -1,4 +1,0 @@
-db: "telegram2reddit"
-db_host: "localhost"
-user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X10.69; rv:4458.42) Gecko/4458 Firefox/69.0 luckydonaldUtils"
-telegram_token: "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
