@@ -142,6 +142,7 @@ Currently alive channels
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@r_grandorder](https://t.me/r_grandorder) | 1 hour |
 | [/r/2meirl4meirl](https://www.reddit.com/r/2meirl4meirl/) | [@r_2meirl4meirl](https://t.me/r_2meirl4meirl) | 1 hour |
 | [/r/photoshopbattles](https://www.reddit.com/r/photoshopbattles/) | [@r_photoshopbattles](https://t.me/r_photoshopbattles) | 1 hour |
+| [/r/PornhubComments](https://www.reddit.com/r/PornhubComments/) | [@r_pornhubcomments](https://t.me/r_pornhubcomments) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
