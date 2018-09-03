@@ -144,6 +144,7 @@ Currently alive channels
 | [/r/photoshopbattles](https://www.reddit.com/r/photoshopbattles/) | [@r_photoshopbattles](https://t.me/r_photoshopbattles) | 1 hour |
 | [/r/PornhubComments](https://www.reddit.com/r/PornhubComments/) | [@r_pornhubcomments](https://t.me/r_pornhubcomments) | 1 hour |
 | [/r/gtaonline](https://www.reddit.com/r/gtaonline/) | [@redditgtaonline](https://t.me/redditgtaonline) | 1 hour |
+| [/r/anime_irl](https://www.reddit.com/r/anime_irl/) | [@r_animeirl](https://t.me/r_animeirl) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
