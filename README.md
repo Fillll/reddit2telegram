@@ -146,6 +146,7 @@ Currently alive channels
 | [/r/gtaonline](https://www.reddit.com/r/gtaonline/) | [@redditgtaonline](https://t.me/redditgtaonline) | 1 hour |
 | [/r/anime_irl](https://www.reddit.com/r/anime_irl/) | [@r_animeirl](https://t.me/r_animeirl) | 1 hour |
 | [/r/indepthstories](https://www.reddit.com/r/indepthstories/) | [@indepthstories](https://t.me/indepthstories) | 1 hour |
+| [/r/osugame](https://www.reddit.com/r/osugame/) | [@r_osugame](https://t.me/r_osugame) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
