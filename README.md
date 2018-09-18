@@ -149,6 +149,7 @@ Currently alive channels
 | [/r/osugame](https://www.reddit.com/r/osugame/) | [@r_osugame](https://t.me/r_osugame) | 1 hour |
 | [/r/FreeGamesOnSteam](https://www.reddit.com/r/FreeGamesOnSteam/) | [@r_FreeGamesOnSteam](https://t.me/r_FreeGamesOnSteam) | 1 hour |
 | Cartoons related. | [@reddit_cartoons](https://t.me/reddit_cartoons) | 1 hour |
+| [/r/cosplaygirls](https://www.reddit.com/r/cosplaygirls/) | [@rcosplaygirls](https://t.me/rcosplaygirls) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
