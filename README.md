@@ -150,6 +150,7 @@ Currently alive channels
 | [/r/FreeGamesOnSteam](https://www.reddit.com/r/FreeGamesOnSteam/) | [@r_FreeGamesOnSteam](https://t.me/r_FreeGamesOnSteam) | 1 hour |
 | [Cartoons related](https://github.com/Fillll/reddit2telegram/blob/master/channels/reddit_cartoons/app.py#L3). | [@reddit_cartoons](https://t.me/reddit_cartoons) | 1 hour |
 | [/r/cosplaygirls](https://www.reddit.com/r/cosplaygirls/) | [@rcosplaygirls](https://t.me/rcosplaygirls) | 1 hour |
+| [/r/TechNope](https://www.reddit.com/r/TechNope/) | [@r_technope](https://t.me/r_technope) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
