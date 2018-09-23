@@ -152,6 +152,7 @@ Currently alive channels
 | [/r/cosplaygirls](https://www.reddit.com/r/cosplaygirls/) | [@rcosplaygirls](https://t.me/rcosplaygirls) | 1 hour |
 | [/r/TechNope](https://www.reddit.com/r/TechNope/) | [@r_technope](https://t.me/r_technope) | 1 hour |
 | [/r/carporn](https://www.reddit.com/r/carporn/) | [@rcarporn](https://t.me/rcarporn) | 1 hour |
+| [/r/desktops](https://www.reddit.com/r/desktops/) | [@r_desktops](https://t.me/r_desktops) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
