@@ -1,8 +1,10 @@
 pyyaml
 praw
 telepot
-pytgbot>=2.2.1a2
+yandex.translate
 pymongo
 requests
 imgurpython
 raven
+gfycat
+croniter
