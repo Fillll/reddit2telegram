@@ -481,7 +481,6 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
-        self_text = submission.selftext
         max_selftext_len = kwargs.get('max_selftext_len', -1)
 
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
@@ -499,7 +498,7 @@ class Reddit2TelegramSender(object):
             'url': url,
             'ext': ext,
             'title': submission.title,
-            'self_text': self_text,
+            'self_text': submission.selftext,
             'link': submission.url,
             'short_link': submission.shortlink,
             'subreddit_name': submission.subreddit,
@@ -548,7 +547,7 @@ class Reddit2TelegramSender(object):
             what_to_do = kwargs.get('text', True)
             if what_to_do:
                 if max_selftext_len >= 0:
-                    self_text = self_text[:max_selftext_len]
+                    formatters['self_text'] = formatters['self_text'][:max_selftext_len]
                 text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
                     text = what_to_do
