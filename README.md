@@ -154,6 +154,7 @@ Currently alive channels
 | [/r/carporn](https://www.reddit.com/r/carporn/) | [@rcarporn](https://t.me/rcarporn) | 1 hour |
 | [/r/desktops](https://www.reddit.com/r/desktops/) | [@r_desktops](https://t.me/r_desktops) | 1 hour |
 | [/r/nocontextpics](https://www.reddit.com/r/nocontextpics/) | [@r_nocontextpics](https://t.me/r_nocontextpics) | 1 hour |
+| [/r/vinyl](https://www.reddit.com/r/vinyl/) | [@r_vinyl](https://t.me/r_vinyl) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
