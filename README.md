@@ -155,6 +155,7 @@ Currently alive channels
 | [/r/desktops](https://www.reddit.com/r/desktops/) | [@r_desktops](https://t.me/r_desktops) | 1 hour |
 | [/r/nocontextpics](https://www.reddit.com/r/nocontextpics/) | [@r_nocontextpics](https://t.me/r_nocontextpics) | 1 hour |
 | [/r/vinyl](https://www.reddit.com/r/vinyl/) | [@r_vinyl](https://t.me/r_vinyl) | 1 hour |
+| [/r/Bowsette](https://www.reddit.com/r/Bowsette/) | [@BowsettePics](https://t.me/BowsettePics) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
