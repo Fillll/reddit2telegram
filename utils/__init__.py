@@ -453,6 +453,7 @@ class Reddit2TelegramSender(object):
             Will check whether submission content is duplicate or not.
         min_upvotes_limit : int, optional
             If specified, then only post higher that limit will be posted.
+        max_selftext_len : max characters in self submission to be sent
         any other parameter : to be used in formatting.
 
         Returns
@@ -480,6 +481,9 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
+        self_text = submission.selftext
+        max_selftext_len = kwargs.get('max_selftext_len', -1)
+
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
         if (min_upvotes_limit is not None) and (submission.score < min_upvotes_limit):
             return SupplyResult.SKIP_FOR_NOW
@@ -495,7 +499,7 @@ class Reddit2TelegramSender(object):
             'url': url,
             'ext': ext,
             'title': submission.title,
-            'self_text': submission.selftext,
+            'self_text': self_text,
             'link': submission.url,
             'short_link': submission.shortlink,
             'subreddit_name': submission.subreddit,
@@ -543,6 +547,8 @@ class Reddit2TelegramSender(object):
         elif what == TYPE_TEXT:
             what_to_do = kwargs.get('text', True)
             if what_to_do:
+                if max_selftext_len >= 0:
+                    self_text = self_text[:max_selftext_len]
                 text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
                     text = what_to_do

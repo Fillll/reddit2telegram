@@ -5,4 +5,4 @@ t_channel = '@reddit_android'
 
 
 def send_post(submission, r2t):
-    return r2t.send_simple(submission)
+    return r2t.send_simple(submission, max_selftext_len=200)
