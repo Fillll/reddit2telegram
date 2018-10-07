@@ -1,7 +1,7 @@
 #encoding:utf-8
 
 t_channel = '@r_wholesomememes'
-subreddit = 'wholesomeMemes+wholesomeAnimemes+wholesomeGifs+wholesomeComics'
+subreddit = 'WholesomeComics+wholesomeanimemes+wholesomebestof+wholesomegifs+wholesomememes/' 
 
 
 def send_post(submission, r2t):
