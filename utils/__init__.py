@@ -547,7 +547,7 @@ class Reddit2TelegramSender(object):
             what_to_do = kwargs.get('text', True)
             if what_to_do:
                 if max_selftext_len >= 0:
-                    formatters['self_text'] = formatters['self_text'][:max_selftext_len]
+                    formatters['self_text'] = formatters['self_text'][:max_selftext_len] + '...'
                 text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
                     text = what_to_do
