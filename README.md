@@ -157,6 +157,7 @@ Currently alive channels
 | [/r/vinyl](https://www.reddit.com/r/vinyl/) | [@r_vinyl](https://t.me/r_vinyl) | 1 hour |
 | [/r/creepy](https://www.reddit.com/r/creepy/) | [@r_creepy](https://t.me/r_creepy) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@deepfriedmemeschannel](https://t.me/deepfriedmemeschannel) | 1 hour |
+| [/r/HentaiMemes](https://www.reddit.com/r/HentaiMemes/) | [@r_HentaiMemes](https://t.me/r_HentaiMemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
