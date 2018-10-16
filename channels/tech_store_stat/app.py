@@ -53,8 +53,7 @@ def send_post(submission, r2t):
             total['errors'] += 1
             logging.error('Failed to get members count for {channel}.'.format(channel=channel_name))
         r2t.stats.insert_one(stat_to_store)
-    text_to_send = 'Ok, regular bypass results.\n\n'
-    text_to_send += '<pre>Active channels: {n}.</pre>\n'.format(n=total['channels'])
+
     members_diff = total['members'] - total['prev_members']
     perc_diff = round((members_diff / total['prev_members']) * 100, 2)
     if members_diff < 0:
@@ -63,7 +62,11 @@ def send_post(submission, r2t):
         sign = '±'
     else:
         sign = '+'
-    text_to_send += '<pre>Subscribers: {n} ({sign}{diff}, {sign}{perc_diff}%).</pre>\n'.format(
+
+    text_to_send = 'Ok, regular bypass results.\n\n'
+    text_to_send += '<pre>Active channels: {n}.</pre>\n'.format(n=total['channels'])
+    text_to_send += '<pre>Subscribers: {n}.</pre>\n'.format(n=total['members'])
+    text_to_send += '<pre>Subs diff: {sign}{diff} ({sign}{perc_diff}%).</pre>\n'.format(
         n=total['members'],
         sign=sign,
         diff=members_diff,
