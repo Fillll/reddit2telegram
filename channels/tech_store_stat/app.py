@@ -8,7 +8,7 @@ import logging
 
 from utils import SupplyResult
 from utils.get_all_admins import get_admins_list
-from utils.tech import get_dev_channel, get_all_submodules
+from utils.tech import get_dev_channel, get_all_submodules, get_last_members_cnt
 
 
 subreddit = 'all'
@@ -22,7 +22,8 @@ def send_post(submission, r2t):
         'channels': 0,
         'members': 0,
         'admins': 0,
-        'errors': 0
+        'errors': 0,
+        'prev_members': 0
     }
     all_submodules = get_all_submodules()
     for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
@@ -47,13 +48,27 @@ def send_post(submission, r2t):
             members = r2t.telepot_bot.getChatMembersCount(channel_name)
             stat_to_store['members_cnt'] = members
             total['members'] += members
+            total['prev_members'] += get_last_members_cnt(r2t, channel_name)
         except Exception as e:
             total['errors'] += 1
             logging.error('Failed to get members count for {channel}.'.format(channel=channel_name))
         r2t.stats.insert_one(stat_to_store)
     text_to_send = 'Ok, regular bypass results.\n\n'
     text_to_send += '<pre>Active channels: {n}.</pre>\n'.format(n=total['channels'])
-    text_to_send += '<pre>Subscribers: {n}.</pre>\n'.format(n=total['members'])
+    members_diff = total['members'] - total['prev_members']
+    perc_diff = round((members_diff / total['prev_members']) * 100, 2)
+    if members_diff < 0:
+        sign = ''
+    elif members_diff == 0:
+        sign = '±'
+    else:
+        sign = '+'
+    text_to_send += '<pre>Subscribers: {n} ({sign}{diff}, {sign}{perc_diff}%).</pre>\n'.format(
+        n=total['members'],
+        sign=sign,
+        diff=members_diff,
+        perc_diff=perc_diff
+    )
     text_to_send += '<pre>Admins: {n}.</pre>\n'.format(n=total['admins'])
     text_to_send += '<pre>Errors during bypass: {n}.</pre>\n'.format(n=total['errors'])
     text_to_send += '\n<i>See you!</i>'

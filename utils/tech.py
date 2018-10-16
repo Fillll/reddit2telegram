@@ -64,6 +64,12 @@ def get_active_period(r2t, channel_name):
     return diff.days
 
 
+def get_last_members_cnt(r2t, channel_name):
+    count_cursor = r2t.stats.find({'channel' : channel_name.lower()}).sort([('ts', pymongo.DESCENDING)]).limit(1)
+    last_cnt = count_cursor.next()['members_cnt']
+    return last_cnt
+
+
 def get_newly_active(r2t, channels_list):
     newly_active = list()
     for channel in channels_list:
