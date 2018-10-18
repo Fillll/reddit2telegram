@@ -25,6 +25,8 @@ from telepot.exception import TelegramError
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
 TELEGRAM_VIDEO_LIMIT = 50 * 1024 * 1024
 
+TELEGRAM_CAPTION_LIMIT = 1024
+
 
 ALBUM_LIMIT = 20
 
@@ -222,10 +224,15 @@ class Reddit2TelegramSender(object):
     '''
     docstring for reddit2telegram
     '''
-    def __init__(self, t_channel, config):
+    def __init__(self, t_channel=None, config=None):
         super(Reddit2TelegramSender, self).__init__()
+        if config is None:
+            with open('configs/prod.yml') as f:
+                config = yaml.load(f.read())
         self.config = config
         self.telepot_bot = telepot.Bot(self.config['telegram']['token'])
+        if t_channel is None:
+            t_channel = '@r_channels_test'
         self.t_channel = t_channel
         self._make_mongo_connections()
         time.sleep(2)
@@ -244,13 +251,13 @@ class Reddit2TelegramSender(object):
         return os.path.join(TEMP_FOLDER,
                             '{name}.{ext}'.format(name=self.t_channel[1:], ext=ext))
 
-    def _split_200(self, text):
+    def _split_1024(self, text):
         new_text = ''
         next_text = ''
         list_of_words = re.split('[ \n]', text)
         switched = False
         for i in list_of_words:
-            if (len(new_text) + len(i) + 1 < 196) and not switched:
+            if (len(new_text) + len(i) + 1 < TELEGRAM_CAPTION_LIMIT - 4) and not switched:
                 new_text += i + ' '
             else:
                 switched = True
@@ -343,8 +350,8 @@ class Reddit2TelegramSender(object):
         if os.path.getsize(filename) > TELEGRAM_AUTOPLAY_LIMIT:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
-        if len(text) > 200:
-            text, next_text = self._split_200(text)
+        if len(text) > TELEGRAM_CAPTION_LIMIT:
+            text, next_text = self._split_1024(text)
         f = open(filename, 'rb')
         self.telepot_bot.sendDocument(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
@@ -362,8 +369,8 @@ class Reddit2TelegramSender(object):
         if os.path.getsize(filename) > TELEGRAM_VIDEO_LIMIT:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
-        if len(text) > 200:
-            text, next_text = self._split_200(text)
+        if len(text) > TELEGRAM_CAPTION_LIMIT:
+            text, next_text = self._split_1024(text)
         f = open(filename, 'rb')
         self.telepot_bot.sendVideo(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
@@ -379,7 +386,7 @@ class Reddit2TelegramSender(object):
                                 parse_mode='HTML')
 
     def send_img(self, url, ext, text, parse_mode=None):
-        if len(text) > 200:
+        if len(text) > TELEGRAM_CAPTION_LIMIT:
             logging.info('Long pic in {}.'.format(self.t_channel))
             return self._send_img_as_link(url, text)
         try:
