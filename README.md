@@ -162,6 +162,7 @@ Currently alive channels
 | [/r/rareinsults](https://www.reddit.com/r/rareinsults/) | [@rareinsults](https://t.me/rareinsults) | 1 hour |
 | [/r/sbubby](https://www.reddit.com/r/sbubby/) | [@r_sbubby](https://t.me/r_sbubby) | 1 hour |
 | [/r/loliconsunite](https://www.reddit.com/r/loliconsunite/) | [@loliconsunite](https://t.me/loliconsunite) | 1 hour |
+| [/r/privacy](https://www.reddit.com/r/privacy/) | [@r_privacy](https://t.me/r_privacy) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
