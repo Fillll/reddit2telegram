@@ -163,6 +163,7 @@ Currently alive channels
 | [/r/sbubby](https://www.reddit.com/r/sbubby/) | [@r_sbubby](https://t.me/r_sbubby) | 1 hour |
 | [/r/loliconsunite](https://www.reddit.com/r/loliconsunite/) | [@loliconsunite](https://t.me/loliconsunite) | 1 hour |
 | [/r/privacy](https://www.reddit.com/r/privacy/) | [@r_privacy](https://t.me/r_privacy) | 1 hour |
+| [/r/WikiLeaks](https://www.reddit.com/r/WikiLeaks/) | [@r_WikiLeaks](https://t.me/r_WikiLeaks) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
