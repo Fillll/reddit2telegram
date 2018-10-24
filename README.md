@@ -164,6 +164,7 @@ Currently alive channels
 | [/r/loliconsunite](https://www.reddit.com/r/loliconsunite/) | [@loliconsunite](https://t.me/loliconsunite) | 1 hour |
 | [/r/privacy](https://www.reddit.com/r/privacy/) | [@r_privacy](https://t.me/r_privacy) | 1 hour |
 | [/r/WikiLeaks](https://www.reddit.com/r/WikiLeaks/) | [@r_WikiLeaks](https://t.me/r_WikiLeaks) | 1 hour |
+| [/r/androiddev](https://www.reddit.com/r/androiddev/) | [@reddit_androiddev](https://t.me/reddit_androiddev) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
