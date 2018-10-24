@@ -66,7 +66,7 @@ def send_post(submission, r2t):
     text_to_send = 'Ok, regular bypass results.\n\n'
     text_to_send += '<pre>Active channels: {n}.</pre>\n'.format(n=total['channels'])
     text_to_send += '<pre>Subscribers: {n}.</pre>\n'.format(n=total['members'])
-    text_to_send += '<pre>Subs diff: {sign}{diff} ({sign}{perc_diff}%).</pre>\n'.format(
+    text_to_send += '<pre>Cnt diff: {sign}{diff} ({sign}{perc_diff}%).</pre>\n'.format(
         n=total['members'],
         sign=sign,
         diff=members_diff,
