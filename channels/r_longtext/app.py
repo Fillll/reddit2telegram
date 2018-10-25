@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'longtext'
+subreddit = 'longtext+longreads'
 t_channel = '@r_longtext'
 
 
