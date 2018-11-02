@@ -142,7 +142,6 @@ Currently alive channels
 | [/r/2meirl4meirl](https://www.reddit.com/r/2meirl4meirl/) | [@r_2meirl4meirl](https://t.me/r_2meirl4meirl) | 1 hour |
 | [/r/photoshopbattles](https://www.reddit.com/r/photoshopbattles/) | [@r_photoshopbattles](https://t.me/r_photoshopbattles) | 1 hour |
 | [/r/PornhubComments](https://www.reddit.com/r/PornhubComments/) | [@r_pornhubcomments](https://t.me/r_pornhubcomments) | 1 hour |
-| [/r/gtaonline](https://www.reddit.com/r/gtaonline/) | [@redditgtaonline](https://t.me/redditgtaonline) | 1 hour |
 | [/r/anime_irl](https://www.reddit.com/r/anime_irl/) | [@r_animeirl](https://t.me/r_animeirl) | 1 hour |
 | [/r/indepthstories](https://www.reddit.com/r/indepthstories/) | [@indepthstories](https://t.me/indepthstories) | 1 hour |
 | [/r/osugame](https://www.reddit.com/r/osugame/) | [@r_osugame](https://t.me/r_osugame) | 1 hour |
