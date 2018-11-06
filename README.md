@@ -77,7 +77,6 @@ Currently alive channels
 | [/r/Indiancelebs](https://www.reddit.com/r/Indiancelebs/) | [@Indiancelebs](https://t.me/Indiancelebs) | 1 hour |
 | [/r/pcmasterrace](https://www.reddit.com/r/pcmasterrace/) | [@r_pcmasterrace](https://t.me/r_pcmasterrace) | 1 hour |
 | [/r/rupaulsdragrace](https://www.reddit.com/r/rupaulsdragrace/) | [@r_rupaulsdragrace](https://t.me/r_rupaulsdragrace) | 1 hour |
-| [/r/gifs](https://www.reddit.com/r/gifs/) | [@GIFFFs](https://t.me/GIFFFs) | 1 hour |
 | [/r/wow](https://www.reddit.com/r/wow/) | [@r_wow](https://t.me/r_wow) | 1 hour |
 | [/r/minecraft](https://www.reddit.com/r/minecraft/) | [@r_minecraft](https://t.me/r_minecraft) | 1 hour |
 | [/r/maybemaybemaybe](https://www.reddit.com/r/maybemaybemaybe/) | [@MaybeMaybeMaybe](https://t.me/MaybeMaybeMaybe) | 1 hour |
