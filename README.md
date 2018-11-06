@@ -165,6 +165,7 @@ Currently alive channels
 | [/r/androiddev](https://www.reddit.com/r/androiddev/) | [@reddit_androiddev](https://t.me/reddit_androiddev) | 1 hour |
 | [/r/proceduralgeneration](https://www.reddit.com/r/proceduralgeneration/) | [@proceduralgeneration](https://t.me/proceduralgeneration) | 1 hour |
 | [/r/gtaonline](https://www.reddit.com/r/gtaonline/) | [@r_gtaonline](https://t.me/r_gtaonline) | 1 hour |
+| [/r/ich_iel](https://www.reddit.com/r/ich_iel/) | [@ichimechtenleben](https://t.me/ichimechtenleben) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
