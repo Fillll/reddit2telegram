@@ -170,6 +170,7 @@ Currently alive channels
 | [/r/soccer](https://www.reddit.com/r/soccer/) | [@soccer_reddit](https://t.me/soccer_reddit) | 30 mins |
 | [/r/Texans](https://www.reddit.com/r/Texans/) | [@r_texans](https://t.me/r_texans) | 2 hours |
 | [/r/reddevils](https://www.reddit.com/r/reddevils/) | [@r_reddevils](https://t.me/r_reddevils) | 1 hour |
+| [/r/gifs](https://www.reddit.com/r/gifs/) | [@GIFFFs](https://t.me/GIFFFs) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
