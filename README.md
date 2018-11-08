@@ -166,6 +166,10 @@ Currently alive channels
 | [/r/gtaonline](https://www.reddit.com/r/gtaonline/) | [@r_gtaonline](https://t.me/r_gtaonline) | 1 hour |
 | [/r/ich_iel](https://www.reddit.com/r/ich_iel/) | [@ichimechtenleben](https://t.me/ichimechtenleben) | 1 hour |
 | [/r/IngressPrimeFeedback](https://www.reddit.com/r/IngressPrimeFeedback/) | [@IngressPrimeFeedback](https://t.me/IngressPrimeFeedback) | 1 hour |
+| [/r/nfl](https://www.reddit.com/r/nfl/) | [@NFL_reddit](https://t.me/NFL_reddit) | 1 hour |
+| [/r/soccer](https://www.reddit.com/r/soccer/) | [@soccer_reddit](https://t.me/soccer_reddit) | 30 mins |
+| [/r/Texans](https://www.reddit.com/r/Texans/) | [@r_texans](https://t.me/r_texans) | 2 hours |
+| [/r/reddevils](https://www.reddit.com/r/reddevils/) | [@r_reddevils](https://t.me/r_reddevils) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
