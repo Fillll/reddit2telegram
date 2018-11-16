@@ -7,7 +7,7 @@ from utils import SupplyResult
 # Subreddit that will be a source of content
 subreddit = 'slimerancher'
 # Telegram channel with @reddit2telegram_bot as an admin
-t_channel = '@r_slimerancher'
+t_channel = '@r_SlimeRancher'
 
 
 def send_post(submission, r2t):
