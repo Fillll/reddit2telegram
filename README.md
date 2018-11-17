@@ -172,6 +172,7 @@ Currently alive channels
 | [/r/reddevils](https://www.reddit.com/r/reddevils/) | [@r_reddevils](https://t.me/r_reddevils) | 1 hour |
 | [/r/gifs](https://www.reddit.com/r/gifs/) | [@GIFFFs](https://t.me/GIFFFs) | 1 hour |
 | [/r/XXXTENTACION](https://www.reddit.com/r/XXXTENTACION/) | [@r_xxxtentacion](https://t.me/r_xxxtentacion) | 1 hour |
+| [/r/Quotesporn](https://www.reddit.com/r/Quotesporn/) | [@r_quotesporn](https://t.me/r_quotesporn) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
