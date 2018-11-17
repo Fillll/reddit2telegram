@@ -171,6 +171,7 @@ Currently alive channels
 | [/r/Texans](https://www.reddit.com/r/Texans/) | [@r_texans](https://t.me/r_texans) | 2 hours |
 | [/r/reddevils](https://www.reddit.com/r/reddevils/) | [@r_reddevils](https://t.me/r_reddevils) | 1 hour |
 | [/r/gifs](https://www.reddit.com/r/gifs/) | [@GIFFFs](https://t.me/GIFFFs) | 1 hour |
+| [/r/XXXTENTACION](https://www.reddit.com/r/XXXTENTACION/) | [@r_xxxtentacion](https://t.me/r_xxxtentacion) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
