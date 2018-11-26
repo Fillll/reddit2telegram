@@ -175,6 +175,7 @@ Currently alive channels
 | [/r/Quotesporn](https://www.reddit.com/r/Quotesporn/) | [@r_quotesporn](https://t.me/r_quotesporn) | 1 hour |
 | [/r/getmotivated](https://www.reddit.com/r/getmotivated/) | [@r_getmotivated](https://t.me/r_getmotivated) | 1 hour |
 | [/r/hqdesi](https://www.reddit.com/r/hqdesi/) | [@rhqdesi](https://t.me/rhqdesi) | 1 hour |
+| [/r/podcasts](https://www.reddit.com/r/podcasts/) | [@r_Podcasts](https://t.me/r_Podcasts) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
