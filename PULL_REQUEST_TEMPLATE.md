@@ -2,11 +2,11 @@
 
 ## Subreddit
 
-__What subreddit?__
+_What subreddit?_
 
 ## Telegram Channel
 
-__What telegram channel?__
+_What telegram channel?_
 
 ## Checklist
 
