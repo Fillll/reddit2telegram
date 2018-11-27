@@ -14,6 +14,6 @@ __What telegram channel?__
 - [ ] Added `channels/%SUB_NAME%/__init__.py` file.
 - [ ] Updated `README.md`.
 - [ ] Updated `own.cron`.
-- [ ] Already have nice profile pic.
+- [ ] Already have nice channel's profile pic.
 - [ ] Already have `@r_channels` in the description of your channel.
 - [ ] `@reddit2telegram_bot` added as admin to this channel.
