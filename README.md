@@ -176,6 +176,7 @@ Currently alive channels
 | [/r/getmotivated](https://www.reddit.com/r/getmotivated/) | [@r_getmotivated](https://t.me/r_getmotivated) | 1 hour |
 | [/r/hqdesi](https://www.reddit.com/r/hqdesi/) | [@rhqdesi](https://t.me/rhqdesi) | 1 hour |
 | [/r/podcasts](https://www.reddit.com/r/podcasts/) | [@r_Podcasts](https://t.me/r_Podcasts) | 1 hour |
+| [A lot of imaginary subreddits](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_imaginary_network/app.py#L5). | [@r_imaginary_network](https://t.me/r_imaginary_network) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
