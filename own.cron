@@ -32,6 +32,7 @@ MASK	submodule_name
 09 * * * *	p_pr
 09 * * * *	r_arthelpreddit
 09 * * * *	AMD
+09 * * * *	r_MaxEstLa
 10 * * * *	news
 10 * * * *	r_fashion
 10 * * * *	r_remotejs
