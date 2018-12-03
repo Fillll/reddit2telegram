@@ -18,8 +18,10 @@ import yaml
 import pymongo
 from pymongo.collection import ReturnDocument
 import telepot
-from gfycat.client import GfycatClient
 from telepot.exception import TelegramError
+
+
+GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
 
 
 TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
@@ -158,10 +160,13 @@ def get_url(submission, mp4_instead_gif=True):
                     # return 'gif', img.link, 'gif'
                     return TYPE_GIF, img.gifv[:-1], 'gif'
     elif 'gfycat.com' in urlparse(url).netloc:
-        client = GfycatClient()
         rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
         try:
-            urls = client.query_gfy(rname)['gfyItem']
+            r = requests.get(GFYCAT_GET + rname)
+            if r.status_code != 200:
+                logging.info('Gfy fail prevented!')
+                return TYPE_OTHER, url, None
+            urls = r.json()['gfyItem']
             if mp4_instead_gif:
                 return TYPE_GIF, urls['mp4Url'], 'mp4'
             else:

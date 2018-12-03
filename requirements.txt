@@ -6,5 +6,4 @@ pymongo
 requests
 imgurpython
 raven
-gfycat
 croniter
