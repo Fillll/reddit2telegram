@@ -17,10 +17,18 @@ def send_post(submission, r2t):
     for channel in channels_list:
         bd_party, years = is_birthday_today(r2t, channel)
         if bd_party and years > 0:
+            plural = 's' if years != 1 else ''
+            # To the @r_channels
+            time.sleep(10)
+            r2t.t_channel = '@r_channels'
+            text_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old.\nCongratulations! 🎁'.format(
+                channel=channel, years_cnt=years, s=plural)
+            r2t.send_text(text_to_send)
+            # To the dev channel
             time.sleep(10)
             r2t.t_channel = get_dev_channel()
-            plural = 's' if years != 1 else ''
-            r2t.send_text('{channel} is {years} year{s} old.'.format(channel=channel, years=years, s=plural))
+            r2t.send_text(text_to_send)
+            # To the channels itself
             time.sleep(10)
             r2t.t_channel = channel
             text_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old. '.format(
@@ -31,6 +39,7 @@ def send_post(submission, r2t):
                 list_of_channels='\n'.join(list_of_channels))
             text_to_send += default_ending()
             r2t.send_text(text_to_send)
+            # To the dev channel again
             time.sleep(10)
             r2t.t_channel = get_dev_channel()
             r2t.send_text(text_to_send)
