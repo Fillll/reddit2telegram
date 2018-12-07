@@ -177,7 +177,8 @@ Currently alive channels
 | [/r/hqdesi](https://www.reddit.com/r/hqdesi/) | [@rhqdesi](https://t.me/rhqdesi) | 1 hour |
 | [/r/podcasts](https://www.reddit.com/r/podcasts/) | [@r_Podcasts](https://t.me/r_Podcasts) | 1 hour |
 | [A lot of imaginary subreddits](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_imaginary_network/app.py#L5). | [@r_imaginary_network](https://t.me/r_imaginary_network) | 1 hour |
-| [/r/maxestla](https://www.reddit.com/r/maxestla/) | [@r_MaxEstLa](https://t.me/r_MaxEstLa) | 1 hour |
+| [/r/maxestla](https://www.reddit.com/r/maxestla/) | [@r_MaxEstLa](https://t.me/r_MaxEstLaS) | 1 hour |
+| [/r/selfhosted](https://www.reddit.com/r/selfhosted/) | [@r_SelfHosted](https://t.me/r_SelfHosted) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
