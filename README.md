@@ -179,6 +179,7 @@ Currently alive channels
 | [A lot of imaginary subreddits](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_imaginary_network/app.py#L5). | [@r_imaginary_network](https://t.me/r_imaginary_network) | 1 hour |
 | [/r/maxestla](https://www.reddit.com/r/maxestla/) | [@r_MaxEstLa](https://t.me/r_MaxEstLaS) | 1 hour |
 | [/r/selfhosted](https://www.reddit.com/r/selfhosted/) | [@r_SelfHosted](https://t.me/r_SelfHosted) | 1 hour |
+| [/r/internetisbeautiful](https://www.reddit.com/r/internetisbeautiful/) | [@r_InternetIsBeautiful](https://t.me/r_InternetIsBeautiful) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
