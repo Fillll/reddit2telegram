@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'loliconsunite'
+subreddit = 'loliconsunite+Lolice+Loli_IRL+Lolification'
 t_channel = '@loliconsunite'
 
 
