@@ -185,6 +185,7 @@ Currently alive channels
 | [/r/soccerbetting](https://www.reddit.com/r/soccerbetting/) | [@rsoccerbetting](https://t.me/rsoccerbetting) | 1 hour |
 | [/r/xboxone](https://www.reddit.com/r/xboxone/) | [@r_xboxone](https://t.me/r_xboxone) | 1 hour |
 | [/r/LivestreamFail](https://www.reddit.com/r/LivestreamFail/) | [@LivestreamFail](https://t.me/LivestreamFail) | 1 hour |
+| [/r/Facepalm](https://www.reddit.com/r/Facepalm/) | [@facepalmers](https://t.me/facepalmers) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
