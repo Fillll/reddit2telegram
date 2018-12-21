@@ -182,6 +182,7 @@ Currently alive channels
 | [/r/internetisbeautiful](https://www.reddit.com/r/internetisbeautiful/) | [@r_InternetIsBeautiful](https://t.me/r_InternetIsBeautiful) | 1 hour |
 | [/r/thinkpadsforsale](https://www.reddit.com/r/thinkpadsforsale/) | [@r_thinkpadsforsale](https://t.me/r_thinkpadsforsale) | 1 hour |
 | [/r/videos](https://www.reddit.com/r/videos/) | [@redditvideos](https://t.me/redditvideos) | 1 hour |
+| [/r/soccerbetting](https://www.reddit.com/r/soccerbetting/) | [@rsoccerbetting](https://t.me/rsoccerbetting) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
