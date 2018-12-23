@@ -4,7 +4,6 @@ import datetime
 import csv
 import logging
 from multiprocessing import Process
-import time
 
 import yaml
 from croniter import croniter
@@ -31,7 +30,6 @@ def read_own_cron(own_cron_filename, config):
                 # supply(row['submodule_name'], config)
                 supplying_process = Process(target=supply, args=(row['submodule_name'], config))
                 supplying_process.start()
-                time.sleep(2)
 
 
 def main(config_filename):

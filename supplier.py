@@ -2,6 +2,8 @@
 
 import importlib
 import logging
+import random
+import time
 
 import yaml
 import praw
@@ -11,7 +13,8 @@ from reporting_stuff import report_error
 
 
 @report_error
-def supply(submodule_name, config):
+def supply(submodule_name, config, is_test=False):
+    time.sleep(random.randrange(0, 40))
     submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
     reddit = praw.Reddit(
         user_agent=config['reddit']['user_agent'],
@@ -21,7 +24,8 @@ def supply(submodule_name, config):
         password=config['reddit']['password']
     )
     submissions = reddit.subreddit(submodule.subreddit).hot(limit=100)
-    r2t = utils.Reddit2TelegramSender(submodule.t_channel, config)
+    channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
+    r2t = utils.Reddit2TelegramSender(channel_to_post, config)
     success = False
     for submission in submissions:
         link = submission.shortlink
@@ -51,16 +55,17 @@ def supply(submodule_name, config):
                     sub=submodule.subreddit, channel=submodule.t_channel))
 
 
-def main(config_filename, sub):
+def main(config_filename, sub, is_test=False):
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
-        supply(sub, config)
+        supply(sub, config, is_test)
 
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', default='configs/prod.yml')
+    parser.add_argument('--test', action='store_true')
     parser.add_argument('--sub')
     args = parser.parse_args()
-    main(args.config, args.sub)
+    main(args.config, args.sub, args.test)
