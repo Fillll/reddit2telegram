@@ -190,6 +190,7 @@ Currently alive channels
 | [/r/im14andthisisdeep](https://www.reddit.com/r/im14andthisisdeep/) | [@wokesouls](https://t.me/wokesouls) | 1 hour |
 | [/r/comedycemetery](https://www.reddit.com/r/comedycemetery/) | [@r_ComedyCemetery](https://t.me/r_ComedyCemetery) | 1 hour |
 | [/r/latestagecapitalism](https://www.reddit.com/r/latestagecapitalism/) | [@r_latestagecapitalism](https://t.me/r_latestagecapitalism) | 1 hour |
+| [/r/ShitLiberalsSay](https://www.reddit.com/r/ShitLiberalsSay/) | [@ShitLiberalsSay](https://t.me/ShitLiberalsSay) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
