@@ -192,6 +192,7 @@ Currently alive channels
 | [/r/latestagecapitalism](https://www.reddit.com/r/latestagecapitalism/) | [@r_latestagecapitalism](https://t.me/r_latestagecapitalism) | 1 hour |
 | [/r/ShitLiberalsSay](https://www.reddit.com/r/ShitLiberalsSay/) | [@ShitLiberalsSay](https://t.me/ShitLiberalsSay) | 1 hour |
 | [/r/piracy](https://www.reddit.com/r/piracy/) | [@redditpiracy](https://t.me/redditpiracy) | 1 hour |
+| [/r/ChapoTrapHouse](https://www.reddit.com/r/ChapoTrapHouse/) | [@r_ChapoTrapHouse](https://t.me/r_ChapoTrapHouse) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
