@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'Ingress'
-t_channel = '@IngressReddit'
+subreddit = 'YoutubeCompendium'
+t_channel = '@YoutubeCompendium'
 
 
 def send_post(submission, r2t):
