@@ -1,6 +1,8 @@
 reddit2telegram
 ===============
 
+[![](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/r_channels)
+
 Hi there!
 
 These bots just send latest hot submissions from subreddit **/r/%subreddit%** to telegram channel **@r_%subreddit%** hourly. For example [/r/gifs](https://www.reddit.com/r/gifs/) → [@r_gifs](https://t.me/r_gifs).
