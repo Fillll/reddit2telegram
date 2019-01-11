@@ -194,6 +194,7 @@ Currently alive channels
 | [/r/piracy](https://www.reddit.com/r/piracy/) | [@redditpiracy](https://t.me/redditpiracy) | 1 hour |
 | [/r/ChapoTrapHouse](https://www.reddit.com/r/ChapoTrapHouse/) | [@r_ChapoTrapHouse](https://t.me/r_ChapoTrapHouse) | 1 hour |
 | [/r/jenkinsci](https://www.reddit.com/r/jenkinsci/) | [@jenkinsci](https://t.me/r_jenkinsci) | 1 hour |
+| [/r/jenkins](https://www.reddit.com/r/jenkins/) | [@r_jenkins](https://t.me/r_jenkins) | 1 hour |
 |  | ... be the next one ... |  |@
 
 

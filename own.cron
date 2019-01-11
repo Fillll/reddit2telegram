@@ -6,6 +6,7 @@ MASK	submodule_name
 01-10 0 * * *	r_til
 01 * * * *	ingressprimefeedback
 01 * * * *      jenkinsci	
+01 * * * *      jenkins
 02 * * * *	r_funny
 02 * * * *	r_punny
 02 * * * *	gifffs
