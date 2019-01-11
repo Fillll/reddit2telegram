@@ -202,6 +202,7 @@ Currently alive channels
 | [/r/OddlySatisfying](https://www.reddit.com/r/OddlySatisfying/) | [@oddly_satisfy](https://t.me/oddly_satisfy) | 1 hour |
 | [/r/jenkinsci](https://www.reddit.com/r/jenkinsci/) | [@jenkinsci](https://t.me/r_jenkinsci) | 1 hour |
 | [/r/jenkins](https://www.reddit.com/r/jenkins/) | [@r_jenkins](https://t.me/r_jenkins) | 1 hour |
+| [/r/art](https://www.reddit.com/r/art/) | [@redditart](https://t.me/redditart) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
