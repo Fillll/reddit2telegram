@@ -1,6 +1,8 @@
 reddit2telegram
 ===============
 
+[![](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/r_channels)
+
 Hi there!
 
 These bots just send latest hot submissions from subreddit **/r/%subreddit%** to telegram channel **@r_%subreddit%** hourly. For example [/r/gifs](https://www.reddit.com/r/gifs/) → [@r_gifs](https://t.me/r_gifs).
@@ -193,6 +195,11 @@ Currently alive channels
 | [/r/ShitLiberalsSay](https://www.reddit.com/r/ShitLiberalsSay/) | [@ShitLiberalsSay](https://t.me/ShitLiberalsSay) | 1 hour |
 | [/r/piracy](https://www.reddit.com/r/piracy/) | [@redditpiracy](https://t.me/redditpiracy) | 1 hour |
 | [/r/ChapoTrapHouse](https://www.reddit.com/r/ChapoTrapHouse/) | [@r_ChapoTrapHouse](https://t.me/r_ChapoTrapHouse) | 1 hour |
+| [/r/ContraPoints](https://www.reddit.com/r/ContraPoints/) | [@r_ContraPoints](https://t.me/r_ContraPoints) | 1 hour |
+| [/r/me_ira](https://www.reddit.com/r/me_ira/) | [@r_me_ira](https://t.me/r_me_ira) | 1 hour |
+| [/r/Ingress](https://www.reddit.com/r/Ingress/) | [@IngressReddit](https://t.me/IngressReddit) | 1 hour |
+| [/r/YoutubeCompendium](https://www.reddit.com/r/YoutubeCompendium/) | [@YoutubeCompendium](https://t.me/YoutubeCompendium) | 1 hour |
+| [/r/OddlySatisfying](https://www.reddit.com/r/OddlySatisfying/) | [@oddly_satisfy](https://t.me/oddly_satisfy) | 1 hour |
 | [/r/jenkinsci](https://www.reddit.com/r/jenkinsci/) | [@jenkinsci](https://t.me/r_jenkinsci) | 1 hour |
 | [/r/jenkins](https://www.reddit.com/r/jenkins/) | [@r_jenkins](https://t.me/r_jenkins) | 1 hour |
 |  | ... be the next one ... |  |@
