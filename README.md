@@ -200,6 +200,8 @@ Currently alive channels
 | [/r/Ingress](https://www.reddit.com/r/Ingress/) | [@IngressReddit](https://t.me/IngressReddit) | 1 hour |
 | [/r/YoutubeCompendium](https://www.reddit.com/r/YoutubeCompendium/) | [@YoutubeCompendium](https://t.me/YoutubeCompendium) | 1 hour |
 | [/r/OddlySatisfying](https://www.reddit.com/r/OddlySatisfying/) | [@oddly_satisfy](https://t.me/oddly_satisfy) | 1 hour |
+| [/r/jenkinsci](https://www.reddit.com/r/jenkinsci/) | [@jenkinsci](https://t.me/r_jenkinsci) | 1 hour |
+| [/r/jenkins](https://www.reddit.com/r/jenkins/) | [@r_jenkins](https://t.me/r_jenkins) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
