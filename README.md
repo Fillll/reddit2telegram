@@ -204,6 +204,7 @@ Currently alive channels
 | [/r/jenkins](https://www.reddit.com/r/jenkins/) | [@r_jenkins](https://t.me/r_jenkins) | 1 hour |
 | [/r/art](https://www.reddit.com/r/art/) | [@redditart](https://t.me/redditart) | 1 hour |
 | [/r/interestingasfuck](https://www.reddit.com/r/interestingasfuck/) | [@r_interestingasfuck](https://t.me/r_interestingasfuck) | 1 hour |
+| [/r/Programming](https://www.reddit.com/r/Programming/) | [@r_Pr0gramming](https://t.me/r_Pr0gramming) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
