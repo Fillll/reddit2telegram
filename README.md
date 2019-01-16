@@ -206,6 +206,7 @@ Currently alive channels
 | [/r/interestingasfuck](https://www.reddit.com/r/interestingasfuck/) | [@r_interestingasfuck](https://t.me/r_interestingasfuck) | 1 hour |
 | [/r/Programming](https://www.reddit.com/r/Programming/) | [@r_Pr0gramming](https://t.me/r_Pr0gramming) | 1 hour |
 | [/r/RimWorld](https://www.reddit.com/r/RimWorld/) | [@r_RimWorld](https://t.me/r_RimWorld) | 1 hour |
+| [/r/woooosh](https://www.reddit.com/r/woooosh/) | [@r_woooosh](https://t.me/r_woooosh) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
