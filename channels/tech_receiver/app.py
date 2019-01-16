@@ -37,17 +37,6 @@ def send_post(submission, r2t):
         time.sleep(2)
         last_update = update['update_id']
 
-        settings.find_one_and_update(
-            {
-                'settings': 1
-            },
-            {
-                "$set": 
-                {
-                    'last_update': last_update + 1
-                }
-            }
-        )
         if 'message' not in update:
             continue
         if 'chat' not in update['message']:
@@ -62,5 +51,16 @@ def send_post(submission, r2t):
         message_id = update['message']['message_id']
         r2t.telepot_bot.forwardMessage(chat_id=get_dev_channel(), from_chat_id=user_id, message_id=message_id)
 
+    settings.find_one_and_update(
+        {
+            'settings': 1
+        },
+        {
+            "$set": 
+            {
+                'last_update': last_update + 1
+            }
+        }
+    )
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
