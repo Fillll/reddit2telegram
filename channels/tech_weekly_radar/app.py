@@ -23,8 +23,9 @@ def send_post(submission, r2t):
     if len(top_growers) > 0:
         text_to_send += '🔥 Hottest channels of the week: {channels}.\n\n'.format(channels=', '.join(top_growers))
     list_of_channels = generate_list_of_channels(channels_list, random_permutation=False)
-    text_to_send += '⬇️ All active channels:\n{list_of_channels}\n\n'.format(list_of_channels='\n'.join(list_of_channels))
     text_to_send += default_ending()
+    r2t.send_text(text_to_send, parse_mode='HTML')
+    text_to_send = '⬇️ All active channels:\n{list_of_channels}\n\n'.format(list_of_channels='\n'.join(list_of_channels))
     r2t.send_text(text_to_send, parse_mode='HTML')
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
