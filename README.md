@@ -209,6 +209,7 @@ Currently alive channels
 | [/r/woooosh](https://www.reddit.com/r/woooosh/) | [@r_woooosh](https://t.me/r_woooosh) | 1 hour |
 | [/r/instant_regret](https://www.reddit.com/r/instant_regret/) | [@instant_regret](https://t.me/instant_regret) | 1 hour |
 | [/r/DJs](https://www.reddit.com/r/DJs/) | [@r_djs](https://t.me/r_djs) | 1 hour |
+| [/r/marvelstudios](https://www.reddit.com/r/marvelstudios/) | [@r_marvelstudios](https://t.me/r_marvelstudios) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
