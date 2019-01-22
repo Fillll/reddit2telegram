@@ -211,6 +211,7 @@ Currently alive channels
 | [/r/DJs](https://www.reddit.com/r/DJs/) | [@r_djs](https://t.me/r_djs) | 1 hour |
 | [/r/marvelstudios](https://www.reddit.com/r/marvelstudios/) | [@r_marvelstudios](https://t.me/r_marvelstudios) | 1 hour |
 | [/r/ImGoingToHellForThis](https://www.reddit.com/r/ImGoingToHellForThis/) | [@r_ImToGoingHellForThis](https://t.me/r_ImToGoingHellForThis) | 1 hour |
+| [/r/CelebrityArmpits](https://www.reddit.com/r/CelebrityArmpits/) | [@CelebrityArmpits](https://t.me/CelebrityArmpits) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
