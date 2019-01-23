@@ -213,6 +213,7 @@ Currently alive channels
 | [/r/ImGoingToHellForThis](https://www.reddit.com/r/ImGoingToHellForThis/) | [@r_ImToGoingHellForThis](https://t.me/r_ImToGoingHellForThis) | 1 hour |
 | [/r/CelebrityArmpits](https://www.reddit.com/r/CelebrityArmpits/) | [@CelebrityArmpits](https://t.me/CelebrityArmpits) | 1 hour |
 | [/r/creepyasterisks](https://www.reddit.com/r/creepyasterisks/) | [@r_creepyasterisks](https://t.me/r_creepyasterisks) | 1 hour |
+| [/r/WhitePeopleTwitter](https://www.reddit.com/r/WhitePeopleTwitter/) & [/r/BlackPeopleTwitter](https://www.reddit.com/r/BlackPeopleTwitter/) | [@AllTwitter](https://t.me/AllTwitter) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
