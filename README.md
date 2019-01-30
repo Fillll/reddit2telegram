@@ -215,6 +215,7 @@ Currently alive channels
 | [/r/creepyasterisks](https://www.reddit.com/r/creepyasterisks/) | [@r_creepyasterisks](https://t.me/r_creepyasterisks) | 1 hour |
 | [/r/WhitePeopleTwitter](https://www.reddit.com/r/WhitePeopleTwitter/) & [/r/BlackPeopleTwitter](https://www.reddit.com/r/BlackPeopleTwitter/) | [@AllTwitter](https://t.me/AllTwitter) | 1 hour |
 | [/r/TIHI](https://www.reddit.com/r/TIHI/) | [@r_TIHI](https://t.me/r_TIHI) | 1 hour |
+| [/r/therewasanattempt](https://www.reddit.com/r/therewasanattempt/) | [@r_therewasanattempt](https://t.me/r_therewasanattempt) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
