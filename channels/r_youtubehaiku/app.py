@@ -11,7 +11,7 @@ subreddit = weighted_random_subreddit({
     # 'any_other_subreddit': 0.02
 })
 # Telegram channel with @reddit2telegram_bot as an admin
-t_channel = '@r/youtubehaiku'
+t_channel = '@r_youtubehaiku'
 
 
 def send_post(submission, r2t):
@@ -21,11 +21,11 @@ def send_post(submission, r2t):
         # If you do not want text submissions, just pass False.
         text=False,
         # If you want gifs, just pass True or text you want under gif.
-        gif=True,
+        gif=False,
         # If you want images, just pass True or text you want under image.
-        img=True,
+        img=False,
         # If you want albums, just pass True or text you want under albums.
-        album=True,
+        album=False,
         # If you do not want othe submissions, just pass False.
-        other=False
+        other=True
     )
