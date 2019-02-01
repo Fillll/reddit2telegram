@@ -11,7 +11,7 @@ If you want to obtain your own channel for `/r/%subreddit%`:
 
 1. Create new public telegram channel `@r_%subreddit%`.
 2. Add [`@reddit2telegram_bot`](https://t.me/reddit2telegram_bot) as administrator to this channel.
-3. Make a pull request to this repo with new script to make posts (use [`/channels/r_funnny/app.py`](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_funny/app.py) as draft).
+3. Make a pull request to this repo with new script to make posts (use [`reddit2telegram/channels/r_funnny/app.py`](https://github.com/Fillll/reddit2telegram/blob/master/reddit2telegram/channels/r_funny/app.py) as draft).
 4. Then I will make it alive :)
 5. For any questions do not hesitate to contact me in [@r_channels group](https://t.me/r_channels) or [on reddit](https://www.reddit.com/user/fillll).
 
