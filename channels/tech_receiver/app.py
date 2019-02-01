@@ -19,15 +19,20 @@ def send_post(submission, r2t):
     with open(config_filename) as config_file:
         config = yaml.load(config_file.read())
     settings = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]['settings']
+    settings.ensure_index([('setting', pymongo.ASCENDING)])
 
     last_update_doc = settings.find_one({
-        'settings': 1,
+        'setting': 1,
     })
 
     if last_update_doc is None:
         last_update_doc = {
             'last_update': 0
         }
+        settings.insert_one({
+            'setting': 1,
+            'last_update': 0
+        })
 
     updates = r2t.telepot_bot.getUpdates(offset=last_update_doc['last_update'])
 
@@ -53,12 +58,12 @@ def send_post(submission, r2t):
 
     settings.find_one_and_update(
         {
-            'settings': 1
+            'setting': 1
         },
         {
-            "$set": 
+            '$set': 
             {
-                'last_update': last_update + 1
+                'last_update': last_update
             }
         }
     )
