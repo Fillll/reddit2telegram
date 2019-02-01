@@ -217,6 +217,7 @@ Currently alive channels
 | [/r/TIHI](https://www.reddit.com/r/TIHI/) | [@r_TIHI](https://t.me/r_TIHI) | 1 hour |
 | [/r/therewasanattempt](https://www.reddit.com/r/therewasanattempt/) | [@r_therewasanattempt](https://t.me/r_therewasanattempt) | 1 hour |
 | [/r/WatchPeopleDieInside](https://www.reddit.com/r/WatchPeopleDieInside/) | [@r_WatchPeopleDieInside](https://t.me/r_WatchPeopleDieInside) | 1 hour |
+| [/r/youtubehaiku](https://www.reddit.com/r/youtubehaiku/) | [@r_youtubehaiku](https://t.me/r_youtubehaiku) | 4 hour |
 |  | ... be the next one ... |  |@
 
 
