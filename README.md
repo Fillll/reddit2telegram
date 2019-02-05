@@ -218,6 +218,7 @@ Currently alive channels
 | [/r/therewasanattempt](https://www.reddit.com/r/therewasanattempt/) | [@r_therewasanattempt](https://t.me/r_therewasanattempt) | 1 hour |
 | [/r/WatchPeopleDieInside](https://www.reddit.com/r/WatchPeopleDieInside/) | [@r_WatchPeopleDieInside](https://t.me/r_WatchPeopleDieInside) | 1 hour |
 | [/r/youtubehaiku](https://www.reddit.com/r/youtubehaiku/) | [@r_youtubehaiku](https://t.me/r_youtubehaiku) | 4 hour |
+| [/r/eminem](https://www.reddit.com/r/eminem/) | [@sub_eminem](https://t.me/sub_eminem) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
