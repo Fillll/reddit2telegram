@@ -32,6 +32,11 @@ def get_all_submodules(config_filename=None):
         return all_submodules
 
 
+def get_all_public_submodules(config_filename=None):
+    all_submodules = get_all_submodules(config_filename=config_filename)
+    return [submodule for submodule in all_submodules if 'tech_' not in submodule]
+
+
 def get_all_public_channels(r2t, config_filename=None):
     all_submodules = get_all_submodules(config_filename)
     channels_and_dates = dict()

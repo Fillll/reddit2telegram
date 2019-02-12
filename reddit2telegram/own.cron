@@ -1,4 +1,5 @@
 MASK	submodule_name
+00-45 * * * *	reddit2telegram
 00 * * * *	r_gifs
 00 */2 * * *	r_wholesomememes
 00 * * * *	ichimechtenleben

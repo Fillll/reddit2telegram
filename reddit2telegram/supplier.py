@@ -14,7 +14,8 @@ from reporting_stuff import report_error
 
 @report_error
 def supply(submodule_name, config, is_test=False):
-    time.sleep(random.randrange(0, 40))
+    if not is_test:
+        time.sleep(random.randrange(0, 40))
     submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
     reddit = praw.Reddit(
         user_agent=config['reddit']['user_agent'],
@@ -23,7 +24,14 @@ def supply(submodule_name, config, is_test=False):
         username=config['reddit']['username'],
         password=config['reddit']['password']
     )
-    submissions = reddit.subreddit(submodule.subreddit).hot(limit=100)
+    submissions_ranking = getattr(submodule, 'submissions_ranking', 'hot')
+    submissions_limit = getattr(submodule, 'submissions_limit', 100)
+    if submissions_ranking == 'top':
+        submissions = reddit.subreddit(submodule.subreddit).top(limit=submissions_limit)
+    elif submissions_ranking == 'hot':
+        submissions = reddit.subreddit(submodule.subreddit).hot(limit=submissions_limit)
+    else:
+        logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
     channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
     r2t = utils.Reddit2TelegramSender(channel_to_post, config)
     success = False
