@@ -219,6 +219,7 @@ Currently alive channels
 | [/r/WatchPeopleDieInside](https://www.reddit.com/r/WatchPeopleDieInside/) | [@r_WatchPeopleDieInside](https://t.me/r_WatchPeopleDieInside) | 1 hour |
 | [/r/youtubehaiku](https://www.reddit.com/r/youtubehaiku/) | [@r_youtubehaiku](https://t.me/r_youtubehaiku) | 4 hour |
 | [/r/eminem](https://www.reddit.com/r/eminem/) | [@sub_eminem](https://t.me/sub_eminem) | 1 hour |
+| [/r/jailbreak](https://www.reddit.com/r/jailbreak/) | [@r_jailbreak](https://t.me/r_jailbreak) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
