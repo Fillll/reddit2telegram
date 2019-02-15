@@ -23,6 +23,7 @@ MASK	submodule_name
 05 */2 * * *	r_showerthoughts
 05 * * * *	r_softwaregore
 05 * * * *	r_getmotivated
+05 * * * *	therightcantmeme
 06 */3 * * *	r_jokes
 06 * * * *	r_wow
 06 * * * *	r_crappydesign
