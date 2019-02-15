@@ -5,7 +5,10 @@ from utils import weighted_random_subreddit
 
 subreddit = weighted_random_subreddit({
     'WhitePeopleTwitter': 1,
-    'BlackPeopleTwitter': 1
+    'BlackPeopleTwitter': 1,
+    'scottishpeopletwitter': 1,
+    'wholesomebpt': 1,
+    'latinopeopletwitter': 1
 })
 t_channel = '@AllTwitter'
 

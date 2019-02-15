@@ -213,7 +213,7 @@ Currently alive channels
 | [/r/ImGoingToHellForThis](https://www.reddit.com/r/ImGoingToHellForThis/) | [@r_ImToGoingHellForThis](https://t.me/r_ImToGoingHellForThis) | 1 hour |
 | [/r/CelebrityArmpits](https://www.reddit.com/r/CelebrityArmpits/) | [@CelebrityArmpits](https://t.me/CelebrityArmpits) | 1 hour |
 | [/r/creepyasterisks](https://www.reddit.com/r/creepyasterisks/) | [@r_creepyasterisks](https://t.me/r_creepyasterisks) | 1 hour |
-| [/r/WhitePeopleTwitter](https://www.reddit.com/r/WhitePeopleTwitter/) & [/r/BlackPeopleTwitter](https://www.reddit.com/r/BlackPeopleTwitter/) | [@AllTwitter](https://t.me/AllTwitter) | 1 hour |
+| [/r/WhitePeopleTwitter](https://www.reddit.com/r/WhitePeopleTwitter/) & [/r/BlackPeopleTwitter](https://www.reddit.com/r/BlackPeopleTwitter/) & [/r/scottishpeopletwitter](https://www.reddit.com/r/scottishpeopletwitter/) & [/r/wholesomebpt](https://www.reddit.com/r/wholesomebpt/) & [/r/latinopeopletwitter](https://www.reddit.com/r/latinopeopletwitter/) | [@AllTwitter](https://t.me/AllTwitter) | 1 hour |
 | [/r/TIHI](https://www.reddit.com/r/TIHI/) | [@r_TIHI](https://t.me/r_TIHI) | 1 hour |
 | [/r/therewasanattempt](https://www.reddit.com/r/therewasanattempt/) | [@r_therewasanattempt](https://t.me/r_therewasanattempt) | 1 hour |
 | [/r/WatchPeopleDieInside](https://www.reddit.com/r/WatchPeopleDieInside/) | [@r_WatchPeopleDieInside](https://t.me/r_WatchPeopleDieInside) | 1 hour |
