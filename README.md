@@ -221,6 +221,9 @@ Currently alive channels
 | [/r/eminem](https://www.reddit.com/r/eminem/) | [@sub_eminem](https://t.me/sub_eminem) | 1 hour |
 | [/r/jailbreak](https://www.reddit.com/r/jailbreak/) | [@r_jailbreak](https://t.me/r_jailbreak) | 1 hour |
 | [/r/ShittyRamen](https://www.reddit.com/r/ShittyRamen/) | [@r_shittyramen](https://t.me/r_shittyramen) | 1 hour |
+| [/r/bestoftwitter](https://www.reddit.com/r/bestoftwitter/) | [@bestoftweets](https://t.me/bestoftweets) | 1 hour |
+| [/r/blackpeopletwitter](https://www.reddit.com/r/blackpeopletwitter/) | [@blackpeopletweets](https://t.me/blackpeopletweets) | 1 hour |
+| [/r/whitepeopletwitter](https://www.reddit.com/r/whitepeopletwitter/) | [@whitepeopletweets](https://t.me/whitepeopletweets) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
