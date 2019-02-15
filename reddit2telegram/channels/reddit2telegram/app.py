@@ -10,6 +10,7 @@ from utils.tech import get_all_public_submodules
 
 def what_submodule():
     all_submodules = get_all_public_submodules()
+    all_submodules.remove('reddit2telegram')
     return random.choice(all_submodules)
 
 def what_subreddit(submodule_name_to_promte):
