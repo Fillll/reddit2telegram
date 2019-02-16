@@ -121,7 +121,6 @@ Currently alive channels
 | [/r/dankchristianmemes](https://www.reddit.com/r/dankchristianmemes/) | [@r_dankchristianmemes](https://t.me/r_dankchristianmemes) | 1 hour |
 | [/r/disneyvacation](https://www.reddit.com/r/disneyvacation/) | [@r_disneyvacation](https://t.me/r_disneyvacation) | 1 hour |
 | [/r/punny](https://www.reddit.com/r/punny/) | [@R_Punny](https://t.me/R_Punny) | 1 hour |
-| [/r/animalromance](https://www.reddit.com/r/animalromance/) | [@animalromance](https://t.me/animalromance) | 1 hour |
 | [/r/MapPorn](https://www.reddit.com/r/MapPorn/) | [@r_mapporn](https://t.me/r_mapporn) | 1 hour |
 | [/r/softwaregore](https://www.reddit.com/r/softwaregore/) | [@r_softwaregore](https://t.me/r_softwaregore) | 1 hour |
 | [/r/crappydesign](https://www.reddit.com/r/crappydesign/) and [/r/crappydesign2](https://www.reddit.com/r/crappydesign2/) | [@r_crappydesign](https://t.me/r_crappydesign) | 1 hour |
