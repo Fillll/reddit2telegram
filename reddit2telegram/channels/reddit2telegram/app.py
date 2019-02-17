@@ -4,6 +4,7 @@ import importlib
 import random
 from datetime import datetime
 import os
+import hashlib
 
 import pymongo
 
@@ -118,7 +119,8 @@ submissions_limit = 1000
 def send_post(submission, r2t):
     now = datetime.now()
     today = datetime(now.year, now.month, now.day)
-    random_number = abs(hash(today))
+    taday_date_string = today.strftime('%Y %b %d')
+    random_number = abs(int(hashlib.sha1(taday_date_string.encode('utf-8')).hexdigest(), 16))
     # if Saturday then no promotion
     if now.weekday() == 5:
         return SupplyResult.STOP_THIS_SUPPLY

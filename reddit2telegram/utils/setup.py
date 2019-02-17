@@ -6,8 +6,6 @@ import csv
 import pymongo
 import yaml
 
-import tech
-
 
 def get_config(config_filename=None):
     if config_filename is None:
