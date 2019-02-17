@@ -141,7 +141,7 @@ def send_post(submission, r2t):
         if result == SupplyResult.SUCCESSFULLY:
             tags = get_tags(submodule_name_to_promte)
             if tags is not None:
-                if len(tags) > 0
+                if len(tags) > 0:
                     r2t.send_text(' '.join(tags))
             if now.weekday() < 5:
                 config = get_config()

@@ -64,7 +64,7 @@ def get_all_public_submodules_and_channels_sroted(config_filename=None):
     submodules_and_dates = dict()
     all_submodules = tech.get_all_public_submodules(config_filename)
     for submodule in all_submodules:
-        imported = importlib.import_module('.{}.app'.format(submodule), package='..channels')
+        imported = importlib.import_module('.channels.{}.app'.format(submodule))
         channel = imported.t_channel
         first_date_result = dates.find_one({'_id': channel.lower()})
         if first_date_result is None:
