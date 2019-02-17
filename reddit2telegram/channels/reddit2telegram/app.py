@@ -36,7 +36,7 @@ def send_post(submission, r2t):
     now = datetime.now()
     today = datetime(now.year, now.month, now.day)
     random_number = abs(hash(today))
-    if now.hour != random_number % 24 or now.minute != random_number % 45:
+    if (now.hour != random_number % 24) or (now.minute != random_number % 45):
         return SupplyResult.STOP_THIS_SUPPLY
 
     submission.title  # to make it non-lazy
