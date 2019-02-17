@@ -127,7 +127,7 @@ def send_post(submission, r2t):
         update_promotion_order()
         return SupplyResult.STOP_THIS_SUPPLY
     # If weekday or Sunday then regular promotion once a day
-    if (now.weekday() != 5) and (now.hour == random_number % 24) or (now.minute == random_number % 45):
+    if (now.weekday() != 5) and ((now.hour == random_number % 24) or (now.minute == random_number % 45)):
         submission.title  # to make it non-lazy
         result = r2t.send_simple(submission,
             channel_to_promote=what_channel(submodule_name_to_promte),
@@ -141,7 +141,8 @@ def send_post(submission, r2t):
         if result == SupplyResult.SUCCESSFULLY:
             tags = get_tags(submodule_name_to_promte)
             if tags is not None:
-                r2t.send_text(' '.join(tags))
+                if len(tags) > 0
+                    r2t.send_text(' '.join(tags))
             if now.weekday() < 5:
                 config = get_config()
                 db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
