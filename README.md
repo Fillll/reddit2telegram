@@ -2,6 +2,7 @@ reddit2telegram
 ===============
 
 [![](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/r_channels)
+[![](https://img.shields.io/badge/Telegram-Channel-blue.svg)](https://t.me/reddit2telegram)
 
 Hi there!
 
