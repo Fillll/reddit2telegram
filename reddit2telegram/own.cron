@@ -26,6 +26,7 @@ MASK	submodule_name
 06 */3 * * *	r_jokes
 06 * * * *	r_wow
 06 * * * *	r_crappydesign
+06 * * * *	r_cgp
 06 * * * *	rhqdesi
 07 * * * *	r_dankmemes
 07 * * * *	r_minecraft
