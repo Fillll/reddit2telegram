@@ -1,14 +1,15 @@
 #encoding:utf-8
 
 import random
+import time
 
 from utils import SupplyResult
-from utils.tech import get_active_period, get_newly_active, get_all_public_channels
+from utils.tech import get_active_period, get_newly_active, get_all_public_channels, get_all_tags
 from utils.tech import generate_list_of_channels, get_top_growers_for_last_week, default_ending
 
 
 subreddit = 'all'
-t_channel = '@r_channels'
+t_channel = '@reddit2telegram'
 
 
 def send_post(submission, r2t):
@@ -25,7 +26,14 @@ def send_post(submission, r2t):
     list_of_channels = generate_list_of_channels(channels_list, random_permutation=False)
     text_to_send += default_ending()
     r2t.send_text(text_to_send, parse_mode='HTML')
+    time.sleep(2)
     text_to_send = '⬇️ All active channels:\n{list_of_channels}\n\n'.format(list_of_channels='\n'.join(list_of_channels))
+    r2t.send_text(text_to_send, parse_mode='HTML')
+    time.sleep(2)
+    text_to_send = '#️⃣ All tags:\n'
+    list_of_tags = list(get_all_tags())
+    random.shuffle(list_of_tags)
+    text_to_send += ' '.join(list_of_tags)
     r2t.send_text(text_to_send, parse_mode='HTML')
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY

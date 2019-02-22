@@ -131,3 +131,16 @@ def default_ending():
     text_to_send += 'Q: How to make similar channels?\nA: Ask at @r_channels or use manual at https://github.com/Fillll/reddit2telegram.\n\n'
     text_to_send += 'Q: Where to donate?\nA: http://bit.ly/r2t_donate'
     return text_to_send
+
+
+def get_all_tags(config_filename=None):
+    all_submodules = get_all_public_submodules(config_filename=config_filename)
+    all_tags = set()
+    for submodule in all_submodules:
+        tags_filename = os.path.join('channels', submodule, 'tags.txt')
+        if not os.path.exists(tags_filename):
+            continue
+        with open(tags_filename, 'r') as tags_file:
+            tags = tags_file.read()
+            all_tags.update(tags.split())
+    return all_tags
