@@ -231,6 +231,7 @@ Currently alive channels
 | [/r/evilbuildings](https://www.reddit.com/r/evilbuildings/) | [@r_evilbuildings](https://t.me/r_evilbuildings) | 1 hour |
 | [/r/RATS](https://www.reddit.com/r/RATS/) | [@rattit](https://t.me/rattit) | 1 hour |
 | [/r/linuxmemes](https://www.reddit.com/r/linuxmemes/) | [@r_linuxmemes](https://t.me/r_linuxmemes) | 1 hour |
+| [/r/BlackMagicFuckery](https://www.reddit.com/r/BlackMagicFuckery/) | [@r_BlackMagicFuckery](https://t.me/r_BlackMagicFuckery) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
