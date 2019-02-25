@@ -233,6 +233,7 @@ Currently alive channels
 | [/r/linuxmemes](https://www.reddit.com/r/linuxmemes/) | [@r_linuxmemes](https://t.me/r_linuxmemes) | 1 hour |
 | [/r/BlackMagicFuckery](https://www.reddit.com/r/BlackMagicFuckery/) | [@r_BlackMagicFuckery](https://t.me/r_BlackMagicFuckery) | 1 hour |
 | [/r/Astolfo](https://www.reddit.com/r/Astolfo/) | [@r_Astolfo](https://t.me/r_Astolfo) | 1 hour |
+| [/r/BaPCSalesEurope](https://www.reddit.com/r/BaPCSalesEurope/) | [@r_BaPCSalesEurope](https://t.me/r_BaPCSalesEurope) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
