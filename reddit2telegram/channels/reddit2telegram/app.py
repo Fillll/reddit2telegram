@@ -134,11 +134,11 @@ def send_post(submission, r2t):
         result = r2t.send_simple(submission,
             channel_to_promote=what_channel(submodule_name_to_promte),
             date=datetime.utcfromtimestamp(submission.created_utc).strftime('%Y %b %d'),
-            text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name} on {date}\n{short_link}\n{channel_to_promote}',
-            other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name} on {date}\n{short_link}\n{channel_to_promote}',
-            album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name} on {date}\n{short_link}\n{channel_to_promote}',
-            gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name} on {date}\n{short_link}\n{channel_to_promote}',
-            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name} on {date}\n{short_link}\n{channel_to_promote}'
+            text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
+            other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
+            album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
+            gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
+            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}'
         )
         if result == SupplyResult.SUCCESSFULLY:
             tags = get_tags(submodule_name_to_promte)
