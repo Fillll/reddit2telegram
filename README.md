@@ -235,6 +235,7 @@ Currently alive channels
 | [/r/Astolfo](https://www.reddit.com/r/Astolfo/) | [@r_Astolfo](https://t.me/r_Astolfo) | 1 hour |
 | [/r/BaPCSalesEurope](https://www.reddit.com/r/BaPCSalesEurope/) | [@r_BaPCSalesEurope](https://t.me/r_BaPCSalesEurope) | 1 hour |
 | [/r/engrish](https://www.reddit.com/r/engrish/) | [@r_engrish](https://t.me/r_engrish) | 1 hour |
+| [/r/coolguides](https://www.reddit.com/r/coolguides/) | [@coolguides](https://t.me/coolguides) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
