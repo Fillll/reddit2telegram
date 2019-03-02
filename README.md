@@ -251,7 +251,7 @@ But if you are geek enough then install mongodb, python and setup cron:
 
 ```cron
 46 * * * * ~/reddit2telegram/auto_update.sh
-* * * * * ~/reddit2telegram/cron_job.sh
+* * * * * ~/reddit2telegram/reddit2telegram/cron_job.sh
 ```
 
 Or, you can build a docker? If yes, pls PR.
