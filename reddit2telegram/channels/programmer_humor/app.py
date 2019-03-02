@@ -12,6 +12,9 @@ def send_post(submission, r2t):
     what, url, ext = get_url(submission)
     if what not in ('gif', 'img'):
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+    if r2t.dup_check_and_mark(url):
+        # There is a duplicate
+        return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     title = submission.title
     link = submission.shortlink
