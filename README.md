@@ -236,6 +236,7 @@ Currently alive channels
 | [/r/BaPCSalesEurope](https://www.reddit.com/r/BaPCSalesEurope/) | [@r_BaPCSalesEurope](https://t.me/r_BaPCSalesEurope) | 1 hour |
 | [/r/engrish](https://www.reddit.com/r/engrish/) | [@r_engrish](https://t.me/r_engrish) | 1 hour |
 | [/r/coolguides](https://www.reddit.com/r/coolguides/) | [@coolguides](https://t.me/coolguides) | 1 hour |
+| [/r/buildapcsales](https://www.reddit.com/r/buildapcsales/) | [@buildapcsalesusa](https://t.me/buildapcsalesusa) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
