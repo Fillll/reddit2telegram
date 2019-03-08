@@ -31,18 +31,26 @@ def send_post(submission, r2t):
             # To the channels itself
             time.sleep(10)
             r2t.t_channel = channel
-            text_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old. '.format(
+            text1_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old. '.format(
                 channel=channel, years_cnt=years, s=plural)
-            text_to_send += 'Congratulations! 🎈🎉🎉\n\n'
+            text1_to_send += 'Congratulations! 🎈🎉🎉\n\n'
             list_of_channels = generate_list_of_channels(channels_list, random_permutation=True)
-            text_to_send += 'Other channels powered by @r_channels:\n{list_of_channels}\n\n'.format(
+            text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n{list_of_channels}\n\n'.format(
                 list_of_channels='\n'.join(list_of_channels))
-            text_to_send += default_ending()
-            r2t.send_text(text_to_send)
+            text3_to_send = default_ending()
+            r2t.send_text(text1_to_send)
+            time.sleep(2)
+            r2t.send_text(text2_to_send)
+            time.sleep(2)
+            r2t.send_text(text3_to_send)
             # To the dev channel again
             time.sleep(10)
             r2t.t_channel = get_dev_channel()
-            r2t.send_text(text_to_send)
+            r2t.send_text(text1_to_send)
+            time.sleep(2)
+            r2t.send_text(text2_to_send)
+            time.sleep(2)
+            r2t.send_text(text3_to_send)
 
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
