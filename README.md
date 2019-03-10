@@ -236,6 +236,7 @@ Currently alive channels
 | [/r/engrish](https://www.reddit.com/r/engrish/) | [@r_engrish](https://t.me/r_engrish) | 1 hour |
 | [/r/coolguides](https://www.reddit.com/r/coolguides/) | [@coolguides](https://t.me/coolguides) | 1 hour |
 | [/r/buildapcsales](https://www.reddit.com/r/buildapcsales/) | [@buildapcsalesusa](https://t.me/buildapcsalesusa) | 1 hour |
+| [/r/climbing](https://www.reddit.com/r/climbing/) | [@r_climbing](https://t.me/r_climbing) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
