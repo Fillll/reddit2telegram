@@ -233,7 +233,6 @@ Currently alive channels
 | [/r/linuxmemes](https://www.reddit.com/r/linuxmemes/) | [@r_linuxmemes](https://t.me/r_linuxmemes) | 1 hour |
 | [/r/BlackMagicFuckery](https://www.reddit.com/r/BlackMagicFuckery/) | [@r_BlackMagicFuckery](https://t.me/r_BlackMagicFuckery) | 1 hour |
 | [/r/Astolfo](https://www.reddit.com/r/Astolfo/) | [@r_Astolfo](https://t.me/r_Astolfo) | 1 hour |
-| [/r/BaPCSalesEurope](https://www.reddit.com/r/BaPCSalesEurope/) | [@r_BaPCSalesEurope](https://t.me/r_BaPCSalesEurope) | 1 hour |
 | [/r/engrish](https://www.reddit.com/r/engrish/) | [@r_engrish](https://t.me/r_engrish) | 1 hour |
 | [/r/coolguides](https://www.reddit.com/r/coolguides/) | [@coolguides](https://t.me/coolguides) | 1 hour |
 | [/r/buildapcsales](https://www.reddit.com/r/buildapcsales/) | [@buildapcsalesusa](https://t.me/buildapcsalesusa) | 1 hour |
