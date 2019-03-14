@@ -201,7 +201,6 @@ Currently alive channels
 | [/r/YoutubeCompendium](https://www.reddit.com/r/YoutubeCompendium/) | [@YoutubeCompendium](https://t.me/YoutubeCompendium) | 1 hour |
 | [/r/OddlySatisfying](https://www.reddit.com/r/OddlySatisfying/) | [@oddly_satisfy](https://t.me/oddly_satisfy) | 1 hour |
 | [/r/jenkinsci](https://www.reddit.com/r/jenkinsci/) | [@jenkinsci](https://t.me/r_jenkinsci) | 1 hour |
-| [/r/jenkins](https://www.reddit.com/r/jenkins/) | [@r_jenkins](https://t.me/r_jenkins) | 1 hour |
 | [/r/art](https://www.reddit.com/r/art/) | [@redditart](https://t.me/redditart) | 1 hour |
 | [/r/interestingasfuck](https://www.reddit.com/r/interestingasfuck/) | [@r_interestingasfuck](https://t.me/r_interestingasfuck) | 1 hour |
 | [/r/Programming](https://www.reddit.com/r/Programming/) | [@r_Pr0gramming](https://t.me/r_Pr0gramming) | 1 hour |
