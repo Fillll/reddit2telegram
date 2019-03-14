@@ -2,6 +2,7 @@
 
 subreddit = 'longtext+longreads'
 t_channel = '@r_longtext'
+submissions_ranking = 'new'
 
 
 def send_post(submission, r2t):

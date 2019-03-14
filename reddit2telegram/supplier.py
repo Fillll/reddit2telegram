@@ -30,6 +30,8 @@ def supply(submodule_name, config, is_test=False):
         submissions = reddit.subreddit(submodule.subreddit).top(limit=submissions_limit)
     elif submissions_ranking == 'hot':
         submissions = reddit.subreddit(submodule.subreddit).hot(limit=submissions_limit)
+    elif submissions_ranking == 'new':
+        submissions = reddit.subreddit(submodule.subreddit).new(limit=submissions_limit)
     else:
         logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
     channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
