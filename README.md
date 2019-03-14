@@ -239,6 +239,7 @@ Currently alive channels
 | [/r/ClimbingCircleJerk](https://www.reddit.com/r/ClimbingCircleJerk/) | [@r_climbingcirclejerk](https://t.me/r_climbingcirclejerk) | 1 hour |
 | [/r/tyingherhairup](https://www.reddit.com/r/tyingherhairup/) | [@tyingherhairup](https://t.me/tyingherhairup) | 1 hour |
 | [/r/Designporn](https://www.reddit.com/r/Designporn/) | [@r_designporn](https://t.me/r_designporn) | 1 hour |
+| [/r/cricket](https://www.reddit.com/r/cricket/) | [@r_cricket](https://t.me/r_cricket) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
