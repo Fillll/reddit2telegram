@@ -241,6 +241,7 @@ Currently alive channels
 | [/r/Designporn](https://www.reddit.com/r/Designporn/) | [@r_designporn](https://t.me/r_designporn) | 1 hour |
 | [/r/cricket](https://www.reddit.com/r/cricket/) | [@r_cricket](https://t.me/r_cricket) | 1 hour |
 | [/r/SquarePosting](https://www.reddit.com/r/SquarePosting/) | [@r_squareposting](https://t.me/r_squareposting) | 1 hour |
+| [/r/LiverpoolFC](https://www.reddit.com/r/LiverpoolFC/) | [@r_LiverpoolFC](https://t.me/r_LiverpoolFC) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
