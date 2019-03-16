@@ -16,8 +16,8 @@ _What telegram channel?_
 - [ ] Updated `README.md`.
 - [ ] Updated `own.cron`.
 - [ ] Already have nice channel's profile pic.
-- [ ] Already have `@r_channels` in the description of your channel.
+- [ ] Already have mentioned `@r_channels` and `@reddit2telegram` in the description of your channel.
 - [ ] `@reddit2telegram_bot` added as admin to this channel.
 
-* `%submodule_name%` should be in lowcase.
+* `%submodule_name%` should be in lowercase.
 * Tags in `tags.txt` should be space-separeted and start with `#` each.
