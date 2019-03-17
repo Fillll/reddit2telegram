@@ -244,6 +244,7 @@ Currently alive channels
 | [/r/LiverpoolFC](https://www.reddit.com/r/LiverpoolFC/) | [@r_LiverpoolFC](https://t.me/r_LiverpoolFC) | 1 hour |
 | [/r/econpapers](https://www.reddit.com/r/econpapers/), [/r/economics](https://www.reddit.com/r/economics/), and [/r/economy](https://www.reddit.com/r/economy/) | [@r_econ](https://t.me/r_econ) | 1 hour |
 | [/r/animearmpits](https://www.reddit.com/r/animearmpits/) | [@r_animearmpits](https://t.me/r_animearmpits) | 1 hour |
+| [/r/megane](https://www.reddit.com/r/megane/) | [@r_megane](https://t.me/r_megane) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
