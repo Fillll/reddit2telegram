@@ -243,6 +243,7 @@ Currently alive channels
 | [/r/SquarePosting](https://www.reddit.com/r/SquarePosting/) | [@r_squareposting](https://t.me/r_squareposting) | 1 hour |
 | [/r/LiverpoolFC](https://www.reddit.com/r/LiverpoolFC/) | [@r_LiverpoolFC](https://t.me/r_LiverpoolFC) | 1 hour |
 | [/r/econpapers](https://www.reddit.com/r/econpapers/), [/r/economics](https://www.reddit.com/r/economics/), and [/r/economy](https://www.reddit.com/r/economy/) | [@r_econ](https://t.me/r_econ) | 1 hour |
+| [/r/animearmpits](https://www.reddit.com/r/animearmpits/) | [@r_animearmpits](https://t.me/r_animearmpits) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
