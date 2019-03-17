@@ -121,12 +121,12 @@ def send_post(submission, r2t):
     today = datetime(now.year, now.month, now.day)
     taday_date_string = today.strftime('%Y %b %d')
     random_number = abs(int(hashlib.sha1(taday_date_string.encode('utf-8')).hexdigest(), 16))
-    # if Saturday then no promotion
-    if now.weekday() == 5:
-        return SupplyResult.STOP_THIS_SUPPLY
     # Twice a week update promotion order
     if (now.weekday() == 5) and (now.hour in [0, 23]) and (now.minute == 1):
         update_promotion_order()
+        return SupplyResult.STOP_THIS_SUPPLY
+    # If Saturday then no promotion
+    if now.weekday() == 5:
         return SupplyResult.STOP_THIS_SUPPLY
     # If weekday or Sunday then regular promotion once a day
     if (now.weekday() != 5) and ((now.hour == random_number % 24) and (now.minute == random_number % 45)):
