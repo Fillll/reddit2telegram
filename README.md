@@ -248,6 +248,7 @@ Currently alive channels
 | [/r/SurrealMemes](https://www.reddit.com/r/SurrealMemes/) | [@rSurrealMemes](https://t.me/rSurrealMemes) | 1 hour |
 | [/r/ThinkPad](https://www.reddit.com/r/ThinkPad/) | [@r_thinkpad](https://t.me/r_thinkpad) | 1 hour |
 | [/r/apple](https://www.reddit.com/r/apple/) | [@r_apple](https://t.me/r_apple) | 1 hour |
+| [/r/funnystories](https://www.reddit.com/r/funnystories/) | [@r_funnystories](https://t.me/r_funnystories) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
