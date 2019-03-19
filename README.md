@@ -246,6 +246,7 @@ Currently alive channels
 | [/r/animearmpits](https://www.reddit.com/r/animearmpits/) | [@r_animearmpits](https://t.me/r_animearmpits) | 1 hour |
 | [/r/megane](https://www.reddit.com/r/megane/) | [@r_megane](https://t.me/r_megane) | 1 hour |
 | [/r/SurrealMemes](https://www.reddit.com/r/SurrealMemes/) | [@rSurrealMemes](https://t.me/rSurrealMemes) | 1 hour |
+| [/r/ThinkPad](https://www.reddit.com/r/ThinkPad/) | [@r_thinkpad](https://t.me/r_thinkpad) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
