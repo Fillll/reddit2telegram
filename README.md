@@ -249,6 +249,7 @@ Currently alive channels
 | [/r/ThinkPad](https://www.reddit.com/r/ThinkPad/) | [@r_thinkpad](https://t.me/r_thinkpad) | 1 hour |
 | [/r/apple](https://www.reddit.com/r/apple/) | [@r_apple](https://t.me/r_apple) | 1 hour |
 | [/r/funnystories](https://www.reddit.com/r/funnystories/) | [@r_funnystories](https://t.me/r_funnystories) | 1 hour |
+| [/r/shitposters_paradise](https://www.reddit.com/r/shitposters_paradise/) | [@r_shitposters_paradise](https://t.me/r_shitposters_paradise) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
