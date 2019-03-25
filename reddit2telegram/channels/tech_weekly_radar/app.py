@@ -12,6 +12,15 @@ subreddit = 'all'
 t_channel = '@reddit2telegram'
 
 
+def chunksiter(l, chunks):
+    i, j, n = 0, 0, 0
+    while n < len(l) / chunks:        
+        yield l[i:j+chunks]
+        i += chunks
+        j += j + chunks        
+        n += 1
+
+
 def send_post(submission, r2t):
     channels_list = get_all_public_channels(r2t)
     newly_active = get_newly_active(r2t, channels_list)
@@ -27,9 +36,12 @@ def send_post(submission, r2t):
     text_to_send += default_ending()
     r2t.send_text(text_to_send, parse_mode='HTML')
     time.sleep(2)
-    text_to_send = '⬇️ All active channels:\n{list_of_channels}\n\n'.format(list_of_channels='\n'.join(list_of_channels))
-    r2t.send_text(text_to_send, parse_mode='HTML')
-    time.sleep(2)
+    text_to_send = '⬇️ All active channels:\n'
+    for l in chunksiter(list_of_channels, 100):
+        text_to_send += '\n'.join(l)
+        r2t.send_text(text_to_send)
+        text_to_send = ''
+        time.sleep(2)
     text_to_send = '#️⃣ All tags:\n'
     list_of_tags = list(get_all_tags())
     # random.shuffle(list_of_tags)

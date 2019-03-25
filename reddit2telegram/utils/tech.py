@@ -61,16 +61,16 @@ def generate_list_of_channels(channels_list, random_permutation=False):
 
 
 def get_active_period(r2t, channel_name):
-    min_cursor = r2t.stats.find({'channel' : channel_name.lower()}).sort([('ts', pymongo.ASCENDING)]).limit(1)
+    min_cursor = r2t.stats.find({'channel': channel_name.lower()}).sort([('ts', pymongo.ASCENDING)]).limit(1)
     min_ts = min_cursor.next()['ts']
-    max_cursor = r2t.stats.find({'channel' : channel_name.lower()}).sort([('ts', pymongo.DESCENDING)]).limit(1)
+    max_cursor = r2t.stats.find({'channel': channel_name.lower()}).sort([('ts', pymongo.DESCENDING)]).limit(1)
     max_ts = max_cursor.next()['ts']
     diff = max_ts - min_ts
     return diff.days
 
 
 def get_last_members_cnt(r2t, channel_name):
-    count_cursor = r2t.stats.find({'channel' : channel_name.lower()}).sort([('ts', pymongo.DESCENDING)]).limit(1)
+    count_cursor = r2t.stats.find({'channel': channel_name.lower()}).sort([('ts', pymongo.DESCENDING)]).limit(1)
     last_cnt = count_cursor.next()['members_cnt']
     return last_cnt
 

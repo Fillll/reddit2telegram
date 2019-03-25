@@ -11,6 +11,15 @@ subreddit = 'all'
 t_channel = get_dev_channel()
 
 
+def chunksiter(l, chunks):
+    i, j, n = 0, 0, 0
+    while n < len(l) / chunks:        
+        yield l[i:j+chunks]
+        i += chunks
+        j += j + chunks        
+        n += 1
+
+
 def send_post(submission, r2t):
     channels_list = get_all_public_channels(r2t)
 
@@ -35,21 +44,27 @@ def send_post(submission, r2t):
                 channel=channel, years_cnt=years, s=plural)
             text1_to_send += 'Congratulations! 🎈🎉🎉\n\n'
             list_of_channels = generate_list_of_channels(channels_list, random_permutation=True)
-            text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n{list_of_channels}\n\n'.format(
-                list_of_channels='\n'.join(list_of_channels))
             text3_to_send = default_ending()
             r2t.send_text(text1_to_send)
             time.sleep(2)
-            r2t.send_text(text2_to_send)
-            time.sleep(2)
+            text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n'
+            for l in chunksiter(list_of_channels, 100):
+                text2_to_send += '\n'.join(l)
+                r2t.send_text(text2_to_send)
+                text2_to_send = ''
+                time.sleep(2)
             r2t.send_text(text3_to_send)
             # To the dev channel again
             time.sleep(10)
             r2t.t_channel = get_dev_channel()
             r2t.send_text(text1_to_send)
             time.sleep(2)
-            r2t.send_text(text2_to_send)
-            time.sleep(2)
+            text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n'
+            for l in chunksiter(list_of_channels, 100):
+                text2_to_send += '\n'.join(l)
+                r2t.send_text(text2_to_send)
+                text2_to_send = ''
+                time.sleep(2)
             r2t.send_text(text3_to_send)
 
     # It's not a proper supply, so just stop.
