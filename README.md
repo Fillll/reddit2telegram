@@ -251,6 +251,7 @@ Currently alive channels
 | [/r/funnystories](https://www.reddit.com/r/funnystories/) | [@r_funnystories](https://t.me/r_funnystories) | 1 hour |
 | [/r/shitposters_paradise](https://www.reddit.com/r/shitposters_paradise/) | [@r_shitposters_paradise](https://t.me/r_shitposters_paradise) | 1 hour |
 | [/r/nottheonion](https://www.reddit.com/r/nottheonion/) | [@r_nottheonion](https://t.me/r_nottheonion) | 1 hour |
+| [/r/SrGrafo](https://www.reddit.com/r/SrGrafo/) | [@r_SrGrafo](https://t.me/r_SrGrafo) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
