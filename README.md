@@ -256,6 +256,7 @@ Currently alive channels
 | [/r/haikuOS](https://www.reddit.com/r/haikuOS/) | [@r_haikuos](https://t.me/r_haikuos) | 1 hour |
 | [/r/pathofexile](https://www.reddit.com/r/pathofexile/) | [@GGPoE](https://t.me/GGPoE) | 1 hour |
 | [/r/terraria](https://www.reddit.com/r/terraria/) | [@r_terraria](https://t.me/r_terraria) | 1 hour |
+| [/r/breadtube](https://www.reddit.com/r/breadtube/) | [@r_breadtube](https://t.me/r_breadtube) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
