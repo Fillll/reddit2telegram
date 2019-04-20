@@ -252,6 +252,7 @@ Currently alive channels
 | [/r/shitposters_paradise](https://www.reddit.com/r/shitposters_paradise/) | [@r_shitposters_paradise](https://t.me/r_shitposters_paradise) | 1 hour |
 | [/r/nottheonion](https://www.reddit.com/r/nottheonion/) | [@r_nottheonion](https://t.me/r_nottheonion) | 1 hour |
 | [/r/SrGrafo](https://www.reddit.com/r/SrGrafo/) | [@r_SrGrafo](https://t.me/r_SrGrafo) | 1 hour |
+| [/r/izlam](https://www.reddit.com/r/izlam/) | [@r_izlam](https://t.me/r_izlam) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
