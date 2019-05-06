@@ -3,7 +3,7 @@
 from utils import weighted_random_subreddit
 
 
-t_channel = '@r_furryirl'
+t_channel = '@rfurryirl'
 subreddit = weighted_random_subreddit({
     'furry_irl': 1,
 })
