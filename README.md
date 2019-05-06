@@ -259,6 +259,7 @@ Currently alive channels
 | [/r/breadtube](https://www.reddit.com/r/breadtube/) | [@r_breadtube](https://t.me/r_breadtube) | 1 hour |
 | [/r/furry_irl](https://www.reddit.com/r/furry_irl/) | [@rfurryirl](https://t.me/rfurryirl) | 1 hour |
 | [/r/combatfootage](https://www.reddit.com/r/combatfootage/), [/r/ww2](https://www.reddit.com/r/ww2/), [/r/wwiipics](https://www.reddit.com/r/wwiipics/), [/r/WarshipPorn](https://www.reddit.com/r/WarshipPorn/), [/r/MilitaryGifs](https://www.reddit.com/r/MilitaryGifs/), [/r/battlegifs](https://www.reddit.com/r/battlegifs/), [/r/tankporn](https://www.reddit.com/r/tankporn/) | [@r_war](https://t.me/r_war) | 1 hour |
+| [/r/cutelittlefangs](https://www.reddit.com/r/cutelittlefangs/) | [@r_cutelittlefangs](https://t.me/r_cutelittlefangs) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
