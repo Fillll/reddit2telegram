@@ -261,6 +261,7 @@ Currently alive channels
 | [/r/combatfootage](https://www.reddit.com/r/combatfootage/), [/r/ww2](https://www.reddit.com/r/ww2/), [/r/wwiipics](https://www.reddit.com/r/wwiipics/), [/r/WarshipPorn](https://www.reddit.com/r/WarshipPorn/), [/r/MilitaryGifs](https://www.reddit.com/r/MilitaryGifs/), [/r/battlegifs](https://www.reddit.com/r/battlegifs/), [/r/tankporn](https://www.reddit.com/r/tankporn/) | [@r_war](https://t.me/r_war) | 1 hour |
 | [/r/cutelittlefangs](https://www.reddit.com/r/cutelittlefangs/) | [@r_cutelittlefangs](https://t.me/r_cutelittlefangs) | 1 hour |
 | [/r/dankmemes+me_irl+memes+greentext](https://www.reddit.com/r/dankmemes+me_irl+memes+greentext/) | [@admeme](https://t.me/admeme) | 1 hour |
+| [/r/Blackfellas](https://www.reddit.com/r/Blackfellas/) | [@blackfellas](https://t.me/blackfellas) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
