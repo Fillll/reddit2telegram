@@ -262,6 +262,7 @@ Currently alive channels
 | [/r/cutelittlefangs](https://www.reddit.com/r/cutelittlefangs/) | [@r_cutelittlefangs](https://t.me/r_cutelittlefangs) | 1 hour |
 | [/r/dankmemes+me_irl+memes+greentext](https://www.reddit.com/r/dankmemes+me_irl+memes+greentext/) | [@admeme](https://t.me/admeme) | 1 hour |
 | [/r/Blackfellas](https://www.reddit.com/r/Blackfellas/) | [@blackfellas](https://t.me/blackfellas) | 1 hour |
+| [/r/tifu](https://www.reddit.com/r/tifu/) | [@r_channels_tifu](https://t.me/r_channels_tifu) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
