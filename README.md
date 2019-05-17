@@ -252,6 +252,18 @@ Currently alive channels
 | [/r/shitposters_paradise](https://www.reddit.com/r/shitposters_paradise/) | [@r_shitposters_paradise](https://t.me/r_shitposters_paradise) | 1 hour |
 | [/r/nottheonion](https://www.reddit.com/r/nottheonion/) | [@r_nottheonion](https://t.me/r_nottheonion) | 1 hour |
 | [/r/SrGrafo](https://www.reddit.com/r/SrGrafo/) | [@r_SrGrafo](https://t.me/r_SrGrafo) | 1 hour |
+| [/r/izlam](https://www.reddit.com/r/izlam/) | [@r_izlam](https://t.me/r_izlam) | 1 hour |
+| [/r/haikuOS](https://www.reddit.com/r/haikuOS/) | [@r_haikuos](https://t.me/r_haikuos) | 1 hour |
+| [/r/pathofexile](https://www.reddit.com/r/pathofexile/) | [@GGPoE](https://t.me/GGPoE) | 1 hour |
+| [/r/terraria](https://www.reddit.com/r/terraria/) | [@r_terraria](https://t.me/r_terraria) | 1 hour |
+| [/r/breadtube](https://www.reddit.com/r/breadtube/) | [@r_breadtube](https://t.me/r_breadtube) | 1 hour |
+| [/r/furry_irl](https://www.reddit.com/r/furry_irl/) | [@rfurryirl](https://t.me/rfurryirl) | 1 hour |
+| [/r/combatfootage](https://www.reddit.com/r/combatfootage/), [/r/ww2](https://www.reddit.com/r/ww2/), [/r/wwiipics](https://www.reddit.com/r/wwiipics/), [/r/WarshipPorn](https://www.reddit.com/r/WarshipPorn/), [/r/MilitaryGifs](https://www.reddit.com/r/MilitaryGifs/), [/r/battlegifs](https://www.reddit.com/r/battlegifs/), [/r/tankporn](https://www.reddit.com/r/tankporn/) | [@r_war](https://t.me/r_war) | 1 hour |
+| [/r/cutelittlefangs](https://www.reddit.com/r/cutelittlefangs/) | [@r_cutelittlefangs](https://t.me/r_cutelittlefangs) | 1 hour |
+| [/r/dankmemes+me_irl+memes+greentext](https://www.reddit.com/r/dankmemes+me_irl+memes+greentext/) | [@admeme](https://t.me/admeme) | 1 hour |
+| [/r/Blackfellas](https://www.reddit.com/r/Blackfellas/) | [@blackfellas](https://t.me/blackfellas) | 1 hour |
+| [/r/tifu](https://www.reddit.com/r/tifu/) | [@r_channels_tifu](https://t.me/r_channels_tifu) | 1 hour |
+| [/r/Vinesauce](https://www.reddit.com/r/Vinesauce/) | [@r_vinesauce](https://t.me/r_vinesauce) | 1 hour |
 |  | ... be the next one ... |  |@
 
 

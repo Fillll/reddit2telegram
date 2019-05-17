@@ -3,9 +3,15 @@
 from utils import weighted_random_subreddit
 
 
-t_channel = '@r_furryirl'
+t_channel = '@r_war'
 subreddit = weighted_random_subreddit({
-    'furry_irl': 1,
+    'combatfootage': 1,
+    'ww2': 1,
+    'wwiipics': 1,
+    'WarshipPorn': 1,
+    'MilitaryGifs': 1,
+    'battlegifs': 1,
+    'tankporn': 1
 })
 
 
