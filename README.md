@@ -263,6 +263,7 @@ Currently alive channels
 | [/r/Blackfellas](https://www.reddit.com/r/Blackfellas/) | [@blackfellas](https://t.me/blackfellas) | 1 hour |
 | [/r/tifu](https://www.reddit.com/r/tifu/) | [@r_channels_tifu](https://t.me/r_channels_tifu) | 1 hour |
 | [/r/Vinesauce](https://www.reddit.com/r/Vinesauce/) | [@r_vinesauce](https://t.me/r_vinesauce) | 1 hour |
+| [/r/freegamefindings](https://www.reddit.com/r/freegamefindings/) | [@r_freegamefindings](https://t.me/r_freegamefindings) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
