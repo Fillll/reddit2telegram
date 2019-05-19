@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'indepthstories'
+subreddit = 'indepthstories+longtext+longreads'
 t_channel = '@indepthstories'
 submissions_ranking = 'new'
 

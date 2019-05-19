@@ -157,7 +157,6 @@ Currently alive channels
 | [/r/creepy](https://www.reddit.com/r/creepy/) | [@r_creepy](https://t.me/r_creepy) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@deepfriedmemeschannel](https://t.me/deepfriedmemeschannel) | 1 hour |
 | [/r/HentaiMemes](https://www.reddit.com/r/HentaiMemes/) | [@r_HentaiMemes](https://t.me/r_HentaiMemes) | 1 hour |
-| [/r/longtext](https://www.reddit.com/r/longtext/) | [@r_longtext](https://t.me/r_longtext) | 1 hour |
 | [/r/rareinsults](https://www.reddit.com/r/rareinsults/) | [@rareinsults](https://t.me/rareinsults) | 1 hour |
 | [/r/sbubby](https://www.reddit.com/r/sbubby/) | [@r_sbubby](https://t.me/r_sbubby) | 1 hour |
 | [/r/loliconsunite](https://www.reddit.com/r/loliconsunite/) | [@loliconsunite](https://t.me/loliconsunite) | 1 hour |
