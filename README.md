@@ -263,6 +263,7 @@ Currently alive channels
 | [/r/tifu](https://www.reddit.com/r/tifu/) | [@r_channels_tifu](https://t.me/r_channels_tifu) | 1 hour |
 | [/r/Vinesauce](https://www.reddit.com/r/Vinesauce/) | [@r_vinesauce](https://t.me/r_vinesauce) | 1 hour |
 | [/r/freegamefindings](https://www.reddit.com/r/freegamefindings/) | [@r_freegamefindings](https://t.me/r_freegamefindings) | 1 hour |
+| [/r/bakchodi](https://www.reddit.com/r/bakchodi/) | [@r_bakchodi](https://t.me/r_bakchodi) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
