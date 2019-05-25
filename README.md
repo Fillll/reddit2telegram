@@ -195,7 +195,6 @@ Currently alive channels
 | [/r/piracy](https://www.reddit.com/r/piracy/) | [@redditpiracy](https://t.me/redditpiracy) | 1 hour |
 | [/r/ChapoTrapHouse](https://www.reddit.com/r/ChapoTrapHouse/) | [@r_ChapoTrapHouse](https://t.me/r_ChapoTrapHouse) | 1 hour |
 | [/r/ContraPoints](https://www.reddit.com/r/ContraPoints/) | [@r_ContraPoints](https://t.me/r_ContraPoints) | 1 hour |
-| [/r/me_ira](https://www.reddit.com/r/me_ira/) | [@r_me_ira](https://t.me/r_me_ira) | 1 hour |
 | [/r/Ingress](https://www.reddit.com/r/Ingress/) | [@IngressReddit](https://t.me/IngressReddit) | 1 hour |
 | [/r/YoutubeCompendium](https://www.reddit.com/r/YoutubeCompendium/) | [@YoutubeCompendium](https://t.me/YoutubeCompendium) | 1 hour |
 | [/r/OddlySatisfying](https://www.reddit.com/r/OddlySatisfying/) | [@oddly_satisfy](https://t.me/oddly_satisfy) | 1 hour |
