@@ -266,6 +266,7 @@ Currently alive channels
 | [/r/bakchodi](https://www.reddit.com/r/bakchodi/) | [@r_bakchodi](https://t.me/r_bakchodi) | 1 hour |
 | [/r/OurWorldTWD](https://www.reddit.com/r/OurWorldTWD/) | [@OurWorldTWD](https://t.me/OurWorldTWD) | 1 hour |
 | [/r/ChelseaFC](https://www.reddit.com/r/ChelseaFC/) | [@rChelseaFC](https://t.me/rChelseaFC) | 1 hour |
+| [Some](https://www.reddit.com/r/theredpill+pussypass+pussypassdenied+mensrights/). | [@manpill](https://t.me/manpill) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
