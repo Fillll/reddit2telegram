@@ -265,6 +265,7 @@ Currently alive channels
 | [/r/freegamefindings](https://www.reddit.com/r/freegamefindings/) | [@r_freegamefindings](https://t.me/r_freegamefindings) | 1 hour |
 | [/r/bakchodi](https://www.reddit.com/r/bakchodi/) | [@r_bakchodi](https://t.me/r_bakchodi) | 1 hour |
 | [/r/OurWorldTWD](https://www.reddit.com/r/OurWorldTWD/) | [@OurWorldTWD](https://t.me/OurWorldTWD) | 1 hour |
+| [/r/ChelseaFC](https://www.reddit.com/r/ChelseaFC/) | [@rChelseaFC](https://t.me/rChelseaFC) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
