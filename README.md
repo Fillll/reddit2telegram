@@ -264,6 +264,7 @@ Currently alive channels
 | [/r/Vinesauce](https://www.reddit.com/r/Vinesauce/) | [@r_vinesauce](https://t.me/r_vinesauce) | 1 hour |
 | [/r/freegamefindings](https://www.reddit.com/r/freegamefindings/) | [@r_freegamefindings](https://t.me/r_freegamefindings) | 1 hour |
 | [/r/bakchodi](https://www.reddit.com/r/bakchodi/) | [@r_bakchodi](https://t.me/r_bakchodi) | 1 hour |
+| [/r/OurWorldTWD](https://www.reddit.com/r/OurWorldTWD/) | [@OurWorldTWD](https://t.me/OurWorldTWD) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
