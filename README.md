@@ -249,7 +249,6 @@ Currently alive channels
 | [/r/funnystories](https://www.reddit.com/r/funnystories/) | [@r_funnystories](https://t.me/r_funnystories) | 1 hour |
 | [/r/shitposters_paradise](https://www.reddit.com/r/shitposters_paradise/) | [@r_shitposters_paradise](https://t.me/r_shitposters_paradise) | 1 hour |
 | [/r/nottheonion](https://www.reddit.com/r/nottheonion/) | [@r_nottheonion](https://t.me/r_nottheonion) | 1 hour |
-| [/r/SrGrafo](https://www.reddit.com/r/SrGrafo/) | [@r_SrGrafo](https://t.me/r_SrGrafo) | 1 hour |
 | [/r/izlam](https://www.reddit.com/r/izlam/) | [@r_izlam](https://t.me/r_izlam) | 1 hour |
 | [/r/haikuOS](https://www.reddit.com/r/haikuOS/) | [@r_haikuos](https://t.me/r_haikuos) | 1 hour |
 | [/r/pathofexile](https://www.reddit.com/r/pathofexile/) | [@GGPoE](https://t.me/GGPoE) | 1 hour |
