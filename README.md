@@ -270,6 +270,7 @@ Currently alive channels
 | [/r/DevilMayCry](https://www.reddit.com/r/DevilMayCry/) | [@r_devilmaycry](https://t.me/r_devilmaycry) | 1 hour |
 | [/r/nootropics](https://www.reddit.com/r/nootropics/) | [@r_nootropics](https://t.me/r_nootropics) | 1 hour |
 | [/r/libertarian](https://www.reddit.com/r/libertarian/) | [@r_libertarian](https://t.me/r_libertarian) | 1 hour |
+| [/r/The_Donald](https://www.reddit.com/r/The_Donald/) | [@r_TheDonald](https://t.me/r_TheDonald) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
