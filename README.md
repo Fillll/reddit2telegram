@@ -175,7 +175,6 @@ Currently alive channels
 | [/r/XXXTENTACION](https://www.reddit.com/r/XXXTENTACION/) | [@r_xxxtentacion](https://t.me/r_xxxtentacion) | 1 hour |
 | [/r/Quotesporn](https://www.reddit.com/r/Quotesporn/) | [@r_quotesporn](https://t.me/r_quotesporn) | 1 hour |
 | [/r/getmotivated](https://www.reddit.com/r/getmotivated/) | [@r_getmotivated](https://t.me/r_getmotivated) | 1 hour |
-| [/r/hqdesi](https://www.reddit.com/r/hqdesi/) | [@rhqdesi](https://t.me/rhqdesi) | 1 hour |
 | [/r/podcasts](https://www.reddit.com/r/podcasts/) | [@r_Podcasts](https://t.me/r_Podcasts) | 1 hour |
 | [A lot of imaginary subreddits](https://github.com/Fillll/reddit2telegram/blob/master/channels/r_imaginary_network/app.py#L5). | [@r_imaginary_network](https://t.me/r_imaginary_network) | 1 hour |
 | [/r/maxestla](https://www.reddit.com/r/maxestla/) | [@r_MaxEstLa](https://t.me/r_MaxEstLaS) | 1 hour |
