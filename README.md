@@ -273,6 +273,7 @@ Currently alive channels
 | [/r/The_Donald](https://www.reddit.com/r/The_Donald/) | [@r_TheDonald](https://t.me/r_TheDonald) | 1 hour |
 | [/r/kratom](https://www.reddit.com/r/kratom/) | [@r_kratom](https://t.me/r_kratom) | 1 hour |
 | [/r/MemeTemplatesOfficial](https://www.reddit.com/r/MemeTemplatesOfficial/) | [@r_memetemplatesofficial](https://t.me/r_memetemplatesofficial) | 1 hour |
+| [/r/lego](https://www.reddit.com/r/lego/) | [@reddit_lego](https://t.me/reddit_lego) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
