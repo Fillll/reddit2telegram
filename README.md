@@ -268,6 +268,7 @@ Currently alive channels
 | [/r/ChelseaFC](https://www.reddit.com/r/ChelseaFC/) | [@rChelseaFC](https://t.me/rChelseaFC) | 1 hour |
 | [Some](https://www.reddit.com/r/theredpill+pussypass+pussypassdenied+mensrights/). | [@manpill](https://t.me/manpill) | 1 hour |
 | [/r/DevilMayCry](https://www.reddit.com/r/DevilMayCry/) | [@r_devilmaycry](https://t.me/r_devilmaycry) | 1 hour |
+| [/r/nootropics](https://www.reddit.com/r/nootropics/) | [@r_nootropics](https://t.me/r_nootropics) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
