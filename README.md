@@ -272,6 +272,7 @@ Currently alive channels
 | [/r/libertarian](https://www.reddit.com/r/libertarian/) | [@r_libertarian](https://t.me/r_libertarian) | 1 hour |
 | [/r/The_Donald](https://www.reddit.com/r/The_Donald/) | [@r_TheDonald](https://t.me/r_TheDonald) | 1 hour |
 | [/r/kratom](https://www.reddit.com/r/kratom/) | [@r_kratom](https://t.me/r_kratom) | 1 hour |
+| [/r/MemeTemplatesOfficial](https://www.reddit.com/r/MemeTemplatesOfficial/) | [@r_memetemplatesofficial](https://t.me/r_memetemplatesofficial) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
