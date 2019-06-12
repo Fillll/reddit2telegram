@@ -227,7 +227,6 @@ Currently alive channels
 | [/r/RATS](https://www.reddit.com/r/RATS/) | [@rattit](https://t.me/rattit) | 1 hour |
 | [/r/linuxmemes](https://www.reddit.com/r/linuxmemes/) | [@r_linuxmemes](https://t.me/r_linuxmemes) | 1 hour |
 | [/r/BlackMagicFuckery](https://www.reddit.com/r/BlackMagicFuckery/) | [@r_BlackMagicFuckery](https://t.me/r_BlackMagicFuckery) | 1 hour |
-| [/r/Astolfo](https://www.reddit.com/r/Astolfo/) | [@r_Astolfo](https://t.me/r_Astolfo) | 1 hour |
 | [/r/engrish](https://www.reddit.com/r/engrish/) | [@r_engrish](https://t.me/r_engrish) | 1 hour |
 | [/r/coolguides](https://www.reddit.com/r/coolguides/) | [@coolguides](https://t.me/coolguides) | 1 hour |
 | [/r/climbing](https://www.reddit.com/r/climbing/) | [@r_climbing](https://t.me/r_climbing) | 1 hour |
