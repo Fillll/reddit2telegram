@@ -270,6 +270,7 @@ Currently alive channels
 | [/r/MemeTemplatesOfficial](https://www.reddit.com/r/MemeTemplatesOfficial/) | [@r_memetemplatesofficial](https://t.me/r_memetemplatesofficial) | 1 hour |
 | [/r/lego](https://www.reddit.com/r/lego/) | [@reddit_lego](https://t.me/reddit_lego) | 1 hour |
 | [/r/DoctorWhumour](https://www.reddit.com/r/DoctorWhumour/) | [@DoctorWhumour](https://t.me/DoctorWhumour) | 1 hour |
+| [/r/sweatypalms](https://www.reddit.com/r/sweatypalms/) | [@r_sweatypalms](https://t.me/r_sweatypalms) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
