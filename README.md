@@ -272,6 +272,7 @@ Currently alive channels
 | [/r/DoctorWhumour](https://www.reddit.com/r/DoctorWhumour/) | [@DoctorWhumour](https://t.me/DoctorWhumour) | 1 hour |
 | [/r/sweatypalms](https://www.reddit.com/r/sweatypalms/) | [@r_sweatypalms](https://t.me/r_sweatypalms) | 1 hour |
 | [/r/BeAmazed](https://www.reddit.com/r/BeAmazed/) | [@r_beamazed](https://t.me/r_beamazed) | 1 hour |
+| [/r/FantasyPL](https://www.reddit.com/r/FantasyPL/) | [@r_FantasyPL](https://t.me/r_FantasyPL) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
