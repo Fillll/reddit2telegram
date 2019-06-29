@@ -273,6 +273,7 @@ Currently alive channels
 | [/r/sweatypalms](https://www.reddit.com/r/sweatypalms/) | [@r_sweatypalms](https://t.me/r_sweatypalms) | 1 hour |
 | [/r/BeAmazed](https://www.reddit.com/r/BeAmazed/) | [@r_beamazed](https://t.me/r_beamazed) | 1 hour |
 | [/r/FantasyPL](https://www.reddit.com/r/FantasyPL/) | [@r_FantasyPL](https://t.me/r_FantasyPL) | 1 hour |
+| [/r/asexuality+asexual+aaaaaaacccccccce+aromanticis](https://www.reddit.com/r/asexuality+asexual+aaaaaaacccccccce+aromanticis/) | [@asexualityonreddit](https://t.me/asexualityonreddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
