@@ -284,6 +284,7 @@ Currently alive channels
 | [/r/discordapp](https://www.reddit.com/r/discordapp/) | [@r_discordapp](https://t.me/r_discordapp) | 1 hour |
 | [/r/stargatememes](https://www.reddit.com/r/stargatememes/) | [@stargatememes](https://t.me/stargatememes) | 1 hour |
 | [/r/corgi+corgibutts+BabyCorgis+corgis+Incorgnito](https://www.reddit.com/r/corgi+corgibutts+BabyCorgis+corgis+Incorgnito/) | [@r_corgi](https://t.me/r_corgi) | 1 hour |
+| [/r/gamingmemes+gamememes+Gaming_Memes+gaming](https://www.reddit.com/r/gamingmemes+gamememes+Gaming_Memes+gaming/) | [@r_gamingmemes](https://t.me/r_gamingmemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
