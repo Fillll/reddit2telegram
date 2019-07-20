@@ -283,6 +283,7 @@ Currently alive channels
 | [/r/sysadmin](https://www.reddit.com/r/sysadmin/) | [@r_systemadmin](https://t.me/r_systemadmin) | 1 hour |
 | [/r/discordapp](https://www.reddit.com/r/discordapp/) | [@r_discordapp](https://t.me/r_discordapp) | 1 hour |
 | [/r/stargatememes](https://www.reddit.com/r/stargatememes/) | [@stargatememes](https://t.me/stargatememes) | 1 hour |
+| [/r/corgi+corgibutts+BabyCorgis+corgis+Incorgnito](https://www.reddit.com/r/corgi+corgibutts+BabyCorgis+corgis+Incorgnito/) | [@r_corgi](https://t.me/r_corgi) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
