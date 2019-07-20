@@ -279,6 +279,7 @@ Currently alive channels
 | [/r/onions+darknet+IntelligenceNews+threatIntel+i2p](https://www.reddit.com/r/onions+darknet+IntelligenceNews+threatIntel+i2p/) | [@darknet_reddit](https://t.me/darknet_reddit) | 1 hour |
 | [/r/kemonomimi](https://www.reddit.com/r/kemonomimi/) | [@r_kemonomimi](https://t.me/r_kemonomimi) | 1 hour |
 | [/r/darkjokes](https://www.reddit.com/r/darkjokes/) | [@darkreddit](https://t.me/darkreddit) | 1 hour |
+| [/r/devops](https://www.reddit.com/r/devops/) | [@r_devops](https://t.me/r_devops) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
