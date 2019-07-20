@@ -280,6 +280,7 @@ Currently alive channels
 | [/r/kemonomimi](https://www.reddit.com/r/kemonomimi/) | [@r_kemonomimi](https://t.me/r_kemonomimi) | 1 hour |
 | [/r/darkjokes](https://www.reddit.com/r/darkjokes/) | [@darkreddit](https://t.me/darkreddit) | 1 hour |
 | [/r/devops](https://www.reddit.com/r/devops/) | [@r_devops](https://t.me/r_devops) | 1 hour |
+| [/r/sysadmin](https://www.reddit.com/r/sysadmin/) | [@r_systemadmin](https://t.me/r_systemadmin) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
