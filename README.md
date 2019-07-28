@@ -286,6 +286,7 @@ Currently alive channels
 | [/r/CasualUK](https://www.reddit.com/r/CasualUK/) | [@r_casualuk](https://t.me/r_casualuk) | 1 hour |
 | [/r/educationalgifs](https://www.reddit.com/r/educationalgifs/) | [@r_educationalgifs](https://t.me/r_educationalgifs) | 1 hour |
 | [/r/Celebs](https://www.reddit.com/r/Celebs/) | [@r_Celebs](https://t.me/r_Celebs) | 1 hour |
+| [/r/DunderMifflin](https://www.reddit.com/r/DunderMifflin/) | [@DunderMiff](https://t.me/DunderMiff) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
