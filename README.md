@@ -285,6 +285,7 @@ Currently alive channels
 | [/r/gamingmemes+gamememes+Gaming_Memes+gaming](https://www.reddit.com/r/gamingmemes+gamememes+Gaming_Memes+gaming/) | [@r_gamingmemes](https://t.me/r_gamingmemes) | 1 hour |
 | [/r/CasualUK](https://www.reddit.com/r/CasualUK/) | [@r_casualuk](https://t.me/r_casualuk) | 1 hour |
 | [/r/educationalgifs](https://www.reddit.com/r/educationalgifs/) | [@r_educationalgifs](https://t.me/r_educationalgifs) | 1 hour |
+| [/r/Celebs](https://www.reddit.com/r/Celebs/) | [@r_Celebs](https://t.me/r_Celebs) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
