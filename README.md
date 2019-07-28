@@ -288,6 +288,7 @@ Currently alive channels
 | [/r/Celebs](https://www.reddit.com/r/Celebs/) | [@r_Celebs](https://t.me/r_Celebs) | 1 hour |
 | [/r/DunderMifflin](https://www.reddit.com/r/DunderMifflin/) | [@DunderMiff](https://t.me/DunderMiff) | 1 hour |
 | [/r/tf_irl](https://www.reddit.com/r/tf_irl/) | [@r_tfirl](https://t.me/r_tfirl) | 1 hour |
+| [/r/lal_salaam+kuttichevuru](https://www.reddit.com/r/lal_salaam+kuttichevuru/) | [@r_kcv](https://t.me/r_kcv) | 1 hour |
 |  | ... be the next one ... |  |@
 
 

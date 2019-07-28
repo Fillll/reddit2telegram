@@ -219,6 +219,7 @@ MASK	submodule_name
 39 * * * *	r_therewasanattempt
 39 * * * *	r_freegamefindings
 39 * * * *	ourworldtwd
+39 * * * *	r_kcv
 40 * * * *	ya_metro
 40 * * * *	r_sbubby
 40 * * * *	r_wpdi
