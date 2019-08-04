@@ -292,6 +292,7 @@ Currently alive channels
 | [/r/magiarecord](https://www.reddit.com/r/magiarecord/) | [@r_magiarecord](https://t.me/r_magiarecord) | 1 hour |
 | [/r/hearthstone](https://www.reddit.com/r/hearthstone/) | [@r_hearthstone](https://t.me/r_hearthstone) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@grndordr](https://t.me/grndordr) | 1 hour |
+| [/r/ShitPostCrusaders](https://www.reddit.com/r/ShitPostCrusaders/) | [@r_shitpostcrusaders](https://t.me/r_shitpostcrusaders) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
