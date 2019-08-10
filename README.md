@@ -294,6 +294,7 @@ Currently alive channels
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@grndordr](https://t.me/grndordr) | 1 hour |
 | [/r/ShitPostCrusaders](https://www.reddit.com/r/ShitPostCrusaders/) | [@r_shitpostcrusaders](https://t.me/r_shitpostcrusaders) | 1 hour |
 | [/r/plsnobulli](https://www.reddit.com/r/plsnobulli/) | [@r_plsnobulli](https://t.me/r_plsnobulli) | 1 hour |
+| [/r/Pony_irl](https://www.reddit.com/r/Pony_irl/) | [@r_Pony_irl](https://t.me/r_Pony_irl) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
