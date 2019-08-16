@@ -305,6 +305,7 @@ Currently alive channels
 | [/r/OneTrueTohsaka](https://www.reddit.com/r/OneTrueTohsaka/) | [@churchoftohsaka](https://t.me/churchoftohsaka) | 1 hour |
 | [/r/vexillology](https://www.reddit.com/r/vexillology/) | [@r_vexillology](https://t.me/r_vexillology) | 1 hour |
 | [/r/Destiny](https://www.reddit.com/r/Destiny/) | [@Omnidestiny](https://t.me/Omnidestiny) | 1 hour |
+| [/r/pickuplines](https://www.reddit.com/r/pickuplines/) | [@r_pickuplines](https://t.me/r_pickuplines) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
