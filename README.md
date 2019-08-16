@@ -307,6 +307,7 @@ Currently alive channels
 | [/r/Destiny](https://www.reddit.com/r/Destiny/) | [@Omnidestiny](https://t.me/Omnidestiny) | 1 hour |
 | [/r/pickuplines](https://www.reddit.com/r/pickuplines/) | [@r_pickuplines](https://t.me/r_pickuplines) | 1 hour |
 | [/r/Cumtown](https://www.reddit.com/r/Cumtown/) | [@r_Cumtown](https://t.me/r_Cumtown) | 1 hour |
+| [/r/egg_irl](https://www.reddit.com/r/egg_irl/) | [@eggirl](https://t.me/eggirl) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
