@@ -300,6 +300,8 @@ Currently alive channels
 | [/r/motivation](https://www.reddit.com/r/motivation/) | [@Mootivati0n](https://t.me/Mootivati0n) | 1 hour |
 | [/r/Instagramreality](https://www.reddit.com/r/Instagramreality/) | [@InstaReality](https://t.me/InstaReality) | 1 hour |
 | [/r/fakehistoryporn](https://www.reddit.com/r/fakehistoryporn/) | [@FakeHistoryP0RN](https://t.me/FakeHistoryP0RN) | 1 hour |
+| [/r/shittyaskscience](https://www.reddit.com/r/shittyaskscience/) | [@ShitScience](https://t.me/ShitScience) | 1 hour |
+| [/r/therewasanattempt](https://www.reddit.com/r/therewasanattempt/) | [@ThereWasAnAttempt](https://t.me/ThereWasAnAttempt) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
