@@ -296,6 +296,7 @@ Currently alive channels
 | [/r/plsnobulli](https://www.reddit.com/r/plsnobulli/) | [@r_plsnobulli](https://t.me/r_plsnobulli) | 1 hour |
 | [/r/humanbeingbros](https://www.reddit.com/r/humanbeingbros/) | [@humanbeingbros](https://t.me/humanbeingbros) | 1 hour |
 | [/r/theydidthemath](https://www.reddit.com/r/theydidthemath/) | [@TheyDidTheMath](https://t.me/TheyDidTheMath) | 1 hour |
+| [/r/EliteDangerous](https://www.reddit.com/r/EliteDangerous/) | [@EliteDanger0us](https://t.me/EliteDanger0us) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
