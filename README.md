@@ -295,6 +295,7 @@ Currently alive channels
 | [/r/ShitPostCrusaders](https://www.reddit.com/r/ShitPostCrusaders/) | [@r_shitpostcrusaders](https://t.me/r_shitpostcrusaders) | 1 hour |
 | [/r/plsnobulli](https://www.reddit.com/r/plsnobulli/) | [@r_plsnobulli](https://t.me/r_plsnobulli) | 1 hour |
 | [/r/humanbeingbros](https://www.reddit.com/r/humanbeingbros/) | [@humanbeingbros](https://t.me/humanbeingbros) | 1 hour |
+| [/r/theydidthemath](https://www.reddit.com/r/theydidthemath/) | [@TheyDidTheMath](https://t.me/TheyDidTheMath) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
