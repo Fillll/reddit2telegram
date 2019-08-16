@@ -3,7 +3,7 @@
 import os
 
 
-def main(sub, channel):
+def main(sub, channel, tags):
     channel_dir = os.path.join('channels', channel.lower())
     if os.path.isdir(channel_dir):
         print('Directory already exists.')
@@ -21,11 +21,15 @@ t_channel = '@{channel_name}'
 def send_post(submission, r2t):
     return r2t.send_simple(submission)
 '''.format(sub_name=sub, channel_name=channel))
-        readme_string = '| [/r/{sub_name}](https://www.reddit.com/r/{sub_name}/) | [@{channel_name}](https://t.me/{channel_name}) | 1 hour |'.format(
-            sub_name=sub,
-            channel_name=channel
-        )
-        return readme_string
+
+    with open(os.path.join(channel_dir, 'tags.txt'), 'w') as tags_file:
+        tags_file.write('#' + ' #'.join(tags.split('_')))
+
+    readme_string = '| [/r/{sub_name}](https://www.reddit.com/r/{sub_name}/) | [@{channel_name}](https://t.me/{channel_name}) | 1 hour |'.format(
+        sub_name=sub,
+        channel_name=channel
+    )
+    return readme_string
 
 
 if __name__ == '__main__':
@@ -33,5 +37,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--sub')
     parser.add_argument('--channel')
+    parser.add_argument('--tags')
     args = parser.parse_args()
-    print(main(args.sub, args.channel))
+    print(main(args.sub, args.channel, args.tags))
