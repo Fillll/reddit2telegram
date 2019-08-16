@@ -143,6 +143,7 @@ MASK	submodule_name
 26,56 * * * *	soccer_reddit
 26 * * * *	nfl_reddit
 26 * * * *	youtubecompendium
+26 * * * *	r_vexillology
 27 * * * *	r_overwatch
 27 * * * *	android
 27 * * * *	indepthstories
