@@ -23,7 +23,7 @@ def send_post(submission, r2t):
 '''.format(sub_name=sub, channel_name=channel))
 
     with open(os.path.join(channel_dir, 'tags.txt'), 'w') as tags_file:
-        tags_file.write('#' + ' #'.join(tags.split('_')))
+        tags_file.write('#' + ' #'.join(tags.lower().split('_')))
 
     readme_string = '| [/r/{sub_name}](https://www.reddit.com/r/{sub_name}/) | [@{channel_name}](https://t.me/{channel_name}) | 1 hour |'.format(
         sub_name=sub,
