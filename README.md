@@ -298,6 +298,7 @@ Currently alive channels
 | [/r/theydidthemath](https://www.reddit.com/r/theydidthemath/) | [@TheyDidTheMath](https://t.me/TheyDidTheMath) | 1 hour |
 | [/r/EliteDangerous](https://www.reddit.com/r/EliteDangerous/) | [@EliteDanger0us](https://t.me/EliteDanger0us) | 1 hour |
 | [/r/motivation](https://www.reddit.com/r/motivation/) | [@Mootivati0n](https://t.me/Mootivati0n) | 1 hour |
+| [/r/Instagramreality](https://www.reddit.com/r/Instagramreality/) | [@InstaReality](https://t.me/InstaReality) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
