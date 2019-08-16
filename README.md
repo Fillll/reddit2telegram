@@ -302,6 +302,7 @@ Currently alive channels
 | [/r/fakehistoryporn](https://www.reddit.com/r/fakehistoryporn/) | [@FakeHistoryP0RN](https://t.me/FakeHistoryP0RN) | 1 hour |
 | [/r/shittyaskscience](https://www.reddit.com/r/shittyaskscience/) | [@ShitScience](https://t.me/ShitScience) | 1 hour |
 | [/r/therewasanattempt](https://www.reddit.com/r/therewasanattempt/) | [@ThereWasAnAttempt](https://t.me/ThereWasAnAttempt) | 1 hour |
+| [/r/OneTrueTohsaka](https://www.reddit.com/r/OneTrueTohsaka/) | [@churchoftohsaka](https://t.me/churchoftohsaka) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
