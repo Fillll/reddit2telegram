@@ -306,6 +306,7 @@ Currently alive channels
 | [/r/vexillology](https://www.reddit.com/r/vexillology/) | [@r_vexillology](https://t.me/r_vexillology) | 1 hour |
 | [/r/Destiny](https://www.reddit.com/r/Destiny/) | [@Omnidestiny](https://t.me/Omnidestiny) | 1 hour |
 | [/r/pickuplines](https://www.reddit.com/r/pickuplines/) | [@r_pickuplines](https://t.me/r_pickuplines) | 1 hour |
+| [/r/Cumtown](https://www.reddit.com/r/Cumtown/) | [@r_Cumtown](https://t.me/r_Cumtown) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
