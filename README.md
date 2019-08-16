@@ -191,7 +191,6 @@ Currently alive channels
 | [/r/latestagecapitalism](https://www.reddit.com/r/latestagecapitalism/) | [@r_latestagecapitalism](https://t.me/r_latestagecapitalism) | 1 hour |
 | [/r/ShitLiberalsSay](https://www.reddit.com/r/ShitLiberalsSay/) | [@ShitLiberalsSay](https://t.me/ShitLiberalsSay) | 1 hour |
 | [/r/piracy](https://www.reddit.com/r/piracy/) | [@redditpiracy](https://t.me/redditpiracy) | 1 hour |
-| [/r/ChapoTrapHouse](https://www.reddit.com/r/ChapoTrapHouse/) | [@r_ChapoTrapHouse](https://t.me/r_ChapoTrapHouse) | 1 hour |
 | [/r/ContraPoints](https://www.reddit.com/r/ContraPoints/) | [@r_ContraPoints](https://t.me/r_ContraPoints) | 1 hour |
 | [/r/Ingress](https://www.reddit.com/r/Ingress/) | [@IngressReddit](https://t.me/IngressReddit) | 1 hour |
 | [/r/YoutubeCompendium](https://www.reddit.com/r/YoutubeCompendium/) | [@YoutubeCompendium](https://t.me/YoutubeCompendium) | 1 hour |
@@ -274,7 +273,6 @@ Currently alive channels
 | [/r/asexuality+asexual+aaaaaaacccccccce+aromanticis](https://www.reddit.com/r/asexuality+asexual+aaaaaaacccccccce+aromanticis/) | [@asexualityonreddit](https://t.me/asexualityonreddit) | 1 hour |
 | [/r/trashpandas+raccoons](https://www.reddit.com/r/trashpandas+raccoons/) | [@r_trashpandas](https://t.me/r_trashpandas) | 1 hour |
 | [/r/bugbounty](https://www.reddit.com/r/bugbounty/) | [@r_bugbounty](https://t.me/r_bugbounty) | 1 hour |
-| [/r/onions+darknet+IntelligenceNews+threatIntel+i2p](https://www.reddit.com/r/onions+darknet+IntelligenceNews+threatIntel+i2p/) | [@darknet_reddit](https://t.me/darknet_reddit) | 1 hour |
 | [/r/kemonomimi](https://www.reddit.com/r/kemonomimi/) | [@r_kemonomimi](https://t.me/r_kemonomimi) | 1 hour |
 | [/r/darkjokes](https://www.reddit.com/r/darkjokes/) | [@darkreddit](https://t.me/darkreddit) | 1 hour |
 | [/r/devops](https://www.reddit.com/r/devops/) | [@r_devops](https://t.me/r_devops) | 1 hour |
