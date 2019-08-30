@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'grandorder'
-t_channel = '@r_grandorder'
+subreddit = 'DotA2'
+t_channel = '@reddit_Dota2'
 
 
 def send_post(submission, r2t):

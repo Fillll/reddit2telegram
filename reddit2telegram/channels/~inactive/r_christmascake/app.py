@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'grandorder'
-t_channel = '@r_grandorder'
+subreddit = 'ChristmasCake'
+t_channel = '@r_christmascake'
 
 
 def send_post(submission, r2t):
