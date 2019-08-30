@@ -312,6 +312,7 @@ Currently alive channels
 | [/r/bikinimoe](https://www.reddit.com/r/bikinimoe/) | [@BikiniMoe](https://t.me/BikiniMoe) | 1 hour |
 | [/r/SatisfactoryGame](https://www.reddit.com/r/SatisfactoryGame/) | [@r_SatisfactoryGame](https://t.me/r_SatisfactoryGame) | 1 hour |
 | [/r/wtf](https://www.reddit.com/r/wtf/) | [@reddit_wtf](https://t.me/reddit_wtf) | 1 hour |
+| [/r/ContagiousLaughter](https://www.reddit.com/r/ContagiousLaughter/) | [@ContagiousLaughter](https://t.me/ContagiousLaughter) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
