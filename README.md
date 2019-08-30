@@ -315,6 +315,8 @@ Currently alive channels
 | [/r/ContagiousLaughter](https://www.reddit.com/r/ContagiousLaughter/) | [@ContagiousLaughter](https://t.me/ContagiousLaughter) | 1 hour |
 | [/r/DotA2](https://www.reddit.com/r/DotA2/) | [@reddit_Dota2](https://t.me/reddit_Dota2) | 1 hour |
 | [/r/BikiniBottomTwitter](https://www.reddit.com/r/BikiniBottomTwitter/) | [@r_BikiniBottomTwitter](https://t.me/r_BikiniBottomTwitter) | 1 hour |
+| [/r/Pony_irl](https://www.reddit.com/r/Pony_irl/) | [@r_Pony_irl](https://t.me/r_Pony_irl) | 1 hour |
+| [/r/cursedcomments](https://www.reddit.com/r/cursedcomments/) | [@r_CursedComments](https://t.me/r_CursedComments) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
