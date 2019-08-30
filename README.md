@@ -310,6 +310,7 @@ Currently alive channels
 | [/r/Hasan_Piker](https://www.reddit.com/r/Hasan_Piker/) | [@hasanthesun](https://t.me/hasanthesun) | 1 hour |
 | [/r/fantanoforever](https://www.reddit.com/r/fantanoforever/) | [@fantanoforever](https://t.me/fantanoforever) | 1 hour |
 | [/r/bikinimoe](https://www.reddit.com/r/bikinimoe/) | [@BikiniMoe](https://t.me/BikiniMoe) | 1 hour |
+| [/r/SatisfactoryGame](https://www.reddit.com/r/SatisfactoryGame/) | [@r_SatisfactoryGame](https://t.me/r_SatisfactoryGame) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
