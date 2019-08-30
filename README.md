@@ -313,6 +313,7 @@ Currently alive channels
 | [/r/SatisfactoryGame](https://www.reddit.com/r/SatisfactoryGame/) | [@r_SatisfactoryGame](https://t.me/r_SatisfactoryGame) | 1 hour |
 | [/r/wtf](https://www.reddit.com/r/wtf/) | [@reddit_wtf](https://t.me/reddit_wtf) | 1 hour |
 | [/r/ContagiousLaughter](https://www.reddit.com/r/ContagiousLaughter/) | [@ContagiousLaughter](https://t.me/ContagiousLaughter) | 1 hour |
+| [/r/DotA2](https://www.reddit.com/r/DotA2/) | [@reddit_Dota2](https://t.me/reddit_Dota2) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
