@@ -316,6 +316,7 @@ Currently alive channels
 | [/r/BikiniBottomTwitter](https://www.reddit.com/r/BikiniBottomTwitter/) | [@r_BikiniBottomTwitter](https://t.me/r_BikiniBottomTwitter) | 1 hour |
 | [/r/cursedcomments](https://www.reddit.com/r/cursedcomments/) | [@r_CursedComments](https://t.me/r_CursedComments) | 1 hour |
 | [/r/Pony_irl](https://www.reddit.com/r/Pony_irl/) | [@r_Pony_irl](https://t.me/r_Pony_irl) | 1 hour |
+| [/r/football+liverpoolfc+coys](https://www.reddit.com/r/football+liverpoolfc+coys/) | [@soccerx](https://t.me/soccerx) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
