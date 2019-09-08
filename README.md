@@ -318,6 +318,7 @@ Currently alive channels
 | [/r/Pony_irl](https://www.reddit.com/r/Pony_irl/) | [@r_Pony_irl](https://t.me/r_Pony_irl) | 1 hour |
 | [/r/football+liverpoolfc+coys](https://www.reddit.com/r/football+liverpoolfc+coys/) | [@soccerx](https://t.me/soccerx) | 1 hour |
 | [/r/HQDesi](https://www.reddit.com/r/HQDesi/) | [@r_HqDesi](https://t.me/r_HqDesi) | 1 hour |
+| [/r/ThatsInsane](https://www.reddit.com/r/ThatsInsane/) | [@r_thatsinsane](https://t.me/r_thatsinsane) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
