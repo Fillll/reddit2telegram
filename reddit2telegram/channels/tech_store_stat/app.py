@@ -27,7 +27,7 @@ def send_post(submission, r2t):
     }
     all_submodules = get_all_submodules()
     for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
-        time.sleep(10)
+        time.sleep(7)
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         channel_name = submodule.t_channel
         stat_to_store = {
