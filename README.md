@@ -151,7 +151,6 @@ Currently alive channels
 | [/r/TechNope](https://www.reddit.com/r/TechNope/) | [@r_technope](https://t.me/r_technope) | 1 hour |
 | [/r/carporn](https://www.reddit.com/r/carporn/) | [@rcarporn](https://t.me/rcarporn) | 1 hour |
 | [/r/desktops](https://www.reddit.com/r/desktops/) | [@r_desktops](https://t.me/r_desktops) | 1 hour |
-| [/r/nocontextpics](https://www.reddit.com/r/nocontextpics/) | [@r_nocontextpics](https://t.me/r_nocontextpics) | 1 hour |
 | [/r/vinyl](https://www.reddit.com/r/vinyl/) | [@r_vinyl](https://t.me/r_vinyl) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@deepfriedmemeschannel](https://t.me/deepfriedmemeschannel) | 1 hour |
 | [/r/HentaiMemes](https://www.reddit.com/r/HentaiMemes/) | [@r_HentaiMemes](https://t.me/r_HentaiMemes) | 1 hour |
