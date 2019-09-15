@@ -318,6 +318,7 @@ Currently alive channels
 | [/r/HQDesi](https://www.reddit.com/r/HQDesi/) | [@r_HqDesi](https://t.me/r_HqDesi) | 1 hour |
 | [/r/ThatsInsane](https://www.reddit.com/r/ThatsInsane/) | [@r_thatsinsane](https://t.me/r_thatsinsane) | 1 hour |
 | [/r/apexlegends](https://www.reddit.com/r/apexlegends/) | [@r_apexlegends](https://t.me/r_apexlegends) | 1 hour |
+| [/r/ATBGE](https://www.reddit.com/r/ATBGE/) | [@ATBGE](https://t.me/ATBGE) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
