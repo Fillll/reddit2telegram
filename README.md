@@ -320,6 +320,7 @@ Currently alive channels
 | [/r/apexlegends](https://www.reddit.com/r/apexlegends/) | [@r_apexlegends](https://t.me/r_apexlegends) | 1 hour |
 | [/r/ATBGE](https://www.reddit.com/r/ATBGE/) | [@ATBGE](https://t.me/ATBGE) | 1 hour |
 | [/r/perfectlycutscreams](https://www.reddit.com/r/perfectlycutscreams/) | [@AAAAAGGHHHH](https://t.me/AAAAAGGHHHH) | 1 hour |
+| [/r/araragi](https://www.reddit.com/r/araragi/) | [@r_araragi](https://t.me/r_araragi) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
