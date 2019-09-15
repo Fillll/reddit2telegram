@@ -321,6 +321,7 @@ Currently alive channels
 | [/r/ATBGE](https://www.reddit.com/r/ATBGE/) | [@ATBGE](https://t.me/ATBGE) | 1 hour |
 | [/r/perfectlycutscreams](https://www.reddit.com/r/perfectlycutscreams/) | [@AAAAAGGHHHH](https://t.me/AAAAAGGHHHH) | 1 hour |
 | [/r/araragi](https://www.reddit.com/r/araragi/) | [@r_araragi](https://t.me/r_araragi) | 1 hour |
+| [/r/WatchPeopleVim](https://www.reddit.com/r/WatchPeopleVim/) | [@WatchPeopleVim](https://t.me/WatchPeopleVim) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
