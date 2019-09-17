@@ -323,6 +323,7 @@ Currently alive channels
 | [/r/araragi](https://www.reddit.com/r/araragi/) | [@r_araragi](https://t.me/r_araragi) | 1 hour |
 | [/r/WatchPeopleVim](https://www.reddit.com/r/WatchPeopleVim/) | [@WatchPeopleVim](https://t.me/WatchPeopleVim) | 1 hour |
 | [/r/VaporwaveAesthetics](https://www.reddit.com/r/VaporwaveAesthetics/) | [@VaporwaveAesthetics](https://t.me/VaporwaveAesthetics) | 1 hour |
+ [/r/PUBGMobile](https://www.reddit.com/r/PUBGMobile/) | [@r_pubgmobile](https://t.me/r_pubgmobile) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
