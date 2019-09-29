@@ -328,6 +328,7 @@ Currently alive channels
 | [/r/COMPLETEANARCHY](https://www.reddit.com/r/COMPLETEANARCHY/) | [@COMPLETE_ANARCHY](https://t.me/COMPLETE_ANARCHY) | 1 hour |
 | [/r/sffpc](https://www.reddit.com/r/sffpc/) | [@sffpc](https://t.me/sffpc) | 1 hour |
 | [/r/coding](https://www.reddit.com/r/coding/) | [@r_coding](https://t.me/r_coding) | 1 hour |
+| [/r/PUBGMobile](https://www.reddit.com/r/PUBGMobile/) | [@r_pubgmobile](https://t.me/r_pubgmobile) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
