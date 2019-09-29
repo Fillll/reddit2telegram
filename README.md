@@ -326,6 +326,8 @@ Currently alive channels
 | [/r/suicidewatch](https://www.reddit.com/r/suicidewatch/) | [@r_suicidewatch](https://t.me/r_suicidewatch) | 1 hour |
 | [/r/giveaways](https://www.reddit.com/r/giveaways/) | [@giveaway_gift](https://t.me/giveaway_gift) | 1 hour |
 | [/r/COMPLETEANARCHY](https://www.reddit.com/r/COMPLETEANARCHY/) | [@COMPLETE_ANARCHY](https://t.me/COMPLETE_ANARCHY) | 1 hour |
+| [/r/sffpc](https://www.reddit.com/r/sffpc/) | [@sffpc](https://t.me/sffpc) | 1 hour |
+| [/r/coding](https://www.reddit.com/r/coding/) | [@r_coding](https://t.me/r_coding) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
