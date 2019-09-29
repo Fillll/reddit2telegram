@@ -323,7 +323,12 @@ Currently alive channels
 | [/r/araragi](https://www.reddit.com/r/araragi/) | [@r_araragi](https://t.me/r_araragi) | 1 hour |
 | [/r/WatchPeopleVim](https://www.reddit.com/r/WatchPeopleVim/) | [@WatchPeopleVim](https://t.me/WatchPeopleVim) | 1 hour |
 | [/r/VaporwaveAesthetics](https://www.reddit.com/r/VaporwaveAesthetics/) | [@VaporwaveAesthetics](https://t.me/VaporwaveAesthetics) | 1 hour |
- [/r/PUBGMobile](https://www.reddit.com/r/PUBGMobile/) | [@r_pubgmobile](https://t.me/r_pubgmobile) | 1 hour |
+| [/r/suicidewatch](https://www.reddit.com/r/suicidewatch/) | [@r_suicidewatch](https://t.me/r_suicidewatch) | 1 hour |
+| [/r/giveaways](https://www.reddit.com/r/giveaways/) | [@giveaway_gift](https://t.me/giveaway_gift) | 1 hour |
+| [/r/COMPLETEANARCHY](https://www.reddit.com/r/COMPLETEANARCHY/) | [@COMPLETE_ANARCHY](https://t.me/COMPLETE_ANARCHY) | 1 hour |
+| [/r/sffpc](https://www.reddit.com/r/sffpc/) | [@sffpc](https://t.me/sffpc) | 1 hour |
+| [/r/coding](https://www.reddit.com/r/coding/) | [@r_coding](https://t.me/r_coding) | 1 hour |
+| [/r/PUBGMobile](https://www.reddit.com/r/PUBGMobile/) | [@r_pubgmobile](https://t.me/r_pubgmobile) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
