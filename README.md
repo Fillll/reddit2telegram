@@ -325,6 +325,7 @@ Currently alive channels
 | [/r/VaporwaveAesthetics](https://www.reddit.com/r/VaporwaveAesthetics/) | [@VaporwaveAesthetics](https://t.me/VaporwaveAesthetics) | 1 hour |
 | [/r/suicidewatch](https://www.reddit.com/r/suicidewatch/) | [@r_suicidewatch](https://t.me/r_suicidewatch) | 1 hour |
 | [/r/giveaways](https://www.reddit.com/r/giveaways/) | [@giveaway_gift](https://t.me/giveaway_gift) | 1 hour |
+| [/r/COMPLETEANARCHY](https://www.reddit.com/r/COMPLETEANARCHY/) | [@COMPLETE_ANARCHY](https://t.me/COMPLETE_ANARCHY) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
