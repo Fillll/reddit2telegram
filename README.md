@@ -323,6 +323,8 @@ Currently alive channels
 | [/r/araragi](https://www.reddit.com/r/araragi/) | [@r_araragi](https://t.me/r_araragi) | 1 hour |
 | [/r/WatchPeopleVim](https://www.reddit.com/r/WatchPeopleVim/) | [@WatchPeopleVim](https://t.me/WatchPeopleVim) | 1 hour |
 | [/r/VaporwaveAesthetics](https://www.reddit.com/r/VaporwaveAesthetics/) | [@VaporwaveAesthetics](https://t.me/VaporwaveAesthetics) | 1 hour |
+| [/r/suicidewatch](https://www.reddit.com/r/suicidewatch/) | [@r_suicidewatch](https://t.me/r_suicidewatch) | 1 hour |
+| [/r/giveaways](https://www.reddit.com/r/giveaways/) | [@giveaway_gift](https://t.me/giveaway_gift) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
