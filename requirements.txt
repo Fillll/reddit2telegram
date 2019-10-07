@@ -1,6 +1,6 @@
 pyyaml
 praw
-telepot
+python-telegram-bot
 yandex.translate
 pymongo
 requests

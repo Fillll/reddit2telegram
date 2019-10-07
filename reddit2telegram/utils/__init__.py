@@ -17,8 +17,8 @@ from imgurpython import ImgurClient
 import yaml
 import pymongo
 from pymongo.collection import ReturnDocument
-import telepot
-from telepot.exception import TelegramError
+import telegram
+from telegram.error import TelegramError
 
 
 GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
@@ -235,7 +235,8 @@ class Reddit2TelegramSender(object):
             with open('configs/prod.yml') as f:
                 config = yaml.load(f.read())
         self.config = config
-        self.telepot_bot = telepot.Bot(self.config['telegram']['token'])
+        # TODO rename after migration
+        self.telepot_bot = telegram.Bot(self.config['telegram']['token'])
         if t_channel is None:
             t_channel = '@r_channels_test'
         self.t_channel = t_channel
@@ -354,7 +355,7 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         f = open(filename, 'rb')
-        self.telepot_bot.sendDocument(self.t_channel, f, caption=text, parse_mode=parse_mode)
+        self.telepot_bot.send_document(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             time.sleep(2)
@@ -373,7 +374,7 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         f = open(filename, 'rb')
-        self.telepot_bot.sendVideo(self.t_channel, f, caption=text, parse_mode=parse_mode)
+        self.telepot_bot.send_video(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             time.sleep(2)
@@ -382,9 +383,7 @@ class Reddit2TelegramSender(object):
 
     def _send_img_as_link(self, url, text):
         moded_text = '<a href="{url}">&#160;</a>{text}'.format(text=text, url=url)
-        return self.send_text(moded_text,
-                                disable_web_page_preview=False,
-                                parse_mode='HTML')
+        return self.send_text(moded_text, disable_web_page_preview=False, parse_mode='HTML')
 
     def send_img(self, url, ext, text, parse_mode=None):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
@@ -396,7 +395,7 @@ class Reddit2TelegramSender(object):
             if not download_file(url, filename):
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
             f = open(filename, 'rb')
-            self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
+            self.telepot_bot.send_photo(self.t_channel, f, caption=text, parse_mode=parse_mode)
             f.close()
             return SupplyResult.SUCCESSFULLY
         except TelegramError as e:
@@ -406,17 +405,15 @@ class Reddit2TelegramSender(object):
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
-            self.telepot_bot.sendMessage(self.t_channel, text,
-                                            disable_web_page_preview=disable_web_page_preview,
-                                            parse_mode=parse_mode)
+            self.telepot_bot.send_message(self.t_channel, text, disable_web_page_preview=disable_web_page_preview,
+                                          parse_mode=parse_mode)
             return SupplyResult.SUCCESSFULLY
         # If text is longer than 4096 symnols.
         next_text = text
         while len(next_text) > 0:
             new_text, next_text = self._split_4096(next_text)
-            self.telepot_bot.sendMessage(self.t_channel, new_text,
-                                            disable_web_page_preview=disable_web_page_preview,
-                                            parse_mode=parse_mode)
+            self.telepot_bot.send_message(self.t_channel, new_text, disable_web_page_preview=disable_web_page_preview,
+                                          parse_mode=parse_mode)
             time.sleep(2)
         return SupplyResult.SUCCESSFULLY
 
