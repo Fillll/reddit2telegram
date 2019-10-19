@@ -330,6 +330,7 @@ Currently alive channels
 | [/r/PUBGMobile](https://www.reddit.com/r/PUBGMobile/) | [@r_pubgmobile](https://t.me/r_pubgmobile) | 1 hour |
 | [/r/emacs](https://www.reddit.com/r/emacs/) | [@r_emacs](https://t.me/r_emacs) | 1 hour |
 | [/r/animegifs](https://www.reddit.com/r/animegifs/) | [@r_animegifs](https://t.me/r_animegifs) | 1 hour |
+| [/r/bishounen](https://www.reddit.com/r/bishounen/) | [@r_bishounen](https://t.me/r_bishounen) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
