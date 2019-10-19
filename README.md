@@ -333,6 +333,7 @@ Currently alive channels
 | [/r/bishounen](https://www.reddit.com/r/bishounen/) | [@r_bishounen](https://t.me/r_bishounen) | 1 hour |
 | [/r/KamenRider](https://www.reddit.com/r/KamenRider/) | [@r_KamenRider](https://t.me/r_KamenRider) | 1 hour |
 | [/r/NewVegasMemes](https://www.reddit.com/r/NewVegasMemes/) | [@noievegos](https://t.me/noievegos) | 1 hour |
+| [/r/piano](https://www.reddit.com/r/piano/) | [@r_piano](https://t.me/r_piano) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
