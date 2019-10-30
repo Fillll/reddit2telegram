@@ -336,6 +336,8 @@ Currently alive channels
 | [/r/piano](https://www.reddit.com/r/piano/) | [@r_piano](https://t.me/r_piano) | 1 hour |
 | [/r/brasil](https://www.reddit.com/r/brasil/) | [@reddit_brasil](https://t.me/reddit_brasil) | 1 hour |
 | [/r/Kerala](https://www.reddit.com/r/Kerala/) | [@r_kerala](https://t.me/r_kerala) | 1 hour |
+| [/r/EDC](https://www.reddit.com/r/EDC/) | [@r_kerala](https://t.me/r_edc) | 1 hour |
+| [/r/EDC](https://www.reddit.com/r/CombatFootage/) | [@r_kerala](https://t.me/r_combatfootage) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
