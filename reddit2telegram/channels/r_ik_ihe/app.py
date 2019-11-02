@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'ik_ihe+tokkiefeesboek'
+subreddit = 'ik_ihe'
 t_channel = '@r_ik_ihe'
 
 
