@@ -340,6 +340,7 @@ Currently alive channels
 | [/r/EDC](https://www.reddit.com/r/EDC/) | [@r_edc](https://t.me/r_edc) | 1 hour |
 | [/r/CombatFootage](https://www.reddit.com/r/CombatFootage/) | [@r_combatfootage](https://t.me/r_combatfootage) | 1 hour |
 | [/r/ani_bm](https://www.reddit.com/r/ani_bm/) | [@ani_bm](https://t.me/ani_bm) | 1 hour |
+| [/r/StarWars+StarWarsLeaks](https://www.reddit.com/r/StarWars+StarWarsLeaks/) | [@r_StarWarsLeaks](https://t.me/r_StarWarsLeaks) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
