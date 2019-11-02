@@ -337,6 +337,7 @@ Currently alive channels
 | [/r/brasil](https://www.reddit.com/r/brasil/) | [@reddit_brasil](https://t.me/reddit_brasil) | 1 hour |
 | [/r/Kerala](https://www.reddit.com/r/Kerala/) | [@r_kerala](https://t.me/r_kerala) | 1 hour |
 | [/r/tf2+tf2memes+tf2shitposterclub](https://www.reddit.com/r/tf2+tf2memes+tf2shitposterclub/) | [@r_TF2](https://t.me/r_TF2) | 1 hour |
+| [/r/EDC](https://www.reddit.com/r/EDC/) | [@r_edc](https://t.me/r_edc) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
