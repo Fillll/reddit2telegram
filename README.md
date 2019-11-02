@@ -339,6 +339,7 @@ Currently alive channels
 | [/r/tf2+tf2memes+tf2shitposterclub](https://www.reddit.com/r/tf2+tf2memes+tf2shitposterclub/) | [@r_TF2](https://t.me/r_TF2) | 1 hour |
 | [/r/EDC](https://www.reddit.com/r/EDC/) | [@r_edc](https://t.me/r_edc) | 1 hour |
 | [/r/CombatFootage](https://www.reddit.com/r/CombatFootage/) | [@r_combatfootage](https://t.me/r_combatfootage) | 1 hour |
+| [/r/ani_bm](https://www.reddit.com/r/ani_bm/) | [@ani_bm](https://t.me/ani_bm) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
