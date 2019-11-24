@@ -240,7 +240,6 @@ Currently alive channels
 | [/r/funnystories](https://www.reddit.com/r/funnystories/) | [@r_funnystories](https://t.me/r_funnystories) | 1 hour |
 | [/r/shitposters_paradise](https://www.reddit.com/r/shitposters_paradise/) | [@r_shitposters_paradise](https://t.me/r_shitposters_paradise) | 1 hour |
 | [/r/nottheonion](https://www.reddit.com/r/nottheonion/) | [@r_nottheonion](https://t.me/r_nottheonion) | 1 hour |
-| [/r/izlam](https://www.reddit.com/r/izlam/) | [@r_izlam](https://t.me/r_izlam) | 1 hour |
 | [/r/haikuOS](https://www.reddit.com/r/haikuOS/) | [@r_haikuos](https://t.me/r_haikuos) | 1 hour |
 | [/r/pathofexile](https://www.reddit.com/r/pathofexile/) | [@GGPoE](https://t.me/GGPoE) | 1 hour |
 | [/r/terraria](https://www.reddit.com/r/terraria/) | [@r_terraria](https://t.me/r_terraria) | 1 hour |
@@ -347,6 +346,7 @@ Currently alive channels
 | [/r/LuLaNo+antiMLM](https://www.reddit.com/r/LuLaNo+antiMLM/) | [@antimlms](https://t.me/antimlms) | 1 hour |
 | [/r/AzureLane](https://www.reddit.com/r/AzureLane/) | [@AzurLane_sub](https://t.me/AzurLane_sub) | 1 hour |
 | [/r/dreamcatcher](https://www.reddit.com/r/dreamcatcher/) | [@Dreamcatcher_reddit](https://t.me/Dreamcatcher_reddit) | 1 hour |
+| [/r/moviesuggestions](https://www.reddit.com/r/moviesuggestions/) | [@r_moviesuggestions](https://t.me/r_moviesuggestions) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
