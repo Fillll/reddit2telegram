@@ -8,6 +8,7 @@ MASK	submodule_name
 01 * * * *	ingressprimefeedback
 01 * * * *	jenkinsci
 01 * * * *	r_supersentai
+01 * * * *	antimlms
 02 * * * *	r_funny
 02 * * * *	r_punny
 02 * * * *	gifffs
