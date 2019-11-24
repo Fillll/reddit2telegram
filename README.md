@@ -343,6 +343,7 @@ Currently alive channels
 | [/r/StarWars+StarWarsLeaks](https://www.reddit.com/r/StarWars+StarWarsLeaks/) | [@r_StarWarsLeaks](https://t.me/r_StarWarsLeaks) | 1 hour |
 | [/r/Unity3d](https://www.reddit.com/r/Unity3d/) | [@r_Unity3D](https://t.me/r_Unity3D) | 1 hour |
 | [/r/wallpaper](https://www.reddit.com/r/wallpaper/) | [@r_wallpapers](https://t.me/r_wallpapers) | 1 hour |
+| [/r/supersentai](https://www.reddit.com/r/supersentai/) | [@r_SuperSentai](https://t.me/r_SuperSentai) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
