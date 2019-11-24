@@ -346,6 +346,7 @@ Currently alive channels
 | [/r/supersentai](https://www.reddit.com/r/supersentai/) | [@r_SuperSentai](https://t.me/r_SuperSentai) | 1 hour |
 | [/r/LuLaNo+antiMLM](https://www.reddit.com/r/LuLaNo+antiMLM/) | [@antimlms](https://t.me/antimlms) | 1 hour |
 | [/r/AzureLane](https://www.reddit.com/r/AzureLane/) | [@AzurLane_sub](https://t.me/AzurLane_sub) | 1 hour |
+| [/r/dreamcatcher](https://www.reddit.com/r/dreamcatcher/) | [@Dreamcatcher_reddit](https://t.me/Dreamcatcher_reddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
