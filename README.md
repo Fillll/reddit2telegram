@@ -345,6 +345,7 @@ Currently alive channels
 | [/r/wallpaper](https://www.reddit.com/r/wallpaper/) | [@r_wallpapers](https://t.me/r_wallpapers) | 1 hour |
 | [/r/supersentai](https://www.reddit.com/r/supersentai/) | [@r_SuperSentai](https://t.me/r_SuperSentai) | 1 hour |
 | [/r/LuLaNo+antiMLM](https://www.reddit.com/r/LuLaNo+antiMLM/) | [@antimlms](https://t.me/antimlms) | 1 hour |
+| [/r/AzureLane](https://www.reddit.com/r/AzureLane/) | [@AzurLane_sub](https://t.me/AzurLane_sub) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
