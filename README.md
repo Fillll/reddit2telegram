@@ -347,6 +347,7 @@ Currently alive channels
 | [/r/AzureLane](https://www.reddit.com/r/AzureLane/) | [@AzurLane_sub](https://t.me/AzurLane_sub) | 1 hour |
 | [/r/dreamcatcher](https://www.reddit.com/r/dreamcatcher/) | [@Dreamcatcher_reddit](https://t.me/Dreamcatcher_reddit) | 1 hour |
 | [/r/moviesuggestions](https://www.reddit.com/r/moviesuggestions/) | [@r_moviesuggestions](https://t.me/r_moviesuggestions) | 1 hour |
+| [/r/OSHA](https://www.reddit.com/r/OSHA/) | [@reddit_OSHA](https://t.me/reddit_OSHA) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
