@@ -127,7 +127,6 @@ Currently alive channels
 | [/r/crappydesign](https://www.reddit.com/r/crappydesign/) and [/r/crappydesign2](https://www.reddit.com/r/crappydesign2/) | [@r_crappydesign](https://t.me/r_crappydesign) | 1 hour |
 | [/r/xiaomi](https://www.reddit.com/r/xiaomi/) | [@reddit_xiaomi](https://t.me/reddit_xiaomi) | 1 hour |
 | [/r/comics](https://www.reddit.com/r/comics/) | [@r_comics](https://t.me/r_comics) | 1 hour |
-| [/r/AyyMD](https://www.reddit.com/r/AyyMD/) | [@RAyyMD](https://t.me/RAyyMD) | 1 hour |
 | [/r/remotejs](https://www.reddit.com/r/remotejs/) | [@r_remotejs](https://t.me/r_remotejs) | 1 hour |
 | [/r/streetmoe](https://www.reddit.com/r/streetmoe/) | [@streetmoe](https://t.me/streetmoe) | 1 hour |
 | [/r/foxes](https://www.reddit.com/r/foxes/) | [@r_foxes](https://t.me/r_foxes) | 1 hour |
