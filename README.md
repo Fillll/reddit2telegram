@@ -342,6 +342,9 @@ Currently alive channels
 | [/r/AzureLane](https://www.reddit.com/r/AzureLane/) | [@AzurLane_sub](https://t.me/AzurLane_sub) | 1 hour |
 | [/r/dreamcatcher](https://www.reddit.com/r/dreamcatcher/) | [@Dreamcatcher_reddit](https://t.me/Dreamcatcher_reddit) | 1 hour |
 | [/r/moviesuggestions](https://www.reddit.com/r/moviesuggestions/) | [@r_moviesuggestions](https://t.me/r_moviesuggestions) | 1 hour |
+| [/r/communism](https://www.reddit.com/r/communism/) | [@r_communism](https://t.me/r_communism) | 1 hour |
+| [/r/Sino](https://www.reddit.com/r/Sino/) | [@r_Sino](https://t.me/r_Sino) | 1 hour |
+| [/r/MoreTankieChapo](https://www.reddit.com/r/MoreTankieChapo/) | [@MoreTankieChapo](https://t.me/MoreTankieChapo) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
