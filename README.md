@@ -346,6 +346,7 @@ Currently alive channels
 | [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@rAnimewallpaper](https://t.me/rAnimewallpaper) | 1 hour |
 | [/r/golfclash](https://www.reddit.com/r/golfclash/) | [@golfclashh](https://t.me/golfclashh) | 1 hour |
 | [/r/TerribleFacebookMemes](https://www.reddit.com/r/TerribleFacebookMemes/) | [@TerribleFacebookMemes](https://t.me/TerribleFacebookMemes) | 1 hour |
+| [/r/invites](https://www.reddit.com/r/invites/) | [@r_invites](https://t.me/r_invites) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
