@@ -347,6 +347,7 @@ Currently alive channels
 | [/r/golfclash](https://www.reddit.com/r/golfclash/) | [@golfclashh](https://t.me/golfclashh) | 1 hour |
 | [/r/TerribleFacebookMemes](https://www.reddit.com/r/TerribleFacebookMemes/) | [@TerribleFacebookMemes](https://t.me/TerribleFacebookMemes) | 1 hour |
 | [/r/invites](https://www.reddit.com/r/invites/) | [@r_invites](https://t.me/r_invites) | 1 hour |
+| [/r/OSHA](https://www.reddit.com/r/OSHA/) | [@reddit_OSHA](https://t.me/reddit_OSHA) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
