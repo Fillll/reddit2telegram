@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'Unity3d+Unity2D'
-t_channel = '@r_Unity3D'
+subreddit = 'shittylifeprotips'
+t_channel = '@prolifetipss'
 
 
 def send_post(submission, r2t):
