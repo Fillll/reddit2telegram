@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'Unity3d'
+subreddit = 'Unity3d+Unity2D'
 t_channel = '@r_Unity3D'
 
 
