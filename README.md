@@ -343,6 +343,7 @@ Currently alive channels
 | [/r/dreamcatcher](https://www.reddit.com/r/dreamcatcher/) | [@Dreamcatcher_reddit](https://t.me/Dreamcatcher_reddit) | 1 hour |
 | [/r/moviesuggestions](https://www.reddit.com/r/moviesuggestions/) | [@r_moviesuggestions](https://t.me/r_moviesuggestions) | 1 hour |
 | [/r/shittylifeprotips](https://www.reddit.com/r/shittylifeprotips/) | [@prolifetipss](https://t.me/prolifetipss) | 1 hour |
+| [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@rAnimewallpaper](https://t.me/rAnimewallpaper) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
