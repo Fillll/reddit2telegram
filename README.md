@@ -350,6 +350,7 @@ Currently alive channels
 | [/r/communism](https://www.reddit.com/r/communism/) | [@r_communism](https://t.me/r_communism) | 1 hour |
 | [/r/Sino](https://www.reddit.com/r/Sino/) | [@r_Sino](https://t.me/r_Sino) | 1 hour |
 | [/r/MoreTankieChapo](https://www.reddit.com/r/MoreTankieChapo/) | [@MoreTankieChapo](https://t.me/MoreTankieChapo) | 1 hour |
+| [/r/NatureIsFuckingLit](https://www.reddit.com/r/NatureIsFuckingLit/) | [@NatureIsLit](https://t.me/NatureIsLit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
