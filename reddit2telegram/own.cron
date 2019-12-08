@@ -253,6 +253,7 @@ MASK	submodule_name
 36 * * * *	r_celebs
 36 * * * *	r_plsnobulli
 36 * * * *	r_invites
+36 * * * *	r_osha
 37 * * * *	r_bitcoin
 37 * * * *	r_books
 37 * * * *	r_creepyasterisks
