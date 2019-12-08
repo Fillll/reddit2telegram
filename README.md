@@ -345,6 +345,7 @@ Currently alive channels
 | [/r/shittylifeprotips](https://www.reddit.com/r/shittylifeprotips/) | [@prolifetipss](https://t.me/prolifetipss) | 1 hour |
 | [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@rAnimewallpaper](https://t.me/rAnimewallpaper) | 1 hour |
 | [/r/golfclash](https://www.reddit.com/r/golfclash/) | [@golfclashh](https://t.me/golfclashh) | 1 hour |
+| [/r/TerribleFacebookMemes](https://www.reddit.com/r/TerribleFacebookMemes/) | [@TerribleFacebookMemes](https://t.me/TerribleFacebookMemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
