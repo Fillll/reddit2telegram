@@ -351,6 +351,7 @@ Currently alive channels
 | [/r/Sino](https://www.reddit.com/r/Sino/) | [@r_Sino](https://t.me/r_Sino) | 1 hour |
 | [/r/MoreTankieChapo](https://www.reddit.com/r/MoreTankieChapo/) | [@MoreTankieChapo](https://t.me/MoreTankieChapo) | 1 hour |
 | [/r/NatureIsFuckingLit](https://www.reddit.com/r/NatureIsFuckingLit/) | [@NatureIsLit](https://t.me/NatureIsLit) | 1 hour |
+| [/r/AppHookUp](https://www.reddit.com/r/AppHookUp/) | [@r_AppHookUp](https://t.me/r_AppHookUp) | 2 hours |
 |  | ... be the next one ... |  |@
 
 
