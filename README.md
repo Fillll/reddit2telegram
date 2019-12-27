@@ -359,6 +359,7 @@ Currently alive channels
 | [/r/ImaginaryLandscapes](https://www.reddit.com/r/ImaginaryLandscapes/) | [@r_imaginarylandscapes](https://t.me/r_imaginarylandscapes) | 1 hour |
 | [/r/desigentlemanboners](https://www.reddit.com/r/desigentlemanboners/) | [@r_dgb](https://t.me/r_dgb) | 1 hour |
 | [/r/BollyBlindsNGossip](https://www.reddit.com/r/BollyBlindsNGossip/) | [@bollybng](https://t.me/bollybng) | 1 hour |
+| [/r/AppHookUp](https://www.reddit.com/r/AppHookUp/) | [@r_AppHookUp](https://t.me/r_AppHookUp) | 2 hours |
 |  | ... be the next one ... |  |@
 
 
