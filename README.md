@@ -358,6 +358,7 @@ Currently alive channels
 | [/r/Moescape](https://www.reddit.com/r/Moescape/) | [@r_moescape](https://t.me/r_moescape) | 1 hour |
 | [/r/ImaginaryLandscapes](https://www.reddit.com/r/ImaginaryLandscapes/) | [@r_imaginarylandscapes](https://t.me/r_imaginarylandscapes) | 1 hour |
 | [/r/desigentlemanboners](https://www.reddit.com/r/desigentlemanboners/) | [@r_dgb](https://t.me/r_dgb) | 1 hour |
+| [/r/BollyBlindsNGossip](https://www.reddit.com/r/BollyBlindsNGossip/) | [@bollybng](https://t.me/bollybng) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
