@@ -355,6 +355,7 @@ Currently alive channels
 | [/r/mallubabes](https://www.reddit.com/r/mallubabes/) | [@r_mallubabes](https://t.me/r_mallubabes) | 1 hour |
 | [/r/dogelore](https://www.reddit.com/r/dogelore/) | [@rdogelore](https://t.me/rdogelore) | 1 hour |
 | [/r/trackballs](https://www.reddit.com/r/trackballs/) | [@reddit_trackballs](https://t.me/reddit_trackballs) | 1 hour |
+| [/r/Moescape](https://www.reddit.com/r/Moescape/) | [@r_moescape](https://t.me/r_moescape) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
