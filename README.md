@@ -351,6 +351,14 @@ Currently alive channels
 | [/r/Sino](https://www.reddit.com/r/Sino/) | [@r_Sino](https://t.me/r_Sino) | 1 hour |
 | [/r/MoreTankieChapo](https://www.reddit.com/r/MoreTankieChapo/) | [@MoreTankieChapo](https://t.me/MoreTankieChapo) | 1 hour |
 | [/r/NatureIsFuckingLit](https://www.reddit.com/r/NatureIsFuckingLit/) | [@NatureIsLit](https://t.me/NatureIsLit) | 1 hour |
+| [/r/comedynecrophilia](https://www.reddit.com/r/comedynecrophilia/) | [@comedynecrophilia](https://t.me/comedynecrophilia) | 1 hour |
+| [/r/mallubabes](https://www.reddit.com/r/mallubabes/) | [@r_mallubabes](https://t.me/r_mallubabes) | 1 hour |
+| [/r/dogelore](https://www.reddit.com/r/dogelore/) | [@rdogelore](https://t.me/rdogelore) | 1 hour |
+| [/r/trackballs](https://www.reddit.com/r/trackballs/) | [@reddit_trackballs](https://t.me/reddit_trackballs) | 1 hour |
+| [/r/Moescape](https://www.reddit.com/r/Moescape/) | [@r_moescape](https://t.me/r_moescape) | 1 hour |
+| [/r/ImaginaryLandscapes](https://www.reddit.com/r/ImaginaryLandscapes/) | [@r_imaginarylandscapes](https://t.me/r_imaginarylandscapes) | 1 hour |
+| [/r/desigentlemanboners](https://www.reddit.com/r/desigentlemanboners/) | [@r_dgb](https://t.me/r_dgb) | 1 hour |
+| [/r/BollyBlindsNGossip](https://www.reddit.com/r/BollyBlindsNGossip/) | [@bollybng](https://t.me/bollybng) | 1 hour |
 | [/r/AppHookUp](https://www.reddit.com/r/AppHookUp/) | [@r_AppHookUp](https://t.me/r_AppHookUp) | 2 hours |
 |  | ... be the next one ... |  |@
 
