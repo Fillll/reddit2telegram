@@ -195,7 +195,7 @@ Currently alive channels
 | [/r/art](https://www.reddit.com/r/art/) | [@redditart](https://t.me/redditart) | 1 hour |
 | [/r/interestingasfuck](https://www.reddit.com/r/interestingasfuck/) | [@r_interestingasfuck](https://t.me/r_interestingasfuck) | 1 hour |
 | [/r/Programming](https://www.reddit.com/r/Programming/) | [@programmingr](https://t.me/programmingr) | 2 hours |
-| [/r/RimWorld](https://www.reddit.com/r/RimWorld/) | [@r_RimWorld](https://t.me/r_RimWorld) | 1 hour "|
+| [/r/RimWorld](https://www.reddit.com/r/RimWorld/) | [@r_RimWorld](https://t.me/r_RimWorld) | 1 hour |
 | [/r/woooosh](https://www.reddit.com/r/woooosh/) | [@r_woooosh](https://t.me/r_woooosh) | 1 hour |
 | [/r/instant_regret](https://www.reddit.com/r/instant_regret/) | [@instant_regret](https://t.me/instant_regret) | 1 hour |
 | [/r/DJs](https://www.reddit.com/r/DJs/) | [@r_djs](https://t.me/r_djs) | 1 hour |
