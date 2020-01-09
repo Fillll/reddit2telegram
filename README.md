@@ -251,7 +251,7 @@ Currently alive channels
 | [/r/tifu](https://www.reddit.com/r/tifu/) | [@r_channels_tifu](https://t.me/r_channels_tifu) | 1 hour |
 | [/r/Vinesauce](https://www.reddit.com/r/Vinesauce/) | [@r_vinesauce](https://t.me/r_vinesauce) | 1 hour |
 | [/r/freegamefindings](https://www.reddit.com/r/freegamefindings/) | [@r_freegamefindings](https://t.me/r_freegamefindings) | 1 hour |
-| [/r/bakchodi](https://www.reddit.com/r/bakchodi/) | [@r_bakchodi](https://t.me/r_bakchodi) | 1 hour |
+| [/r/bakchodi+Chodi](https://www.reddit.com/r/bakchodi+Chodi/) | [@r_bakchodi](https://t.me/r_bakchodi) | 1 hour |
 | [/r/OurWorldTWD](https://www.reddit.com/r/OurWorldTWD/) | [@OurWorldTWD](https://t.me/OurWorldTWD) | 1 hour |
 | [/r/ChelseaFC](https://www.reddit.com/r/ChelseaFC/) | [@rChelseaFC](https://t.me/rChelseaFC) | 1 hour |
 | [Some](https://www.reddit.com/r/theredpill+pussypass+pussypassdenied+mensrights/). | [@manpill](https://t.me/manpill) | 1 hour |
