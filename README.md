@@ -363,6 +363,7 @@ Currently alive channels
 | [/r/uruguay](https://www.reddit.com/r/uruguay/) | [@reddituruguay](https://t.me/reddituruguay) | 1 hour |
 | [/r/trippinthroughtime](https://www.reddit.com/r/trippinthroughtime/) | [@medieval_memes](https://t.me/medieval_memes) | 1 hour |
 | [/r/onepunchman](https://www.reddit.com/r/onepunchman/) | [@r_opm](https://t.me/r_opm) | 1 hour |
+| [/r/preppers](https://www.reddit.com/r/preppers/) | [@r_preppers](https://t.me/r_preppers) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
