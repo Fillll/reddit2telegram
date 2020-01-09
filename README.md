@@ -362,6 +362,7 @@ Currently alive channels
 | [/r/AppHookUp](https://www.reddit.com/r/AppHookUp/) | [@r_AppHookUp](https://t.me/r_AppHookUp) | 2 hours |
 | [/r/uruguay](https://www.reddit.com/r/uruguay/) | [@reddituruguay](https://t.me/reddituruguay) | 1 hour |
 | [/r/trippinthroughtime](https://www.reddit.com/r/trippinthroughtime/) | [@medieval_memes](https://t.me/medieval_memes) | 1 hour |
+| [/r/onepunchman](https://www.reddit.com/r/onepunchman/) | [@r_opm](https://t.me/r_opm) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
