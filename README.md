@@ -363,6 +363,7 @@ Currently alive channels
 | [/r/onepunchman](https://www.reddit.com/r/onepunchman/) | [@r_opm](https://t.me/r_opm) | 1 hour |
 | [/r/preppers](https://www.reddit.com/r/preppers/) | [@r_preppers](https://t.me/r_preppers) | 1 hour |
 | [/r/Chainlink+Vechain+FetchAI_Community+perlin+Qtum+NEO+hashgraph+IoTeX+elrondnetwork+Aeternity+loopringorg+waltonchain+nebulas+IOStoken+NavCoin+viacoin+skycoin+MoedaBanking+WabiToken+EnjinCoin+OntologyNetwork+PolymathNetwork+insolar+nexusearth+zcoin+zilliqa+quarkchainio+tezos+Neblio+helloicon+ArkEcosystem+kybernetwork+0xProject+BATProject+SysCoin+omise_go+pivx+civicplatform+factom+nem+Stellar+Ripple+Wavesplatform+statusim+Ardor+stratisplatform+GolemProject+komodoplatform+storj+vergecurrency+eos+siacoin](https://www.reddit.com/r/Chainlink+Vechain+FetchAI_Community+perlin+Qtum+NEO+hashgraph+IoTeX+elrondnetwork+Aeternity+loopringorg+waltonchain+nebulas+IOStoken+NavCoin+viacoin+skycoin+MoedaBanking+WabiToken+EnjinCoin+OntologyNetwork+PolymathNetwork+insolar+nexusearth+zcoin+zilliqa+quarkchainio+tezos+Neblio+helloicon+ArkEcosystem+kybernetwork+0xProject+BATProject+SysCoin+omise_go+pivx+civicplatform+factom+nem+Stellar+Ripple+Wavesplatform+statusim+Ardor+stratisplatform+GolemProject+komodoplatform+storj+vergecurrency+eos+siacoin/) | [@cryptoinstantnews2](https://t.me/cryptoinstantnews2) | 1 hour |
+| [/r/LeagueOfMemes](https://www.reddit.com/r/LeagueOfMemes/) | [@r_league_of_memes](https://t.me/r_league_of_memes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
