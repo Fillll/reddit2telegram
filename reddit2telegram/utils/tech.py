@@ -144,3 +144,7 @@ def get_all_tags(config_filename=None):
             tags = tags_file.read()
             all_tags.update(tags.split())
     return all_tags
+
+
+def chunker(seq, size):
+    return (seq[pos:pos + size] for pos in range(0, len(seq), size))

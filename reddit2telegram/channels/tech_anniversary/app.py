@@ -4,20 +4,11 @@ import time
 
 from utils import SupplyResult
 from utils.tech import is_birthday_today, get_all_public_channels, get_dev_channel
-from utils.tech import generate_list_of_channels, default_ending
+from utils.tech import generate_list_of_channels, default_ending, chunker
 
 
 subreddit = 'all'
 t_channel = get_dev_channel()
-
-
-def chunksiter(l, chunks):
-    i, j, n = 0, 0, 0
-    while n < len(l) / chunks:        
-        yield l[i:j+chunks]
-        i += chunks
-        j += j + chunks        
-        n += 1
 
 
 def send_post(submission, r2t):
@@ -48,7 +39,7 @@ def send_post(submission, r2t):
             r2t.send_text(text1_to_send)
             time.sleep(2)
             text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n'
-            for l in chunksiter(list_of_channels, 100):
+            for l in chunker(list_of_channels, 100):
                 text2_to_send += '\n'.join(l)
                 r2t.send_text(text2_to_send)
                 text2_to_send = ''
@@ -60,7 +51,7 @@ def send_post(submission, r2t):
             r2t.send_text(text1_to_send)
             time.sleep(2)
             text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n'
-            for l in chunksiter(list_of_channels, 100):
+            for l in chunker(list_of_channels, 100):
                 text2_to_send += '\n'.join(l)
                 r2t.send_text(text2_to_send)
                 text2_to_send = ''
