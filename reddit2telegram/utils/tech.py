@@ -147,4 +147,5 @@ def get_all_tags(config_filename=None):
 
 
 def chunker(seq, size):
+    # https://stackoverflow.com/questions/434287/what-is-the-most-pythonic-way-to-iterate-over-a-list-in-chunks
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
