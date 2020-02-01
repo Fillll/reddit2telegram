@@ -3,7 +3,7 @@
 from utils import weighted_random_subreddit
 
 subreddit = 'LeagueOfMemes'
-t_channel = '@League_Of_Memes'
+t_channel = '@r_League_Of_Memes'
 
 
 def send_post(submission, r2t):
