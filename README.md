@@ -366,6 +366,7 @@ Currently alive channels
 | [/r/VirtualYoutubers](https://www.reddit.com/r/VirtualYoutubers/) | [@vtuber_en](https://t.me/vtuber_en) | 1 hour |
 | [/r/islam](https://www.reddit.com/r/islam/) | [@r_islam_channel](https://t.me/r_islam_channel) | 1 hour |
 | [/r/antimeme](https://www.reddit.com/r/antimeme/) | [@r_antimeme](https://t.me/r_antimeme) | 1 hour |
+| [/r/soccercirclejerk](https://www.reddit.com/r/soccercirclejerk/) | [@soccermemer](https://t.me/soccermemer) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
