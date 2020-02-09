@@ -367,6 +367,7 @@ Currently alive channels
 | [/r/islam](https://www.reddit.com/r/islam/) | [@r_islam_channel](https://t.me/r_islam_channel) | 1 hour |
 | [/r/antimeme](https://www.reddit.com/r/antimeme/) | [@r_antimeme](https://t.me/r_antimeme) | 1 hour |
 | [/r/soccercirclejerk](https://www.reddit.com/r/soccercirclejerk/) | [@soccermemer](https://t.me/soccermemer) | 1 hour |
+| [/r/simpsonsshitposting](https://www.reddit.com/r/simpsonsshitposting/) | [@r_simpsonshitpost](https://t.me/r_simpsonshitpost) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
