@@ -38,11 +38,11 @@ def send_report_to_dev_chat(exc):
             link=link,
             cnt=error_cnt['cnt']
         )
-    report = '{t}\n\n\n{e}'.format(
+    report = '<b>r2t error</b>\n{t}\n\n\n<pre>{e}</pre>'.format(
         t=title,
         e=exc
     )
-    r2t.send_text(report)
+    r2t.send_text(report, parse_mode='HTML')
 
 
 def report_error(fn):
