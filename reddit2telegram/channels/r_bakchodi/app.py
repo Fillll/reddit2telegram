@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'bakchodi'
+subreddit = 'bakchodi+Chodi'
 t_channel = '@r_bakchodi'
 
 

@@ -14,6 +14,9 @@ subreddit = 'all'
 t_channel = '@r_channels'
 
 
+SETTING_NAME = 1
+
+
 def send_post(submission, r2t):
     config_filename = 'configs/prod.yml'
     with open(config_filename) as config_file:
@@ -22,7 +25,7 @@ def send_post(submission, r2t):
     settings.ensure_index([('setting', pymongo.ASCENDING)])
 
     last_update_doc = settings.find_one({
-        'setting': 1,
+        'setting': SETTING_NAME,
     })
 
     if last_update_doc is None:
@@ -30,7 +33,7 @@ def send_post(submission, r2t):
             'last_update': 0
         }
         settings.insert_one({
-            'setting': 1,
+            'setting': SETTING_NAME,
             'last_update': 0
         })
 
@@ -58,7 +61,7 @@ def send_post(submission, r2t):
 
     settings.find_one_and_update(
         {
-            'setting': 1
+            'setting': SETTING_NAME
         },
         {
             '$set': 

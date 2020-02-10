@@ -6,19 +6,11 @@ import time
 from utils import SupplyResult
 from utils.tech import get_active_period, get_newly_active, get_all_public_channels, get_all_tags
 from utils.tech import generate_list_of_channels, get_top_growers_for_last_week, default_ending
+from utils.tech import chunker
 
 
 subreddit = 'all'
 t_channel = '@reddit2telegram'
-
-
-def chunksiter(l, chunks):
-    i, j, n = 0, 0, 0
-    while n < len(l) / chunks:        
-        yield l[i:j+chunks]
-        i += chunks
-        j += j + chunks        
-        n += 1
 
 
 def send_post(submission, r2t):
@@ -37,7 +29,7 @@ def send_post(submission, r2t):
     r2t.send_text(text_to_send, parse_mode='HTML')
     time.sleep(2)
     text_to_send = '⬇️ All active channels:\n'
-    for l in chunksiter(list_of_channels, 100):
+    for l in chunker(list_of_channels, 100):
         text_to_send += '\n'.join(l)
         r2t.send_text(text_to_send)
         text_to_send = ''
