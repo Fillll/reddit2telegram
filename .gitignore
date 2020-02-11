@@ -206,6 +206,6 @@ local.properties
 
 # Code Recommenders
 .recommenders/
-.gitignore
+.mypy_cache
 
 # Created by .ignore support plugin (hsz.mobi)
