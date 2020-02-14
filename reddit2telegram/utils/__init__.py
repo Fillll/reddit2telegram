@@ -1,5 +1,6 @@
 # encoding:utf-8
 
+import math
 from urllib.parse import urlparse
 import requests
 from requests.exceptions import InvalidSchema, MissingSchema
@@ -416,25 +417,30 @@ class Reddit2TelegramSender(object):
             time.sleep(2)
         return SupplyResult.SUCCESSFULLY
 
-    def send_album(self, story):
-        def just_send(num, item):
-            text = '# {}\n{}'.format(num, item['url'])
-            self.send_text(text)
-
+    def send_album(self, story, caption):
+        media_list = []
         for num, item in sorted(story.items(), key=lambda x: x[0]):
-            text = '# {}'.format(num)
-            if item['what'] == TYPE_GIF:
-                if not self.send_gif(item['url'], item['ext'], text):
-                    just_send(num, item)
-            elif item['what'] == TYPE_IMG:
-                if not self.send_img(item['url'], item['ext'], text):
-                    just_send(num, item)
-            elif item['what'] == 'text':
-                just_send(num, item)
-            if num >= ALBUM_LIMIT:
-                self.send_text('...')
-                return SupplyResult.SUCCESSFULLY
-            time.sleep(2)
+            if item["what"] == TYPE_IMG:
+                media_list.append(telegram.InputMediaPhoto(item["url"]))
+            elif item["what"] == TYPE_GIF:
+                media_list.append(telegram.InputMediaAnimation(item["url"]))
+            else:
+                raise RuntimeError("unsupported media type for album: {}".format(item["what"]))
+
+        num_media = len(media_list)
+        if num_media < 2:
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        albums = []
+        for i in range(0, 10 + math.ceil(num_media / 10), 10):
+            second_index = -1 if i + 10 > num_media else i + 10
+            albums.append(media_list[i:second_index])
+
+        albums[-1][-1].caption = caption
+
+        for send_list in albums:
+            self.telegram_bot.send_media_group(self.t_channel, send_list, timeout=10000)
+
         return SupplyResult.SUCCESSFULLY
 
     def send_simple(self, submission, **kwargs):
@@ -544,8 +550,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                self.send_text(text)
-                return self.send_album(url)
+                return self.send_album(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_TEXT:
             what_to_do = kwargs.get('text', True)
