@@ -368,6 +368,7 @@ Currently alive channels
 | [/r/soccercirclejerk](https://www.reddit.com/r/soccercirclejerk/) | [@soccermemer](https://t.me/soccermemer) | 1 hour |
 | [/r/simpsonsshitposting](https://www.reddit.com/r/simpsonsshitposting/) | [@r_simpsonshitpost](https://t.me/r_simpsonshitpost) | 1 hour |
 | [/r/nosafetysmokingfirst](https://www.reddit.com/r/nosafetysmokingfirst/) | [@r_nosafetysmokingfirst](https://t.me/r_nosafetysmokingfirst) | 1 hour |
+| [/r/okbuddyretard](https://www.reddit.com/r/okbuddyretard/) | [@okbuddyretard](https://t.me/okbuddyretard) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
