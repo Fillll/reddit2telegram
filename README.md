@@ -370,6 +370,7 @@ Currently alive channels
 | [/r/nosafetysmokingfirst](https://www.reddit.com/r/nosafetysmokingfirst/) | [@r_nosafetysmokingfirst](https://t.me/r_nosafetysmokingfirst) | 1 hour |
 | [/r/okbuddyretard](https://www.reddit.com/r/okbuddyretard/) | [@okbuddyretard](https://t.me/okbuddyretard) | 1 hour |
 | [/r/memes](https://www.reddit.com/r/memes/) | [@memanon](https://t.me/memanon) | 1 hour |
+| [/r/houkai3rd](https://www.reddit.com/r/houkai3rd/) | [@r_houkai3rd](https://t.me/r_houkai3rd) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
