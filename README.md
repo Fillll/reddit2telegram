@@ -362,7 +362,7 @@ Currently alive channels
 | [/r/onepunchman](https://www.reddit.com/r/onepunchman/) | [@r_opm](https://t.me/r_opm) | 1 hour |
 | [/r/preppers](https://www.reddit.com/r/preppers/) | [@r_preppers](https://t.me/r_preppers) | 1 hour |
 | [/r/%A_LOT_OF_CRYPTO_RELATED%](https://www.reddit.com/r/Chainlink+Vechain+FetchAI_Community+perlin+Qtum+NEO+hashgraph+IoTeX+elrondnetwork+Aeternity+loopringorg+waltonchain+nebulas+IOStoken+NavCoin+viacoin+skycoin+MoedaBanking+WabiToken+EnjinCoin+OntologyNetwork+PolymathNetwork+insolar+nexusearth+zcoin+zilliqa+quarkchainio+tezos+Neblio+helloicon+ArkEcosystem+kybernetwork+0xProject+BATProject+SysCoin+omise_go+pivx+civicplatform+factom+nem+Stellar+Ripple+Wavesplatform+statusim+Ardor+stratisplatform+GolemProject+komodoplatform+storj+vergecurrency+eos+siacoin/) | [@cryptoinstantnews2](https://t.me/cryptoinstantnews2) | 1 hour |
-| [/r/LeagueOfMemes](https://www.reddit.com/r/LeagueOfMemes/) | [@r_league_of_memes](https://t.me/r_league_of_memes) | 1 hour |
+| [/r/LeagueOfMemes](https://www.reddit.com/r/LeagueOfMemes/) | [@r_league_of_memes](https://t.me/r_league_of_memes) | 15 mins |
 | [/r/VirtualYoutubers](https://www.reddit.com/r/VirtualYoutubers/) | [@vtuber_en](https://t.me/vtuber_en) | 1 hour |
 | [/r/islam](https://www.reddit.com/r/islam/) | [@r_islam_channel](https://t.me/r_islam_channel) | 1 hour |
 | [/r/antimeme](https://www.reddit.com/r/antimeme/) | [@r_antimeme](https://t.me/r_antimeme) | 1 hour |
