@@ -373,6 +373,7 @@ Currently alive channels
 | [/r/houkai3rd](https://www.reddit.com/r/houkai3rd/) | [@r_houkai3rd](https://t.me/r_houkai3rd) | 1 hour |
 | [/r/rust](https://www.reddit.com/r/rust/) | [@r_rust](https://t.me/r_rust) | 1 hour |
 | [/r/blursedimages](https://www.reddit.com/r/blursedimages/) | [@r_Blursedimages](https://t.me/r_Blursedimages) | 1 hour |
+| [/r/Otonokizaka](https://www.reddit.com/r/Otonokizaka/) | [@r_Otonokizaka](https://t.me/r_Otonokizaka) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
