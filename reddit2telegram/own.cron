@@ -39,7 +39,6 @@ MASK	submodule_name
 05 */2 * * *	r_showerthoughts
 05 * * * *	r_softwaregore
 05 * * * *	r_getmotivated
-05 * * * *	therightcantmeme
 05 * * * *	r_pubgmobile
 05 * * * *	r_animegifs
 05 */3 * * *	r_tf2

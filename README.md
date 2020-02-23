@@ -215,7 +215,6 @@ Currently alive channels
 | [/r/whitepeopletwitter](https://www.reddit.com/r/whitepeopletwitter/) | [@whitepeopletweets](https://t.me/whitepeopletweets) | 1 hour |
 | [/r/Trackers](https://www.reddit.com/r/Trackers/) | [@r_trackers](https://t.me/r_trackers) | 1 hour |
 | [/r/borderHands](https://www.reddit.com/r/borderHands/) & [/r/Borderlands](https://www.reddit.com/r/Borderlands/) & [/r/Borderlands2](https://www.reddit.com/r/Borderlands2/) & [/r/borderlands3](https://www.reddit.com/r/borderlands3/) | [@r_vault_hunters](https://t.me/r_vault_hunters) | 1 hour |
-| [/r/therightcantmeme](https://www.reddit.com/r/therightcantmeme/) | [@therightcantmeme](https://t.me/therightcantmeme) | 1 hour |
 | [/r/CoolGithubProjects](https://www.reddit.com/r/CoolGithubProjects/) & [/r/coolcstechtalks](https://www.reddit.com/r/coolcstechtalks/) | [@r_CoolGithubProjects](https://t.me/r_CoolGithubProjects) | 1 hour |
 | [/r/evilbuildings](https://www.reddit.com/r/evilbuildings/) | [@r_evilbuildings](https://t.me/r_evilbuildings) | 1 hour |
 | [/r/RATS](https://www.reddit.com/r/RATS/) | [@rattit](https://t.me/rattit) | 1 hour |
