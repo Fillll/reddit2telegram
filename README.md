@@ -374,6 +374,7 @@ Currently alive channels
 | [/r/blursedimages](https://www.reddit.com/r/blursedimages/) | [@r_Blursedimages](https://t.me/r_Blursedimages) | 1 hour |
 | [/r/Otonokizaka](https://www.reddit.com/r/Otonokizaka/) | [@r_Otonokizaka](https://t.me/r_Otonokizaka) | 1 hour |
 | [/r/ChinaDress](https://www.reddit.com/r/ChinaDress/) | [@r_ChinaDress](https://t.me/r_ChinaDress) | 1 hour |
+| [/r/iNoobChannel](https://www.reddit.com/r/iNoobChannel/) | [@r_iNoobChannel](https://t.me/r_iNoobChannel) | 30 mins |
 |  | ... be the next one ... |  |@
 
 
