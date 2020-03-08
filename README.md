@@ -377,6 +377,7 @@ Currently alive channels
 | [r/polandball](https://www.reddit.com/r/polandball/)| [@r_polandball](https://t.me/r_polandball) | 1 hour |
 | [/r/iNoobChannel](https://www.reddit.com/r/iNoobChannel/) | [@r_iNoobChannel](https://t.me/r_iNoobChannel) | 30 mins |
 | [/r/publicfreakout](https://www.reddit.com/r/publicfreakout/) | [@r_publicfreakout](https://t.me/r_publicfreakout) | 1 hour |
+| [/r/ItemShop](https://www.reddit.com/r/ItemShop/) | [@r_ItemShop](https://t.me/r_ItemShop) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
