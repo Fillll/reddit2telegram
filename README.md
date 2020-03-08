@@ -389,6 +389,7 @@ Currently alive channels
 | [/r/television](https://www.reddit.com/r/television/) | [@r_television](https://t.me/r_television) | 1 hour |
 | [/r/ChannelZeroNetwork](https://www.reddit.com/r/ChannelZeroNetwork/) | [@ChannelZeroNetwork](https://t.me/ChannelZeroNetwork) | 1 hour |
 | [/r/KuroiHada+tanime](https://www.reddit.com/r/KuroiHada+tanime/) | [@AnimeExotic](https://t.me/AnimeExotic) | 1 hour |
+| [/r/Coronavirus+COVID19](https://www.reddit.com/r/Coronavirus+COVID19/) | [@redditcoronavirus](https://t.me/redditcoronavirus) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
