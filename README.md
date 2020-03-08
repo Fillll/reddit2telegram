@@ -382,6 +382,7 @@ Currently alive channels
 | [/r/Gunners](https://www.reddit.com/r/Gunners/) | [@r_gunners](https://t.me/r_gunners) | 1 hour |
 | [/r/moviescirclejerk](https://www.reddit.com/r/moviescirclejerk/) | [@r_moviescirclejerk](https://t.me/r_moviescirclejerk) | 1 hour |
 | [/r/moviequotes](https://www.reddit.com/r/moviequotes/) | [@r_moviequotes](https://t.me/r_moviequotes) | 1 hour |
+| [/r/%SOME_MOVIE_RELATED%](https://www.reddit.com/r/netflixbestof+bestofnetflix+movie_club+truefilm+shittymoviedetails+ijustwatched/) | [@r_movieclub](https://t.me/r_movieclub) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
