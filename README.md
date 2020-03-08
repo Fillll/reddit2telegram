@@ -376,6 +376,7 @@ Currently alive channels
 | [/r/ChinaDress](https://www.reddit.com/r/ChinaDress/) | [@r_ChinaDress](https://t.me/r_ChinaDress) | 1 hour |
 | [r/polandball](https://www.reddit.com/r/polandball/)| [@r_polandball](https://t.me/r_polandball) | 1 hour |
 | [/r/iNoobChannel](https://www.reddit.com/r/iNoobChannel/) | [@r_iNoobChannel](https://t.me/r_iNoobChannel) | 30 mins |
+| [/r/publicfreakout](https://www.reddit.com/r/publicfreakout/) | [@r_publicfreakout](https://t.me/r_publicfreakout) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
