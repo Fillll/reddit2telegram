@@ -380,6 +380,7 @@ Currently alive channels
 | [/r/ItemShop](https://www.reddit.com/r/ItemShop/) | [@r_ItemShop](https://t.me/r_ItemShop) | 1 hour |
 | [/r/dataisbeatiful](https://www.reddit.com/r/dataisbeatiful/) | [@r_dataisbeatiful](https://t.me/r_dataisbeatiful) | 1 hour |
 | [/r/Gunners](https://www.reddit.com/r/Gunners/) | [@r_gunners](https://t.me/r_gunners) | 1 hour |
+| [/r/moviescirclejerk](https://www.reddit.com/r/moviescirclejerk/) | [@r_moviescirclejerk](https://t.me/r_moviescirclejerk) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
