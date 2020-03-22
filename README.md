@@ -383,7 +383,7 @@ Currently alive channels
 | [/r/moviescirclejerk](https://www.reddit.com/r/moviescirclejerk/) | [@r_moviescirclejerk](https://t.me/r_moviescirclejerk) | 1 hour |
 | [/r/moviequotes](https://www.reddit.com/r/moviequotes/) | [@r_moviequotes](https://t.me/r_moviequotes) | 1 hour |
 | [/r/%SOME_MOVIE_RELATED%](https://www.reddit.com/r/netflixbestof+bestofnetflix+movie_club+truefilm+shittymoviedetails+ijustwatched/) | [@r_movieclub](https://t.me/r_movieclub) | 1 hour |
-| [/r/quotes+quotesporn](https://www.reddit.com/r/quotes+quotesporn/) | [@quotesporn](https://t.me/quotesporn) | 1 hour |
+| [/r/quotesporn](https://www.reddit.com/r/quotesporn/) | [@quotesporn](https://t.me/quotesporn) | 1 hour |
 | [/r/BokuNoMetaAcademia](https://www.reddit.com/r/BokuNoMetaAcademia/) | [@r_BokuNoMetaAcademia](https://t.me/r_BokuNoMetaAcademia) | 1 hour |
 | [/r/meme_battles+meme+dank_meme](https://www.reddit.com/r/meme_battles+meme+dank_meme/) | [@MemeArea](https://t.me/MemeArea) | 1 hour |
 | [/r/television](https://www.reddit.com/r/television/) | [@r_television](https://t.me/r_television) | 1 hour |

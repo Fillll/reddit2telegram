@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'quotes+quotesporn'
+subreddit = 'quotesporn'
 t_channel = '@quotesporn'
 
 
