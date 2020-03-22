@@ -393,6 +393,7 @@ Currently alive channels
 | [/r/PraiseTheCameraMan](https://www.reddit.com/r/PraiseTheCameraMan/) | [@PraiseTheCameraMan](https://t.me/PraiseTheCameraMan) | 1 hour |
 | [/r/quotes](https://www.reddit.com/r/quotes/) | [@lyricalquotes](https://t.me/lyricalquotes) | 1 hour |
 | [/r/feedthebeast+feedthememes](https://www.reddit.com/r/feedthebeast+feedthememes/) | [@MinecraftModded](https://t.me/MinecraftModded) | 1 hour |
+| [/r/SCP](https://www.reddit.com/r/SCP/) | [@r_scp](https://t.me/r_scp) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
