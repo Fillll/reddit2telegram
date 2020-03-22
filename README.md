@@ -392,6 +392,7 @@ Currently alive channels
 | [/r/Coronavirus+COVID19](https://www.reddit.com/r/Coronavirus+COVID19/) | [@redditcoronavirus](https://t.me/redditcoronavirus) | 1 hour |
 | [/r/PraiseTheCameraMan](https://www.reddit.com/r/PraiseTheCameraMan/) | [@PraiseTheCameraMan](https://t.me/PraiseTheCameraMan) | 1 hour |
 | [/r/quotes](https://www.reddit.com/r/quotes/) | [@lyricalquotes](https://t.me/lyricalquotes) | 1 hour |
+| [/r/feedthebeast+feedthememes](https://www.reddit.com/r/feedthebeast+feedthememes/) | [@MinecraftModded](https://t.me/MinecraftModded) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
