@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'dataisbeatiful'
-t_channel = '@r_dataisbeatiful'
+subreddit = 'dataisbeautiful'
+t_channel = '@rdataisbeautiful'
 
 
 def send_post(submission, r2t):

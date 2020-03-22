@@ -391,6 +391,7 @@ Currently alive channels
 | [/r/KuroiHada+tanime](https://www.reddit.com/r/KuroiHada+tanime/) | [@AnimeExotic](https://t.me/AnimeExotic) | 1 hour |
 | [/r/Coronavirus+COVID19](https://www.reddit.com/r/Coronavirus+COVID19/) | [@redditcoronavirus](https://t.me/redditcoronavirus) | 1 hour |
 | [/r/PraiseTheCameraMan](https://www.reddit.com/r/PraiseTheCameraMan/) | [@PraiseTheCameraMan](https://t.me/PraiseTheCameraMan) | 1 hour |
+| [/r/quotes](https://www.reddit.com/r/quotes/) | [@lyricalquotes](https://t.me/lyricalquotes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
