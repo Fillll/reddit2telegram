@@ -396,6 +396,9 @@ Currently alive channels
 | [/r/SCP](https://www.reddit.com/r/SCP/) | [@r_scp](https://t.me/r_scp) | 1 hour |
 | [/r/tumblr](https://www.reddit.com/r/tumblr/) | [@Tumblrcontent](https://t.me/Tumblrcontent) | 1 hour |
 | [/r/holup](https://www.reddit.com/r/holup/) | [@wutttttttt](https://t.me/wutttttttt) | 1 hour |
+| [/r/lmGoingToHellForThis](https://www.reddit.com/r/lmGoingToHellForThis/) | [@r_imgoingtohellforthis](https://t.me/r_imgoingtohellforthis) | 1 hour |
+| [/r/WritingPrompts](https://www.reddit.com/r/WritingPrompts/) | [@r_WritingPrompts](https://t.me/r_WritingPrompts) | 1 hour |
+| [/r/slavelabour](https://www.reddit.com/r/slavelabour/) | [@slavelabour](https://t.me/slavelabour) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
