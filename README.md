@@ -199,7 +199,6 @@ Currently alive channels
 | [/r/instant_regret](https://www.reddit.com/r/instant_regret/) | [@instant_regret](https://t.me/instant_regret) | 1 hour |
 | [/r/DJs](https://www.reddit.com/r/DJs/) | [@r_djs](https://t.me/r_djs) | 1 hour |
 | [/r/marvelstudios](https://www.reddit.com/r/marvelstudios/) | [@r_marvelstudios](https://t.me/r_marvelstudios) | 1 hour |
-| [/r/ImGoingToHellForThis](https://www.reddit.com/r/ImGoingToHellForThis/) | [@r_ImToGoingHellForThis](https://t.me/r_ImToGoingHellForThis) | 1 hour |
 | [/r/creepyasterisks](https://www.reddit.com/r/creepyasterisks/) | [@r_creepyasterisks](https://t.me/r_creepyasterisks) | 1 hour |
 | [/r/WhitePeopleTwitter](https://www.reddit.com/r/WhitePeopleTwitter/) & [/r/BlackPeopleTwitter](https://www.reddit.com/r/BlackPeopleTwitter/) & [/r/scottishpeopletwitter](https://www.reddit.com/r/scottishpeopletwitter/) & [/r/wholesomebpt](https://www.reddit.com/r/wholesomebpt/) & [/r/latinopeopletwitter](https://www.reddit.com/r/latinopeopletwitter/) | [@AllTwitter](https://t.me/AllTwitter) | 1 hour |
 | [/r/TIHI](https://www.reddit.com/r/TIHI/) | [@r_TIHI](https://t.me/r_TIHI) | 1 hour |
