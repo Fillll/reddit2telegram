@@ -399,6 +399,7 @@ Currently alive channels
 | [/r/lmGoingToHellForThis](https://www.reddit.com/r/lmGoingToHellForThis/) | [@r_imgoingtohellforthis](https://t.me/r_imgoingtohellforthis) | 1 hour |
 | [/r/WritingPrompts](https://www.reddit.com/r/WritingPrompts/) | [@r_WritingPrompts](https://t.me/r_WritingPrompts) | 1 hour |
 | [/r/slavelabour](https://www.reddit.com/r/slavelabour/) | [@slavelabour](https://t.me/slavelabour) | 1 hour |
+| [/r/iZone](https://www.reddit.com/r/iZone/) | [@Izone_reddit](https://t.me/Izone_reddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
