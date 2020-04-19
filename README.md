@@ -402,6 +402,7 @@ Currently alive channels
 | [/r/iZone](https://www.reddit.com/r/iZone/) | [@Izone_reddit](https://t.me/Izone_reddit) | 1 hour |
 | [/r/Scrubs](https://www.reddit.com/r/Scrubs/) | [@r_scrubs](https://t.me/r_scrubs) | 1 hour |
 | [/r/IndianSocial](https://www.reddit.com/r/IndianSocial/) | [@r_IndianSocial](https://t.me/r_IndianSocial) | 1 hour |
+| [/r/imlandscapes](https://www.reddit.com/r/imlandscapes/) | [@imaginarylands](https://t.me/imaginarylands) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
