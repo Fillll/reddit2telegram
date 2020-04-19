@@ -403,6 +403,7 @@ Currently alive channels
 | [/r/Scrubs](https://www.reddit.com/r/Scrubs/) | [@r_scrubs](https://t.me/r_scrubs) | 1 hour |
 | [/r/IndianSocial](https://www.reddit.com/r/IndianSocial/) | [@r_IndianSocial](https://t.me/r_IndianSocial) | 1 hour |
 | [/r/imlandscapes](https://www.reddit.com/r/imlandscapes/) | [@imaginarylands](https://t.me/imaginarylands) | 1 hour |
+| [/r/NintendoSwitchDeals](https://www.reddit.com/r/NintendoSwitchDeals/) | [@SwitchDeals](https://t.me/SwitchDeals) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
