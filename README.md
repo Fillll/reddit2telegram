@@ -45,6 +45,7 @@ Currently alive channels
 | [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://t.me/r_Bitcoin) | 1 hour |
 | [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://t.me/r_pics_redux) | 1 hour |
 | [/r/politics](https://www.reddit.com/r/politics/) and [/r/news](https://www.reddit.com/r/news/) | [@news756](https://t.me/news756) | 1 hour |
+| [/r/northkoreanews](https://www.reddit.com/r/northkoreanews/) and [/r/northkorea](https://www.reddit.com/r/northkorea/) | [@northkoreanews](https://t.me/northkoreanews) | 1 hour |
 | Cat related. [List](https://github.com/Fillll/reddit2telegram/blob/master/reddit2telegram/channels/cats/app.py#L8). | [@RedditCats](https://t.me/redditcats) | ~1 hour |
 | [/r/TIL](https://www.reddit.com/r/todayilearned/) | [@r_TIL](https://t.me/r_til) | 1 day |
 | [/r/awwnime](https://www.reddit.com/r/awwnime/) | [@r_awwnime](https://t.me/awwnime) | 1 hour |
