@@ -402,6 +402,7 @@ Currently alive channels
 | [/r/IndianSocial](https://www.reddit.com/r/IndianSocial/) | [@r_IndianSocial](https://t.me/r_IndianSocial) | 1 hour |
 | [/r/imlandscapes](https://www.reddit.com/r/imlandscapes/) | [@imaginarylands](https://t.me/imaginarylands) | 1 hour |
 | [/r/NintendoSwitchDeals](https://www.reddit.com/r/NintendoSwitchDeals/) | [@SwitchDeals](https://t.me/SwitchDeals) | 1 hour |
+| [/r/northkoreanews+northkorea](https://www.reddit.com/r/northkoreanews+northkorea/) | [@northkoreanews](https://t.me/northkoreanews) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
