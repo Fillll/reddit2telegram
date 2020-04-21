@@ -42,9 +42,7 @@ def send_post(submission, r2t):
             total['admins'] += len(admins)
         except Exception as e:
             total['errors'] += 1
-            err_to_send = 'Failed to get admins for {channel}.'.format(channel=channel_name)
-            r2t.send_text(err_to_send)
-            logging.error(err_to_send)
+            logging.error('Failed to get admins for {channel}.'.format(channel=channel_name))
         time.sleep(2)
         try:
             members = r2t.telepot_bot.getChatMembersCount(channel_name)
@@ -53,9 +51,7 @@ def send_post(submission, r2t):
             total['prev_members'] += get_last_members_cnt(r2t, channel_name)
         except Exception as e:
             total['errors'] += 1
-            err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
-            r2t.send_text(err_to_send)
-            logging.error(err_to_send)
+            logging.error('Failed to get members count for {channel}.'.format(channel=channel_name))
         r2t.stats.insert_one(stat_to_store)
 
     members_diff = total['members'] - total['prev_members']

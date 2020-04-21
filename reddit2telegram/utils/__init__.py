@@ -410,24 +410,13 @@ class Reddit2TelegramSender(object):
                                             disable_web_page_preview=disable_web_page_preview,
                                             parse_mode=parse_mode)
             return SupplyResult.SUCCESSFULLY
-        # If text is longer than 4096 symbols.
+        # If text is longer than 4096 symnols.
         next_text = text
         while len(next_text) > 0:
-            list_of_words = next_text.split(' ')
-            if len(list_of_words[0]) > 4096:
-                new_text, next_text = self._split_4096(next_text)
-                self.telepot_bot.sendMessage(self.t_channel, new_text,
-                                                disable_web_page_preview=disable_web_page_preview,
-                                                parse_mode=parse_mode)
-            elif len(list_of_words[0]) <= 4096:
-                # If first word is less than 4096.
-                words_to_send = list()
-                while (len(list_of_words) > 0) and (sum([len(x) for x in words_to_send]) + len(words_to_send) + len(list_of_words[0]) <= 4096):
-                    words_to_send.append(list_of_words.pop(0))
-                self.telepot_bot.sendMessage(self.t_channel, ' '.join(words_to_send),
-                                                disable_web_page_preview=disable_web_page_preview,
-                                                parse_mode=parse_mode)
-                next_text = ' '.join(list_of_words)
+            new_text, next_text = self._split_4096(next_text)
+            self.telepot_bot.sendMessage(self.t_channel, new_text,
+                                            disable_web_page_preview=disable_web_page_preview,
+                                            parse_mode=parse_mode)
             time.sleep(2)
         return SupplyResult.SUCCESSFULLY
 
