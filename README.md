@@ -403,6 +403,7 @@ Currently alive channels
 | [/m/imlandscapes](https://reddit.com/user/ImaginaryMod/m/imlandscapes/) | [@imaginarylands](https://t.me/imaginarylands) | 1 hour |
 | [/r/NintendoSwitchDeals](https://www.reddit.com/r/NintendoSwitchDeals/) | [@SwitchDeals](https://t.me/SwitchDeals) | 1 hour |
 | [/r/northkoreanews+northkorea](https://www.reddit.com/r/northkoreanews+northkorea/) | [@northkoreanews](https://t.me/northkoreanews) | 1 hour |
+| [/r/propagandaposters](https://www.reddit.com/r/propagandaposters/) | [@r_propagandaposters](https://t.me/r_propagandaposters) | 3 hours |
 |  | ... be the next one ... |  |@
 
 
