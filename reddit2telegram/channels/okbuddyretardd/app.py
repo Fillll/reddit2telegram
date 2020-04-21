@@ -4,4 +4,9 @@ subreddit = 'okbuddyretard'
 t_channel = '@okbuddyretardd'
 
 def send_post(submission, r2t):
-    return r2t.send_simple(submission)
+    return r2t.send_simple(submission,
+        text=False,
+        gif=True,
+        img=True,
+        album=True,
+    )
