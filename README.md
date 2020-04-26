@@ -345,7 +345,6 @@ Currently alive channels
 | [/r/MoreTankieChapo](https://www.reddit.com/r/MoreTankieChapo/) | [@MoreTankieChapo](https://t.me/MoreTankieChapo) | 1 hour |
 | [/r/NatureIsFuckingLit](https://www.reddit.com/r/NatureIsFuckingLit/) | [@NatureIsLit](https://t.me/NatureIsLit) | 1 hour |
 | [/r/comedynecrophilia](https://www.reddit.com/r/comedynecrophilia/) | [@comedynecrophilia](https://t.me/comedynecrophilia) | 1 hour |
-| [/r/mallubabes](https://www.reddit.com/r/mallubabes/) | [@r_mallubabes](https://t.me/r_mallubabes) | 1 hour |
 | [/r/dogelore](https://www.reddit.com/r/dogelore/) | [@rdogelore](https://t.me/rdogelore) | 1 hour |
 | [/r/trackballs](https://www.reddit.com/r/trackballs/) | [@reddit_trackballs](https://t.me/reddit_trackballs) | 1 hour |
 | [/r/Moescape](https://www.reddit.com/r/Moescape/) | [@r_moescape](https://t.me/r_moescape) | 1 hour |
@@ -401,8 +400,11 @@ Currently alive channels
 | [/r/Scrubs](https://www.reddit.com/r/Scrubs/) | [@r_scrubs](https://t.me/r_scrubs) | 1 hour |
 | [/r/IndianSocial](https://www.reddit.com/r/IndianSocial/) | [@r_IndianSocial](https://t.me/r_IndianSocial) | 1 hour |
 | [/m/imlandscapes](https://reddit.com/user/ImaginaryMod/m/imlandscapes/) | [@imaginarylands](https://t.me/imaginarylands) | 1 hour |
-| [/r/NintendoSwitchDeals](https://www.reddit.com/r/NintendoSwitchDeals/) | [@SwitchDeals](https://t.me/SwitchDeals) | 1 hour |
 | [/r/northkoreanews+northkorea](https://www.reddit.com/r/northkoreanews+northkorea/) | [@northkoreanews](https://t.me/northkoreanews) | 1 hour |
+| [/r/animalcrossing](https://www.reddit.com/r/animalcrossing/) | [@r_animalcrossing](https://t.me/r_animalcrossing) | 1 hour |
+| [/r/PHP+laravel+symfony](https://www.reddit.com/r/PHP+laravel+symfony/) | [@r_php](https://t.me/r_php) | 1 hour |
+| [/r/Awwducational](https://www.reddit.com/r/Awwducational/) | [@Awwducational](https://t.me/Awwducational) | 1 hour |
+| [/r/worldnews](https://www.reddit.com/r/worldnews/) | [@worldnews_reddit](https://t.me/worldnews_reddit) | 1 hour |
 | [/r/propagandaposters](https://www.reddit.com/r/propagandaposters/) | [@r_propagandaposters](https://t.me/r_propagandaposters) | 3 hours |
 |  | ... be the next one ... |  |@
 

@@ -472,7 +472,8 @@ class Reddit2TelegramSender(object):
             Will check whether submission content is duplicate or not.
         min_upvotes_limit : int, optional
             If specified, then only post higher that limit will be posted.
-        max_selftext_len : max characters in self submission to be sent
+        max_selftext_len : max characters in self submission to be sent.
+        disable_web_page_preview : to disable previe right in the text message.
         any other parameter : to be used in formatting.
 
         Returns
@@ -571,7 +572,8 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                return self.send_text(text)
+                d_w_p_p = kwargs.get('disable_web_page_preview', False)
+                return self.send_text(text, disable_web_page_preview=d_w_p_p)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_VIDEO:
             what_to_do = kwargs.get('video', True)
