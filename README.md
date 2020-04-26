@@ -406,6 +406,7 @@ Currently alive channels
 | [/r/animalcrossing](https://www.reddit.com/r/animalcrossing/) | [@r_animalcrossing](https://t.me/r_animalcrossing) | 1 hour |
 | [/r/PHP+laravel+symfony](https://www.reddit.com/r/PHP+laravel+symfony/) | [@r_php](https://t.me/r_php) | 1 hour |
 | [/r/Awwducational](https://www.reddit.com/r/Awwducational/) | [@Awwducational](https://t.me/Awwducational) | 1 hour |
+| [/r/worldnews](https://www.reddit.com/r/worldnews/) | [@worldnews_reddit](https://t.me/worldnews_reddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
