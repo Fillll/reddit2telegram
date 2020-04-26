@@ -404,6 +404,7 @@ Currently alive channels
 | [/r/NintendoSwitchDeals](https://www.reddit.com/r/NintendoSwitchDeals/) | [@SwitchDeals](https://t.me/SwitchDeals) | 1 hour |
 | [/r/northkoreanews+northkorea](https://www.reddit.com/r/northkoreanews+northkorea/) | [@northkoreanews](https://t.me/northkoreanews) | 1 hour |
 | [/r/animalcrossing](https://www.reddit.com/r/animalcrossing/) | [@r_animalcrossing](https://t.me/r_animalcrossing) | 1 hour |
+| [/r/PHP+laravel+symfony](https://www.reddit.com/r/PHP+laravel+symfony/) | [@r_php](https://t.me/r_php) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
