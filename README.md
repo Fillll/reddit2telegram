@@ -405,6 +405,7 @@ Currently alive channels
 | [/r/PHP+laravel+symfony](https://www.reddit.com/r/PHP+laravel+symfony/) | [@r_php](https://t.me/r_php) | 1 hour |
 | [/r/Awwducational](https://www.reddit.com/r/Awwducational/) | [@Awwducational](https://t.me/Awwducational) | 1 hour |
 | [/r/worldnews](https://www.reddit.com/r/worldnews/) | [@worldnews_reddit](https://t.me/worldnews_reddit) | 1 hour |
+| [/r/propagandaposters](https://www.reddit.com/r/propagandaposters/) | [@r_propagandaposters](https://t.me/r_propagandaposters) | 3 hours |
 |  | ... be the next one ... |  |@
 
 
