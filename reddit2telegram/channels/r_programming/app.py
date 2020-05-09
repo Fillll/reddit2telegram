@@ -1,7 +1,7 @@
 #encoding:utf-8
 
 subreddit = 'Programming'
-t_channel = '@r_Pr0gramming'
+t_channel = '@programmingreddit'
 
 
 def send_post(submission, r2t):

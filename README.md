@@ -193,7 +193,7 @@ Currently alive channels
 | [/r/jenkinsci](https://www.reddit.com/r/jenkinsci/) | [@jenkinsci](https://t.me/r_jenkinsci) | 1 hour |
 | [/r/art](https://www.reddit.com/r/art/) | [@redditart](https://t.me/redditart) | 1 hour |
 | [/r/interestingasfuck](https://www.reddit.com/r/interestingasfuck/) | [@r_interestingasfuck](https://t.me/r_interestingasfuck) | 1 hour |
-| [/r/Programming](https://www.reddit.com/r/Programming/) | [@r_Pr0gramming](https://t.me/r_Pr0gramming) | 2 hours |
+| [/r/Programming](https://www.reddit.com/r/Programming/) | [@programmingreddit](https://t.me/programmingreddit) | 2 hours |
 | [/r/RimWorld](https://www.reddit.com/r/RimWorld/) | [@r_RimWorld](https://t.me/r_RimWorld) | 1 hour |
 | [/r/woooosh](https://www.reddit.com/r/woooosh/) | [@r_woooosh](https://t.me/r_woooosh) | 1 hour |
 | [/r/instant_regret](https://www.reddit.com/r/instant_regret/) | [@instant_regret](https://t.me/instant_regret) | 1 hour |
@@ -408,6 +408,7 @@ Currently alive channels
 | [/r/propagandaposters](https://www.reddit.com/r/propagandaposters/) | [@r_propagandaposters](https://t.me/r_propagandaposters) | 3 hours |
 | [/r/Persona5](https://www.reddit.com/r/Persona5/) | [@r_persona5](https://t.me/r_persona5) | 1 hour |
 | [/r/nextfuckinglevel](https://www.reddit.com/r/nextfuckinglevel/) | [@Next_Level_Skills](https://t.me/Next_Level_Skills) | 1 hour |
+| [/r/python](https://www.reddit.com/r/python/) | [@pythonreddit](https://t.me/pythonreddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
