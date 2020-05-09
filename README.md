@@ -410,6 +410,7 @@ Currently alive channels
 | [/r/nextfuckinglevel](https://www.reddit.com/r/nextfuckinglevel/) | [@Next_Level_Skills](https://t.me/Next_Level_Skills) | 1 hour |
 | [/r/python](https://www.reddit.com/r/python/) | [@pythonreddit](https://t.me/pythonreddit) | 1 hour |
 | [/r/MSILaptops](https://www.reddit.com/r/MSILaptops/) | [@MSILaptops](https://t.me/MSILaptops) | 1 hour |
+| [/r/odsp](https://www.reddit.com/r/odsp/) | [@r_ODSP](https://t.me/r_ODSP) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
