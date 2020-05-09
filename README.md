@@ -411,6 +411,7 @@ Currently alive channels
 | [/r/python](https://www.reddit.com/r/python/) | [@pythonreddit](https://t.me/pythonreddit) | 1 hour |
 | [/r/MSILaptops](https://www.reddit.com/r/MSILaptops/) | [@MSILaptops](https://t.me/MSILaptops) | 1 hour |
 | [/r/odsp](https://www.reddit.com/r/odsp/) | [@r_ODSP](https://t.me/r_ODSP) | 1 hour |
+| [/r/JackSucksAtLife](https://www.reddit.com/r/JackSucksAtLife/) | [@rJackSucksAtLife](https://t.me/rJackSucksAtLife) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
