@@ -406,6 +406,7 @@ Currently alive channels
 | [/r/Awwducational](https://www.reddit.com/r/Awwducational/) | [@Awwducational](https://t.me/Awwducational) | 1 hour |
 | [/r/worldnews](https://www.reddit.com/r/worldnews/) | [@worldnews_reddit](https://t.me/worldnews_reddit) | 1 hour |
 | [/r/propagandaposters](https://www.reddit.com/r/propagandaposters/) | [@r_propagandaposters](https://t.me/r_propagandaposters) | 3 hours |
+| [/r/Persona5](https://www.reddit.com/r/Persona5/) | [@r_persona5](https://t.me/r_persona5) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
