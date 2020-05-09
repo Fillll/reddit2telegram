@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'northkoreanews+northkorea'
+subreddit = 'northkoreanews'
 t_channel = '@northkoreanews'
 
 
