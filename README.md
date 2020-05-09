@@ -409,6 +409,7 @@ Currently alive channels
 | [/r/Persona5](https://www.reddit.com/r/Persona5/) | [@r_persona5](https://t.me/r_persona5) | 1 hour |
 | [/r/nextfuckinglevel](https://www.reddit.com/r/nextfuckinglevel/) | [@Next_Level_Skills](https://t.me/Next_Level_Skills) | 1 hour |
 | [/r/python](https://www.reddit.com/r/python/) | [@pythonreddit](https://t.me/pythonreddit) | 1 hour |
+| [/r/MSILaptops](https://www.reddit.com/r/MSILaptops/) | [@MSILaptops](https://t.me/MSILaptops) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
