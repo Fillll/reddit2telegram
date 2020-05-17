@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'ImaginaryWastelands+ImaginaryCityscapes+ImaginaryPathways+ImaginaryWorlds+ImaginaryBattlefields+ImaginaryWildlands'
+subreddit = 'ImaginaryWastelands+ImaginaryCityscapes+ImaginaryPathways+ImaginaryWorlds+ImaginaryBattlefields+ImaginaryWildlands+ImaginaryLandscapes'
 t_channel = '@imaginarylands'
 
 
