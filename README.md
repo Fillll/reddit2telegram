@@ -412,6 +412,7 @@ Currently alive channels
 | [/r/odsp](https://www.reddit.com/r/odsp/) | [@r_ODSP](https://t.me/r_ODSP) | 1 hour |
 | [/r/JackSucksAtLife](https://www.reddit.com/r/JackSucksAtLife/) | [@rJackSucksAtLife](https://t.me/rJackSucksAtLife) | 1 hour |
 | [/r/deepintoyoutube](https://www.reddit.com/r/deepintoyoutube/) | [@r_deepintoutube](https://t.me/r_deepintoutube) | 1 hour |
+| [/r/science](https://www.reddit.com/r/science/) | [@rnerds](https://t.me/rnerds) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
