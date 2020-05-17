@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'memes+meme+dank_meme'
-t_channel = '@MemeArea'
+subreddit = 'NoFap'
+t_channel = '@r_nofap'
 
 
 def send_post(submission, r2t):

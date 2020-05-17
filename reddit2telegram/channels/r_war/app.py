@@ -11,7 +11,8 @@ subreddit = weighted_random_subreddit({
     'WarshipPorn': 1,
     'MilitaryGifs': 1,
     'battlegifs': 1,
-    'tankporn': 1
+    'tankporn': 1,
+    'militaryhistory': 1
 })
 
 

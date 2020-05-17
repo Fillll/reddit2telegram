@@ -1,7 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'memes+meme+dank_meme'
-t_channel = '@MemeArea'
+subreddit = 'deepintoyoutube'
+t_channel = '@r_deepintoutube'
 
 
 def send_post(submission, r2t):

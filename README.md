@@ -411,6 +411,10 @@ Currently alive channels
 | [/r/MSILaptops](https://www.reddit.com/r/MSILaptops/) | [@MSILaptops](https://t.me/MSILaptops) | 1 hour |
 | [/r/odsp](https://www.reddit.com/r/odsp/) | [@r_ODSP](https://t.me/r_ODSP) | 1 hour |
 | [/r/JackSucksAtLife](https://www.reddit.com/r/JackSucksAtLife/) | [@rJackSucksAtLife](https://t.me/rJackSucksAtLife) | 1 hour |
+| [/r/deepintoyoutube](https://www.reddit.com/r/deepintoyoutube/) | [@r_deepintoutube](https://t.me/r_deepintoutube) | 1 hour |
+| [/r/science](https://www.reddit.com/r/science/) | [@rnerds](https://t.me/rnerds) | 1 hour |
+| [/r/%HISTORY_MEMES_RELATED%](https://www.reddit.com/r/historymemes+history_memes+ancient_history_memes+dankhistorymemes/) | [@redmeme](https://t.me/redmeme) | 1 hour |
+| [/r/NoFap](https://www.reddit.com/r/NoFap/) | [@r_nofap](https://t.me/r_nofap) | 1 hour |
 | [/r/battlestations](https://www.reddit.com/r/battlestations/) | [@r_battlestations](https://t.me/r_battlestations) | 1 hour |
 |  | ... be the next one ... |  |@
 
