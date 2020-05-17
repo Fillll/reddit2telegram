@@ -415,6 +415,7 @@ Currently alive channels
 | [/r/science](https://www.reddit.com/r/science/) | [@rnerds](https://t.me/rnerds) | 1 hour |
 | [/r/%HISTORY_MEMES_RELATED%](https://www.reddit.com/r/historymemes+history_memes+ancient_history_memes+dankhistorymemes/) | [@redmeme](https://t.me/redmeme) | 1 hour |
 | [/r/NoFap](https://www.reddit.com/r/NoFap/) | [@r_nofap](https://t.me/r_nofap) | 1 hour |
+| [/r/battlestations](https://www.reddit.com/r/battlestations/) | [@r_battlestations](https://t.me/r_battlestations) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
