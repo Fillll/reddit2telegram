@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'meme_battles+meme+dank_meme'
+subreddit = 'memes+meme+dank_meme'
 t_channel = '@MemeArea'
 
 
