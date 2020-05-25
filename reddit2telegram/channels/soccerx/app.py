@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'football+liverpoolfc+coys'
+subreddit = 'football+liverpoolfc+coys+soccernerd+footballhighlights'
 t_channel = '@soccerx'
 
 

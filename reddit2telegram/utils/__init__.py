@@ -410,13 +410,24 @@ class Reddit2TelegramSender(object):
                                             disable_web_page_preview=disable_web_page_preview,
                                             parse_mode=parse_mode)
             return SupplyResult.SUCCESSFULLY
-        # If text is longer than 4096 symnols.
+        # If text is longer than 4096 symbols.
         next_text = text
         while len(next_text) > 0:
-            new_text, next_text = self._split_4096(next_text)
-            self.telepot_bot.sendMessage(self.t_channel, new_text,
-                                            disable_web_page_preview=disable_web_page_preview,
-                                            parse_mode=parse_mode)
+            list_of_words = next_text.split(' ')
+            if len(list_of_words[0]) > 4096:
+                new_text, next_text = self._split_4096(next_text)
+                self.telepot_bot.sendMessage(self.t_channel, new_text,
+                                                disable_web_page_preview=disable_web_page_preview,
+                                                parse_mode=parse_mode)
+            elif len(list_of_words[0]) <= 4096:
+                # If first word is less than 4096.
+                words_to_send = list()
+                while (len(list_of_words) > 0) and (sum([len(x) for x in words_to_send]) + len(words_to_send) + len(list_of_words[0]) <= 4096):
+                    words_to_send.append(list_of_words.pop(0))
+                self.telepot_bot.sendMessage(self.t_channel, ' '.join(words_to_send),
+                                                disable_web_page_preview=disable_web_page_preview,
+                                                parse_mode=parse_mode)
+                next_text = ' '.join(list_of_words)
             time.sleep(2)
         return SupplyResult.SUCCESSFULLY
 
@@ -461,7 +472,8 @@ class Reddit2TelegramSender(object):
             Will check whether submission content is duplicate or not.
         min_upvotes_limit : int, optional
             If specified, then only post higher that limit will be posted.
-        max_selftext_len : max characters in self submission to be sent
+        max_selftext_len : max characters in self submission to be sent.
+        disable_web_page_preview : to disable previe right in the text message.
         any other parameter : to be used in formatting.
 
         Returns
@@ -560,7 +572,8 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                return self.send_text(text)
+                d_w_p_p = kwargs.get('disable_web_page_preview', False)
+                return self.send_text(text, disable_web_page_preview=d_w_p_p)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_VIDEO:
             what_to_do = kwargs.get('video', True)
