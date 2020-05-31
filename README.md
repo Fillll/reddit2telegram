@@ -418,6 +418,7 @@ Currently alive channels
 | [/r/battlestations](https://www.reddit.com/r/battlestations/) | [@r_battlestations](https://t.me/r_battlestations) | 1 hour |
 | [/r/IlMasseo](https://www.reddit.com/r/IlMasseo/) | [@r_ilMasseo](https://t.me/r_ilMasseo) | 1 hour |
 | [/r/JellesMarbleRuns](https://www.reddit.com/r/JellesMarbleRuns/) | [@MarbleRacing](https://t.me/MarbleRacing) | 1 hour |
+| [/r/protogen](https://www.reddit.com/r/protogen/) | [@r_protogen](https://t.me/r_protogen) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
