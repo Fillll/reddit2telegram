@@ -421,6 +421,7 @@ Currently alive channels
 | [/r/protogen](https://www.reddit.com/r/protogen/) | [@r_protogen](https://t.me/r_protogen) | 1 hour |
 | [/r/rainbow6](https://www.reddit.com/r/rainbow6/) | [@r_rainbow6](https://t.me/r_rainbow6) | 1 hour |
 | [/r/adporn](https://www.reddit.com/r/adporn/) | [@r_adporn](https://t.me/r_adporn) | 1 hour |
+| [/r/dota2](https://www.reddit.com/r/dota2/) | [@r_dota2](https://t.me/r_dota2) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
