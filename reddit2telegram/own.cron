@@ -45,6 +45,7 @@ MASK	submodule_name
 05 */4 * * *	r_tf2
 05 * * * *	r_bishounen
 05 * * * *	r_nofap
+05 * * * *	r_ilmasseo
 06 */3 * * *	r_jokes
 06 * * * *	r_wow
 06 * * * *	r_crappydesign
