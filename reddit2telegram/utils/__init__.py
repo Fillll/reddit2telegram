@@ -474,6 +474,7 @@ class Reddit2TelegramSender(object):
             If specified, then only post higher that limit will be posted.
         max_selftext_len : max characters in self submission to be sent.
         disable_web_page_preview : to disable previe right in the text message.
+        nsfw_filter_out : True if you do not want NSFW submission.
         any other parameter : to be used in formatting.
 
         Returns
@@ -527,6 +528,11 @@ class Reddit2TelegramSender(object):
             'channel': self.t_channel,
             **kwargs
         }
+
+        if kwargs.get('nsfw_filter_out', False):
+            # Check if we want to filter out all NSFW submission.
+            if submission.over_18:
+                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION 
 
         if kwargs.get('check_dups', False):
             # Check if there is a duplicate
