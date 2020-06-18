@@ -6,6 +6,7 @@ MASK	submodule_name
 00 * * * *	ichimechtenleben
 00 * * * *	prolifetipss
 00 */3 * * *	r_propagandaposters
+00 */4 * * *	r_kait
 */15 * * * *	leagueofmemes
 01,30 * * * *	r_unexpected
 01-10 0 * * *	r_til
