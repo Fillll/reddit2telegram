@@ -429,6 +429,7 @@ Currently alive channels
 | [/r/linux_gaming](https://www.reddit.com/r/linux_gaming/) | [@LinuxGamingx](https://t.me/LinuxGamingx) | 1 hour |
 | [/r/overclocking](https://www.reddit.com/r/overclocking/) | [@overclockingx](https://t.me/overclockingx) | 1 hour |
 | [/r/google](https://www.reddit.com/r/google/) | [@GoogleReddit](https://t.me/GoogleReddit) | 1 hour |
+| [/r/raspberry_pi](https://www.reddit.com/r/raspberry_pi/) | [@RaspberryPiReddit](https://t.me/RaspberryPiReddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
