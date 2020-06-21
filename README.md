@@ -423,6 +423,17 @@ Currently alive channels
 | [/r/adporn](https://www.reddit.com/r/adporn/) | [@r_adporn](https://t.me/r_adporn) | 1 hour |
 | [/r/dota2](https://www.reddit.com/r/dota2/) | [@r_dota2](https://t.me/r_dota2) | 1 hour |
 | [/r/augmentedreality+oculus+virtualreality+AR_MR_XR+Futurology](https://www.reddit.com/r/augmentedreality+oculus+virtualreality+AR_MR_XR+Futurology/) | [@arkotonog](https://t.me/arkotonog) | 1 hour |
+| [/r/manga](https://www.reddit.com/r/manga/) | [@mangaxyz](https://t.me/mangaxyz) | 1 hour |
+| [/r/holdmycosmo](https://www.reddit.com/r/holdmycosmo/) | [@holdmycosmo](https://t.me/holdmycosmo) | 1 hour |
+| [/r/iww](https://www.reddit.com/r/iww/) | [@r_iww](https://t.me/r_iww) | 1 hour |
+| [/r/linux_gaming](https://www.reddit.com/r/linux_gaming/) | [@LinuxGamingx](https://t.me/LinuxGamingx) | 1 hour |
+| [/r/overclocking](https://www.reddit.com/r/overclocking/) | [@overclockingx](https://t.me/overclockingx) | 1 hour |
+| [/r/google](https://www.reddit.com/r/google/) | [@GoogleReddit](https://t.me/GoogleReddit) | 1 hour |
+| [/r/raspberry_pi](https://www.reddit.com/r/raspberry_pi/) | [@RaspberryPiReddit](https://t.me/RaspberryPiReddit) | 1 hour |
+| [/r/emulation](https://www.reddit.com/r/emulation/) | [@Emulationx](https://t.me/Emulationx) | 1 hour |
+| [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
+| [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
+| [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
 | [/r/KaIT](https://www.reddit.com/r/KaIT/) | [@r_KaIT](https://t.me/r_KaIT) | 4 hours |
 |  | ... be the next one ... |  |@
 
