@@ -424,6 +424,7 @@ Currently alive channels
 | [/r/dota2](https://www.reddit.com/r/dota2/) | [@r_dota2](https://t.me/r_dota2) | 1 hour |
 | [/r/augmentedreality+oculus+virtualreality+AR_MR_XR+Futurology](https://www.reddit.com/r/augmentedreality+oculus+virtualreality+AR_MR_XR+Futurology/) | [@arkotonog](https://t.me/arkotonog) | 1 hour |
 | [/r/manga](https://www.reddit.com/r/manga/) | [@mangaxyz](https://t.me/mangaxyz) | 1 hour |
+| [/r/holdmycosmo](https://www.reddit.com/r/holdmycosmo/) | [@holdmycosmo](https://t.me/holdmycosmo) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
