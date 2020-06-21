@@ -434,6 +434,7 @@ Currently alive channels
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
+| [/r/KaIT](https://www.reddit.com/r/KaIT/) | [@r_KaIT](https://t.me/r_KaIT) | 4 hours |
 |  | ... be the next one ... |  |@
 
 
