@@ -427,6 +427,7 @@ Currently alive channels
 | [/r/holdmycosmo](https://www.reddit.com/r/holdmycosmo/) | [@holdmycosmo](https://t.me/holdmycosmo) | 1 hour |
 | [/r/iww](https://www.reddit.com/r/iww/) | [@r_iww](https://t.me/r_iww) | 1 hour |
 | [/r/linux_gaming](https://www.reddit.com/r/linux_gaming/) | [@LinuxGamingx](https://t.me/LinuxGamingx) | 1 hour |
+| [/r/overclocking](https://www.reddit.com/r/overclocking/) | [@overclockingx](https://t.me/overclockingx) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
