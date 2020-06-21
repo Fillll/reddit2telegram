@@ -432,6 +432,7 @@ Currently alive channels
 | [/r/raspberry_pi](https://www.reddit.com/r/raspberry_pi/) | [@RaspberryPiReddit](https://t.me/RaspberryPiReddit) | 1 hour |
 | [/r/emulation](https://www.reddit.com/r/emulation/) | [@Emulationx](https://t.me/Emulationx) | 1 hour |
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
+| [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
