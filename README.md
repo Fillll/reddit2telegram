@@ -244,7 +244,6 @@ Currently alive channels
 | [/r/combatfootage](https://www.reddit.com/r/combatfootage/), [/r/ww2](https://www.reddit.com/r/ww2/), [/r/wwiipics](https://www.reddit.com/r/wwiipics/), [/r/WarshipPorn](https://www.reddit.com/r/WarshipPorn/), [/r/MilitaryGifs](https://www.reddit.com/r/MilitaryGifs/), [/r/battlegifs](https://www.reddit.com/r/battlegifs/), [/r/tankporn](https://www.reddit.com/r/tankporn/) | [@r_war](https://t.me/r_war) | 1 hour |
 | [/r/cutelittlefangs](https://www.reddit.com/r/cutelittlefangs/) | [@r_cutelittlefangs](https://t.me/r_cutelittlefangs) | 1 hour |
 | [/r/dankmemes+me_irl+memes+greentext](https://www.reddit.com/r/dankmemes+me_irl+memes+greentext/) | [@admeme](https://t.me/admeme) | 1 hour |
-| [/r/Blackfellas](https://www.reddit.com/r/Blackfellas/) | [@blackfellas](https://t.me/blackfellas) | 1 hour |
 | [/r/tifu](https://www.reddit.com/r/tifu/) | [@r_channels_tifu](https://t.me/r_channels_tifu) | 1 hour |
 | [/r/Vinesauce](https://www.reddit.com/r/Vinesauce/) | [@r_vinesauce](https://t.me/r_vinesauce) | 1 hour |
 | [/r/freegamefindings](https://www.reddit.com/r/freegamefindings/) | [@r_freegamefindings](https://t.me/r_freegamefindings) | 1 hour |
@@ -434,7 +433,6 @@ Currently alive channels
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
-| [/r/KaIT](https://www.reddit.com/r/KaIT/) | [@r_KaIT](https://t.me/r_KaIT) | 4 hours |
 |  | ... be the next one ... |  |@
 
 
