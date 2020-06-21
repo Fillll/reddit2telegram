@@ -423,6 +423,7 @@ Currently alive channels
 | [/r/adporn](https://www.reddit.com/r/adporn/) | [@r_adporn](https://t.me/r_adporn) | 1 hour |
 | [/r/dota2](https://www.reddit.com/r/dota2/) | [@r_dota2](https://t.me/r_dota2) | 1 hour |
 | [/r/augmentedreality+oculus+virtualreality+AR_MR_XR+Futurology](https://www.reddit.com/r/augmentedreality+oculus+virtualreality+AR_MR_XR+Futurology/) | [@arkotonog](https://t.me/arkotonog) | 1 hour |
+| [/r/manga](https://www.reddit.com/r/manga/) | [@mangaxyz](https://t.me/mangaxyz) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
