@@ -432,6 +432,7 @@ Currently alive channels
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
+| [/r/TheLastAirbender](https://www.reddit.com/r/TheLastAirbender/) | [@r_TheLastAirbender](https://t.me/r_/_TheLastAirbender) | 30 mins |
 |  | ... be the next one ... |  |@
 
 
