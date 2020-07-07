@@ -438,6 +438,7 @@ Currently alive channels
 | [/r/hololive](https://www.reddit.com/r/hololive/) | [@r_hololive](https://t.me/r_hololive) | 1 hour |
 | [/r/DidntKnowIWantedThat](https://www.reddit.com/r/DidntKnowIWantedThat/) | [@didntknowiwantedthat](https://t.me/didntknowiwantedthat) | 1 hour |
 | [/r/howyoudoin](https://www.reddit.com/r/howyoudoin/) | [@r_howyoudoin](https://t.me/r_howyoudoin) | 1 hour |
+| [/r/documentaries](https://www.reddit.com/r/documentaries/) | [@r_documentaries](https://t.me/r_documentaries) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
