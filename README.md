@@ -118,7 +118,6 @@ Currently alive channels
 | [/r/vim](https://www.reddit.com/r/vim/) | [@r_vim](https://t.me/r_vim) | 1 hour |
 | [/r/talesfromtechsupport](https://www.reddit.com/r/talesfromtechsupport/) | [@r_talesfromtechsupport](https://t.me/r_talesfromtechsupport) | 1 hour |
 | [/r/PewdiepieSubmissions](https://www.reddit.com/r/PewdiepieSubmissions/) | [@r_PewdiepieSubmissions](https://t.me/r_PewdiepieSubmissions) | 1 hour |
-| [/r/dankchristianmemes](https://www.reddit.com/r/dankchristianmemes/) | [@r_dankchristianmemes](https://t.me/r_dankchristianmemes) | 1 hour |
 | [/r/disneyvacation](https://www.reddit.com/r/disneyvacation/) | [@r_disneyvacation](https://t.me/r_disneyvacation) | 1 hour |
 | [/r/punny](https://www.reddit.com/r/punny/) | [@R_Punny](https://t.me/R_Punny) | 1 hour |
 | [/r/MapPorn](https://www.reddit.com/r/MapPorn/) | [@r_mapporn](https://t.me/r_mapporn) | 1 hour |
@@ -444,7 +443,6 @@ Currently alive channels
 | [/r/news](https://www.reddit.com/r/news/) | [@news_reddit](https://t.me/news_reddit) | 1 hour |
 | [/r/Julia](https://www.reddit.com/r/Julia/) | [@r_Julia](https://t.me/r_Julia) | 1 hour |
 | [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@animewaifuss](https://t.me/animewaifuss) | 1 hour |
-| [/r/TheLastAirbender](https://www.reddit.com/r/TheLastAirbender/) | [@r_TheLastAirbender](https://t.me/r_TheLastAirbender) | 30 mins |
 |  | ... be the next one ... |  |@
 
 
