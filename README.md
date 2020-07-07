@@ -432,6 +432,18 @@ Currently alive channels
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
+| [/r/hackintosh](https://www.reddit.com/r/hackintosh/) | [@r_hackintosh](https://t.me/r_hackintosh) | 1 hour |
+| [/r/assholedesign](https://www.reddit.com/r/assholedesign/) | [@AssholeDesign](https://t.me/AssholeDesign) | 1 hour |
+| [/r/hiar0o](https://www.reddit.com/r/ani_bm/) | [@cahaf_avir](https://t.me/cahaf_avir) | 1 hour |
+| [/r/hololive](https://www.reddit.com/r/hololive/) | [@r_hololive](https://t.me/r_hololive) | 1 hour |
+| [/r/DidntKnowIWantedThat](https://www.reddit.com/r/DidntKnowIWantedThat/) | [@didntknowiwantedthat](https://t.me/didntknowiwantedthat) | 1 hour |
+| [/r/howyoudoin](https://www.reddit.com/r/howyoudoin/) | [@r_howyoudoin](https://t.me/r_howyoudoin) | 1 hour |
+| [/r/documentaries](https://www.reddit.com/r/documentaries/) | [@r_documentaries](https://t.me/r_documentaries) | 1 hour |
+| [/r/creepy](https://www.reddit.com/r/creepy/) | [@r_creepy](https://t.me/r_creepy) | 1 hour |
+| [/r/DIY](https://www.reddit.com/r/DIY/) | [@r_diy](https://t.me/r_diy) | 1 hour |
+| [/r/news](https://www.reddit.com/r/news/) | [@news_reddit](https://t.me/news_reddit) | 1 hour |
+| [/r/Julia](https://www.reddit.com/r/Julia/) | [@r_Julia](https://t.me/r_Julia) | 1 hour |
+| [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@animewaifuss](https://t.me/animewaifuss) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/mortalkombat/) | [@r_mortal_kombat](https://t.me/r_mortal_kombat) | 1 hour |
 |  | ... be the next one ... |  |@
 
