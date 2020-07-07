@@ -440,6 +440,7 @@ Currently alive channels
 | [/r/howyoudoin](https://www.reddit.com/r/howyoudoin/) | [@r_howyoudoin](https://t.me/r_howyoudoin) | 1 hour |
 | [/r/documentaries](https://www.reddit.com/r/documentaries/) | [@r_documentaries](https://t.me/r_documentaries) | 1 hour |
 | [/r/creepy](https://www.reddit.com/r/creepy/) | [@r_creepy](https://t.me/r_creepy) | 1 hour |
+| [/r/DIY](https://www.reddit.com/r/DIY/) | [@r_diy](https://t.me/r_diy) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
