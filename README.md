@@ -442,6 +442,7 @@ Currently alive channels
 | [/r/creepy](https://www.reddit.com/r/creepy/) | [@r_creepy](https://t.me/r_creepy) | 1 hour |
 | [/r/DIY](https://www.reddit.com/r/DIY/) | [@r_diy](https://t.me/r_diy) | 1 hour |
 | [/r/news](https://www.reddit.com/r/news/) | [@news_reddit](https://t.me/news_reddit) | 1 hour |
+| [/r/Julia](https://www.reddit.com/r/Julia/) | [@r_Julia](https://t.me/r_Julia) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
