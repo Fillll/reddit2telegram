@@ -436,6 +436,7 @@ Currently alive channels
 | [/r/assholedesign](https://www.reddit.com/r/assholedesign/) | [@AssholeDesign](https://t.me/AssholeDesign) | 1 hour |
 | [/r/hiar0o](https://www.reddit.com/r/ani_bm/) | [@cahaf_avir](https://t.me/cahaf_avir) | 1 hour |
 | [/r/hololive](https://www.reddit.com/r/hololive/) | [@r_hololive](https://t.me/r_hololive) | 1 hour |
+| [/r/DidntKnowIWantedThat](https://www.reddit.com/r/DidntKnowIWantedThat/) | [@didntknowiwantedthat](https://t.me/didntknowiwantedthat) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
