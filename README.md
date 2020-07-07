@@ -433,6 +433,7 @@ Currently alive channels
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
 | [/r/hackintosh](https://www.reddit.com/r/hackintosh/) | [@r_hackintosh](https://t.me/r_hackintosh) | 1 hour |
+| [/r/assholedesign](https://www.reddit.com/r/assholedesign/) | [@AssholeDesign](https://t.me/AssholeDesign) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
