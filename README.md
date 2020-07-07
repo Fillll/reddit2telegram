@@ -434,6 +434,7 @@ Currently alive channels
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
 | [/r/hackintosh](https://www.reddit.com/r/hackintosh/) | [@r_hackintosh](https://t.me/r_hackintosh) | 1 hour |
 | [/r/assholedesign](https://www.reddit.com/r/assholedesign/) | [@AssholeDesign](https://t.me/AssholeDesign) | 1 hour |
+| [/r/hiar0o](https://www.reddit.com/r/ani_bm/) | [@cahaf_avir](https://t.me/cahaf_avir) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
