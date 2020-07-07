@@ -444,6 +444,7 @@ Currently alive channels
 | [/r/news](https://www.reddit.com/r/news/) | [@news_reddit](https://t.me/news_reddit) | 1 hour |
 | [/r/Julia](https://www.reddit.com/r/Julia/) | [@r_Julia](https://t.me/r_Julia) | 1 hour |
 | [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@animewaifuss](https://t.me/animewaifuss) | 1 hour |
+| [/r/TheLastAirbender](https://www.reddit.com/r/TheLastAirbender/) | [@r_TheLastAirbender](https://t.me/r_TheLastAirbender) | 30 mins |
 |  | ... be the next one ... |  |@
 
 
