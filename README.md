@@ -435,6 +435,7 @@ Currently alive channels
 | [/r/hackintosh](https://www.reddit.com/r/hackintosh/) | [@r_hackintosh](https://t.me/r_hackintosh) | 1 hour |
 | [/r/assholedesign](https://www.reddit.com/r/assholedesign/) | [@AssholeDesign](https://t.me/AssholeDesign) | 1 hour |
 | [/r/hiar0o](https://www.reddit.com/r/ani_bm/) | [@cahaf_avir](https://t.me/cahaf_avir) | 1 hour |
+| [/r/hololive](https://www.reddit.com/r/hololive/) | [@r_hololive](https://t.me/r_hololive) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
