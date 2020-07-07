@@ -432,6 +432,7 @@ Currently alive channels
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
 | [/r/grandorder](https://www.reddit.com/r/grandorder/) | [@Fgrandorder](https://t.me/Fgrandorder) | 1 hour |
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
+| [/r/hackintosh](https://www.reddit.com/r/hackintosh/) | [@r_hackintosh](https://t.me/r_hackintosh) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
