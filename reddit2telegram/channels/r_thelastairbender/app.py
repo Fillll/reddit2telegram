@@ -1,3 +1,5 @@
+from utils import weighted_random_subreddit
+
 # Subreddit that will be a source of content
 subreddit = weighted_random_subreddit({
     'thelastairbender': 1.0,
