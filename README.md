@@ -448,6 +448,7 @@ Currently alive channels
 | [/r/raspberry_pi](https://www.reddit.com/r/raspberry_pi/) | [@raspberry_projects](https://t.me/raspberry_projects) | 1 hour |
 | [/r/SafeArea](https://www.reddit.com/r/SafeArea/) | [@r_SafeArea](https://t.me/r_SafeArea) | 1 hour |
 | [/r/rickandmorty](https://www.reddit.com/r/rickandmorty/) | [@rickandmorty_en](https://t.me/rickandmorty_en) | 1 hour |
+| [/r/CallOfDutyMobile](https://www.reddit.com/r/CallOfDutyMobile/) | [@CallOfDutyMobile_reddit](https://t.me/CallOfDutyMobile_reddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
