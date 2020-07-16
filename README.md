@@ -341,7 +341,6 @@ Currently alive channels
 | [/r/OSHA](https://www.reddit.com/r/OSHA/) | [@reddit_OSHA](https://t.me/reddit_OSHA) | 1 hour |
 | [/r/communism](https://www.reddit.com/r/communism/) | [@r_communism](https://t.me/r_communism) | 1 hour |
 | [/r/Sino](https://www.reddit.com/r/Sino/) | [@r_Sino](https://t.me/r_Sino) | 1 hour |
-| [/r/MoreTankieChapo](https://www.reddit.com/r/MoreTankieChapo/) | [@MoreTankieChapo](https://t.me/MoreTankieChapo) | 1 hour |
 | [/r/NatureIsFuckingLit](https://www.reddit.com/r/NatureIsFuckingLit/) | [@NatureIsLit](https://t.me/NatureIsLit) | 1 hour |
 | [/r/comedynecrophilia](https://www.reddit.com/r/comedynecrophilia/) | [@comedynecrophilia](https://t.me/comedynecrophilia) | 1 hour |
 | [/r/dogelore](https://www.reddit.com/r/dogelore/) | [@rdogelore](https://t.me/rdogelore) | 1 hour |
