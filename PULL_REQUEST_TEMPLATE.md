@@ -1,23 +1,32 @@
 # PR Details
+Channel with NSFW anime content.
 
 ## Subreddit
 
-_What subreddit?_
+https://www.reddit.com/r/hentai
+https://www.reddit.com/r/hentai_gifs
+https://www.reddit.com/r/ecchi
+https://www.reddit.com/r/ecchigifs
+https://www.reddit.com/r/AnimeMILFS
+https://www.reddit.com/r/HentaiSource
+https://www.reddit.com/r/HentaiAnime
+https://www.reddit.com/r/UncensoredHentai
+https://www.reddit.com/r/NSFWAnimeWallpaper
 
 ## Telegram Channel
 
-_What telegram channel?_
+https://t.me/H3nTA1I
 
 ## Checklist
 
-- [ ] Added `channels/%submodule_name%/app.py` file.
-- [ ] Added `channels/%submodule_name%/__init__.py` file.
-- [ ] Added `channels/%submodule_name%/tags.txt` file.
-- [ ] Updated `README.md`.
+- [x] Added `channels/%submodule_name%/app.py` file.
+- [x] Added `channels/%submodule_name%/__init__.py` file.
+- [x] Added `channels/%submodule_name%/tags.txt` file.
+- [x] Updated `README.md`.
 - [ ] Updated `own.cron`.
-- [ ] Already have nice channel's profile pic.
-- [ ] Already have mentioned `@r_channels` and `@reddit2telegram` in the description of your channel.
-- [ ] `@reddit2telegram_bot` added as admin to this channel.
+- [x] Already have nice channel's profile pic.
+- [x] Already have mentioned `@r_channels` and `@reddit2telegram` in the description of your channel.
+- [x] `@reddit2telegram_bot` added as admin to this channel.
 
 * `%submodule_name%` should be in lowercase.
 * Tags in `tags.txt` should be space-separeted and start with `#` each.
