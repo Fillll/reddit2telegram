@@ -456,6 +456,7 @@ Currently alive channels
 | [/r/bigbangtheory](https://www.reddit.com/r/bigbangtheory/) | [@r_thebigbangtheory](https://t.me/r_thebigbangtheory) | 1 hour |
 | [/r/DirtySantasWorkshop](https://www.reddit.com/r/DirtySantasWorkshop/) | [@rDirtySanta](https://t.me/rDirtySanta) | 1 hour |
 | [/r/bodybuilding](https://www.reddit.com/r/bodybuilding/) | [@r_bodybuilding](https://t.me/r_bodybuilding) | 1 hour |
+| [/r/BrandNewSentence](https://www.reddit.com/r/BrandNewSentence/) | [@BrandNewSentence](https://t.me/BrandNewSentence) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
