@@ -450,6 +450,7 @@ Currently alive channels
 | [/r/okbuddypersona](https://www.reddit.com/r/okbuddypersona/) | [@okbuddypersona](https://t.me/okbuddypersona) | 1 hour |
 | [/r/jacksepticeye](https://www.reddit.com/r/jacksepticeye/) | [@rJacksepticeye](https://t.me/rJacksepticeye) | 1 hour |
 | [/r/Davie504](https://www.reddit.com/r/Davie504/) | [@Davie504_r](https://t.me/Davie504_r) | 1 hour |
+| [/r/furrypasta](https://www.reddit.com/r/furrypasta/) | [@r_furrypasta](https://t.me/r_furrypasta) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
