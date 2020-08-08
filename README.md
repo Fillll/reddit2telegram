@@ -382,7 +382,6 @@ Currently alive channels
 | [/r/meme_battles+meme+dank_meme](https://www.reddit.com/r/meme_battles+meme+dank_meme/) | [@MemeArea](https://t.me/MemeArea) | 1 hour |
 | [/r/television](https://www.reddit.com/r/television/) | [@r_television](https://t.me/r_television) | 1 hour |
 | [/r/ChannelZeroNetwork](https://www.reddit.com/r/ChannelZeroNetwork/) | [@ChannelZeroNetwork](https://t.me/ChannelZeroNetwork) | 1 hour |
-| [/r/KuroiHada+tanime](https://www.reddit.com/r/KuroiHada+tanime/) | [@AnimeExotic](https://t.me/AnimeExotic) | 1 hour |
 | [/r/Coronavirus+COVID19](https://www.reddit.com/r/Coronavirus+COVID19/) | [@redditcoronavirus](https://t.me/redditcoronavirus) | 1 hour |
 | [/r/PraiseTheCameraMan](https://www.reddit.com/r/PraiseTheCameraMan/) | [@PraiseTheCameraMan](https://t.me/PraiseTheCameraMan) | 1 hour |
 | [/r/quotes](https://www.reddit.com/r/quotes/) | [@lyricalquotes](https://t.me/lyricalquotes) | 1 hour |
