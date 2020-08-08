@@ -447,6 +447,7 @@ Currently alive channels
 | [/r/SafeArea](https://www.reddit.com/r/SafeArea/) | [@r_SafeArea](https://t.me/r_SafeArea) | 1 hour |
 | [/r/rickandmorty](https://www.reddit.com/r/rickandmorty/) | [@rickandmorty_en](https://t.me/rickandmorty_en) | 1 hour |
 | [/r/CallOfDutyMobile](https://www.reddit.com/r/CallOfDutyMobile/) | [@CallOfDutyMobile_reddit](https://t.me/CallOfDutyMobile_reddit) | 1 hour |
+| [/r/okbuddypersona](https://www.reddit.com/r/okbuddypersona/) | [@okbuddypersona](https://t.me/okbuddypersona) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
