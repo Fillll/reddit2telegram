@@ -457,6 +457,7 @@ Currently alive channels
 | [/r/DirtySantasWorkshop](https://www.reddit.com/r/DirtySantasWorkshop/) | [@rDirtySanta](https://t.me/rDirtySanta) | 1 hour |
 | [/r/bodybuilding](https://www.reddit.com/r/bodybuilding/) | [@r_bodybuilding](https://t.me/r_bodybuilding) | 1 hour |
 | [/r/BrandNewSentence](https://www.reddit.com/r/BrandNewSentence/) | [@BrandNewSentence](https://t.me/BrandNewSentence) | 1 hour |
+| [/r/replayfootball](https://www.reddit.com/r/replayfootball/) | [@r_replayfootball](https://t.me/r_replayfootball) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
