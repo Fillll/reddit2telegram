@@ -452,6 +452,7 @@ Currently alive channels
 | [/r/Davie504](https://www.reddit.com/r/Davie504/) | [@Davie504_r](https://t.me/Davie504_r) | 1 hour |
 | [/r/furrypasta](https://www.reddit.com/r/furrypasta/) | [@r_furrypasta](https://t.me/r_furrypasta) | 1 hour |
 | [/r/MashuKyrielight](https://www.reddit.com/r/MashuKyrielight/) | [@r_MashuKyrielight](https://t.me/r_MashuKyrielight) | 1 hour |
+| [/r/2b2t](https://www.reddit.com/r/2b2t/) | [@r_2b2t](https://t.me/r_2b2t) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
