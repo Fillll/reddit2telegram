@@ -454,6 +454,7 @@ Currently alive channels
 | [/r/MashuKyrielight](https://www.reddit.com/r/MashuKyrielight/) | [@r_MashuKyrielight](https://t.me/r_MashuKyrielight) | 1 hour |
 | [/r/2b2t](https://www.reddit.com/r/2b2t/) | [@r_2b2t](https://t.me/r_2b2t) | 1 hour |
 | [/r/bigbangtheory](https://www.reddit.com/r/bigbangtheory/) | [@r_thebigbangtheory](https://t.me/r_thebigbangtheory) | 1 hour |
+| [/r/DirtySantasWorkshop](https://www.reddit.com/r/DirtySantasWorkshop/) | [@rDirtySanta](https://t.me/rDirtySanta) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
