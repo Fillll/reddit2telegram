@@ -459,6 +459,7 @@ Currently alive channels
 | [/r/BrandNewSentence](https://www.reddit.com/r/BrandNewSentence/) | [@BrandNewSentence](https://t.me/BrandNewSentence) | 1 hour |
 | [/r/replayfootball](https://www.reddit.com/r/replayfootball/) | [@r_replayfootball](https://t.me/r_replayfootball) | 1 hour |
 | [/r/datahoarder](https://www.reddit.com/r/datahoarder/) | [@r_DataHoarder](https://t.me/r_DataHoarder) | 1 hour |
+| [/r/yakuzagames](https://www.reddit.com/r/yakuzagames/) | [@r_yakuzagames](https://t.me/r_yakuzagames) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
