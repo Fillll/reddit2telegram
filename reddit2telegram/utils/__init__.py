@@ -529,7 +529,7 @@ class Reddit2TelegramSender(object):
             **kwargs
         }
 
-        if kwargs.get('nsfw_filter_out', False):
+        if kwargs.get('nsfw_filter_out', True):
             # Check if we want to filter out all NSFW submission.
             if submission.over_18:
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION 
