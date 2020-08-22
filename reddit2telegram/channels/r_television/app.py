@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'television'
+subreddit = 'television+televisionposterporn'
 t_channel = '@r_television'
 
 
