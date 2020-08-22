@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = '2meirl4meirl'
+subreddit = '2meirl4meirl+2meirl42meirl4meirl'
 t_channel = '@r_2meirl4meirl'
 
 
