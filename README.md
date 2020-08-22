@@ -466,6 +466,7 @@ Currently alive channels
 | [/r/The10thDentist](https://www.reddit.com/r/The10thDentist/) | [@odd_takes](https://t.me/odd_takes) | 1 hour |
 | [/r/musictheorymemes](https://www.reddit.com/r/musictheorymemes/) | [@musictheorymemes](https://t.me/musictheorymemes) | 1 hour |
 | [/r/stopdrinking](https://www.reddit.com/r/stopdrinking/) | [@r_stopdrinking](https://t.me/r_stopdrinking) | 1 hour |
+| [/r/goodanimemes](https://www.reddit.com/r/goodanimemes/) | [@r_goodanimemes](https://t.me/r_goodanimemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 

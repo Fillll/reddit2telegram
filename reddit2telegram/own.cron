@@ -306,6 +306,7 @@ MASK	submodule_name
 30 */2 * * *	r_apphookup
 30 * * * *	reddituruguay
 30 * * * *	onepunchmansubreddit
+30 * * * *	r_goodanimemes
 31 * * * *	r_dndgreentext
 31 * * * *	r_listentothis
 31 * * * *	r_woooosh
