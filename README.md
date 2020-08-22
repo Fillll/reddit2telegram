@@ -462,6 +462,7 @@ Currently alive channels
 | [/r/pikabu](https://www.reddit.com/r/pikabu/) | [@rekabufeed](https://t.me/rekabufeed) | 1 hour |
 | [/r/rallyporn](https://www.reddit.com/r/rallyporn/) | [@r_rallyporn](https://t.me/r_rallyporn) | 1 hour |
 | [/r/chessmemes](https://www.reddit.com/r/chessmemes/) | [@chessmemes](https://t.me/chessmemes) | 1 hour |
+| [/r/nba](https://www.reddit.com/r/nba/) | [@Reddit_NBA](https://t.me/Reddit_NBA) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
