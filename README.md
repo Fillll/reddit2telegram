@@ -464,6 +464,7 @@ Currently alive channels
 | [/r/chessmemes](https://www.reddit.com/r/chessmemes/) | [@chessmemes](https://t.me/chessmemes) | 1 hour |
 | [/r/nba](https://www.reddit.com/r/nba/) | [@Reddit_NBA](https://t.me/Reddit_NBA) | 1 hour |
 | [/r/The10thDentist](https://www.reddit.com/r/The10thDentist/) | [@odd_takes](https://t.me/odd_takes) | 1 hour |
+| [/r/musictheorymemes](https://www.reddit.com/r/musictheorymemes/) | [@musictheorymemes](https://t.me/musictheorymemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
