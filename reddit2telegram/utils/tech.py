@@ -127,9 +127,9 @@ def is_birthday_today(r2t, channel_name):
 
 
 def default_ending():
-    text_to_send = '🙋\nQ: How can I help?\nA: Promote your favorite channels!\n\n'
+    text_to_send = '🙋\nQ: How can I help?\nA: Support on Patreon and promote your favorite channels!\n\n'
     text_to_send += 'Q: How to make similar channels?\nA: Ask at @r_channels or use manual at https://github.com/Fillll/reddit2telegram.\n\n'
-    text_to_send += 'Q: Where to donate?\nA: https://bit.ly/r2t_donate'
+    text_to_send += 'Q: Where to donate?\nA: Patreon: https://www.patreon.com/reddit2telegram. Other ways: https://bit.ly/r2t_donate.'
     return text_to_send
 
 
