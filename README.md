@@ -489,6 +489,7 @@ Currently alive channels
 | [/r/frugalmalefashion](https://www.reddit.com/r/frugalmalefashion/) | [@r_frugalmalefashion](https://t.me/r_frugalmalefashion) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@r_DeepFriedMemes](https://t.me/r_DeepFriedMemes) | 1 hour |
 | [/r/PhoenixSC](https://www.reddit.com/r/PhoenixSC/) | [@r_PhoenixSC](https://t.me/r_PhoenixSC) | 1 hour |
+| [/r/PoliticalHumor+PoliticalCompassMemes](https://www.reddit.com/r/PoliticalHumor+PoliticalCompassMemes/) | [@r_PoliticalMemes](https://t.me/r_PoliticalMemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
