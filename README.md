@@ -475,6 +475,7 @@ Currently alive channels
 | [/r/GitHub](https://www.reddit.com/r/GitHub/) | [@GitHubReddit](https://t.me/GitHubReddit) | 1 hour |
 | [/r/Music](https://www.reddit.com/r/Music/) | [@MusicReddit](https://t.me/MusicReddit) | 1 hour |
 | [/r/Manga](https://www.reddit.com/r/Manga/) | [@MangaReddit](https://t.me/MangaReddit) | 1 hour |
+| [/r/TEAMEVGA](https://www.reddit.com/r/TEAMEVGA/) | [@TEAM_EVGA](https://t.me/TEAM_EVGA) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
