@@ -51,6 +51,7 @@ if __name__ == '__main__':
 
     print('Submodule is created.')
     print(main(subreddit_name, channel_name, tags))
+    print(channel_name.lower())
 
     print('Run the bot for the first time.')
     run_script(channel_name)
@@ -60,10 +61,9 @@ if __name__ == '__main__':
     add_to_git(channel_name)
     print('Done.')
 
-    print(channel_name.lower())
-
     for i in range(10):
         yes = input('Ready to commit? ')
         if yes == 'y':
             commit(channel_name)
+            break
 
