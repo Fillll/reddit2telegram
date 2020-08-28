@@ -473,6 +473,7 @@ Currently alive channels
 | [/r/Hardware](https://www.reddit.com/r/Hardware/) | [@HardwareHQ](https://t.me/HardwareHQ) | 1 hour |
 | [/r/Games](https://www.reddit.com/r/Games/) | [@GamesReddit](https://t.me/GamesReddit) | 1 hour |
 | [/r/GitHub](https://www.reddit.com/r/GitHub/) | [@GitHubReddit](https://t.me/GitHubReddit) | 1 hour |
+| [/r/Music](https://www.reddit.com/r/Music/) | [@MusicReddit](https://t.me/MusicReddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
