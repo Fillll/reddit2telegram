@@ -471,6 +471,7 @@ Currently alive channels
 | [/r/Nvidia](https://www.reddit.com/r/Nvidia/) | [@Nvidiax](https://t.me/Nvidiax) | 1 hour |
 | [/r/Amd](https://www.reddit.com/r/Amd/) | [@AmdReddit](https://t.me/AmdReddit) | 1 hour |
 | [/r/Hardware](https://www.reddit.com/r/Hardware/) | [@HardwareHQ](https://t.me/HardwareHQ) | 1 hour |
+| [/r/Games](https://www.reddit.com/r/Games/) | [@GamesReddit](https://t.me/GamesReddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
