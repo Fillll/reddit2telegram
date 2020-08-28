@@ -23,7 +23,7 @@ def send_post(submission, r2t):
 '''.format(sub_name=sub, channel_name=channel))
 
     with open(os.path.join(channel_dir, 'tags.txt'), 'w') as tags_file:
-        tags_file.write('#' + ' #'.join(tags.lower().split('_')))
+        tags_file.write(tags)
 
     readme_string = '| [/r/{sub_name}](https://www.reddit.com/r/{sub_name}/) | [@{channel_name}](https://t.me/{channel_name}) | 1 hour |'.format(
         sub_name=sub,
@@ -32,11 +32,22 @@ def send_post(submission, r2t):
     return readme_string
 
 
+def run_script(channel):
+    os.system('python supplier.py --sub ' + channel.lower())
+
+
 if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--sub')
-    parser.add_argument('--channel')
-    parser.add_argument('--tags')
-    args = parser.parse_args()
-    print(main(args.sub, args.channel, args.tags))
+    subreddit_name = input('Subreddit name: ')
+    channel_name = input('Channel name: ')
+    tags = input('Tags_in_that_way: ')
+
+    print('Submodule is created.')
+    print(main(subreddit_name, channel_name, tags))
+
+    print('Run the bot for the first time.')
+    run_script(channel_name)
+    print('Done.')
+
+    print('Add to git.')
+    add_to_git(channel_name)
+    print('Done.')
