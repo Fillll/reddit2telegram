@@ -491,6 +491,7 @@ Currently alive channels
 | [/r/PhoenixSC](https://www.reddit.com/r/PhoenixSC/) | [@r_PhoenixSC](https://t.me/r_PhoenixSC) | 1 hour |
 | [/r/PoliticalHumor+PoliticalCompassMemes](https://www.reddit.com/r/PoliticalHumor+PoliticalCompassMemes/) | [@r_PoliticalMemes](https://t.me/r_PoliticalMemes) | 1 hour |
 | [/r/egg_irl](https://www.reddit.com/r/egg_irl/) | [@r_egg_irl](https://t.me/r_egg_irl) | 1 hour |
+| [/r/technology](https://www.reddit.com/r/technology/) | [@r_technology](https://t.me/r_technology) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
