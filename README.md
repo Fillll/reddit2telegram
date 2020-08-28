@@ -483,6 +483,7 @@ Currently alive channels
 | [/r/traaaaaaannnnnnnnnns+egg_irl](https://www.reddit.com/r/traaaaaaannnnnnnnnns+egg_irl/) | [@trans_memes](https://t.me/trans_memes) | 1 hour |
 | [/r/memesITA](https://www.reddit.com/r/memesITA/) | [@r_memesITA](https://t.me/r_memesITA) | 1 hour |
 | [/r/IndianMeyMeys+IndianDankMemes+desimemes](https://www.reddit.com/r/IndianMeyMeys+IndianDankMemes+desimemes/) | [@r_indianmemes](https://t.me/r_indianmemes) | 1 hour |
+| [/r/historymemes+fakehistoryporn](https://www.reddit.com/r/historymemes+fakehistoryporn/) | [@r_historicalmemes](https://t.me/r_historicalmemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
