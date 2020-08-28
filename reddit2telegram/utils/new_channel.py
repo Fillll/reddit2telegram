@@ -40,6 +40,10 @@ def add_to_git(channel):
     os.system('git add channels/' + channel.lower() + '/*')
 
 
+def commit(channel):
+    os.system('git commit -a -m "@{channel_name}"'.format(channel_name=channel.lower()))
+
+
 if __name__ == '__main__':
     subreddit_name = input('Subreddit name: ')
     channel_name = input('Channel name: ')
@@ -57,3 +61,9 @@ if __name__ == '__main__':
     print('Done.')
 
     print(channel_name.lower())
+
+    for i in range(10):
+        yes = input('Ready to commit? ')
+        if yes == 'y':
+            commit(channel_name)
+
