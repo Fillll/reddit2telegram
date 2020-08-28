@@ -488,6 +488,7 @@ Currently alive channels
 | [/r/MinecraftMemes](https://www.reddit.com/r/MinecraftMemes/) | [@r_MinecraftMemes](https://t.me/r_MinecraftMemes) | 1 hour |
 | [/r/frugalmalefashion](https://www.reddit.com/r/frugalmalefashion/) | [@r_frugalmalefashion](https://t.me/r_frugalmalefashion) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@r_DeepFriedMemes](https://t.me/r_DeepFriedMemes) | 1 hour |
+| [/r/PhoenixSC](https://www.reddit.com/r/PhoenixSC/) | [@r_PhoenixSC](https://t.me/r_PhoenixSC) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
