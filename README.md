@@ -466,6 +466,7 @@ Currently alive channels
 | [/r/onejob](https://www.reddit.com/r/onejob/) | [@r_onejob](https://t.me/r_onejob) | 1 hour |
 | [/r/kanye](https://www.reddit.com/r/kanye/) | [@r_kanye](https://t.me/r_kanye) | 1 hour |
 | [/r/crackwatch](https://www.reddit.com/r/crackwatch/) | [@r_crackwatch](https://t.me/r_crackwatch) | 1 hour |
+| [/r/ihadastroke](https://www.reddit.com/r/ihadastroke/) | [@r_ihadastroke](https://t.me/r_ihadastroke) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
