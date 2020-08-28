@@ -36,6 +36,10 @@ def run_script(channel):
     os.system('python supplier.py --sub ' + channel.lower())
 
 
+def add_to_git(channel):
+    os.system('git add channels/' + channel.lower() + '/*')
+
+
 if __name__ == '__main__':
     subreddit_name = input('Subreddit name: ')
     channel_name = input('Channel name: ')
@@ -51,3 +55,5 @@ if __name__ == '__main__':
     print('Add to git.')
     add_to_git(channel_name)
     print('Done.')
+
+    print(channel_name.lower())
