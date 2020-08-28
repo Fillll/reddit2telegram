@@ -477,6 +477,7 @@ Currently alive channels
 | [/r/Manga](https://www.reddit.com/r/Manga/) | [@MangaReddit](https://t.me/MangaReddit) | 1 hour |
 | [/r/TEAMEVGA](https://www.reddit.com/r/TEAMEVGA/) | [@TEAM_EVGA](https://t.me/TEAM_EVGA) | 1 hour |
 | [/r/trashpandas](https://www.reddit.com/r/trashpandas/) | [@CuteThieves](https://t.me/CuteThieves) | 1 hour |
+| [/r/stonks](https://www.reddit.com/r/stonks/) | [@r_stonks](https://t.me/r_stonks) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
