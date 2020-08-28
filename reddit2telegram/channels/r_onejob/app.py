@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'onejob'
+subreddit = 'onejob+softwaregore'
 t_channel = '@r_onejob'
 
 
