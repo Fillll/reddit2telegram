@@ -57,13 +57,13 @@ if __name__ == '__main__':
     run_script(channel_name)
     print('Done.')
 
-    print('Add to git.')
-    add_to_git(channel_name)
-    print('Done.')
-
     for i in range(10):
         yes = input('Ready to commit? ')
         if yes == 'y':
+            print('Add to git.')
+            add_to_git(channel_name)
+            print('Done. Will commit.')
             commit(channel_name)
+            print('Done.')
             break
 
