@@ -461,7 +461,6 @@ Currently alive channels
 | [/r/nba](https://www.reddit.com/r/nba/) | [@Reddit_NBA](https://t.me/Reddit_NBA) | 1 hour |
 | [/r/The10thDentist](https://www.reddit.com/r/The10thDentist/) | [@odd_takes](https://t.me/odd_takes) | 1 hour |
 | [/r/musictheorymemes](https://www.reddit.com/r/musictheorymemes/) | [@musictheorymemes](https://t.me/musictheorymemes) | 1 hour |
-| [/r/stopdrinking](https://www.reddit.com/r/stopdrinking/) | [@r_stopdrinking](https://t.me/r_stopdrinking) | 1 hour |
 | [/r/goodanimemes](https://www.reddit.com/r/goodanimemes/) | [@r_goodanimemes](https://t.me/r_goodanimemes) | 1 hour |
 | [/r/onejob](https://www.reddit.com/r/onejob/) | [@r_onejob](https://t.me/r_onejob) | 1 hour |
 | [/r/kanye](https://www.reddit.com/r/kanye/) | [@r_kanye](https://t.me/r_kanye) | 1 hour |
