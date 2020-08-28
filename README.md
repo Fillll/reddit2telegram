@@ -486,6 +486,7 @@ Currently alive channels
 | [/r/historymemes+fakehistoryporn](https://www.reddit.com/r/historymemes+fakehistoryporn/) | [@r_historicalmemes](https://t.me/r_historicalmemes) | 1 hour |
 | [/r/indiangaming](https://www.reddit.com/r/indiangaming/) | [@r_indiangaming](https://t.me/r_indiangaming) | 1 hour |
 | [/r/MinecraftMemes](https://www.reddit.com/r/MinecraftMemes/) | [@r_MinecraftMemes](https://t.me/r_MinecraftMemes) | 1 hour |
+| [/r/frugalmalefashion](https://www.reddit.com/r/frugalmalefashion/) | [@r_frugalmalefashion](https://t.me/r_frugalmalefashion) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
