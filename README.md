@@ -492,6 +492,7 @@ Currently alive channels
 | [/r/PoliticalHumor+PoliticalCompassMemes](https://www.reddit.com/r/PoliticalHumor+PoliticalCompassMemes/) | [@r_PoliticalMemes](https://t.me/r_PoliticalMemes) | 1 hour |
 | [/r/egg_irl](https://www.reddit.com/r/egg_irl/) | [@r_egg_irl](https://t.me/r_egg_irl) | 1 hour |
 | [/r/technology](https://www.reddit.com/r/technology/) | [@r_technology](https://t.me/r_technology) | 1 hour |
+| [/r/cursed%%%%+hmmm](https://www.reddit.com/r/cursedimages+cursedcomments+cursedmemes+cursed_images+cursedguns+hmmm/) | [@r_cursed](https://t.me/r_cursed) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
