@@ -478,6 +478,7 @@ Currently alive channels
 | [/r/TEAMEVGA](https://www.reddit.com/r/TEAMEVGA/) | [@TEAM_EVGA](https://t.me/TEAM_EVGA) | 1 hour |
 | [/r/trashpandas](https://www.reddit.com/r/trashpandas/) | [@CuteThieves](https://t.me/CuteThieves) | 1 hour |
 | [/r/stonks](https://www.reddit.com/r/stonks/) | [@r_stonks](https://t.me/r_stonks) | 1 hour |
+| [/r/Warzone](https://www.reddit.com/r/Warzone/) | [@CallOfDutyWarzone_reddit](https://t.me/CallOfDutyWarzone_reddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
