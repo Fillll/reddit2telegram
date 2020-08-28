@@ -469,6 +469,7 @@ Currently alive channels
 | [/r/ihadastroke](https://www.reddit.com/r/ihadastroke/) | [@r_ihadastroke](https://t.me/r_ihadastroke) | 1 hour |
 | [/r/Intel](https://www.reddit.com/r/Intel/) | [@IntelHQ](https://t.me/IntelHQ) | 1 hour |
 | [/r/Nvidia](https://www.reddit.com/r/Nvidia/) | [@Nvidiax](https://t.me/Nvidiax) | 1 hour |
+| [/r/Amd](https://www.reddit.com/r/Amd/) | [@AmdReddit](https://t.me/AmdReddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
