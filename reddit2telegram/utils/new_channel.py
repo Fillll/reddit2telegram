@@ -23,7 +23,7 @@ def send_post(submission, r2t):
 '''.format(sub_name=sub, channel_name=channel))
 
     with open(os.path.join(channel_dir, 'tags.txt'), 'w') as tags_file:
-        tags_file.write(tags)
+        tags_file.write(tags.lower())
 
     readme_string = '| [/r/{sub_name}](https://www.reddit.com/r/{sub_name}/) | [@{channel_name}](https://t.me/{channel_name}) | 1 hour |'.format(
         sub_name=sub,
@@ -47,7 +47,7 @@ def commit(channel):
 if __name__ == '__main__':
     subreddit_name = input('Subreddit name: ')
     channel_name = input('Channel name: ')
-    tags = input('Tags_in_that_way: ')
+    tags = input('#Tags #in #that #way: ')
 
     print('Submodule is created.')
     print(main(subreddit_name, channel_name, tags))

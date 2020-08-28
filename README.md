@@ -465,6 +465,7 @@ Currently alive channels
 | [/r/goodanimemes](https://www.reddit.com/r/goodanimemes/) | [@r_goodanimemes](https://t.me/r_goodanimemes) | 1 hour |
 | [/r/onejob](https://www.reddit.com/r/onejob/) | [@r_onejob](https://t.me/r_onejob) | 1 hour |
 | [/r/kanye](https://www.reddit.com/r/kanye/) | [@r_kanye](https://t.me/r_kanye) | 1 hour |
+| [/r/crackwatch](https://www.reddit.com/r/crackwatch/) | [@r_crackwatch](https://t.me/r_crackwatch) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
