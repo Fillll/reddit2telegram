@@ -482,6 +482,7 @@ Currently alive channels
 | [/r/Davie504](https://www.reddit.com/r/Davie504/) | [@r_Davie504](https://t.me/r_Davie504) | 1 hour |
 | [/r/traaaaaaannnnnnnnnns+egg_irl](https://www.reddit.com/r/traaaaaaannnnnnnnnns+egg_irl/) | [@trans_memes](https://t.me/trans_memes) | 1 hour |
 | [/r/memesITA](https://www.reddit.com/r/memesITA/) | [@r_memesITA](https://t.me/r_memesITA) | 1 hour |
+| [/r/IndianMeyMeys+IndianDankMemes+desimemes](https://www.reddit.com/r/IndianMeyMeys+IndianDankMemes+desimemes/) | [@r_indianmemes](https://t.me/r_indianmemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
