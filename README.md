@@ -470,6 +470,7 @@ Currently alive channels
 | [/r/Intel](https://www.reddit.com/r/Intel/) | [@IntelHQ](https://t.me/IntelHQ) | 1 hour |
 | [/r/Nvidia](https://www.reddit.com/r/Nvidia/) | [@Nvidiax](https://t.me/Nvidiax) | 1 hour |
 | [/r/Amd](https://www.reddit.com/r/Amd/) | [@AmdReddit](https://t.me/AmdReddit) | 1 hour |
+| [/r/Hardware](https://www.reddit.com/r/Hardware/) | [@HardwareHQ](https://t.me/HardwareHQ) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
