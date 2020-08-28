@@ -481,6 +481,7 @@ Currently alive channels
 | [/r/Warzone](https://www.reddit.com/r/Warzone/) | [@CallOfDutyWarzone_reddit](https://t.me/CallOfDutyWarzone_reddit) | 1 hour |
 | [/r/Davie504](https://www.reddit.com/r/Davie504/) | [@r_Davie504](https://t.me/r_Davie504) | 1 hour |
 | [/r/traaaaaaannnnnnnnnns+egg_irl](https://www.reddit.com/r/traaaaaaannnnnnnnnns+egg_irl/) | [@trans_memes](https://t.me/trans_memes) | 1 hour |
+| [/r/memesITA](https://www.reddit.com/r/memesITA/) | [@r_memesITA](https://t.me/r_memesITA) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
