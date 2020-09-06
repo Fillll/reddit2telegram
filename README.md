@@ -499,6 +499,7 @@ Currently alive channels
 | [/r/okaybuddyretard](https://www.reddit.com/r/okaybuddyretard/) | [@r_Okaybuddyretard](https://t.me/r_Okaybuddyretard) | 1 hour |
 | [/r/k12sysadmin](https://www.reddit.com/r/k12sysadmin/) | [@r_k12sysadmin](https://t.me/r_k12sysadmin) | 1 hour |
 | [/r/QtFramework](https://www.reddit.com/r/QtFramework/) | [@qt_reddit](https://t.me/qt_reddit) | 1 hour |
+| [/r/Barca](https://www.reddit.com/r/Barca/) | [@r_FCBarcelona](https://t.me/r_FCBarcelona) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
