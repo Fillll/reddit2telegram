@@ -503,6 +503,7 @@ Currently alive channels
 | [/r/science](https://www.reddit.com/r/science/) | [@r_sciencegeeks](https://t.me/r_sciencegeeks) | 1 hour |
 | [/r/MCFC](https://www.reddit.com/r/MCFC/) | [@r_MCFC](https://t.me/r_MCFC) | 1 hour |
 | [/r/minecraftmemes+minecraft](https://www.reddit.com/r/minecraftmemes+minecraft/) | [@minecraft_en](https://t.me/minecraft_en) | 1 hour |
+| [/r/gaming](https://www.reddit.com/r/gaming/) | [@pc_gaming_memes](https://t.me/pc_gaming_memes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
