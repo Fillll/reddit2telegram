@@ -42,7 +42,6 @@ Currently alive channels
 | [/r/asiangirlsbeingcute](https://www.reddit.com/r/asiangirlsbeingcute/) | [@asiangirlsbeingcute](https://t.me/asiangirlsbeingcute) | 1 hour |
 | [/r/behindthegifs](https://www.reddit.com/r/behindthegifs/) | [@r_behindthegifs](https://t.me/r_behindthegifs) | 2 days |
 | Some python related subreddits. [Full list](https://github.com/Fillll/reddit2telegram/blob/master/reddit2telegram/channels/pythondaily/app.py#L8). | [@pythondaily](https://t.me/pythondaily) | 1 hour |
-| [/r/unexpected](https://www.reddit.com/r/unexpected/) | [@r_unexpected](https://t.me/r_unexpected) | 30 mins |
 | Some subreddits about history. [List](https://github.com/Fillll/reddit2telegram/blob/master/reddit2telegram/channels/history/app.py#L11). | [@RedditHistory](https://t.me/RedditHistory) | 4 hours |
 | [/r/bitcoin](https://www.reddit.com/r/bitcoin/) | [@r_bitcoin](https://t.me/r_Bitcoin) | 1 hour |
 | [/r/pics](https://www.reddit.com/r/pics/) | [@r_pics_redux](https://t.me/r_pics_redux) | 1 hour |
