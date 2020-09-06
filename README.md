@@ -494,6 +494,7 @@ Currently alive channels
 | [/r/cursed%%%%+hmmm](https://www.reddit.com/r/cursedimages+cursedcomments+cursedmemes+cursed_images+cursedguns+hmmm/) | [@r_cursed](https://t.me/r_cursed) | 1 hour |
 | [/r/okboomer+okbuddyretard+AmiITheAsshole](https://www.reddit.com/r/okboomer+okbuddyretard+AmiITheAsshole/) | [@r_okbuddyretard](https://t.me/r_okbuddyretard) | 1 hour |
 | [/r/HistoryAnimemes](https://www.reddit.com/r/HistoryAnimemes/) | [@r_HistoryAnimemes](https://t.me/r_HistoryAnimemes) | 1 hour |
+| [/r/PoliticalCompassMemes](https://www.reddit.com/r/PoliticalCompassMemes/) | [@r_PoliticalCompassMemes](https://t.me/r_PoliticalCompassMemes) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
