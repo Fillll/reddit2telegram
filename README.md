@@ -497,6 +497,7 @@ Currently alive channels
 | [/r/PoliticalCompassMemes](https://www.reddit.com/r/PoliticalCompassMemes/) | [@r_PoliticalCompassMemes](https://t.me/r_PoliticalCompassMemes) | 1 hour |
 | [/r/arabfunny](https://www.reddit.com/r/arabfunny/) | [@r_Arabfunny](https://t.me/r_Arabfunny) | 1 hour |
 | [/r/okaybuddyretard](https://www.reddit.com/r/okaybuddyretard/) | [@r_Okaybuddyretard](https://t.me/r_Okaybuddyretard) | 1 hour |
+| [/r/k12sysadmin](https://www.reddit.com/r/k12sysadmin/) | [@r_k12sysadmin](https://t.me/r_k12sysadmin) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
