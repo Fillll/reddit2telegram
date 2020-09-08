@@ -421,7 +421,6 @@ Currently alive channels
 | [/r/iww](https://www.reddit.com/r/iww/) | [@r_iww](https://t.me/r_iww) | 1 hour |
 | [/r/linux_gaming](https://www.reddit.com/r/linux_gaming/) | [@LinuxGamingx](https://t.me/LinuxGamingx) | 1 hour |
 | [/r/overclocking](https://www.reddit.com/r/overclocking/) | [@overclockingx](https://t.me/overclockingx) | 1 hour |
-| [/r/google](https://www.reddit.com/r/google/) | [@GoogleReddit](https://t.me/GoogleReddit) | 1 hour |
 | [/r/raspberry_pi](https://www.reddit.com/r/raspberry_pi/) | [@RaspberryPiReddit](https://t.me/RaspberryPiReddit) | 1 hour |
 | [/r/emulation](https://www.reddit.com/r/emulation/) | [@Emulationx](https://t.me/Emulationx) | 1 hour |
 | [/r/OnePunchMan](https://www.reddit.com/r/OnePunchMan/) | [@onepunchmansubreddit](https://t.me/onepunchmansubreddit) | 1 hour |
