@@ -502,6 +502,7 @@ Currently alive channels
 | [/r/technicallythetruth](https://www.reddit.com/r/technicallythetruth/) | [@r_technicallythetruth](https://t.me/r_technicallythetruth) | 1 hour |
 | [/r/fightporn](https://www.reddit.com/r/fightporn/) | [@r_fightporn](https://t.me/r_fightporn) | 1 hour |
 | [/r/Crypto_Currency_News+CryptoMarkets+CryptoCurrency](https://www.reddit.com/r/Crypto_Currency_News+CryptoMarkets+CryptoCurrency/) | [@r_cryptocurrancy](https://t.me/r_cryptocurrancy) | 1 hour |
+| [/r/roastme+4panelcringe+bonehurtingjuice](https://www.reddit.com/r/roastme+4panelcringe+bonehurtingjuice/) | [@r_memer](https://t.me/r_memer) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
