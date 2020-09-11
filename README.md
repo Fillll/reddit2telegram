@@ -500,6 +500,7 @@ Currently alive channels
 | [/r/MCFC](https://www.reddit.com/r/MCFC/) | [@r_MCFC](https://t.me/r_MCFC) | 1 hour |
 | [/r/minecraftmemes+minecraft](https://www.reddit.com/r/minecraftmemes+minecraft/) | [@minecraft_en](https://t.me/minecraft_en) | 1 hour |
 | [/r/gaming](https://www.reddit.com/r/gaming/) | [@pc_gaming_memes](https://t.me/pc_gaming_memes) | 1 hour |
+| [/r/technicallythetruth](https://www.reddit.com/r/technicallythetruth/) | [@r_technicallythetruth](https://t.me/r_technicallythetruth) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
