@@ -506,6 +506,7 @@ Currently alive channels
 | [/r/photography](https://www.reddit.com/r/photography/) | [@photographyz](https://t.me/photographyz) | 1 hour |
 | [/r/gog](https://www.reddit.com/r/gog/) | [@GOGReddit](https://t.me/GOGReddit) | 1 hour |
 | [/r/cosplay](https://www.reddit.com/r/cosplay/) | [@CosplayReddit](https://t.me/CosplayReddit) | 1 hour |
+| [/r/FallGuysGame](https://www.reddit.com/r/FallGuysGame/) | [@r_FallGuysGame](https://t.me/r_FallGuysGame) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
