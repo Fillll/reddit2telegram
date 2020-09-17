@@ -507,6 +507,7 @@ Currently alive channels
 | [/r/gog](https://www.reddit.com/r/gog/) | [@GOGReddit](https://t.me/GOGReddit) | 1 hour |
 | [/r/cosplay](https://www.reddit.com/r/cosplay/) | [@CosplayReddit](https://t.me/CosplayReddit) | 1 hour |
 | [/r/FallGuysGame](https://www.reddit.com/r/FallGuysGame/) | [@r_FallGuysGame](https://t.me/r_FallGuysGame) | 1 hour |
+| [/r/Bertra](https://www.reddit.com/r/Bertra/) | [@r_Bertra](https://t.me/r_Bertra) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
