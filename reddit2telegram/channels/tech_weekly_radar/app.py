@@ -34,10 +34,11 @@ def send_post(submission, r2t):
         r2t.send_text(text_to_send)
         text_to_send = ''
         time.sleep(2)
-    text_to_send = '#️⃣ All tags:\n'
-    list_of_tags = list(get_all_tags())
-    # random.shuffle(list_of_tags)
-    text_to_send += ' '.join(sorted(list_of_tags))
-    r2t.send_text(text_to_send, parse_mode='HTML')
+    # Without tags, as it gets annoying
+    # text_to_send = '#️⃣ All tags:\n'
+    # list_of_tags = list(get_all_tags())
+    # # random.shuffle(list_of_tags)
+    # text_to_send += ' '.join(sorted(list_of_tags))
+    # r2t.send_text(text_to_send, parse_mode='HTML')
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
