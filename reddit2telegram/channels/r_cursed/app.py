@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'cursedimages+cursedcomments+cursedmemes+cursed_images+cursedguns+hmmm'
+subreddit = 'cursedimages+cursedcomments+cursedmemes+cursed_images+cursedguns+hmmm+cursedamongus'
 t_channel = '@r_cursed'
 
 
