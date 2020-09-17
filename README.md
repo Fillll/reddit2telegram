@@ -427,7 +427,7 @@ Currently alive channels
 | [/r/truefilm](https://www.reddit.com/r/truefilm/) | [@r_truefilm](https://t.me/r_truefilm) | 1 hour |
 | [/r/hackintosh](https://www.reddit.com/r/hackintosh/) | [@r_hackintosh](https://t.me/r_hackintosh) | 1 hour |
 | [/r/assholedesign](https://www.reddit.com/r/assholedesign/) | [@AssholeDesign](https://t.me/AssholeDesign) | 1 hour |
-| [/r/hololive](https://www.reddit.com/r/hololive/) | [@r_hololive](https://t.me/r_hololive) | 1 hour |
+| [/r/hololive](https://www.reddit.com/r/hololive/) | [@r_hololive](https://t.me/r_hololive) | 1/2 hour |
 | [/r/DidntKnowIWantedThat](https://www.reddit.com/r/DidntKnowIWantedThat/) | [@didntknowiwantedthat](https://t.me/didntknowiwantedthat) | 1 hour |
 | [/r/howyoudoin](https://www.reddit.com/r/howyoudoin/) | [@r_howyoudoin](https://t.me/r_howyoudoin) | 1 hour |
 | [/r/documentaries](https://www.reddit.com/r/documentaries/) | [@r_documentaries](https://t.me/r_documentaries) | 1 hour |
