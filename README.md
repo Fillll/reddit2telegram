@@ -504,6 +504,7 @@ Currently alive channels
 | [/r/Crypto_Currency_News+CryptoMarkets+CryptoCurrency](https://www.reddit.com/r/Crypto_Currency_News+CryptoMarkets+CryptoCurrency/) | [@r_cryptocurrancy](https://t.me/r_cryptocurrancy) | 1 hour |
 | [/r/roastme+4panelcringe+bonehurtingjuice](https://www.reddit.com/r/roastme+4panelcringe+bonehurtingjuice/) | [@r_memer](https://t.me/r_memer) | 1 hour |
 | [/r/photography](https://www.reddit.com/r/photography/) | [@photographyz](https://t.me/photographyz) | 1 hour |
+| [/r/gog](https://www.reddit.com/r/gog/) | [@GOGReddit](https://t.me/GOGReddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
