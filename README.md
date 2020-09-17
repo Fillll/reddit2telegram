@@ -511,6 +511,7 @@ Currently alive channels
 | [/r/Ratorix](https://www.reddit.com/r/Ratorix/) | [@r_Ratorix](https://t.me/r_Ratorix) | 1 hour |
 | [/r/Funny+Gifs](https://www.reddit.com/r/Funny+Gifs/) | [@USA_MEMES](https://t.me/USA_MEMES) | 1 hour |
 | [/r/AmongUs](https://www.reddit.com/r/AmongUs/) | [@r_AmongUs](https://t.me/r_AmongUs) | 1 hour |
+| [/r/Avicii](https://www.reddit.com/r/Avicii/) | [@r_Avicii](https://t.me/r_Avicii) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
