@@ -468,7 +468,6 @@ Currently alive channels
 | [/r/Hardware](https://www.reddit.com/r/Hardware/) | [@HardwareHQ](https://t.me/HardwareHQ) | 1 hour |
 | [/r/Games](https://www.reddit.com/r/Games/) | [@GamesReddit](https://t.me/GamesReddit) | 1 hour |
 | [/r/GitHub](https://www.reddit.com/r/GitHub/) | [@GitHubReddit](https://t.me/GitHubReddit) | 1 hour |
-| [/r/Manga](https://www.reddit.com/r/Manga/) | [@MangaReddit](https://t.me/MangaReddit) | 1 hour |
 | [/r/TEAMEVGA](https://www.reddit.com/r/TEAMEVGA/) | [@TEAM_EVGA](https://t.me/TEAM_EVGA) | 1 hour |
 | [/r/trashpandas](https://www.reddit.com/r/trashpandas/) | [@CuteThieves](https://t.me/CuteThieves) | 1 hour |
 | [/r/stonks](https://www.reddit.com/r/stonks/) | [@r_stonks](https://t.me/r_stonks) | 1 hour |
