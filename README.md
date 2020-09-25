@@ -512,6 +512,7 @@ Currently alive channels
 | [/r/AmongUs](https://www.reddit.com/r/AmongUs/) | [@r_AmongUs](https://t.me/r_AmongUs) | 1 hour |
 | [/r/Avicii](https://www.reddit.com/r/Avicii/) | [@r_Avicii](https://t.me/r_Avicii) | 1 hour |
 | [/r/blursedimages+cursedcomments+MemeEconomy](https://www.reddit.com/r/blursedimages+cursedcomments+MemeEconomy/) | [@mereddit](https://t.me/mereddit) | 1 hour |
+| [/r/thedivision](https://www.reddit.com/r/thedivision/) | [@r_thedivision](https://t.me/r_thedivision) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
