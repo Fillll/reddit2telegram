@@ -513,6 +513,7 @@ Currently alive channels
 | [/r/blursedimages+cursedcomments+MemeEconomy](https://www.reddit.com/r/blursedimages+cursedcomments+MemeEconomy/) | [@mereddit](https://t.me/mereddit) | 1 hour |
 | [/r/PolHumor](https://www.reddit.com/r/PolHumor/) | [@r_PolHumor](https://t.me/r_PolHumor) | 1 hour |
 | [/r/TrashTaste](https://www.reddit.com/r/TrashTaste/) | [@r_TrashTaste](https://t.me/r_TrashTaste) | 1 hour |
+| [/r/Genshin_Impact](https://www.reddit.com/r/Genshin_Impact/) | [@Genshin_Impact_reddit](https://t.me/Genshin_Impact_reddit) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
