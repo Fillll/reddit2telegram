@@ -514,6 +514,7 @@ Currently alive channels
 | [/r/PolHumor](https://www.reddit.com/r/PolHumor/) | [@r_PolHumor](https://t.me/r_PolHumor) | 1 hour |
 | [/r/TrashTaste](https://www.reddit.com/r/TrashTaste/) | [@r_TrashTaste](https://t.me/r_TrashTaste) | 1 hour |
 | [/r/Genshin_Impact](https://www.reddit.com/r/Genshin_Impact/) | [@Genshin_Impact_reddit](https://t.me/Genshin_Impact_reddit) | 1 hour |
+| [/r/vexillologycirclejerk](https://www.reddit.com/r/vexillologycirclejerk/) | [@r_vexillologycirclejerk](https://t.me/r_vexillologycirclejerk) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
