@@ -130,21 +130,22 @@ def send_post(submission, r2t):
         return SupplyResult.STOP_THIS_SUPPLY
     # If weekday or Sunday then regular promotion once a day
     if (now.weekday() != 5) and ((now.hour == random_number % 24) and (now.minute == random_number % 30)):
+        tags = get_tags(submodule_name_to_promte)
+        if tags is not None:
+            if len(tags) > 0:
+                tags_string = ' '.join(tags)
         submission.title  # to make it non-lazy
         result = r2t.send_simple(submission,
             channel_to_promote=what_channel(submodule_name_to_promte),
             date=datetime.utcfromtimestamp(submission.created_utc).strftime('%Y %b %d'),
-            text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
-            other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
-            album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
-            gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}',
-            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}'
+            tags=tags_string,
+            text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
+            other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
+            album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
+            gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
+            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}'
         )
         if result == SupplyResult.SUCCESSFULLY:
-            tags = get_tags(submodule_name_to_promte)
-            if tags is not None:
-                if len(tags) > 0:
-                    r2t.send_text(' '.join(tags))
             if now.weekday() < 5:
                 config = get_config()
                 db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
