@@ -512,6 +512,7 @@ Currently alive channels
 | [/r/Avicii](https://www.reddit.com/r/Avicii/) | [@r_Avicii](https://t.me/r_Avicii) | 1 hour |
 | [/r/blursedimages+cursedcomments+MemeEconomy](https://www.reddit.com/r/blursedimages+cursedcomments+MemeEconomy/) | [@mereddit](https://t.me/mereddit) | 1 hour |
 | [/r/PolHumor](https://www.reddit.com/r/PolHumor/) | [@r_PolHumor](https://t.me/r_PolHumor) | 1 hour |
+| [/r/TrashTaste](https://www.reddit.com/r/TrashTaste/) | [@r_TrashTaste](https://t.me/r_TrashTaste) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
