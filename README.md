@@ -507,7 +507,6 @@ Currently alive channels
 | [/r/FallGuysGame](https://www.reddit.com/r/FallGuysGame/) | [@r_FallGuysGame](https://t.me/r_FallGuysGame) | 1 hour |
 | [/r/Bertra](https://www.reddit.com/r/Bertra/) | [@r_Bertra](https://t.me/r_Bertra) | 1 hour |
 | [/r/Ratorix](https://www.reddit.com/r/Ratorix/) | [@r_Ratorix](https://t.me/r_Ratorix) | 1 hour |
-| [/r/Funny+Gifs](https://www.reddit.com/r/Funny+Gifs/) | [@USA_MEMES](https://t.me/USA_MEMES) | 1 hour |
 | [/r/AmongUs](https://www.reddit.com/r/AmongUs/) | [@r_AmongUs](https://t.me/r_AmongUs) | 1 hour |
 | [/r/Avicii](https://www.reddit.com/r/Avicii/) | [@r_Avicii](https://t.me/r_Avicii) | 1 hour |
 | [/r/blursedimages+cursedcomments+MemeEconomy](https://www.reddit.com/r/blursedimages+cursedcomments+MemeEconomy/) | [@mereddit](https://t.me/mereddit) | 1 hour |
