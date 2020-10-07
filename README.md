@@ -479,6 +479,7 @@ Currently alive channels
 | [/r/MinecraftMemes](https://www.reddit.com/r/MinecraftMemes/) | [@r_MinecraftMemes](https://t.me/r_MinecraftMemes) | 1 hour |
 | [/r/frugalmalefashion](https://www.reddit.com/r/frugalmalefashion/) | [@r_frugalmalefashion](https://t.me/r_frugalmalefashion) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@r_DeepFriedMemes](https://t.me/r_DeepFriedMemes) | 1 hour |
+| [/r/comedyheaven](https://www.reddit.com/r/comedyheaven/) | [@r_comedyheaven](https://t.me/r_comedyheaven) | 1 hour |
 | [/r/PhoenixSC](https://www.reddit.com/r/PhoenixSC/) | [@r_PhoenixSC](https://t.me/r_PhoenixSC) | 1 hour |
 | [/r/PoliticalHumor+PoliticalCompassMemes](https://www.reddit.com/r/PoliticalHumor+PoliticalCompassMemes/) | [@r_PoliticalMemes](https://t.me/r_PoliticalMemes) | 1 hour |
 | [/r/egg_irl](https://www.reddit.com/r/egg_irl/) | [@r_egg_irl](https://t.me/r_egg_irl) | 1 hour |
