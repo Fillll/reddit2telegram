@@ -298,7 +298,6 @@ Currently alive channels
 | [/r/cursedcomments](https://www.reddit.com/r/cursedcomments/) | [@r_CursedComments](https://t.me/r_CursedComments) | 1 hour |
 | [/r/Pony_irl](https://www.reddit.com/r/Pony_irl/) | [@r_Pony_irl](https://t.me/r_Pony_irl) | 1 hour |
 | [/r/football+liverpoolfc+coys](https://www.reddit.com/r/football+liverpoolfc+coys/) | [@soccerx](https://t.me/soccerx) | 1 hour |
-| [/r/HQDesi](https://www.reddit.com/r/HQDesi/) | [@r_HqDesi](https://t.me/r_HqDesi) | 1 hour |
 | [/r/ThatsInsane](https://www.reddit.com/r/ThatsInsane/) | [@r_thatsinsane](https://t.me/r_thatsinsane) | 1 hour |
 | [/r/apexlegends](https://www.reddit.com/r/apexlegends/) | [@r_apexlegends](https://t.me/r_apexlegends) | 1 hour |
 | [/r/ATBGE](https://www.reddit.com/r/ATBGE/) | [@ATBGE](https://t.me/ATBGE) | 1 hour |
