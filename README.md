@@ -298,7 +298,6 @@ Currently alive channels
 | [/r/cursedcomments](https://www.reddit.com/r/cursedcomments/) | [@r_CursedComments](https://t.me/r_CursedComments) | 1 hour |
 | [/r/Pony_irl](https://www.reddit.com/r/Pony_irl/) | [@r_Pony_irl](https://t.me/r_Pony_irl) | 1 hour |
 | [/r/football+liverpoolfc+coys](https://www.reddit.com/r/football+liverpoolfc+coys/) | [@soccerx](https://t.me/soccerx) | 1 hour |
-| [/r/HQDesi](https://www.reddit.com/r/HQDesi/) | [@r_HqDesi](https://t.me/r_HqDesi) | 1 hour |
 | [/r/ThatsInsane](https://www.reddit.com/r/ThatsInsane/) | [@r_thatsinsane](https://t.me/r_thatsinsane) | 1 hour |
 | [/r/apexlegends](https://www.reddit.com/r/apexlegends/) | [@r_apexlegends](https://t.me/r_apexlegends) | 1 hour |
 | [/r/ATBGE](https://www.reddit.com/r/ATBGE/) | [@ATBGE](https://t.me/ATBGE) | 1 hour |
@@ -436,7 +435,6 @@ Currently alive channels
 | [/r/news](https://www.reddit.com/r/news/) | [@news_reddit](https://t.me/news_reddit) | 1 hour |
 | [/r/Julia](https://www.reddit.com/r/Julia/) | [@r_Julia](https://t.me/r_Julia) | 1 hour |
 | [/r/Animewallpaper](https://www.reddit.com/r/Animewallpaper/) | [@animewaifuss](https://t.me/animewaifuss) | 1 hour |
-| [/r/raspberry_pi](https://www.reddit.com/r/raspberry_pi/) | [@raspberry_projects](https://t.me/raspberry_projects) | 1 hour |
 | [/r/SafeArea](https://www.reddit.com/r/SafeArea/) | [@r_SafeArea](https://t.me/r_SafeArea) | 1 hour |
 | [/r/rickandmorty](https://www.reddit.com/r/rickandmorty/) | [@rickandmorty_en](https://t.me/rickandmorty_en) | 1 hour |
 | [/r/CallOfDutyMobile](https://www.reddit.com/r/CallOfDutyMobile/) | [@CallOfDutyMobile_reddit](https://t.me/CallOfDutyMobile_reddit) | 1 hour |
@@ -481,6 +479,7 @@ Currently alive channels
 | [/r/MinecraftMemes](https://www.reddit.com/r/MinecraftMemes/) | [@r_MinecraftMemes](https://t.me/r_MinecraftMemes) | 1 hour |
 | [/r/frugalmalefashion](https://www.reddit.com/r/frugalmalefashion/) | [@r_frugalmalefashion](https://t.me/r_frugalmalefashion) | 1 hour |
 | [/r/DeepFriedMemes](https://www.reddit.com/r/DeepFriedMemes/) | [@r_DeepFriedMemes](https://t.me/r_DeepFriedMemes) | 1 hour |
+| [/r/comedyheaven](https://www.reddit.com/r/comedyheaven/) | [@r_comedyheaven](https://t.me/r_comedyheaven) | 1 hour |
 | [/r/PhoenixSC](https://www.reddit.com/r/PhoenixSC/) | [@r_PhoenixSC](https://t.me/r_PhoenixSC) | 1 hour |
 | [/r/PoliticalHumor+PoliticalCompassMemes](https://www.reddit.com/r/PoliticalHumor+PoliticalCompassMemes/) | [@r_PoliticalMemes](https://t.me/r_PoliticalMemes) | 1 hour |
 | [/r/egg_irl](https://www.reddit.com/r/egg_irl/) | [@r_egg_irl](https://t.me/r_egg_irl) | 1 hour |
@@ -508,10 +507,15 @@ Currently alive channels
 | [/r/FallGuysGame](https://www.reddit.com/r/FallGuysGame/) | [@r_FallGuysGame](https://t.me/r_FallGuysGame) | 1 hour |
 | [/r/Bertra](https://www.reddit.com/r/Bertra/) | [@r_Bertra](https://t.me/r_Bertra) | 1 hour |
 | [/r/Ratorix](https://www.reddit.com/r/Ratorix/) | [@r_Ratorix](https://t.me/r_Ratorix) | 1 hour |
-| [/r/Funny+Gifs](https://www.reddit.com/r/Funny+Gifs/) | [@USA_MEMES](https://t.me/USA_MEMES) | 1 hour |
 | [/r/AmongUs](https://www.reddit.com/r/AmongUs/) | [@r_AmongUs](https://t.me/r_AmongUs) | 1 hour |
 | [/r/Avicii](https://www.reddit.com/r/Avicii/) | [@r_Avicii](https://t.me/r_Avicii) | 1 hour |
 | [/r/blursedimages+cursedcomments+MemeEconomy](https://www.reddit.com/r/blursedimages+cursedcomments+MemeEconomy/) | [@mereddit](https://t.me/mereddit) | 1 hour |
+| [/r/PolHumor](https://www.reddit.com/r/PolHumor/) | [@r_PolHumor](https://t.me/r_PolHumor) | 1 hour |
+| [/r/TrashTaste](https://www.reddit.com/r/TrashTaste/) | [@r_TrashTaste](https://t.me/r_TrashTaste) | 1 hour |
+| [/r/Genshin_Impact](https://www.reddit.com/r/Genshin_Impact/) | [@Genshin_Impact_reddit](https://t.me/Genshin_Impact_reddit) | 1 hour |
+| [/r/vexillologycirclejerk](https://www.reddit.com/r/vexillologycirclejerk/) | [@r_vexillologycirclejerk](https://t.me/r_vexillologycirclejerk) | 1 hour |
+| [/r/Sham_Sharma_Show](https://www.reddit.com/r/Sham_Sharma_Show/) | [@shamsharma](https://t.me/shamsharma) | 1 hour |
+| [/r/bash](https://www.reddit.com/r/bash/) | [@r_bash](https://t.me/r_bash) | 1 hour |
 | [/r/thedivision](https://www.reddit.com/r/thedivision/) | [@r_thedivision](https://t.me/r_thedivision) | 1 hour |
 |  | ... be the next one ... |  |@
 
