@@ -460,9 +460,6 @@ Currently alive channels
 | [/r/kanye](https://www.reddit.com/r/kanye/) | [@r_kanye](https://t.me/r_kanye) | 1 hour |
 | [/r/crackwatch](https://www.reddit.com/r/crackwatch/) | [@r_crackwatch](https://t.me/r_crackwatch) | 1 hour |
 | [/r/ihadastroke](https://www.reddit.com/r/ihadastroke/) | [@r_ihadastroke](https://t.me/r_ihadastroke) | 1 hour |
-| [/r/Intel](https://www.reddit.com/r/Intel/) | [@IntelHQ](https://t.me/IntelHQ) | 1 hour |
-| [/r/Nvidia](https://www.reddit.com/r/Nvidia/) | [@Nvidiax](https://t.me/Nvidiax) | 1 hour |
-| [/r/Amd](https://www.reddit.com/r/Amd/) | [@AmdReddit](https://t.me/AmdReddit) | 1 hour |
 | [/r/Hardware](https://www.reddit.com/r/Hardware/) | [@HardwareHQ](https://t.me/HardwareHQ) | 1 hour |
 | [/r/Games](https://www.reddit.com/r/Games/) | [@GamesReddit](https://t.me/GamesReddit) | 1 hour |
 | [/r/GitHub](https://www.reddit.com/r/GitHub/) | [@GitHubReddit](https://t.me/GitHubReddit) | 1 hour |
@@ -516,6 +513,7 @@ Currently alive channels
 | [/r/vexillologycirclejerk](https://www.reddit.com/r/vexillologycirclejerk/) | [@r_vexillologycirclejerk](https://t.me/r_vexillologycirclejerk) | 1 hour |
 | [/r/Sham_Sharma_Show](https://www.reddit.com/r/Sham_Sharma_Show/) | [@shamsharma](https://t.me/shamsharma) | 1 hour |
 | [/r/bash](https://www.reddit.com/r/bash/) | [@r_bash](https://t.me/r_bash) | 1 hour |
+| [/r/nosurf](https://www.reddit.com/r/nosurf/) | [@r_nosurf](https://t.me/r_nosurf) | 1 hour |
 | [/r/thedivision](https://www.reddit.com/r/thedivision/) | [@r_thedivision](https://t.me/r_thedivision) | 1 hour |
 |  | ... be the next one ... |  |@
 
