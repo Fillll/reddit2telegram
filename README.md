@@ -460,9 +460,6 @@ Currently alive channels
 | [/r/kanye](https://www.reddit.com/r/kanye/) | [@r_kanye](https://t.me/r_kanye) | 1 hour |
 | [/r/crackwatch](https://www.reddit.com/r/crackwatch/) | [@r_crackwatch](https://t.me/r_crackwatch) | 1 hour |
 | [/r/ihadastroke](https://www.reddit.com/r/ihadastroke/) | [@r_ihadastroke](https://t.me/r_ihadastroke) | 1 hour |
-| [/r/Intel](https://www.reddit.com/r/Intel/) | [@IntelHQ](https://t.me/IntelHQ) | 1 hour |
-| [/r/Nvidia](https://www.reddit.com/r/Nvidia/) | [@Nvidiax](https://t.me/Nvidiax) | 1 hour |
-| [/r/Amd](https://www.reddit.com/r/Amd/) | [@AmdReddit](https://t.me/AmdReddit) | 1 hour |
 | [/r/Hardware](https://www.reddit.com/r/Hardware/) | [@HardwareHQ](https://t.me/HardwareHQ) | 1 hour |
 | [/r/Games](https://www.reddit.com/r/Games/) | [@GamesReddit](https://t.me/GamesReddit) | 1 hour |
 | [/r/GitHub](https://www.reddit.com/r/GitHub/) | [@GitHubReddit](https://t.me/GitHubReddit) | 1 hour |
