@@ -513,6 +513,7 @@ Currently alive channels
 | [/r/vexillologycirclejerk](https://www.reddit.com/r/vexillologycirclejerk/) | [@r_vexillologycirclejerk](https://t.me/r_vexillologycirclejerk) | 1 hour |
 | [/r/Sham_Sharma_Show](https://www.reddit.com/r/Sham_Sharma_Show/) | [@shamsharma](https://t.me/shamsharma) | 1 hour |
 | [/r/bash](https://www.reddit.com/r/bash/) | [@r_bash](https://t.me/r_bash) | 1 hour |
+| [/r/nosurf](https://www.reddit.com/r/nosurf/) | [@r_nosurf](https://t.me/r_nosurf) | 1 hour |
 |  | ... be the next one ... |  |@
 
 
