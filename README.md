@@ -32,7 +32,7 @@ ETH: `0x1987b8DFEBc3F52f91b2Af033f616c9D20Fde7ad`
 Currently alive channels
 ------------------------
 
-Complete list of active channels is available at our channel [@reddit2telegram](https://t.me/reddit2telegram).
+Complete list of all active channels (more than 500) is available at our channel [@reddit2telegram](https://t.me/reddit2telegram).
 
 ---
 ---
