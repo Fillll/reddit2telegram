@@ -13,7 +13,6 @@ _What telegram channel?_
 - [ ] Added `channels/%submodule_name%/app.py` file.
 - [ ] Added `channels/%submodule_name%/__init__.py` file.
 - [ ] Added `channels/%submodule_name%/tags.txt` file.
-- [ ] Updated `README.md`.
 - [ ] Updated `own.cron`.
 - [ ] Already have nice channel's profile pic.
 - [ ] Already have mentioned `@r_channels` and `@reddit2telegram` in the description of your channel.
