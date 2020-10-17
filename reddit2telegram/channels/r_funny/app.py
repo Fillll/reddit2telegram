@@ -22,6 +22,8 @@ def send_post(submission, r2t):
         text=False,
         # If you want gifs, just pass True or text you want under gif.
         gif=True,
+        # If you want videos, just pass True or text you want under gif.
+        video=True,
         # If you want images, just pass True or text you want under image.
         img=True,
         # If you want albums, just pass True or text you want under albums.
