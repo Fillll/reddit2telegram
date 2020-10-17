@@ -34,6 +34,16 @@ Currently alive channels
 
 Complete list of all active channels (more than 500) is available at our channel [@reddit2telegram](https://t.me/reddit2telegram).
 
+
+This is a pet-project 🐶
+------------------------
+
+Which means you really shouldn't expect much from it. I wrote it over the weekend to solve my own pain. No state-of-art kubernetes bullshit, no architecture patterns, even no tests at all. It's here just to show people what a pet-project might look like.
+
+This code has been written for fun, not for business. There is usually a big difference. Like between riding a bike on the streets and cycling in the wild for fun :)
+
+© from [infomate.club](https://github.com/vas3k/infomate.club)
+
 ---
 ---
 ---
