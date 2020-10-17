@@ -44,17 +44,14 @@ This code has been written for fun, not for business. There is usually a big dif
 
 © from [infomate.club](https://github.com/vas3k/infomate.club)
 
----
----
----
 
 
 Running it
 ----------
 
-Easiest way is to ask for new channel at [@r_channels](https://t.me/r_channels).
+Easiest way is to ask for new channel at [@r_channels](https://t.me/r_channels). Or follow the manual as stated above. :)
 
-But if you are geek enough then install mongodb, python and setup cron:
+But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
 
 ```cron
 46 * * * * ~/reddit2telegram/auto_update.sh
