@@ -12,6 +12,7 @@ import hashlib
 from datetime import datetime
 import logging
 import enum
+import subprocess
 
 from imgurpython import ImgurClient
 import yaml
@@ -19,6 +20,7 @@ import pymongo
 from pymongo.collection import ReturnDocument
 import telepot
 from telepot.exception import TelegramError
+import m3u8
 
 
 GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
@@ -362,17 +364,33 @@ class Reddit2TelegramSender(object):
         return SupplyResult.SUCCESSFULLY
 
     def send_video(self, url, text, parse_mode=None):
-        filename = self._get_file_name('ext')
-        # Download gif
+        filename = self._get_file_name('.mp4')
+
+        # Download video
         if not download_file(url, filename):
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        # Download audio
+        audio_playlist_url = url[:url.rfind('/')] + '/HLS_AUDIO_160_K.m3u8'
+        audio_playlist = m3u8.load(audio_playlist_url)
+        segment_0 = audio_playlist.segments[0]
+        audio_url = segment_0.absolute_uri
+        audio_filename = filename + '.aac'
+        if not download_file(audio_url, audio_filename):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        # Combine it audio and video
+        video_with_audio_filename = self._get_file_name('.1.mp4')
+        cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s -hide_banner -loglevel panic -y' % (filename, audio_filename, video_with_audio_filename)
+        subprocess.call(cmd, shell=True)
+
         # Telegram will not autoplay big gifs
-        if os.path.getsize(filename) > TELEGRAM_VIDEO_LIMIT:
+        if os.path.getsize(video_with_audio_filename) > TELEGRAM_VIDEO_LIMIT:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        f = open(filename, 'rb')
+        f = open(video_with_audio_filename, 'rb')
         self.telepot_bot.sendVideo(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:

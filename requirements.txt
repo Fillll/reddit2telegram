@@ -7,3 +7,4 @@ requests
 imgurpython
 raven
 croniter
+m3u8
