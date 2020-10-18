@@ -373,14 +373,18 @@ class Reddit2TelegramSender(object):
         if not download_file(url, filename):
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
-        # Download audio
-        audio_playlist_url = url[:url.rfind('/')] + '/HLS_AUDIO_160_K.m3u8'
-        audio_playlist = m3u8.load(audio_playlist_url)
-        segment_0 = audio_playlist.segments[0]
-        audio_url = segment_0.absolute_uri
-        audio_filename = filename + '.aac'
-        if not download_file(audio_url, audio_filename):
-            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        try:
+            # Download audio
+            audio_playlist_url = url[:url.rfind('/')] + '/HLS_AUDIO_160_K.m3u8'
+            audio_playlist = m3u8.load(audio_playlist_url)
+            segment_0 = audio_playlist.segments[0]
+            audio_url = segment_0.absolute_uri
+            audio_filename = filename + '.aac'
+            if not download_file(audio_url, audio_filename):
+                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        except:
+            # Looks like no audio
+            return self.send_gif(url, '.mp4', text, parse_mode=parse_mode)
 
         # Combine it audio and video
         video_with_audio_filename = self._get_file_name('.1.mp4')
