@@ -48,16 +48,20 @@ def send_post(submission, r2t):
                 }
             })
         else:
+            current_state = settings.find_one({'setting': SETTING_NAME})
+            channels = current_state['channels']
+            if channel in channels:
+                channels[channel].append(archivement)
+            else:
+                channels[channel] = [archivement]
             settings.find_one_and_update(
                 {
                     'setting': SETTING_NAME
                 },
                 {
-                    '$push': 
+                    '$set': 
                     {
-                        'channels': {
-                            channel: submodules_and_dates
-                        }
+                        'channels': channels
                     }
                 }
             )
@@ -103,31 +107,30 @@ def send_post(submission, r2t):
             total['members'] += current_members_cnt
             prev_members_cnt = get_last_members_cnt(r2t, channel_name)
             total['prev_members'] += prev_members_cnt
-
-            # If they pass something special
-            for archivement in GREAT_ARCHIVEMENTS:
-                if (prev_members_cnt < archivement) and (archivement <= current_members_cnt):
-                    # Archivement reached
-                    # print('---\n{channel}\nWas: {n1} \t\t Now: {n2}'.format(
-                    #     n1=prev_members_cnt,
-                    #     n2=current_members_cnt,
-                    #     channel=channel_name
-                    # ))
-                    setting_result = settings.find_one({'setting': SETTING_NAME})
-                    if setting_result is None:
-                        set_archivement(channel_name.lower(), archivement)
-                    elif channel_name.lower() not in setting_result['channels']:
-                        set_archivement(channel_name.lower(), archivement)
-                    elif archivement not in setting_result['channels'][channel_name.lower()]:
-                        set_archivement(channel_name.lower(), archivement)
-                    else:
-                        # Was already archived
-                        pass
         except Exception as e:
             total['errors'] += 1
             err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
             r2t.send_text(err_to_send)
             logging.error(err_to_send)
+        # If they pass something special
+        for archivement in GREAT_ARCHIVEMENTS:
+            if (prev_members_cnt < archivement) and (archivement <= current_members_cnt):
+                # Archivement reached
+                r2t.send_text('---\n{channel}\nWas: {n1} \t\t Now: {n2}'.format(
+                    n1=prev_members_cnt,
+                    n2=current_members_cnt,
+                    channel=channel_name
+                ))
+                setting_result = settings.find_one({'setting': SETTING_NAME})
+                if setting_result is None:
+                    set_archivement(channel_name.lower(), archivement)
+                elif channel_name.lower() not in setting_result['channels']:
+                    set_archivement(channel_name.lower(), archivement)
+                elif archivement not in setting_result['channels'][channel_name.lower()]:
+                    set_archivement(channel_name.lower(), archivement)
+                else:
+                    # Was already archived
+                    pass
         r2t.stats.insert_one(stat_to_store)
 
     members_diff = total['members'] - total['prev_members']
