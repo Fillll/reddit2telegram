@@ -6,16 +6,66 @@ from datetime import datetime
 import random
 import logging
 
+import pymongo
+
 from utils import SupplyResult
 from utils.get_all_admins import get_admins_list
 from utils.tech import get_dev_channel, get_all_submodules, get_last_members_cnt
+from utils.setup import get_config
 
 
 subreddit = 'all'
 t_channel = get_dev_channel()
 
 
+GREAT_ARCHIVEMENTS = [
+    100,
+    1000,
+    10000,
+    50000,
+    100000,
+    500000,
+    1000000
+]
+
+
+SETTING_NAME = 'r2t_archivements'
+
+
 def send_post(submission, r2t):
+    def say_congrats(channel, archivement):
+        r2t.send_text('Great archivement for {channel}: {number} subscribers passed.'.format(
+            channel=channel,
+            number=archivement
+        ))
+    def set_archivement(channel, archivement):
+        if settings.find_one({'setting': SETTING_NAME}) is None:
+            settings.insert_one({
+                'setting': SETTING_NAME,
+                'channels': {
+                    channel: [archivement]
+                }
+            })
+        else:
+            settings.find_one_and_update(
+                {
+                    'setting': SETTING_NAME
+                },
+                {
+                    '$push': 
+                    {
+                        'channels': {
+                            channel: submodules_and_dates
+                        }
+                    }
+                }
+            )
+        say_congrats(channel, archivement)
+    # To check previous archivements
+    config = get_config()
+    db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
+    settings = db['settings']
+    # Start logging!
     r2t.send_text('Regular bypass started.')
     time.sleep(1)
     total = {
@@ -47,10 +97,26 @@ def send_post(submission, r2t):
             logging.error(err_to_send)
         time.sleep(2)
         try:
-            members = r2t.telepot_bot.getChatMembersCount(channel_name)
-            stat_to_store['members_cnt'] = members
-            total['members'] += members
-            total['prev_members'] += get_last_members_cnt(r2t, channel_name)
+            current_members_cnt = r2t.telepot_bot.getChatMembersCount(channel_name)
+            stat_to_store['members_cnt'] = current_members_cnt
+            total['members'] += current_members_cnt
+            prev_members_cnt = get_last_members_cnt(r2t, channel_name)
+            total['prev_members'] += prev_members_cnt
+
+            # If they pass something special
+            for archivement in GREAT_ARCHIVEMENTS:
+                if (prev_members_cnt < archivement) and (archivement <= current_members_cnt):
+                    # Archivement reached
+                    setting_result = settings.find_one({'setting': SETTING_NAME})
+                    if setting_result is None:
+                        set_archivement(channel_name.lower(), archivement)
+                    elif channel_name.lower() not in setting_result['channels']:
+                        set_archivement(channel_name.lower(), archivement)
+                    elif archivement not in setting_result['channels'][channel_name.lower()]:
+                        set_archivement(channel_name.lower(), archivement)
+                    else:
+                        # Was already archived
+                        pass
         except Exception as e:
             total['errors'] += 1
             err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
