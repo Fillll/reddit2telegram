@@ -19,9 +19,13 @@ t_channel = get_dev_channel()
 
 
 GREAT_ARCHIVEMENTS = [
-    10,
+    42,
+    69,
     100,
+    666,
     1000,
+    2000,
+    5000,
     10000,
     50000,
     100000,
