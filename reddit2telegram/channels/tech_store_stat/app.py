@@ -19,14 +19,19 @@ t_channel = get_dev_channel()
 
 
 GREAT_ARCHIVEMENTS = [
+    3,
+    10,
     42,
     69,
     100,
     666,
     1000,
     2000,
+    3000,
+    4000,
     5000,
     10000,
+    15000,
     50000,
     100000,
     500000,
@@ -39,10 +44,12 @@ SETTING_NAME = 'r2t_archivements'
 
 def send_post(submission, r2t):
     def say_congrats(channel, archivement):
+        time.sleep(2)
         r2t.send_text('Great archivement for {channel}: {number} subscribers passed.'.format(
             channel=channel,
             number=archivement
         ))
+        time.sleep(1)
     def set_archivement(channel, archivement):
         if settings.find_one({'setting': SETTING_NAME}) is None:
             settings.insert_one({
