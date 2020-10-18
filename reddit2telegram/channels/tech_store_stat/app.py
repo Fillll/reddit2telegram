@@ -19,6 +19,7 @@ t_channel = get_dev_channel()
 
 
 GREAT_ARCHIVEMENTS = [
+    10,
     100,
     1000,
     10000,
@@ -107,6 +108,11 @@ def send_post(submission, r2t):
             for archivement in GREAT_ARCHIVEMENTS:
                 if (prev_members_cnt < archivement) and (archivement <= current_members_cnt):
                     # Archivement reached
+                    # print('---\n{channel}\nWas: {n1} \t\t Now: {n2}'.format(
+                    #     n1=prev_members_cnt,
+                    #     n2=current_members_cnt,
+                    #     channel=channel_name
+                    # ))
                     setting_result = settings.find_one({'setting': SETTING_NAME})
                     if setting_result is None:
                         set_archivement(channel_name.lower(), archivement)
