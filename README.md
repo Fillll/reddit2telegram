@@ -26,7 +26,7 @@ PayPal: [![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://ww
 
 BTC: `1HR9Y8v4aPG5qcQwhiwQu2qHufD6JE5w8c`
 
-ETH: `0x1987b8DFEBc3F52f91b2Af033f616c9D20Fde7ad`
+ETH: `0xCCA220392A26463e9c64FF3b3fF071fD82E6C8FC`
 
 
 Currently alive channels
