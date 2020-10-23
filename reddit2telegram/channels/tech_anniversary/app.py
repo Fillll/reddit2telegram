@@ -21,8 +21,13 @@ def send_post(submission, r2t):
             # To the @r_channels
             time.sleep(10)
             r2t.t_channel = '@r_channels'
-            text_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old.\nCongratulations! 🎁'.format(
-                channel=channel, years_cnt=years, s=plural)
+            cakes = '🎂' * years
+            text_to_send = '{cake}\n🎁 Today {channel} is {years_cnt} year{s} old.\n🎉 Congratulations! 🎈'.format(
+                channel=channel,
+                years_cnt=years,
+                s=plural,
+                cake=cakes
+            )
             r2t.send_text(text_to_send)
             # To the dev channel
             time.sleep(10)
@@ -31,23 +36,9 @@ def send_post(submission, r2t):
             # To the channels itself
             time.sleep(10)
             r2t.t_channel = channel
-            text1_to_send = '🎂🎂🎂\nToday {channel} is {years_cnt} year{s} old. '.format(
-                channel=channel, years_cnt=years, s=plural)
-            text1_to_send += 'Congratulations! 🎈🎉🎉\n\n'
+            text1_to_send = text_to_send
             list_of_channels = generate_list_of_channels(channels_list, random_permutation=True)
             text3_to_send = default_ending()
-            r2t.send_text(text1_to_send)
-            time.sleep(2)
-            text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n'
-            for l in chunker(list_of_channels, 100):
-                text2_to_send += '\n'.join(l)
-                r2t.send_text(text2_to_send)
-                text2_to_send = ''
-                time.sleep(2)
-            r2t.send_text(text3_to_send)
-            # To the dev channel again
-            time.sleep(10)
-            r2t.t_channel = get_dev_channel()
             r2t.send_text(text1_to_send)
             time.sleep(2)
             text2_to_send = 'Other @reddit2telegram channels powered by @r_channels:\n'
