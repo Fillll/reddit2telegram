@@ -12,6 +12,8 @@ from utils import SupplyResult
 from utils.tech import get_all_public_submodules
 from utils.setup import get_config
 
+from channels.reddit2telegram.nice_submission import make_nice_submission
+
 
 SETTING_NAME = 'r2t_promotion_queue'
 
@@ -98,15 +100,6 @@ def what_channel(submodule_name_to_promte):
     return submodule_to_promote.t_channel
 
 
-def get_tags(submodule_name_to_promte):
-    tags_filename = os.path.join('channels', submodule_name_to_promte, 'tags.txt')
-    if not os.path.exists(tags_filename):
-        return None
-    with open(tags_filename, 'r') as tags_file:
-        tags = tags_file.read()
-        return tags.split()
-
-
 submodule_name_to_promte = what_submodule()
 
 
@@ -130,22 +123,7 @@ def send_post(submission, r2t):
         return SupplyResult.STOP_THIS_SUPPLY
     # If weekday or Sunday then regular promotion once a day
     if (now.weekday() != 5) and ((now.hour == random_number % 24) and (now.minute == random_number % 30)):
-        tags = get_tags(submodule_name_to_promte)
-        if tags is not None:
-            if len(tags) > 0:
-                tags_string = ' '.join(tags)
-        submission.title  # to make it non-lazy
-        result = r2t.send_simple(submission,
-            channel_to_promote=what_channel(submodule_name_to_promte),
-            date=datetime.utcfromtimestamp(submission.created_utc).strftime('%Y %b %d'),
-            tags=tags_string,
-            text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
-            other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
-            album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
-            gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
-            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
-            video='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}'
-        )
+        result = make_nice_submission(r2t, submission, submodule_name_to_promte)
         if result == SupplyResult.SUCCESSFULLY:
             if now.weekday() < 5:
                 config = get_config()
