@@ -143,7 +143,8 @@ def send_post(submission, r2t):
             other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
             album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
             gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
-            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}'
+            img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}',
+            video='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}'
         )
         if result == SupplyResult.SUCCESSFULLY:
             if now.weekday() < 5:
@@ -155,7 +156,8 @@ def send_post(submission, r2t):
                         'setting': SETTING_NAME
                     },
                     {
-                        '$push': {
+                        '$push':
+                        {
                             'already_promoted': submodule_name_to_promte
                         }
                     }
