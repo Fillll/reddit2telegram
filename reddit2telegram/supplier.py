@@ -12,11 +12,7 @@ import utils
 from reporting_stuff import report_error
 
 
-@report_error
-def supply(submodule_name, config, is_test=False):
-    if not is_test:
-        time.sleep(random.randrange(0, 40))
-    submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config):
     reddit = praw.Reddit(
         user_agent=config['reddit']['user_agent'],
         client_id=config['reddit']['client_id'],
@@ -24,17 +20,14 @@ def supply(submodule_name, config, is_test=False):
         username=config['reddit']['username'],
         password=config['reddit']['password']
     )
-    submissions_ranking = getattr(submodule, 'submissions_ranking', 'hot')
-    submissions_limit = getattr(submodule, 'submissions_limit', 100)
     if submissions_ranking == 'top':
-        submissions = reddit.subreddit(submodule.subreddit).top(limit=submissions_limit)
+        submissions = reddit.subreddit(subreddit).top(limit=submissions_limit)
     elif submissions_ranking == 'hot':
-        submissions = reddit.subreddit(submodule.subreddit).hot(limit=submissions_limit)
+        submissions = reddit.subreddit(subreddit).hot(limit=submissions_limit)
     elif submissions_ranking == 'new':
-        submissions = reddit.subreddit(submodule.subreddit).new(limit=submissions_limit)
+        submissions = reddit.subreddit(subreddit).new(limit=submissions_limit)
     else:
         logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
-    channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
     r2t = utils.Reddit2TelegramSender(channel_to_post, config)
     success = False
     for submission in submissions:
@@ -43,7 +36,7 @@ def supply(submodule_name, config, is_test=False):
             continue
         if r2t.too_much_errors(link):
             continue
-        success = submodule.send_post(submission, r2t)
+        success = how_to_post(submission, r2t)
         if success == utils.SupplyResult.SUCCESSFULLY:
             # Every thing is ok, post was sent
             r2t.mark_as_was_before(link, sent=True)
@@ -60,6 +53,17 @@ def supply(submodule_name, config, is_test=False):
             break
         else:
             logging.error('Unknown SupplyResult. {}'.format(success))
+
+
+@report_error
+def supply(submodule_name, config, is_test=False):
+    if not is_test:
+        time.sleep(random.randrange(0, 40))
+    submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+    submissions_ranking = getattr(submodule, 'submissions_ranking', 'hot')
+    submissions_limit = getattr(submodule, 'submissions_limit', 100)
+    channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
+    success = send_to_channel_from_subreddit(submodule.send_post, channel_to_post, submodule.subreddit, submissions_ranking, submissions_limit, config)
     if success is False:
         logging.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))
