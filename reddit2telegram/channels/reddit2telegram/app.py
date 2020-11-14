@@ -12,8 +12,6 @@ from utils import SupplyResult
 from utils.tech import get_all_public_submodules
 from utils.setup import get_config
 
-from channels.reddit2telegram.nice_submission import make_nice_submission
-
 
 SETTING_NAME = 'r2t_promotion_queue'
 
