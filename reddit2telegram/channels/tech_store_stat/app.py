@@ -13,6 +13,9 @@ from utils import SupplyResult
 from utils.get_all_admins import get_admins_list
 from utils.tech import get_dev_channel, get_all_submodules, get_last_members_cnt
 from utils.setup import get_config
+from utils.tech import short_sleep, long_sleep
+from supplier import send_to_channel_from_subreddit
+from channels.reddit2telegram.app import make_nice_submission
 
 
 subreddit = 'all'
@@ -28,16 +31,35 @@ GREAT_ARCHIVEMENTS = [
     123,
     200,
     300,
+    420,
+    500,
+    600,
     666,
+    700,
+    800,
+    900,
     1000,
+    1111,
     1234,
     2000,
+    2222,
     3000,
+    3333,
     4000,
+    4444,
     5000,
+    5555,
+    6000,
+    7000,
+    8000,
+    9000,
     10000,
+    11111,
     12345,
     15000,
+    20000,
+    30000,
+    40000,
     50000,
     100000,
     123456,
@@ -50,16 +72,31 @@ SETTING_NAME = 'r2t_archivements'
 
 
 def send_post(submission, r2t):
-    def say_congrats(channel, archivement):
-        time.sleep(2)
+    def say_congrats(submodule_name, channel, archivement):
+        short_sleep()
         config = get_config()
         r2t_main_chat = utils.Reddit2TelegramSender('@r_channels', config)
         r2t_main_chat.send_text('🏆 Great achivement!\n💪 {channel} just passed the milestone of {number} subscribers.'.format(
             channel=channel,
             number=archivement
         ))
-        time.sleep(1)
-    def set_archivement(channel, archivement):
+        short_sleep()
+        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+        subreddit_name = submodule.subreddit
+        send_to_channel_from_subreddit(
+            how_to_post=make_nice_submission,
+            channel_to_post='@reddit2telegram',
+            subreddit=subreddit_name,
+            submissions_ranking='top',
+            submissions_limit=1000,
+            config=config,
+            extra_args_in_text=True,
+            extra_ending='🏆 Great achivement! Milestone of {number} subscribers.'.format(
+                number=archivementnumber=archivement
+            )
+        )
+        long_sleep()
+    def set_archivement(submodule_name, channel, archivement):
         if settings.find_one({'setting': SETTING_NAME}) is None:
             settings.insert_one({
                 'setting': SETTING_NAME,
@@ -85,14 +122,14 @@ def send_post(submission, r2t):
                     }
                 }
             )
-        say_congrats(channel, archivement)
+        say_congrats(submodule_name, channel, archivement)
     # To check previous archivements
     config = get_config()
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     settings = db['settings']
     # Start logging!
     r2t.send_text('Regular bypass started.')
-    time.sleep(1)
+    short_sleep()
     total = {
         'channels': 0,
         'members': 0,
@@ -120,7 +157,7 @@ def send_post(submission, r2t):
             err_to_send = 'Failed to get admins for {channel}.'.format(channel=channel_name)
             r2t.send_text(err_to_send)
             logging.error(err_to_send)
-        time.sleep(2)
+        short_sleep()
         try:
             current_members_cnt = r2t.telepot_bot.getChatMembersCount(channel_name)
             stat_to_store['members_cnt'] = current_members_cnt
@@ -138,11 +175,11 @@ def send_post(submission, r2t):
                     ))
                     setting_result = settings.find_one({'setting': SETTING_NAME})
                     if setting_result is None:
-                        set_archivement(channel_name, archivement)
+                        set_archivement(submodule_name, channel_name, archivement)
                     elif channel_name.lower() not in setting_result['channels']:
-                        set_archivement(channel_name, archivement)
+                        set_archivement(submodule_name, channel_name, archivement)
                     elif archivement not in setting_result['channels'][channel_name.lower()]:
-                        set_archivement(channel_name, archivement)
+                        set_archivement(submodule_name, channel_name, archivement)
                     else:
                         # Was already archived
                         pass

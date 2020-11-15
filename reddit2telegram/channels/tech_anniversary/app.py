@@ -1,11 +1,14 @@
 #encoding:utf-8
 
+import importlib
+
 
 from utils import SupplyResult
 from utils.tech import is_birthday_today, get_all_public_channels, get_dev_channel
-from utils.tech import generate_list_of_channels, default_ending, chunker
+from utils.tech import generate_list_of_channels, default_ending, chunker, get_all_public_submodules
 from utils.tech import short_sleep, long_sleep
-from suplier import send_to_channel_from_subreddit
+from utils.setup import get_config
+from supplier import send_to_channel_from_subreddit
 from channels.reddit2telegram.app import make_nice_submission
 
 
@@ -16,7 +19,9 @@ t_channel = get_dev_channel()
 def send_post(submission, r2t):
     channels_list = get_all_public_channels(r2t)
 
-    for channel in channels_list:
+    for submodule_name in get_all_public_submodules():
+        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+        channel = submodule.t_channel
         bd_party, years = is_birthday_today(r2t, channel)
         if bd_party and years > 0:
             plural = 's' if years != 1 else ''
@@ -51,14 +56,18 @@ def send_post(submission, r2t):
                 short_sleep()
             r2t.send_text(text3_to_send)
             long_sleep()
-            # send_to_channel_from_subreddit(
-            #     how_to_post=make_nice_submission,
-            #     channel_to_post='@reddit2telegram',
-            #     subreddit=submodule.subreddit,
-            #     submissions_ranking=submissions_ranking,
-            #     submissions_limit=submissions_limit,
-            #     config=config,
-            #     extra_args_in_text=False
-            # )
+            if channel != '@reddit2telegram':
+                config = get_config()
+                send_to_channel_from_subreddit(
+                    how_to_post=make_nice_submission,
+                    channel_to_post='@reddit2telegram',
+                    subreddit=submodule.subreddit,
+                    submissions_ranking='top',
+                    submissions_limit=1000,
+                    config=config,
+                    extra_args_in_text=True,
+                    extra_ending=text_to_send
+                )
+                long_sleep()
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
