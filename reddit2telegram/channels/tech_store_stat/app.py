@@ -87,6 +87,7 @@ def send_post(submission, r2t):
             how_to_post=make_nice_submission,
             channel_to_post='@reddit2telegram',
             subreddit=subreddit_name,
+            submodule_name_to_promte=submodule_name,
             submissions_ranking='top',
             submissions_limit=1000,
             config=config,
