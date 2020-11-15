@@ -107,7 +107,7 @@ def get_tags(submodule_name_to_promte):
         return tags.split()
 
 
-def make_nice_submission(r2t, submission, submodule_name_to_promte, extra_ending=None, **kwargs):
+def make_nice_submission(submission, r2t, submodule_name_to_promte, extra_ending=None, **kwargs):
     tags = get_tags(submodule_name_to_promte)
     if tags is not None:
         if len(tags) > 0:
@@ -120,12 +120,12 @@ def make_nice_submission(r2t, submission, submodule_name_to_promte, extra_ending
         date=datetime.utcfromtimestamp(submission.created_utc).strftime('%Y %b %d'),
         tags=tags_string,
         extra_ending=extra_ending,
-        text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n{extra_ending}',
-        other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n{extra_ending}',
-        album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n{extra_ending}',
-        gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n{extra_ending}',
-        img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n{extra_ending}',
-        video='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n{extra_ending}'
+        text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
+        other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
+        album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
+        gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
+        img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
+        video='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}'
     )
     return result
 
@@ -153,7 +153,7 @@ def send_post(submission, r2t):
         return SupplyResult.STOP_THIS_SUPPLY
     # If weekday or Sunday then regular promotion once a day
     if (now.weekday() != 5) and ((now.hour == random_number % 24) and (now.minute == random_number % 30)):
-        result = make_nice_submission(r2t, submission, submodule_name_to_promte)
+        result = make_nice_submission(submission, r2t, submodule_name_to_promte)
         if result == SupplyResult.SUCCESSFULLY:
             if now.weekday() < 5:
                 config = get_config()

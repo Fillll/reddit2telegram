@@ -1,7 +1,6 @@
 #encoding:utf-8
 
 import importlib
-import time
 from datetime import datetime
 import random
 import logging
@@ -26,6 +25,7 @@ GREAT_ARCHIVEMENTS = [
     3,
     10,
     42,
+    50,
     69,
     100,
     123,
@@ -39,31 +39,36 @@ GREAT_ARCHIVEMENTS = [
     800,
     900,
     1000,
-    1111,
     1234,
     2000,
-    2222,
     3000,
-    3333,
     4000,
-    4444,
     5000,
-    5555,
     6000,
     7000,
     8000,
     9000,
     10000,
-    11111,
     12345,
     15000,
     20000,
     30000,
     40000,
     50000,
+    60000,
+    70000,
+    80000,
+    90000,
     100000,
     123456,
+    200000,
+    300000,
+    400000,
     500000,
+    600000,
+    700000,
+    800000,
+    900000,
     1000000
 ]
 
@@ -92,7 +97,7 @@ def send_post(submission, r2t):
             submissions_limit=1000,
             config=config,
             extra_args_in_text=True,
-            extra_ending='🏆 Great achivement! Milestone of {number} subscribers.'.format(
+            extra_ending='🏆 Great achivement!\n💪 Milestone of {number} subscribers.'.format(
                 number=archivement
             )
         )
@@ -140,7 +145,7 @@ def send_post(submission, r2t):
     }
     all_submodules = get_all_submodules()
     for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
-        time.sleep(2)
+        short_sleep()
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         channel_name = submodule.t_channel
         stat_to_store = {
