@@ -12,7 +12,7 @@ import utils
 from reporting_stuff import report_error
 
 
-def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config):
+def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
     reddit = praw.Reddit(
         user_agent=config['reddit']['user_agent'],
         client_id=config['reddit']['client_id'],
@@ -36,7 +36,10 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
             continue
         if r2t.too_much_errors(link):
             continue
-        success = how_to_post(submission, r2t)
+        if kwargs.get('extra_args_in_text', False):
+            success = how_to_post(submission, r2t, **kwargs)
+        else:
+            success = how_to_post(submission, r2t)
         if success == utils.SupplyResult.SUCCESSFULLY:
             # Every thing is ok, post was sent
             r2t.mark_as_was_before(link, sent=True)
@@ -63,7 +66,14 @@ def supply(submodule_name, config, is_test=False):
     submissions_ranking = getattr(submodule, 'submissions_ranking', 'hot')
     submissions_limit = getattr(submodule, 'submissions_limit', 100)
     channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
-    success = send_to_channel_from_subreddit(submodule.send_post, channel_to_post, submodule.subreddit, submissions_ranking, submissions_limit, config)
+    success = send_to_channel_from_subreddit(how_to_post=submodule.send_post,
+        channel_to_post=channel_to_post,
+        subreddit=submodule.subreddit,
+        submissions_ranking=submissions_ranking,
+        submissions_limit=submissions_limit,
+        config=config,
+        extra_args_in_text=False
+    )
     if success is False:
         logging.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))

@@ -5,7 +5,6 @@ import requests
 from requests.exceptions import InvalidSchema, MissingSchema
 import os
 import imghdr
-import time
 import random
 import re
 import hashlib
@@ -22,6 +21,8 @@ import telepot
 from telepot.exception import TelegramError
 import m3u8
 
+from utils.tech import short_sleep
+
 
 GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
 
@@ -32,7 +33,7 @@ TELEGRAM_VIDEO_LIMIT = 50 * 1024 * 1024
 TELEGRAM_CAPTION_LIMIT = 1024
 
 
-ALBUM_LIMIT = 20
+ALBUM_LIMIT = 10
 
 
 TYPE_IMG = 'img'
@@ -245,7 +246,7 @@ class Reddit2TelegramSender(object):
             t_channel = '@r_channels_test'
         self.t_channel = t_channel
         self._make_mongo_connections()
-        time.sleep(2)
+        short_sleep()
 
     def _make_mongo_connections(self):
         self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']
@@ -362,7 +363,7 @@ class Reddit2TelegramSender(object):
         self.telepot_bot.sendDocument(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
-            time.sleep(2)
+            short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return SupplyResult.SUCCESSFULLY
 
@@ -401,7 +402,7 @@ class Reddit2TelegramSender(object):
         self.telepot_bot.sendVideo(self.t_channel, f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
-            time.sleep(2)
+            short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return SupplyResult.SUCCESSFULLY
 
@@ -453,7 +454,7 @@ class Reddit2TelegramSender(object):
                                                 disable_web_page_preview=disable_web_page_preview,
                                                 parse_mode=parse_mode)
                 next_text = ' '.join(list_of_words)
-            time.sleep(2)
+            short_sleep()
         return SupplyResult.SUCCESSFULLY
 
     def send_album(self, story):
@@ -474,7 +475,7 @@ class Reddit2TelegramSender(object):
             if num >= ALBUM_LIMIT:
                 self.send_text('...')
                 return SupplyResult.SUCCESSFULLY
-            time.sleep(2)
+            short_sleep()
         return SupplyResult.SUCCESSFULLY
 
     def send_simple(self, submission, **kwargs):

@@ -6,6 +6,7 @@ import yaml
 import datetime
 import random
 import os
+import time
 
 import pymongo
 
@@ -149,3 +150,11 @@ def get_all_tags(config_filename=None):
 def chunker(seq, size):
     # https://stackoverflow.com/questions/434287/what-is-the-most-pythonic-way-to-iterate-over-a-list-in-chunks
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
+
+
+def short_sleep():
+    time.sleep(random.randrange(2, 4))
+
+
+def long_sleep():
+    time.sleep(random.randrange(8, 16))
