@@ -92,7 +92,7 @@ def send_post(submission, r2t):
             config=config,
             extra_args_in_text=True,
             extra_ending='🏆 Great achivement! Milestone of {number} subscribers.'.format(
-                number=archivementnumber=archivement
+                number=archivement
             )
         )
         long_sleep()
