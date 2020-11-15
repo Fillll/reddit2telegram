@@ -107,7 +107,7 @@ def get_tags(submodule_name_to_promte):
         return tags.split()
 
 
-def make_nice_submission(r2t, submission, submodule_name_to_promte, extra_ending=None):
+def make_nice_submission(r2t, submission, submodule_name_to_promte, extra_ending=None, **kwargs):
     tags = get_tags(submodule_name_to_promte)
     if tags is not None:
         if len(tags) > 0:
