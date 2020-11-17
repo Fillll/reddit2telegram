@@ -109,6 +109,7 @@ def get_tags(submodule_name_to_promte):
 
 def make_nice_submission(submission, r2t, submodule_name_to_promte, extra_ending=None, **kwargs):
     tags = get_tags(submodule_name_to_promte)
+    tags_string = ''
     if tags is not None:
         if len(tags) > 0:
             tags_string = ' '.join(tags)
