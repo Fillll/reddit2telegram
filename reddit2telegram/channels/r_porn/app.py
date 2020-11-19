@@ -219,5 +219,6 @@ def send_post(submission, r2t):
         other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
         album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
         gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
-        img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}'
+        img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}',
+        video='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{short_link}\n{channel}'
     )
