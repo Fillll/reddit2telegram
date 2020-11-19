@@ -36,7 +36,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
             continue
         if r2t.too_much_errors(link):
             continue
-        if kwargs.get('extra_args_in_text', False):
+        if kwargs.get('extra_args', False):
             success = how_to_post(submission, r2t, **kwargs)
         else:
             success = how_to_post(submission, r2t)
@@ -72,7 +72,7 @@ def supply(submodule_name, config, is_test=False):
         submissions_ranking=submissions_ranking,
         submissions_limit=submissions_limit,
         config=config,
-        extra_args_in_text=False
+        extra_args=False
     )
     if success is False:
         logging.info('Nothing to post from {sub} to {channel}.'.format(

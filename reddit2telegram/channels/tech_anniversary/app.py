@@ -66,7 +66,7 @@ def send_post(submission, r2t):
                     submissions_ranking='top',
                     submissions_limit=1000,
                     config=config,
-                    extra_args_in_text=True,
+                    extra_args=True,
                     extra_ending=text_to_send
                 )
                 long_sleep()
