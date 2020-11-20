@@ -31,6 +31,7 @@ GREAT_ARCHIVEMENTS = [
     123,
     200,
     300,
+    333,
     420,
     500,
     600,
@@ -170,6 +171,12 @@ def send_post(submission, r2t):
             total['members'] += current_members_cnt
             prev_members_cnt = get_last_members_cnt(r2t, channel_name)
             total['prev_members'] += prev_members_cnt
+        except Exception as e:
+            total['errors'] += 1
+            err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
+            r2t.send_text(err_to_send)
+            logging.error(err_to_send)
+        else:
             # If they pass something special
             for archivement in GREAT_ARCHIVEMENTS:
                 if (prev_members_cnt < archivement) and (archivement <= current_members_cnt):
@@ -188,12 +195,7 @@ def send_post(submission, r2t):
                         set_archivement(submodule_name, channel_name, archivement)
                     else:
                         # Was already archived
-                        pass
-        except Exception as e:
-            total['errors'] += 1
-            err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
-            r2t.send_text(err_to_send)
-            logging.error(err_to_send)
+                        long_sleep()
         
         r2t.stats.insert_one(stat_to_store)
 
