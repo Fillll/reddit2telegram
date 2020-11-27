@@ -81,12 +81,6 @@ def send_post(submission, r2t):
     def say_congrats(submodule_name, channel, archivement):
         short_sleep()
         config = get_config()
-        r2t_main_chat = utils.Reddit2TelegramSender('@r_channels', config)
-        r2t_main_chat.send_text('🏆 Great achivement!\n💪 {channel} just passed the milestone of {number} subscribers.'.format(
-            channel=channel,
-            number=archivement
-        ))
-        short_sleep()
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         subreddit_name = submodule.subreddit
         send_to_channel_from_subreddit(
