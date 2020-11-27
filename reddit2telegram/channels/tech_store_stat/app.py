@@ -166,7 +166,7 @@ def send_post(submission, r2t):
             logging.error(err_to_send)
         short_sleep()
         try:
-            current_members_cnt = r2t.telepot_bot.getChatMembersCount(channel_name)
+            current_members_cnt = r2t.telegram_bot.get_chat_members_count(chat_id=channel_name)
             stat_to_store['members_cnt'] = current_members_cnt
             total['members'] += current_members_cnt
             prev_members_cnt = get_last_members_cnt(r2t, channel_name)

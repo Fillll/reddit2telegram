@@ -17,8 +17,8 @@ from imgurpython import ImgurClient
 import yaml
 import pymongo
 from pymongo.collection import ReturnDocument
-import telepot
-from telepot.exception import TelegramError
+import telegram
+from telegram.error import TelegramError
 import m3u8
 
 from utils.tech import short_sleep
@@ -241,7 +241,7 @@ class Reddit2TelegramSender(object):
             with open('configs/prod.yml') as f:
                 config = yaml.load(f.read())
         self.config = config
-        self.telepot_bot = telepot.Bot(self.config['telegram']['token'])
+        self.telegram_bot = telegram.Bot(self.config['telegram']['token'])
         if t_channel is None:
             t_channel = '@r_channels_test'
         self.t_channel = t_channel
@@ -360,7 +360,7 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         f = open(filename, 'rb')
-        self.telepot_bot.sendDocument(self.t_channel, f, caption=text, parse_mode=parse_mode)
+        self.telegram_bot.send_document(chat_id=self.t_channel, document=f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             short_sleep()
@@ -399,7 +399,7 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         f = open(video_with_audio_filename, 'rb')
-        self.telepot_bot.sendVideo(self.t_channel, f, caption=text, parse_mode=parse_mode)
+        self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode)
         f.close()
         if len(next_text) > 1:
             short_sleep()
@@ -422,7 +422,7 @@ class Reddit2TelegramSender(object):
             if not download_file(url, filename):
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
             f = open(filename, 'rb')
-            self.telepot_bot.sendPhoto(self.t_channel, f, caption=text, parse_mode=parse_mode)
+            self.telegram_bot.send_photo(chat_id=self.t_channel, photo=f, caption=text, parse_mode=parse_mode)
             f.close()
             return SupplyResult.SUCCESSFULLY
         except TelegramError as e:
@@ -432,7 +432,8 @@ class Reddit2TelegramSender(object):
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
-            self.telepot_bot.sendMessage(self.t_channel, text,
+            self.telegram_bot.send_message(chat_id=self.t_channel,
+                                            text=text,
                                             disable_web_page_preview=disable_web_page_preview,
                                             parse_mode=parse_mode)
             return SupplyResult.SUCCESSFULLY
@@ -442,7 +443,8 @@ class Reddit2TelegramSender(object):
             list_of_words = next_text.split(' ')
             if len(list_of_words[0]) > 4096:
                 new_text, next_text = self._split_4096(next_text)
-                self.telepot_bot.sendMessage(self.t_channel, new_text,
+                self.telegram_bot.send_message(chat_id=self.t_channel,
+                                                text=new_text,
                                                 disable_web_page_preview=disable_web_page_preview,
                                                 parse_mode=parse_mode)
             elif len(list_of_words[0]) <= 4096:
@@ -450,7 +452,8 @@ class Reddit2TelegramSender(object):
                 words_to_send = list()
                 while (len(list_of_words) > 0) and (sum([len(x) for x in words_to_send]) + len(words_to_send) + len(list_of_words[0]) <= 4096):
                     words_to_send.append(list_of_words.pop(0))
-                self.telepot_bot.sendMessage(self.t_channel, ' '.join(words_to_send),
+                self.telegram_bot.send_message(chat_id=self.t_channel,
+                                                text=' '.join(words_to_send),
                                                 disable_web_page_preview=disable_web_page_preview,
                                                 parse_mode=parse_mode)
                 next_text = ' '.join(list_of_words)

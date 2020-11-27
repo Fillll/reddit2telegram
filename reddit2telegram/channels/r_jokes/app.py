@@ -38,8 +38,8 @@ def send_post(submission, r2t):
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
     # To read more about sending massages to telegram please
-    # visit https://github.com/nickoala/telepot/tree/master/examples/simple
-    # with simple examples, or visit doc page: http://telepot.readthedocs.io/.
+    # visit https://github.com/python-telegram-bot/python-telegram-bot/tree/master/examples
+    # with simple examples, or visit doc https://python-telegram-bot.readthedocs.io.
 
     # Return True, if this submission is suitable for sending and was sent,
     # if not – return False.

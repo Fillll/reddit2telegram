@@ -27,7 +27,7 @@ def get_names(admins):
 
 
 def get_admins_list(r2t, channel_name):
-    return get_names(r2t.telepot_bot.getChatAdministrators(channel_name))
+    return get_names(r2t.telegram_bot.get_chat_administrators(chat_id=channel_name))
 
 
 def read_cron_and_get_admins(own_cron_filename, output_filename, config):

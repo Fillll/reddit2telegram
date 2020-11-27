@@ -37,7 +37,7 @@ def send_post(submission, r2t):
             'last_update': 0
         })
 
-    updates = r2t.telepot_bot.getUpdates(offset=last_update_doc['last_update'])
+    updates = r2t.telegram_bot.get_updates(offset=last_update_doc['last_update'])
 
     last_update = 0
     for update in updates:
@@ -57,7 +57,7 @@ def send_post(submission, r2t):
             continue
 
         message_id = update['message']['message_id']
-        r2t.telepot_bot.forwardMessage(chat_id=get_dev_channel(), from_chat_id=user_id, message_id=message_id)
+        r2t.telegram_bot.forward_message(chat_id=get_dev_channel(), from_chat_id=user_id, message_id=message_id)
 
     settings.find_one_and_update(
         {
