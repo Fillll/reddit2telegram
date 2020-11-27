@@ -50,7 +50,7 @@ def read_cron_and_get_admins(own_cron_filename, output_filename, config):
 
 def main(config_filename, output_filename):
     with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
+        config = yaml.safe_load(config_file.read())
         read_cron_and_get_admins('own.cron', output_filename, config)
 
 

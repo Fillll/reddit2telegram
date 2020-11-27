@@ -20,7 +20,7 @@ SETTING_NAME = 1
 def send_post(submission, r2t):
     config_filename = 'configs/prod.yml'
     with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
+        config = yaml.safe_load(config_file.read())
     settings = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]['settings']
     settings.ensure_index([('setting', pymongo.ASCENDING)])
 

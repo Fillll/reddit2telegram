@@ -11,7 +11,7 @@ def get_config(config_filename=None):
     if config_filename is None:
         config_filename = os.path.join('configs', 'prod.yml')
     with open(config_filename) as config_file:
-        return yaml.load(config_file.read())
+        return yaml.safe_load(config_file.read())
 
 
 def create_view_with_first_dates(config_filename=None):

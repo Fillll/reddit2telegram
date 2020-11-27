@@ -15,7 +15,7 @@ def get_dev_channel(config_filename=None):
     if config_filename is None:
         config_filename = os.path.join('configs', 'prod.yml')
     with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
+        config = yaml.safe_load(config_file.read())
         return config['telegram']['dev_chat']
 
 
@@ -23,7 +23,7 @@ def get_all_submodules(config_filename=None):
     if config_filename is None:
         config_filename = os.path.join('configs', 'prod.yml')
     with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
+        config = yaml.safe_load(config_file.read())
         all_submodules = set()
         with open(config['cron_file']) as tsv_file:
             tsv_reader = csv.DictReader(tsv_file, delimiter='\t')

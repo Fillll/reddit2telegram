@@ -124,7 +124,7 @@ def get_url(submission, mp4_instead_gif=True):
 
     if urlparse(url).netloc == 'imgur.com':
         # Imgur
-        imgur_config = yaml.load(open(os.path.join('configs', 'imgur.yml')).read())
+        imgur_config = yaml.safe_load(open(os.path.join('configs', 'imgur.yml')).read())
         imgur_client = ImgurClient(imgur_config['client_id'], imgur_config['client_secret'])
         path_parts = urlparse(url).path.split('/')
         if path_parts[1] == 'gallery':
@@ -239,7 +239,7 @@ class Reddit2TelegramSender(object):
         super(Reddit2TelegramSender, self).__init__()
         if config is None:
             with open('configs/prod.yml') as f:
-                config = yaml.load(f.read())
+                config = yaml.safe_load(f.read())
         self.config = config
         self.telegram_bot = telegram.Bot(self.config['telegram']['token'])
         if t_channel is None:
