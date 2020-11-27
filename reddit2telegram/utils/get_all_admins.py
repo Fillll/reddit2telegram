@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 def get_names(admins):
     admins_names = list()
     for admin in admins:
-        user = admin['user']
+        admin_dict = admin.to_dict()
+        user = admin_dict['user']
         if 'username' in user:
             username = user['username']
             if username != 'reddit2telegram_bot':
