@@ -81,7 +81,7 @@ def supply(submodule_name, config, is_test=False):
 
 def main(config_filename, sub, is_test=False):
     with open(config_filename) as config_file:
-        config = yaml.load(config_file.read())
+        config = yaml.safe_load(config_file.read())
         supply(sub, config, is_test)
 
 

@@ -12,7 +12,7 @@ import utils
 
 
 with open(os.path.join('configs', 'prod.yml')) as config_file:
-    config = yaml.load(config_file.read())
+    config = yaml.safe_load(config_file.read())
 
 
 if 'sentry' in config:
