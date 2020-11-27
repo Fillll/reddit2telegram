@@ -6,7 +6,7 @@ from utils import weighted_random_subreddit
 subreddit = weighted_random_subreddit({
     'theofficememes': 1.0,
 })
-t_channel = '@r_theofficememes
+t_channel = '@r_theofficememes'
 
 
 def send_post(submission, r2t):
