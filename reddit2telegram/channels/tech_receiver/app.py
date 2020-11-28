@@ -1,13 +1,10 @@
 #encoding:utf-8
 
-from pprint import pprint
-import time
-
 import pymongo
 import yaml
 
 from utils import SupplyResult
-from utils.tech import get_dev_channel
+from utils.tech import get_dev_channel, short_sleep
 
 
 subreddit = 'all'
@@ -41,10 +38,9 @@ def send_post(submission, r2t):
 
     last_update = 0
     for update in updates:
-        # pprint(update)
-        time.sleep(2)
+        update = update.to_dict()
+        short_sleep()
         last_update = update['update_id']
-
         if 'message' not in update:
             continue
         if 'chat' not in update['message']:
