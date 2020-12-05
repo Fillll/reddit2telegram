@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'IndianMeyMeys+IndianDankMemes+desimemes'
+subreddit = 'IndianMeyMeys+IndianDankMemes+desimemes+TheRawKnee'
 t_channel = '@r_indianmemes'
 
 
