@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'selfie'
+subreddit = 'selfie+DemEyesDoe'
 t_channel = '@rselfie'
 
 
