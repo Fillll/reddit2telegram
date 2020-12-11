@@ -609,16 +609,20 @@ class Reddit2TelegramSender(object):
                 text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
                     text = what_to_do
+                d_w_p_p = kwargs.get('disable_web_page_preview', False)
                 try:
-                    text = text.replace('{short_link}', '[{short_link}]({short_link})').replace('{channel}', '[{channel}]({channel})')
-                    text = text.format(**formatters)
-                    d_w_p_p = kwargs.get('disable_web_page_preview', False)
-                    return self.send_text(text=text,
+                    text_markdown = text.replace('{short_link}', '[{short_link}]({short_link})').replace('{channel}', '[{channel}]({channel})')
+                    text_markdown = text_markdown.format(**formatters)
+                    return self.send_text(text=text_markdown,
                                         disable_web_page_preview=d_w_p_p,
                                         parse_mode=ParseMode.MARKDOWN)
-                except Exception as e:
-                    logging.error('Markdown fail in {channel}.'.format(formatters['channel']))
-                    raise e
+                except BadRequest as e:
+                    logging.error('Markdown fail in {channel}. Link: {link}. Sending as plain text.'.format(
+                            channel=self.t_channel,
+                            link=submission.shortlink))
+                    text = text.format(**formatters)
+                    return self.send_text(text=text,
+                                        disable_web_page_preview=d_w_p_p)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         # Video submission
