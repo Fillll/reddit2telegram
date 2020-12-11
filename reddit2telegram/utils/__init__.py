@@ -18,7 +18,8 @@ import yaml
 import pymongo
 from pymongo.collection import ReturnDocument
 import telegram
-from telegram.error import TelegramError
+from telegram.error import TelegramError, BadRequest
+from telegram import ParseMode
 import m3u8
 
 from utils.tech import short_sleep
@@ -598,6 +599,8 @@ class Reddit2TelegramSender(object):
                 self.send_text(text)
                 return self.send_album(url)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        # Text submission
         elif what == TYPE_TEXT:
             what_to_do = kwargs.get('text', True)
             if what_to_do:
@@ -606,10 +609,19 @@ class Reddit2TelegramSender(object):
                 text = '{title}\n\n{self_text}\n\n{short_link}\n{channel}'
                 if isinstance(what_to_do, str):
                     text = what_to_do
-                text = text.format(**formatters)
-                d_w_p_p = kwargs.get('disable_web_page_preview', False)
-                return self.send_text(text, disable_web_page_preview=d_w_p_p)
+                try:
+                    text = text.replace('{short_link}', '[{short_link}]({short_link})').replace('{channel}', '[{channel}]({channel})')
+                    text = text.format(**formatters)
+                    d_w_p_p = kwargs.get('disable_web_page_preview', False)
+                    return self.send_text(text=text,
+                                        disable_web_page_preview=d_w_p_p,
+                                        parse_mode=ParseMode.MARKDOWN)
+                except Exception as e:
+                    logging.error('Markdown fail in {channel}.'.format(formatters['channel']))
+                    raise e
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        # Video submission
         elif what == TYPE_VIDEO:
             what_to_do = kwargs.get('video', True)
             if what_to_do:
