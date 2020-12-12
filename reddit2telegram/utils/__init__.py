@@ -617,9 +617,10 @@ class Reddit2TelegramSender(object):
                                         disable_web_page_preview=d_w_p_p,
                                         parse_mode=ParseMode.MARKDOWN)
                 except BadRequest as e:
-                    logging.error('Markdown fail in {channel}. Link: {link}. Sending as plain text.'.format(
+                    logging.error('Markdown fail in {channel}. Link: {link}. Sending as plain text.\n\n{exception}'.format(
                             channel=self.t_channel,
-                            link=submission.shortlink))
+                            link=submission.shortlink,
+                            exception=str(e)))
                     text = text.format(**formatters)
                     return self.send_text(text=text,
                                         disable_web_page_preview=d_w_p_p)
