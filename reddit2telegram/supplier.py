@@ -63,7 +63,11 @@ def supply(submodule_name, config, is_test=False):
     if not is_test:
         time.sleep(random.randrange(0, 40))
     submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
-    submissions_ranking = getattr(submodule, 'submissions_ranking', 'hot')
+    submissions_ranking_stated = getattr(submodule, 'submissions_ranking', None)
+    if submissions_ranking_stated not in ['hot', 'new', 'top']:
+        submissions_ranking = 'hot'
+    else:
+        submissions_ranking = submissions_ranking_stated
     submissions_limit = getattr(submodule, 'submissions_limit', 100)
     channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
     success = send_to_channel_from_subreddit(how_to_post=submodule.send_post,
@@ -77,6 +81,24 @@ def supply(submodule_name, config, is_test=False):
     if success is False:
         logging.info('Nothing to post from {sub} to {channel}.'.format(
                     sub=submodule.subreddit, channel=submodule.t_channel))
+        if submissions_ranking_stated is None:
+            success = send_to_channel_from_subreddit(how_to_post=submodule.send_post,
+                channel_to_post=channel_to_post,
+                subreddit=submodule.subreddit,
+                submissions_ranking='new',
+                submissions_limit=submissions_limit,
+                config=config,
+                extra_args=False
+            )
+            if success is False:
+                success = send_to_channel_from_subreddit(how_to_post=submodule.send_post,
+                    channel_to_post=channel_to_post,
+                    subreddit=submodule.subreddit,
+                    submissions_ranking='top',
+                    submissions_limit=submissions_limit,
+                    config=config,
+                    extra_args=False
+                )
 
 
 def main(config_filename, sub, is_test=False):
