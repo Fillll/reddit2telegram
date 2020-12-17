@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'cyberpunkgame'
+subreddit = 'cyberpunkgame+LowSodiumCyberpunk'
 t_channel = '@r_cyberpunk2077'
 
 
