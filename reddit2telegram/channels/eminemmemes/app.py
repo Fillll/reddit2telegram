@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'EminemMemes+BadMeetsEvil+D12_+HailieJade'
+subreddit = 'EminemMemes+BadMeetsEvil+D12_+HailieJade+eminem_2'
 t_channel = '@EminemMemes'
 
 
