@@ -22,7 +22,7 @@ from telegram.error import TelegramError, BadRequest
 from telegram import ParseMode
 import m3u8
 
-from utils.tech import short_sleep
+from utils.tech import short_sleep, long_sleep
 
 
 GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
@@ -201,6 +201,27 @@ def download_file(url, filename):
                 if chunk_counter > TELEGRAM_VIDEO_LIMIT / chunk_size:
                     return False
     return True
+
+
+def clean_after_module(submodule_name=None):
+    total_size = 0
+    for filename in os.listdir(TEMP_FOLDER):
+        if filename == 'empty.md':
+            continue
+        if submodule_name is not None:
+            # Clean after specific
+            if filename.startswith(submodule_name):
+                long_sleep(2)
+                file_path = os.path.join(TEMP_FOLDER, filename)
+                total_size += os.path.getsize(file_path)
+                os.remove(file_path)
+        else:
+            # Clean after all
+            short_sleep(0.5)
+            file_path = os.path.join(TEMP_FOLDER, filename)
+            total_size += os.path.getsize(file_path)
+            os.remove(file_path)
+    return total_size
 
 
 def md5_sum_from_url(url):

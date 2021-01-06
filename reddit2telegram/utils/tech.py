@@ -152,9 +152,9 @@ def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
 
-def short_sleep():
-    time.sleep(random.randrange(2, 4))
+def short_sleep(coef=1):
+    time.sleep(random.uniform(2 * coef, 4 * coef))
 
 
-def long_sleep():
-    time.sleep(random.randrange(8, 16))
+def long_sleep(coef=1):
+    time.sleep(random.uniform(8 * coef, 20 * coef))

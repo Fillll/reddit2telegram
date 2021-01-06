@@ -99,6 +99,7 @@ def supply(submodule_name, config, is_test=False):
                     config=config,
                     extra_args=False
                 )
+    utils.clean_after_module(submodule_name)
 
 
 def main(config_filename, sub, is_test=False):
