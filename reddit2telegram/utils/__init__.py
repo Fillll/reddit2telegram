@@ -211,7 +211,6 @@ def clean_after_module(submodule_name=None):
         if submodule_name is not None:
             # Clean after specific
             if filename.startswith(submodule_name):
-                long_sleep(2)
                 file_path = os.path.join(TEMP_FOLDER, filename)
                 try:
                     deleted_file_size = os.path.getsize(file_path)
@@ -228,7 +227,6 @@ def clean_after_module(submodule_name=None):
                 total_size += deleted_file_size
             except FileNotFoundError as e:
                 pass
-            short_sleep(0.5)
     return total_size
 
 
