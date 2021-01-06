@@ -1,5 +1,3 @@
-import os
-
 from utils import SupplyResult, clean_after_module
 from utils.tech import get_dev_channel
 
