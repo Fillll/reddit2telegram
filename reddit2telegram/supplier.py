@@ -99,7 +99,7 @@ def supply(submodule_name, config, is_test=False):
                     config=config,
                     extra_args=False
                 )
-    utils.clean_after_module(submodule_name)
+    utils.clean_after_module(channel_to_post)
 
 
 def main(config_filename, sub, is_test=False):
