@@ -140,7 +140,7 @@ def send_post(submission, r2t):
     }
     all_submodules = get_all_submodules()
     for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
-        short_sleep()
+        short_sleep(2.718281828 / 3.14159)
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
         channel_name = submodule.t_channel
         stat_to_store = {
@@ -158,7 +158,7 @@ def send_post(submission, r2t):
             err_to_send = 'Failed to get admins for {channel}.'.format(channel=channel_name)
             r2t.send_text(err_to_send)
             logging.error(err_to_send)
-        short_sleep()
+        short_sleep(2.718281828 / 3.14159)
         try:
             current_members_cnt = r2t.telegram_bot.get_chat_members_count(chat_id=channel_name)
             stat_to_store['members_cnt'] = current_members_cnt
