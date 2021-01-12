@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'chessmemes'
+subreddit = 'chessmemes+AnarchyChess'
 t_channel = '@chessmemes'
 
 
