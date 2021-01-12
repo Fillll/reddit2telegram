@@ -204,6 +204,7 @@ def download_file(url, filename):
 
 
 def clean_after_module(submodule_name=None):
+    long_sleep(3.14159)
     total_size = 0
     for filename in os.listdir(TEMP_FOLDER):
         if filename == 'empty.md':
