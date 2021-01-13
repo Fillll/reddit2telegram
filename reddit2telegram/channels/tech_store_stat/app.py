@@ -21,7 +21,7 @@ subreddit = 'all'
 t_channel = get_dev_channel()
 
 
-GREAT_ARCHIVEMENTS = [
+GREAT_ACHIEVEMENTS = [
     3,
     10,
     42,
@@ -74,11 +74,11 @@ GREAT_ARCHIVEMENTS = [
 ]
 
 
-SETTING_NAME = 'r2t_archivements'
+SETTING_NAME = 'r2t_achievements'
 
 
 def send_post(submission, r2t):
-    def say_congrats(submodule_name, channel, archivement):
+    def say_congrats(submodule_name, channel, achievement):
         short_sleep()
         config = get_config()
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
@@ -92,26 +92,26 @@ def send_post(submission, r2t):
             submissions_limit=1000,
             config=config,
             extra_args=True,
-            extra_ending='🏆 Great achivement!\n💪 Milestone of {number} subscribers.'.format(
-                number=archivement
+            extra_ending='🏆 Great achievement!\n💪 Milestone of {number} subscribers.'.format(
+                number=achievement
             )
         )
         long_sleep()
-    def set_archivement(submodule_name, channel, archivement):
+    def set_achievement(submodule_name, channel, achievement):
         if settings.find_one({'setting': SETTING_NAME}) is None:
             settings.insert_one({
                 'setting': SETTING_NAME,
                 'channels': {
-                    channel.lower(): [archivement]
+                    channel.lower(): [achievement]
                 }
             })
         else:
             current_state = settings.find_one({'setting': SETTING_NAME})
             channels = current_state['channels']
             if channel.lower() in channels:
-                channels[channel.lower()].append(archivement)
+                channels[channel.lower()].append(achievement)
             else:
-                channels[channel.lower()] = [archivement]
+                channels[channel.lower()] = [achievement]
             settings.find_one_and_update(
                 {
                     'setting': SETTING_NAME
@@ -123,8 +123,8 @@ def send_post(submission, r2t):
                     }
                 }
             )
-        say_congrats(submodule_name, channel, archivement)
-    # To check previous archivements
+        say_congrats(submodule_name, channel, achievement)
+    # To check previous achievements
     config = get_config()
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     settings = db['settings']
@@ -172,9 +172,9 @@ def send_post(submission, r2t):
             logging.error(err_to_send)
         else:
             # If they pass something special
-            for archivement in GREAT_ARCHIVEMENTS:
-                if (prev_members_cnt < archivement) and (archivement <= current_members_cnt):
-                    # Archivement reached
+            for achievement in GREAT_ACHIEVEMENTS:
+                if (prev_members_cnt < achievement) and (achievement <= current_members_cnt):
+                    # Achievement reached
                     r2t.send_text('🏆 {channel}\n{n1} ➡️ {n2}'.format(
                         n1=prev_members_cnt,
                         n2=current_members_cnt,
@@ -182,11 +182,11 @@ def send_post(submission, r2t):
                     ))
                     setting_result = settings.find_one({'setting': SETTING_NAME})
                     if setting_result is None:
-                        set_archivement(submodule_name, channel_name, archivement)
+                        set_achievement(submodule_name, channel_name, achievement)
                     elif channel_name.lower() not in setting_result['channels']:
-                        set_archivement(submodule_name, channel_name, archivement)
-                    elif archivement not in setting_result['channels'][channel_name.lower()]:
-                        set_archivement(submodule_name, channel_name, archivement)
+                        set_achievement(submodule_name, channel_name, achievement)
+                    elif achievement not in setting_result['channels'][channel_name.lower()]:
+                        set_achievement(submodule_name, channel_name, achievement)
                     else:
                         # Was already archived
                         long_sleep()
