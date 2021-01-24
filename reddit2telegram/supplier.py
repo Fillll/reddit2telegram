@@ -2,14 +2,13 @@
 
 import importlib
 import logging
-import random
-import time
 
 import yaml
 import praw
 
 import utils
 from reporting_stuff import report_error
+from utils.tech import long_sleep
 
 
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
@@ -61,7 +60,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
 @report_error
 def supply(submodule_name, config, is_test=False):
     if not is_test:
-        time.sleep(random.randrange(0, 40))
+        long_sleep(2)
     submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
     submissions_ranking_stated = getattr(submodule, 'submissions_ranking', None)
     if submissions_ranking_stated not in ['hot', 'new', 'top']:
