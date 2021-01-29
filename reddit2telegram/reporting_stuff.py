@@ -25,19 +25,29 @@ else:
 
 
 def send_report_to_dev_chat(exc):
+    link = None
     r2t = utils.Reddit2TelegramSender(config['telegram']['dev_chat'], config)
-    local_vars = sys.exc_info()[2].tb_next.tb_frame.f_locals
-    submodule = local_vars['submodule_name']
-    channel = local_vars['submodule'].t_channel
-    title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
-    if 'submission' in local_vars:
-        link = local_vars['submission'].shortlink
+    frame = sys.exc_info()[2]
+    frame = frame.tb_next
+    while frame:
+        local_vars = frame.tb_frame.f_locals
+        if 'submodule_name' in local_vars:
+            submodule = local_vars['submodule_name']
+        if 'submodule' in local_vars:
+            channel = local_vars['submodule'].t_channel
+            channel = local_vars['submodule'].t_channel
+            title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
+        if 'submission' in local_vars:
+            link = local_vars['submission'].shortlink
+        frame = frame.tb_next
+    # print('local vars:', local_vars)
+    if link is not None:
         error_cnt = r2t.store_error_link(channel, link)
         title = '{title}\nlink: {link}\nerror_cnt: {cnt}'.format(
-            title=title,
-            link=link,
-            cnt=error_cnt['cnt']
-        )
+                    title=title,
+                    link=link,
+                    cnt=error_cnt['cnt']
+                )
     report = '<b>r2t error</b>\n{t}\n\n\n<pre>{e}</pre>'.format(
         t=title,
         e=exc

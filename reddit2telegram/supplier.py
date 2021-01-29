@@ -8,7 +8,7 @@ import praw
 
 import utils
 from reporting_stuff import report_error
-from utils.tech import long_sleep
+from utils.tech import long_sleep, short_sleep
 
 
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
@@ -104,7 +104,13 @@ def supply(submodule_name, config, is_test=False):
 def main(config_filename, sub, is_test=False):
     with open(config_filename) as config_file:
         config = yaml.safe_load(config_file.read())
-        supply(sub, config, is_test)
+        if not is_test:
+            supply(sub, config, is_test)
+        else:
+            for i in range(100):
+                print('i =', i, '>')
+                supply(sub, config, is_test)
+                short_sleep(0.1)
 
 
 if __name__ == '__main__':
