@@ -77,7 +77,7 @@ GREAT_ACHIEVEMENTS = [
 SETTING_NAME = 'r2t_achievements'
 
 
-SLEEP_COEF = 2.718281828 / 3.14159
+SLEEP_COEF = (2.718281828 / 3.14159) ** 2.718281828
 
 
 def send_post(submission, r2t):
