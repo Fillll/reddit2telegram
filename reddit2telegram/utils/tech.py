@@ -86,6 +86,10 @@ def get_newly_active(r2t, channels_list):
 
 
 def get_top_growers_for_last_week(r2t, channels_list):
+    return get_top_diff_for_last_week(r2t, channels_list)[:3]
+
+
+def get_top_diff_for_last_week(r2t, channels_list):
     top_growers = dict()
     one_week_ago = datetime.datetime.utcnow() - datetime.timedelta(days=7)
     for channel in channels_list:
@@ -105,7 +109,7 @@ def get_top_growers_for_last_week(r2t, channels_list):
         grow = current_members_cnt - week_ago_members_cnt
         if grow >= 10:
             top_growers[channel] = grow
-    return sorted(top_growers, key=top_growers.get, reverse=True)[:3]
+    return sorted(top_growers, key=top_growers.get, reverse=True)
 
 
 def is_birthday_today(r2t, channel_name):
