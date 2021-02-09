@@ -31,16 +31,13 @@ def send_report_to_dev_chat(exc):
     frame = frame.tb_next
     while frame:
         local_vars = frame.tb_frame.f_locals
-        if 'submodule_name' in local_vars:
+        if ('submodule_name' in local_vars) and ('submodule' in local_vars):
             submodule = local_vars['submodule_name']
-        if 'submodule' in local_vars:
-            channel = local_vars['submodule'].t_channel
             channel = local_vars['submodule'].t_channel
             title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
         if 'submission' in local_vars:
             link = local_vars['submission'].shortlink
         frame = frame.tb_next
-    # print('local vars:', local_vars)
     if link is not None:
         error_cnt = r2t.store_error_link(channel, link)
         title = '{title}\nlink: {link}\nerror_cnt: {cnt}'.format(

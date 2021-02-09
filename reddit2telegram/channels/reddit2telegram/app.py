@@ -53,9 +53,9 @@ def update_promotion_order():
 
 def what_submodule():
     now = datetime.now()
+    all_submodules = get_all_public_submodules()
+    all_submodules.remove('reddit2telegram')
     if now.weekday() == 6:  # if Sunday then random
-        all_submodules = get_all_public_submodules()
-        all_submodules.remove('reddit2telegram')
         return random.choice(all_submodules)
 
     config = get_config()
@@ -69,7 +69,7 @@ def what_submodule():
     promotion_order = setting_result['promotion_order']
 
     for submodule in sorted(promotion_order.keys(), key=promotion_order.get, reverse=1):
-        if submodule not in already_promoted:
+        if (submodule not in already_promoted) and (submodule in all_submodules):
             return submodule
 
     # If every is promoted.

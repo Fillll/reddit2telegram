@@ -80,53 +80,57 @@ SETTING_NAME = 'r2t_achievements'
 SLEEP_COEF = (2.718281828 / 3.14159) ** 2.718281828
 
 
-def send_post(submission, r2t):
-    def say_congrats(submodule_name, channel, achievement):
-        short_sleep()
-        config = get_config()
-        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
-        subreddit_name = submodule.subreddit
-        send_to_channel_from_subreddit(
-            how_to_post=make_nice_submission,
-            channel_to_post='@reddit2telegram',
-            subreddit=subreddit_name,
-            submodule_name_to_promte=submodule_name,
-            submissions_ranking='top',
-            submissions_limit=1000,
-            config=config,
-            extra_args=True,
-            extra_ending='🏆 Great achievement!\n💪 Milestone of {number} subscribers.'.format(
-                number=achievement
-            )
+def say_congrats(submodule_name, channel, achievement):
+    short_sleep()
+    config = get_config()
+    submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+    subreddit_name = submodule.subreddit
+    send_to_channel_from_subreddit(
+        how_to_post=make_nice_submission,
+        channel_to_post='@reddit2telegram',
+        subreddit=subreddit_name,
+        submodule_name_to_promte=submodule_name,
+        submissions_ranking='top',
+        submissions_limit=1000,
+        config=config,
+        extra_args=True,
+        extra_ending='🏆 Great achievement!\n💪 Milestone of {number} subscribers.'.format(
+            number=achievement
         )
-        long_sleep()
-    def set_achievement(submodule_name, channel, achievement):
-        if settings.find_one({'setting': SETTING_NAME}) is None:
-            settings.insert_one({
-                'setting': SETTING_NAME,
-                'channels': {
-                    channel.lower(): [achievement]
-                }
-            })
+    )
+    long_sleep()
+
+
+def set_achievement(submodule_name, channel, achievement):
+    if settings.find_one({'setting': SETTING_NAME}) is None:
+        settings.insert_one({
+            'setting': SETTING_NAME,
+            'channels': {
+                channel.lower(): [achievement]
+            }
+        })
+    else:
+        current_state = settings.find_one({'setting': SETTING_NAME})
+        channels = current_state['channels']
+        if channel.lower() in channels:
+            channels[channel.lower()].append(achievement)
         else:
-            current_state = settings.find_one({'setting': SETTING_NAME})
-            channels = current_state['channels']
-            if channel.lower() in channels:
-                channels[channel.lower()].append(achievement)
-            else:
-                channels[channel.lower()] = [achievement]
-            settings.find_one_and_update(
+            channels[channel.lower()] = [achievement]
+        settings.find_one_and_update(
+            {
+                'setting': SETTING_NAME
+            },
+            {
+                '$set': 
                 {
-                    'setting': SETTING_NAME
-                },
-                {
-                    '$set': 
-                    {
-                        'channels': channels
-                    }
+                    'channels': channels
                 }
-            )
-        say_congrats(submodule_name, channel, achievement)
+            }
+        )
+    say_congrats(submodule_name, channel, achievement)
+
+
+def send_post(submission, r2t):
     # To check previous achievements
     config = get_config()
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
