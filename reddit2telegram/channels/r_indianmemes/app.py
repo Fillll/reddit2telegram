@@ -3,7 +3,7 @@
 from utils import SupplyResult
 
 
-subreddit = 'IndianMeyMeys+IndianDankMemes+desimemes+TheRawKnee+Chodi+indiamemeHindiMemes'
+subreddit = 'IndianMeyMeys+IndianDankMemes+desimemes+TheRawKnee+indiamemeHindiMemes'
 t_channel = '@r_indianmemes'
 
 
