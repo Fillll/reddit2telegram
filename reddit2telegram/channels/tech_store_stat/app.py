@@ -101,7 +101,7 @@ def say_congrats(submodule_name, channel, achievement):
     long_sleep()
 
 
-def set_achievement(submodule_name, channel, achievement):
+def set_achievement(submodule_name, channel, achievement, settings):
     if settings.find_one({'setting': SETTING_NAME}) is None:
         settings.insert_one({
             'setting': SETTING_NAME,
@@ -189,11 +189,11 @@ def send_post(submission, r2t):
                     ))
                     setting_result = settings.find_one({'setting': SETTING_NAME})
                     if setting_result is None:
-                        set_achievement(submodule_name, channel_name, achievement)
+                        set_achievement(submodule_name, channel_name, achievement, settings)
                     elif channel_name.lower() not in setting_result['channels']:
-                        set_achievement(submodule_name, channel_name, achievement)
+                        set_achievement(submodule_name, channel_name, achievement, settings)
                     elif achievement not in setting_result['channels'][channel_name.lower()]:
-                        set_achievement(submodule_name, channel_name, achievement)
+                        set_achievement(submodule_name, channel_name, achievement, settings)
                     else:
                         # Was already archived
                         long_sleep()
