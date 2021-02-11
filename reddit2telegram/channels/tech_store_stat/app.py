@@ -266,6 +266,6 @@ def send_post(submission, r2t):
             to_cnt=v['curr_cnt'],
             perc_diff=round(v['perc_diff'] * 100, 3)
         )
-        r2t.send_text(text_to_send)
+    r2t.send_text(text_to_send)
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
