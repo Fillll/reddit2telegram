@@ -7,6 +7,7 @@ MASK	submodule_name
 00 * * * *	ichimechtenleben
 00 * * * *	prolifetipss
 00 */3 * * *	r_propagandaposters
+00 */3 * * *	tnomod
 00,30 * * * *	rekabufeed
 00 * * * *	r_windows_redesign
 */15 * * * *	leagueofmemes
@@ -561,3 +562,4 @@ MASK	submodule_name
 59 * * * *	r_polandball
 59 * * * *	r_battlestations
 59 * * * *	r_theofficememes
+
