@@ -146,6 +146,7 @@ def send_post(submission, r2t):
         'prev_members': 0
     }
     all_submodules = get_all_submodules()
+    channels_stat = dict()
     for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
         short_sleep(SLEEP_COEF)
         submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
@@ -172,6 +173,12 @@ def send_post(submission, r2t):
             total['members'] += current_members_cnt
             prev_members_cnt = get_last_members_cnt(r2t, channel_name)
             total['prev_members'] += prev_members_cnt
+            channels_stat[channel_name] = {
+                'prev_cnt': prev_members_cnt,
+                'curr_cnt': current_members_cnt,
+                'diff': current_members_cnt - prev_members_cnt,
+                'perc_diff': (current_members_cnt - prev_members_cnt) / prev_members_cnt
+            }
         except Exception as e:
             total['errors'] += 1
             err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
@@ -222,5 +229,43 @@ def send_post(submission, r2t):
     text_to_send += '<pre>Errors during bypass: {n}.</pre>\n'.format(n=total['errors'])
     text_to_send += '\n<i>See you!</i>'
     r2t.send_text(text_to_send, parse_mode='HTML')
+    short_sleep()
+    text_to_send = '📈 TOP 5 GAIN 📈\n'
+    top_5_grow = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'])[-5:])
+    bottom_5_grow = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'])[:5])
+    for k, v in top_5_grow:
+        if v['diff'] < 0:
+            sign = ''
+        elif v['diff'] == 0:
+            sign = '±'
+        else:
+            sign = '+'
+        text_to_send += '{channel}: {from_cnt} → {s}{diff} ({s}{perc_diff}%) → {to_cnt}\n'.format(
+            channel=k,
+            from_cnt=v['prev_cnt'],
+            s=sign,
+            diff=v['diff'],
+            to_cnt=v['curr_cnt'],
+            perc_diff=round(v['perc_diff'] * 100, 3)
+        )
+    r2t.send_text(text_to_send)
+    short_sleep()
+    text_to_send = '📉 TOP 5 FALL 📉\n'
+    for k, v in bottom_5_grow:
+        if v['diff'] < 0:
+            sign = ''
+        elif v['diff'] == 0:
+            sign = '±'
+        else:
+            sign = '+'
+        text_to_send += '{channel}: {from_cnt} → {s}{diff} ({s}{perc_diff}%) → {to_cnt}\n'.format(
+            channel=k,
+            from_cnt=v['prev_cnt'],
+            s=sign,
+            diff=v['diff'],
+            to_cnt=v['curr_cnt'],
+            perc_diff=round(v['perc_diff'] * 100, 3)
+        )
+        r2t.send_text(text_to_send)
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY

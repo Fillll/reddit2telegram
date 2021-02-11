@@ -86,7 +86,9 @@ def get_newly_active(r2t, channels_list):
 
 
 def get_top_growers_for_last_week(r2t, channels_list):
-    return get_top_diff_for_last_week(r2t, channels_list)[:3]
+    last_week_diff = get_top_diff_for_last_week(r2t, channels_list)
+    only_major_grow = {k: v['diff'] for k, v in last_week_diff.items() if v['diff'] >= 10}
+    return sorted(only_major_grow, key=only_major_grow.get, reverse=True)[:3]
 
 
 def get_top_diff_for_last_week(r2t, channels_list):
@@ -107,9 +109,12 @@ def get_top_diff_for_last_week(r2t, channels_list):
                 current_members_cnt = stat_record['members_cnt']
                 break
         grow = current_members_cnt - week_ago_members_cnt
-        if grow >= 10:
-            top_growers[channel] = grow
-    return sorted(top_growers, key=top_growers.get, reverse=True)
+        top_growers[channel] = {
+            'diff': grow,
+            'last_week': week_ago_members_cnt,
+            'now': current_members_cnt
+        }
+    return top_growers
 
 
 def is_birthday_today(r2t, channel_name):
