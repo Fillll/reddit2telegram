@@ -231,7 +231,7 @@ def send_post(submission, r2t):
     r2t.send_text(text_to_send, parse_mode='HTML')
     short_sleep()
     text_to_send = '📈 TOP 5 GAIN 📈\n'
-    top_5_grow = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'])[-5:])
+    top_5_grow = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'], reverse=True)[:5])
     bottom_5_grow = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'])[:5])
     for k, v in top_5_grow:
         if v['diff'] < 0:
