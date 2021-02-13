@@ -4,7 +4,7 @@ from utils import weighted_random_subreddit
 
 subreddit = weighted_random_subreddit({
     'tnomod': 1.0,
-    'dsrfunny': 0.5
+    'dsrfunny': 0.2
 })
 
 t_channel = '@tnomod'
