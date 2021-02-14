@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'DeepFriedMemes'
+subreddit = 'deepfriedmemespart2+DeepFreezedMemes'
 t_channel = '@r_DeepFriedMemes'
 
 
