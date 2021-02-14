@@ -230,7 +230,7 @@ def send_post(submission, r2t):
     text_to_send += '\n<i>See you!</i>'
     r2t.send_text(text_to_send, parse_mode='HTML')
     short_sleep()
-    text_to_send = '📈 TOP 5 GAIN 📈\n'
+    text_to_send = '📈 <b>TOP 5 GAIN</b> 📈\n'
     top_5_gain = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'], reverse=True)[:5])
     bottom_5_gain = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'])[:5])
     for k, v in top_5_gain.items():
@@ -240,7 +240,7 @@ def send_post(submission, r2t):
             sign = '±'
         else:
             sign = '+'
-        text_to_send += '{channel}: {from_cnt} → {s}{diff} ({s}{perc_diff}%) → {to_cnt}\n'.format(
+        text_to_send += '{channel}: {from_cnt} {s}{diff} ({s}{perc_diff}%) → {to_cnt}\n'.format(
             channel=k,
             from_cnt=v['prev_cnt'],
             s=sign,
@@ -248,9 +248,9 @@ def send_post(submission, r2t):
             to_cnt=v['curr_cnt'],
             perc_diff=round(v['perc_diff'] * 100, 3)
         )
-    r2t.send_text(text_to_send)
+    r2t.send_text(text_to_send, parse_mode='HTML')
     short_sleep()
-    text_to_send = '📉 TOP 5 FALL 📉\n'
+    text_to_send = '📉 <b>TOP 5 FALL</b> 📉\n'
     for k, v in bottom_5_gain.items():
         if v['diff'] < 0:
             sign = ''
@@ -258,7 +258,7 @@ def send_post(submission, r2t):
             sign = '±'
         else:
             sign = '+'
-        text_to_send += '{channel}: {from_cnt} → {s}{diff} ({s}{perc_diff}%) → {to_cnt}\n'.format(
+        text_to_send += '{channel}: {from_cnt} {s}{diff} ({s}{perc_diff}%) → {to_cnt}\n'.format(
             channel=k,
             from_cnt=v['prev_cnt'],
             s=sign,
@@ -266,6 +266,6 @@ def send_post(submission, r2t):
             to_cnt=v['curr_cnt'],
             perc_diff=round(v['perc_diff'] * 100, 3)
         )
-    r2t.send_text(text_to_send)
+    r2t.send_text(text_to_send, parse_mode='HTML')
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
