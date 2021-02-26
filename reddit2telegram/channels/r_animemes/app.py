@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'Animemes'
+subreddit = 'goodanimemes'
 t_channel = '@r_Animemes'
 
 
