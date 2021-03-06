@@ -246,7 +246,7 @@ def send_post(submission, r2t):
             s=sign,
             diff=v['diff'],
             to_cnt=v['curr_cnt'],
-            perc_diff=round(v['perc_diff'] * 100, 3)
+            perc_diff=round(v['perc_diff'] * 100, 2)
         )
     r2t.send_text(text_to_send, parse_mode='HTML')
     short_sleep()
@@ -264,7 +264,7 @@ def send_post(submission, r2t):
             s=sign,
             diff=v['diff'],
             to_cnt=v['curr_cnt'],
-            perc_diff=round(v['perc_diff'] * 100, 3)
+            perc_diff=round(v['perc_diff'] * 100, 2)
         )
     r2t.send_text(text_to_send, parse_mode='HTML')
     # It's not a proper supply, so just stop.
