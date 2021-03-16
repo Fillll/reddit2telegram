@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'ani_bm'
+subreddit = 'ani_bm+okhavermugbal'
 t_channel = '@ani_bm'
 
 
