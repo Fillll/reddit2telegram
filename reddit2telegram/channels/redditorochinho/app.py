@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'Orochisegundo+TioOrochinho'
+subreddit = 'Orochisegundo+AgiotasClub'
 t_channel = '@RedditOrochinho'
 
 
