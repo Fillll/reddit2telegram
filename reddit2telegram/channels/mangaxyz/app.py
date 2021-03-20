@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'manga'
+subreddit = 'manga+MangaFrames'
 t_channel = '@mangaxyz'
 
 
