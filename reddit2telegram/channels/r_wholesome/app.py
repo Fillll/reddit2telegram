@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'wholesome'
+subreddit = 'wholesome+WholesomeComics+wholesomegifs+wholesomepics+wholesomememes'
 t_channel = '@r_wholesome'
 
 
