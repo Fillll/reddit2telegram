@@ -28,6 +28,6 @@ def send_post(submission, r2t):
         img=True,
         # If you want albums, just pass True or text you want under albums.
         album=True,
-        # If you do not want othe submissions, just pass False.
+        # If you do not want other submissions, just pass False.
         other=False
     )
