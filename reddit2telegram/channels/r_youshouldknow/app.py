@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'YouShouldKnow+LifeProTips+lifehacks'
+subreddit = 'YouShouldKnow+LifeProTips+lifehacks+todayilearned+tilwtf'
 t_channel = '@r_youshouldknow'
 
 
