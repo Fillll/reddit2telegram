@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'SafeArea'
+subreddit = 'NoLawRus'
 t_channel = '@r_SafeArea'
 
 
