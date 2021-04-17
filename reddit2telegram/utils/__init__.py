@@ -510,6 +510,9 @@ class Reddit2TelegramSender(object):
             short_sleep()
         return SupplyResult.SUCCESSFULLY
 
+    def forward_last_message_from_the_channel(self, from_channel_name):
+        pass
+
     def send_simple(self, submission, **kwargs):
         '''
         Universal send method for most of the channels.

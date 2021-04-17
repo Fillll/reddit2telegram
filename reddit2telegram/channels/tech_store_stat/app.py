@@ -43,7 +43,10 @@ GREAT_ACHIEVEMENTS = [
     1234,
     2000,
     3000,
+    3210,
     4000,
+    4321,
+    4444,
     5000,
     6000,
     7000,
@@ -56,6 +59,8 @@ GREAT_ACHIEVEMENTS = [
     30000,
     40000,
     50000,
+    54321,
+    55555,
     60000,
     70000,
     80000,
@@ -67,6 +72,7 @@ GREAT_ACHIEVEMENTS = [
     400000,
     500000,
     600000,
+    666666,
     700000,
     800000,
     900000,
@@ -98,6 +104,9 @@ def say_congrats(submodule_name, channel, achievement):
             number=achievement
         )
     )
+    short_sleep()
+    bot = utils.Reddit2TelegramSender(submodule.t_channel)
+    bot.forward_last_message_from_the_channel('@reddit2telegram')
     long_sleep()
 
 
