@@ -1,8 +1,7 @@
 #encoding:utf-8
 
-subreddit = 'manga'
-t_channel = '@mangareddit'
-submissions_ranking = 'new'
+subreddit = 'PornHatesWomen+PornIsMisogyny'
+t_channel = '@anti_pornography'
 
 
 def send_post(submission, r2t):
