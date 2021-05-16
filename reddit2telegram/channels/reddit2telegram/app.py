@@ -153,7 +153,7 @@ def send_post(submission, r2t):
     if now.weekday() == 5:
         return SupplyResult.STOP_THIS_SUPPLY
     # If weekday or Sunday then regular promotion once a day
-    if (now.weekday() != 5) and ((now.hour == random_number % 24) and (now.minute == random_number % 30)):
+    if (now.weekday() != 5) and ((now.hour == random_number % 24)):
         result = make_nice_submission(submission, r2t, submodule_name_to_promte)
         if result == SupplyResult.SUCCESSFULLY:
             if now.weekday() < 5:

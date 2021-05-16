@@ -1,5 +1,5 @@
 MASK	submodule_name
-00-30 * * * *	reddit2telegram
+00 * * * *	reddit2telegram
 00 * * * *	r_gifs
 00 * * * *	okbuddyretardd
 00 * * * *	stardewvalley_en
