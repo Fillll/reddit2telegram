@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'PornHatesWomen+PornIsMisogyny'
+subreddit = 'PornHatesWomen+PornIsMisogyny+PornIsMisogyny+PornHatesWomen'
 t_channel = '@anti_pornography'
 
 
