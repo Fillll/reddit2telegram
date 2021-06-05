@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'Windows10'
+subreddit = 'Windows10+Windows11+windows'
 t_channel = '@r_Windows10'
 
 
