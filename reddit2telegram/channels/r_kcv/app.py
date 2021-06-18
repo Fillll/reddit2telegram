@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'kuttichevuru'
+subreddit = 'kuttichevuru+plipplip'
 t_channel = '@r_kcv'
 
 
