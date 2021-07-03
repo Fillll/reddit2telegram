@@ -39,8 +39,11 @@ def send_post(submission, r2t):
 
     last_update = 0
     for update in updates:
+        # print(update)
         update = update.to_dict()
-        short_sleep()
+        # short_sleep()
+        if 'qwerrty' in str(update):
+            print(update)
         last_update = update['update_id']
         if 'message' not in update:
             continue
@@ -49,13 +52,16 @@ def send_post(submission, r2t):
         if 'text' not in update['message']:
             continue
 
+        # print(update)
+
         user_id = update['message']['chat']['id']
         if not isinstance(user_id, int) or user_id < 0:
             continue
 
         message_id = update['message']['message_id']
         r2t.telegram_bot.forward_message(chat_id=get_dev_channel(), from_chat_id=user_id, message_id=message_id)
-        if update['message']['chat'] == config['telegram']['papa']:
+        if int(update['message']['chat']['id']) == int(config['telegram']['papa']):
+            # print('>>>>>>>>>>>>>>>>>^^^^^^^^^^^^^^')
             text = update['message']['text']
             lines = text.split('\n')
             if 'please' not in lines[0].lower():
