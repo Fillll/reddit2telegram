@@ -158,7 +158,7 @@ def send_post(submission, r2t):
     channels_stat = dict()
     for submodule_name in random.sample(all_submodules, k=len(all_submodules)):
         short_sleep(SLEEP_COEF)
-        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+        submodule = utils.channels_stuff.import_submodule(submodule_name)
         channel_name = submodule.t_channel
         stat_to_store = {
             'channel': channel_name.lower(),

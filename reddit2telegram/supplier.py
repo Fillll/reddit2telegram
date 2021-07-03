@@ -1,8 +1,6 @@
 #encoding:utf-8
 
-import importlib
 import logging
-import os
 
 import yaml
 import praw
@@ -63,10 +61,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
 def supply(submodule_name, config, is_test=False):
     if not is_test:
         long_sleep(2)
-    if os.path.isdir(os.path.join('channels', submodule_name)):
-        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
-    else:
-        submodule = default_channel.DefaultChannel(submodule_name)
+    submodule = utils.channels_stuff.import_submodule(submodule_name)
     submissions_ranking_stated = getattr(submodule, 'submissions_ranking', None)
     if submissions_ranking_stated not in ['hot', 'new', 'top']:
         submissions_ranking = 'hot'
