@@ -31,7 +31,8 @@ class DefaultChannel(object):
         self.submissions_ranking = channel_details.get('submissions_ranking', None)
         self.submissions_limit = channel_details.get('submissions_limit', None)
         self.subreddit = channel_details.get('subreddit', None)
-        
+        self.tags = channel_details.get('tags', None)
+
         self.min_upvotes_limit = channel_details.get('min_upvotes_limit', None)
 
     def send_post(self, submission, r2t):

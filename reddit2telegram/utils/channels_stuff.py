@@ -43,7 +43,3 @@ def set_new_channel(channel, **kwargs):
     if 'min_upvotes_limit' in kwargs:
         details['min_upvotes_limit'] = kwargs['min_upvotes_limit']
     channels.insert_one(details)
-
-
-if __name__ == '__main__':
-    pass

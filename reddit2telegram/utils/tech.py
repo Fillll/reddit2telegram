@@ -11,6 +11,7 @@ import time
 import pymongo
 
 import default_channel
+import utils.channels_stuff
 
 
 def get_dev_channel(config_filename=None):
@@ -44,10 +45,7 @@ def get_all_public_channels(r2t, config_filename=None):
     all_submodules = get_all_submodules(config_filename)
     channels_and_dates = dict()
     for submodule_name in all_submodules:
-        if os.path.isdir(os.path.join('channels', submodule_name)):
-            submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
-        else:
-            submodule = default_channel.DefaultChannel(submodule_name)
+        submodule = utils.channels_stuff.import_submodule(submodule_name)
         channel_name = submodule.t_channel
         if ('@' in channel_name) and (channel_name not in ['@r_channels_test', '@r_channels']):
             first_record_cursor = r2t.urls.find({
@@ -152,12 +150,16 @@ def get_all_tags(config_filename=None):
     all_submodules = get_all_public_submodules(config_filename=config_filename)
     all_tags = set()
     for submodule in all_submodules:
-        tags_filename = os.path.join('channels', submodule, 'tags.txt')
-        if not os.path.exists(tags_filename):
-            continue
-        with open(tags_filename, 'r') as tags_file:
-            tags = tags_file.read()
-            all_tags.update(tags.split())
+        if os.path.isdir(os.path.join('channels', submodule_name)):
+            tags_filename = os.path.join('channels', submodule, 'tags.txt')
+            if not os.path.exists(tags_filename):
+                continue
+            with open(tags_filename, 'r') as tags_file:
+                tags = tags_file.read()
+                all_tags.update(tags.split())
+        else:
+            submodule = default_channel.DefaultChannel(submodule_name)
+            all_tags.update(submodule.tags.split())
     return all_tags
 
 
