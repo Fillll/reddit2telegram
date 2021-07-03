@@ -58,7 +58,7 @@ def send_post(submission, r2t):
         if update['message']['chat'] == config['telegram']['papa']:
             text = update['message']['text']
             lines = text.split('\n')
-            if 'new channel request' not in lines[0]:
+            if 'please' not in lines[0].lower():
                 continue
             new_channel_name = lines[1].split(': ')[-1]
             new_subreddit = lines[2].split('/')[-1]
