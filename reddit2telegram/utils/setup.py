@@ -43,15 +43,18 @@ def ensure_index(config_filename=None):
     config = get_config(config_filename)
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     stats = db['stats']
-    stats.ensure_index([('channel', pymongo.ASCENDING), ('ts', pymongo.ASCENDING)])
+    stats.create_index([('channel', pymongo.ASCENDING), ('ts', pymongo.ASCENDING)])
     urls = db['urls']
-    urls.ensure_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
+    urls.create_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
     contents = db['contents']
-    contents.ensure_index([('channel', pymongo.ASCENDING), ('md5_sum', pymongo.ASCENDING)])
+    contents.create_index([('channel', pymongo.ASCENDING), ('md5_sum', pymongo.ASCENDING)])
     errors = db['errors']
-    errors.ensure_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
+    errors.create_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
     settings = db['settings']
-    settings.ensure_index([('setting', pymongo.ASCENDING)])
+    settings.create_index([('setting', pymongo.ASCENDING)])
+    settings = db['channels']
+    settings.create_index([('channels', pymongo.ASCENDING)])
+    settings.create_index([('submodule', pymongo.ASCENDING)])
     print('ENSURE INDEX END.')
 
 
@@ -66,8 +69,8 @@ def set_tags():
 
 def main():
     ensure_index()
-    create_view_with_first_dates()
-    set_tags()
+    # create_view_with_first_dates()
+    # set_tags()
 
 
 if __name__ == '__main__':

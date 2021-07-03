@@ -2,6 +2,8 @@
 
 import os
 
+import channels_stuff
+
 
 def main(sub, channel, tags):
     channel_dir = os.path.join('channels', channel.lower())
@@ -44,7 +46,7 @@ def commit(channel):
     os.system('git commit -a -m "@{channel_name}"'.format(channel_name=channel.lower()))
 
 
-if __name__ == '__main__':
+def old_fashioned_way():
     subreddit_name = input('Subreddit name: ')
     channel_name = input('Channel name: ')
     tags = input('#Tags #in #that #way: ')
@@ -67,3 +69,27 @@ if __name__ == '__main__':
             print('Done.')
             break
 
+
+def med_fashioned_way():
+    subreddit_name = input('Subreddit name: ')
+    channel_name = input('Channel name: ')
+    tags = input('#Tags #in #that #way: ')
+
+    print('Submodule is created.')
+    channels_stuff.set_new_channel(channel_name, subreddit=subreddit_name, tags=tags.lower())
+    print(channel_name.lower())
+
+    print('Run the bot for the first time.')
+    run_script(channel_name)
+    print('Done.')
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--old', action='store_true')
+    args = parser.parse_args()
+
+    if args.old:
+        old_fashioned_way()
+    else:
+        med_fashioned_way()
