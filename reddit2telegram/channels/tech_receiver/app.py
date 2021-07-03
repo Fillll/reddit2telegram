@@ -3,6 +3,7 @@
 import pymongo
 import yaml
 
+import utils
 from utils import SupplyResult
 from utils.tech import get_dev_channel, short_sleep
 
@@ -54,6 +55,15 @@ def send_post(submission, r2t):
 
         message_id = update['message']['message_id']
         r2t.telegram_bot.forward_message(chat_id=get_dev_channel(), from_chat_id=user_id, message_id=message_id)
+        if update['message']['chat'] == config['telegram']['papa']:
+            text = update['message']['text']
+            lines = text.split('\n')
+            if 'new channel request' not in lines[0]:
+                continue
+            new_channel_name = lines[1].split(': ')[-1]
+            new_subreddit = lines[2].split('/')[-1]
+            new_tags = lines[3].split(': ')[-1]
+            utils.channels_stuff.set_new_channel(new_channel_name, subreddit=new_subreddit, tags=new_tags)
 
     settings.find_one_and_update(
         {
