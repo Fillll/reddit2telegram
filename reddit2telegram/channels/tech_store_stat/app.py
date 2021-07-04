@@ -1,6 +1,5 @@
 #encoding:utf-8
 
-import importlib
 from datetime import datetime
 import random
 import logging
@@ -89,7 +88,7 @@ SLEEP_COEF = (2.718281828 / 3.14159) ** 2.718281828
 def say_congrats(submodule_name, channel, achievement):
     short_sleep()
     config = get_config()
-    submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+    submodule = utils.channels_stuff.import_submodule(submodule_name)
     subreddit_name = submodule.subreddit
     send_to_channel_from_subreddit(
         how_to_post=make_nice_submission,

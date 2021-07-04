@@ -8,7 +8,6 @@ import praw
 import utils
 from reporting_stuff import report_error
 from utils.tech import long_sleep, short_sleep
-import default_channel
 
 
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):

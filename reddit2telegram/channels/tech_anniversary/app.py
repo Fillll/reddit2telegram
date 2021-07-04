@@ -1,8 +1,6 @@
 #encoding:utf-8
 
-import importlib
-
-
+import utils
 from utils import SupplyResult
 from utils.tech import is_birthday_today, get_all_public_channels, get_dev_channel
 from utils.tech import generate_list_of_channels, default_ending, chunker, get_all_public_submodules
@@ -20,7 +18,7 @@ def send_post(submission, r2t):
     channels_list = get_all_public_channels(r2t)
 
     for submodule_name in get_all_public_submodules():
-        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+        submodule = utils.channels_stuff.import_submodule(submodule_name)
         channel = submodule.t_channel
         bd_party, years = is_birthday_today(r2t, channel)
         if bd_party and years > 0:

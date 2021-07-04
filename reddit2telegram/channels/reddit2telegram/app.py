@@ -1,6 +1,5 @@
 #encoding:utf-8
 
-import importlib
 import random
 from datetime import datetime
 import os
@@ -8,6 +7,7 @@ import hashlib
 
 import pymongo
 
+import utils
 from utils import SupplyResult
 from utils.tech import get_all_public_submodules
 from utils.setup import get_config
@@ -25,7 +25,7 @@ def update_promotion_order():
     all_submodules.remove('reddit2telegram')
     submodules_and_dates = dict()
     for submodule in all_submodules:
-        imported = importlib.import_module('channels.{}.app'.format(submodule))
+        imported = utils.channels_stuff.import_submodule(submodule_name)
         channel = imported.t_channel
         first_date_result = first_date_view.find_one({'_id': channel.lower()})
         if first_date_result is None:
