@@ -89,12 +89,12 @@ def what_submodule():
 
 
 def what_subreddit(submodule_name_to_promte):
-    submodule_to_promote = importlib.import_module('channels.{}.app'.format(submodule_name_to_promte))
+    submodule_to_promote = utils.channels_stuff.import_submodule(submodule_name_to_promte)
     return submodule_to_promote.subreddit
 
 
 def what_channel(submodule_name_to_promte):
-    submodule_to_promote = importlib.import_module('channels.{}.app'.format(submodule_name_to_promte))
+    submodule_to_promote = utils.channels_stuff.import_submodule(submodule_name_to_promte)
     return submodule_to_promote.t_channel
 
 
