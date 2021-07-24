@@ -107,7 +107,7 @@ def no_chance_to_post_due_to_errors_cnt(r2t, channel_name):
         probability_to_fail = how_many / 100
     else:
         probability_to_fail = 0.99
-    if random.uniform(0, 1) < probability_to_fail:
+    if random.random() < probability_to_fail:
         # Not send.
         text_to_send += 'Probalitty to fail is ' + str(round(probability_to_fail, 2)) + '.\n'
         text_to_send += 'And it failed.'
