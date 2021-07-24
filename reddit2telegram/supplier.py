@@ -7,7 +7,7 @@ import praw
 
 import utils
 from reporting_stuff import report_error
-from utils.tech import long_sleep, short_sleep
+from utils.tech import long_sleep, short_sleep, no_chance_to_post_due_to_errors_cnt
 
 
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
@@ -68,6 +68,8 @@ def supply(submodule_name, config, is_test=False):
         submissions_ranking = submissions_ranking_stated
     submissions_limit = getattr(submodule, 'submissions_limit', 100)
     channel_to_post = submodule.t_channel if not is_test else '@r_channels_test'
+    if no_chance_to_post_due_to_errors_cnt(utils.Reddit2TelegramSender(channel_to_post, config), channel_to_post):
+        return
     success = send_to_channel_from_subreddit(how_to_post=submodule.send_post,
         channel_to_post=channel_to_post,
         subreddit=submodule.subreddit,

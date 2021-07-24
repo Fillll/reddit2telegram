@@ -94,6 +94,43 @@ def get_top_growers_for_last_week(r2t, channels_list):
     return sorted(only_major_grow, key=only_major_grow.get, reverse=True)[:3]
 
 
+def no_chance_to_post_due_to_errors_cnt(r2t, channel_name):
+    channel_name = channel_name.lower()
+    how_many = number_of_errors_over_month(r2t, channel_name)
+    r2t.t_channel = get_dev_channel()
+    
+    text_to_send = 'Total errors over last month is ' + str(how_many) + '.\n'
+    if how_many <= 12:
+        # Send!
+        probability_to_fail = 0.0
+    elif how_many <= 99:
+        probability_to_fail = how_many / 100
+    else:
+        probability_to_fail = 0.99
+    if random.uniform() < probability_to_fail:
+        # Not send.
+        text_to_send += 'Probalitty to fail is ' + str(round(probability_to_fail, 2)) '.\n'
+        text_to_send += 'And it failed.'
+        r2t.send_text(text_to_send)
+        return True
+    else:
+        # Send!
+        return False
+
+
+def number_of_errors_over_month(r2t, channel):
+    channel = channel.lower()
+    one_month_ago = datetime.datetime.utcnow() - datetime.timedelta(days=30)
+    month_ago_cursor = r2t.errors.find({
+        'channel': channel,
+        'ts': {'$gte': one_month_ago}
+    })
+    errors_cnt = 0
+    for error_record in month_ago_cursor:
+        errors_cnt += error_record['cnt']
+    return errors_cnt
+
+
 def get_top_diff_for_last_week(r2t, channels_list):
     top_growers = dict()
     one_week_ago = datetime.datetime.utcnow() - datetime.timedelta(days=7)
