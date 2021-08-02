@@ -49,6 +49,7 @@ TYPE_TEXT = 'text'
 TYPE_OTHER = 'other'
 TYPE_ALBUM = 'album'
 TYPE_VIDEO = 'video'
+TYPE_GALLERY = 'gallery'
 
 
 TEMP_FOLDER = 'tmp'
@@ -77,6 +78,20 @@ def get_url(submission, mp4_instead_gif=True):
             return header['Content-Type']
         else:
             return ''
+
+    # If reddit native gallery
+    if hasattr(submission, 'gallery_data'):
+        dict_of_dicts_of_pics = dict()
+        list_of_media = dict()
+        for item in submission.gallery_data['items']:
+            list_of_media[item['id']] = item['media_id']
+        counter = 0
+        for item in sorted(list_of_media.items(), key=lambda item: item[0]):
+            if counter % 10 == 0:
+                dict_of_dicts_of_pics[counter // 10] = dict()
+            dict_of_dicts_of_pics[counter // 10][counter] = submission.media_metadata[item[1]]['s']['u']
+            counter += 1
+        return TYPE_GALLERY, dict_of_dicts_of_pics, None
 
     url = submission.url
     url_content = what_is_inside(url)
@@ -510,6 +525,16 @@ class Reddit2TelegramSender(object):
             short_sleep()
         return SupplyResult.SUCCESSFULLY
 
+    def send_gallery(self, dict_of_dicts_of_pics, text):
+        self.send_text(text)
+        short_sleep()
+        for k, dict_of_pics in dict_of_dicts_of_pics.items():
+            list_of_items_in_one_group = [telegram.InputMediaPhoto(val[1]) for val in sorted(dict_of_pics.items(), key=lambda item: item[0])]
+            self.telegram_bot.send_media_group(chat_id=self.t_channel,
+                                                media=list_of_items_in_one_group)
+            short_sleep()
+        return SupplyResult.SUCCESSFULLY
+
     def forward_last_message_from_the_channel(self, from_channel_name):
         pass
 
@@ -666,6 +691,15 @@ class Reddit2TelegramSender(object):
                     text = what_to_do
                 text = text.format(**formatters)
                 return self.send_video(url, text)
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        elif what == TYPE_GALLERY:
+            what_to_do = kwargs.get('gallery', True)
+            if what_to_do:
+                text = '{title}\n\n{short_link}\n{channel}'
+                if isinstance(what_to_do, str):
+                    text = what_to_do
+                text = text.format(**formatters)
+                return self.send_gallery(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_OTHER:
             what_to_do = kwargs.get('other', True)
