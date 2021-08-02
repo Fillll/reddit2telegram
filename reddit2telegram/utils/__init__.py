@@ -54,7 +54,7 @@ TYPE_VIDEO = 'video'
 TEMP_FOLDER = 'tmp'
 
 
-ERRORS_CNT_LIMIT = 3
+ERRORS_CNT_LIMIT = 2
 
 
 @enum.unique
