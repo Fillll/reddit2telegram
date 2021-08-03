@@ -527,12 +527,12 @@ class Reddit2TelegramSender(object):
 
     def send_gallery(self, dict_of_dicts_of_pics, text):
         self.send_text(text)
-        short_sleep()
+        long_sleep()
         for k, dict_of_pics in dict_of_dicts_of_pics.items():
             list_of_items_in_one_group = [telegram.InputMediaPhoto(val[1]) for val in sorted(dict_of_pics.items(), key=lambda item: item[0])]
             self.telegram_bot.send_media_group(chat_id=self.t_channel,
                                                 media=list_of_items_in_one_group)
-            short_sleep()
+            long_sleep()
         return SupplyResult.SUCCESSFULLY
 
     def forward_last_message_from_the_channel(self, from_channel_name):
