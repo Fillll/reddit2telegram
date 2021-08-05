@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-subreddit = 'okboomer+okbuddyretard+AmiITheAsshole'
+subreddit = 'okboomer+okbuddyretard+AmiITheAsshole+okbuddyretard2'
 t_channel = '@r_okbuddyretard'
 
 
