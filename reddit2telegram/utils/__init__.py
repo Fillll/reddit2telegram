@@ -528,16 +528,18 @@ class Reddit2TelegramSender(object):
     def send_gallery(self, dict_of_dicts_of_pics, text):
         self.send_text(text)
         long_sleep()
+        cnt = 0
         for k, dict_of_pics in dict_of_dicts_of_pics.items():
             list_of_items_in_one_group = [telegram.InputMediaPhoto(val[1]) for val in sorted(dict_of_pics.items(), key=lambda item: item[0])]
             try:
                 self.telegram_bot.send_media_group(chat_id=self.t_channel,
                                                 media=list_of_items_in_one_group,
                                                 timeout=66)
-                logging.error('Successful gallery sent.')
+                logging.info('Successful gallery sent.')
             except Exception as e:
                 logging.error('Gallery sent failed.')
-            long_sleep()
+            cnt += 1
+            long_sleep(cnt + 1)
         return SupplyResult.SUCCESSFULLY
 
     def forward_last_message_from_the_channel(self, from_channel_name):
