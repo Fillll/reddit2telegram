@@ -99,7 +99,7 @@ def no_chance_to_post_due_to_errors_cnt(r2t, channel_name):
     how_many = number_of_errors_over_month(r2t, channel_name)
     r2t.t_channel = get_dev_channel()
     
-    text_to_send = 'Errors cnt over the last month is <b>' + str(how_many) + '</b>.\n'
+    text_to_send = 'Errors: <b>' + str(how_many) + '</b> → '
     if how_many <= 12:
         # Send!
         probability_to_fail = 0.0
@@ -110,8 +110,8 @@ def no_chance_to_post_due_to_errors_cnt(r2t, channel_name):
     chance = random.random()
     if chance < probability_to_fail:
         # Not send.
-        text_to_send += 'Probability to fail was <b>' + str(round(probability_to_fail, 2)) + '</b>.\n'
-        text_to_send += 'And it failed. The chance was <b>' + str(round(chance, 2)) + '</b>.\n'
+        text_to_send += '<b>' + str(round(probability_to_fail, 2)) + '</b>. > '
+        text_to_send += '<b>' + str(round(chance, 2)) + '</b>.\n'
         text_to_send += channel_name
         r2t.send_text(text_to_send, parse_mode='HTML')
         return True
