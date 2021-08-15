@@ -52,9 +52,9 @@ def ensure_index(config_filename=None):
     errors.create_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
     settings = db['settings']
     settings.create_index([('setting', pymongo.ASCENDING)])
-    settings = db['channels']
-    settings.create_index([('channels', pymongo.ASCENDING)])
-    settings.create_index([('submodule', pymongo.ASCENDING)])
+    channels = db['channels']
+    channels.create_index([('channels', pymongo.ASCENDING)])
+    channels.create_index([('submodule', pymongo.ASCENDING)])
     print('ENSURE INDEX END.')
 
 

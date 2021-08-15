@@ -560,6 +560,8 @@ class Reddit2TelegramSender(object):
         img : description is same as for `gif`.
         album : description is same as for `gif`.
         text : description is same as for `gif`.
+        video : description is same as for `gif`.
+        gallery : description is same as for `gif`.
         other : description is same as for `gif`.
         check_dups : boolean, optional
             Will check whether submission content is duplicate or not.
