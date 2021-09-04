@@ -45,6 +45,13 @@ def send_report_to_dev_chat(exc):
                     link=link,
                     cnt=error_cnt['cnt']
                 )
+    else:
+        error_cnt = r2t.store_error_no_link(channel)
+        title = '{title}\nerror_cnt: {cnt}'.format(
+                    title=title,
+                    cnt=error_cnt['cnt']
+                )
+
     report = '<b>r2t error</b>\n{t}\n\n\n<pre>{e}</pre>'.format(
         t=title,
         e=exc

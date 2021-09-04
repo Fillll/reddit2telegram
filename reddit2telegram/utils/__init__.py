@@ -335,6 +335,22 @@ class Reddit2TelegramSender(object):
             upsert=True
         )
 
+    def store_error_no_link(self, channel):
+        return self.errors.find_one_and_update(
+            {
+                'channel': channel.lower(),
+                'link': '_NO_',
+                'date': datetime.today().strftime('%Y-%m-%d')
+            },
+            {
+                '$inc': {'cnt': 1},
+                '$set': {'ts': datetime.utcnow()}
+            },
+            projection={'cnt': True, '_id': False},
+            return_document=ReturnDocument.AFTER,
+            upsert=True
+        )
+
     def too_much_errors(self, url):
         result = self.errors.find_one({
             'channel': self.t_channel.lower(),
