@@ -153,7 +153,8 @@ def send_post(submission, r2t):
     }
     all_submodules = get_all_submodules()
     number_of_modules = len(all_submodules)
-    sleep_coef = math.log(450 / number_of_modules) / math.log(2.718281828 / 3.14159)
+    # sleep_coef = math.log(450 / number_of_modules) / math.log(2.718281828 / 3.14159)
+    sleep_coef = 2000 / 3 / 2 / number_of_modules
     channels_stat = dict()
     for submodule_name in random.sample(all_submodules, k=number_of_modules):
         short_sleep(sleep_coef)
