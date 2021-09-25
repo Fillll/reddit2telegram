@@ -89,7 +89,13 @@ def get_url(submission, mp4_instead_gif=True):
         for item in sorted(list_of_media.items(), key=lambda item: item[0]):
             if counter % 10 == 0:
                 dict_of_dicts_of_pics[counter // 10] = dict()
-            dict_of_dicts_of_pics[counter // 10][counter] = submission.media_metadata[item[1]]['s']['u']
+            item_with_media = submission.media_metadata[item[1]]['s']
+            if 'u' in item_with_media:
+                # It's a pic
+                dict_of_dicts_of_pics[counter // 10][counter] = {'url': item_with_media['u'], 'type': 'pic'}
+            else:
+                # It's a gif
+                dict_of_dicts_of_pics[counter // 10][counter] = {'url': item_with_media['mp4'], 'type': 'video'}
             counter += 1
         return TYPE_GALLERY, dict_of_dicts_of_pics, None
 
@@ -546,7 +552,17 @@ class Reddit2TelegramSender(object):
         long_sleep()
         cnt = 0
         for k, dict_of_pics in dict_of_dicts_of_pics.items():
-            list_of_items_in_one_group = [telegram.InputMediaPhoto(val[1]) for val in sorted(dict_of_pics.items(), key=lambda item: item[0])]
+            list_of_items_in_one_group = list()
+
+            for item in sorted(dict_of_pics.items(), key=lambda item: item[0]):
+                if item[1]['type'] == 'pic':
+                    list_of_items_in_one_group.append(telegram.InputMediaPhoto(item[1]['url']))
+                elif item[1]['type'] == 'video':
+                    list_of_items_in_one_group.append(telegram.InputMediaVideo(item[1]['url']))
+                else:
+                    logging.error('Unkown item in gallery.')
+                    return SupplyResult.SKIP_FOR_NOW 
+
             try:
                 self.telegram_bot.send_media_group(chat_id=self.t_channel,
                                                 media=list_of_items_in_one_group,
@@ -717,6 +733,8 @@ class Reddit2TelegramSender(object):
                 text = text.format(**formatters)
                 return self.send_video(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        # Gallery submission
         elif what == TYPE_GALLERY:
             what_to_do = kwargs.get('gallery', True)
             if what_to_do:
@@ -726,6 +744,8 @@ class Reddit2TelegramSender(object):
                 text = text.format(**formatters)
                 return self.send_gallery(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+        # Other Submission
         elif what == TYPE_OTHER:
             what_to_do = kwargs.get('other', True)
             if what_to_do:
