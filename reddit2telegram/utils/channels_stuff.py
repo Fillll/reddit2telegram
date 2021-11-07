@@ -38,8 +38,9 @@ def set_new_channel(channel, **kwargs):
         'submodule':channel.lower(),
         'channel': '@' + channel,
         'subreddit': kwargs['subreddit'],
-        'tags': kwargs['tags']
+        'tags': kwargs['tags'],
+        'min_upvotes_limit': kwargs.get('min_upvotes_limit', None),
+        'submissions_ranking': kwargs.get('submissions_ranking', 'hot'),
+        'submissions_limit': kwargs.get('submissions_limit', 100)
     }
-    if 'min_upvotes_limit' in kwargs:
-        details['min_upvotes_limit'] = kwargs['min_upvotes_limit']
     channels.insert_one(details)
