@@ -69,8 +69,8 @@ class SupplyResult(enum.Enum):
 
 def get_url(submission, mp4_instead_gif=True):
     '''
-    return TYPE, URL, EXTENSION
-    E.x.: return 'img', 'http://example.com/pic.png', 'png'
+    return TYPE, URL
+    E.x.: return 'img', 'http://example.com/pic.png'
     '''
     
     def what_is_inside(url):
