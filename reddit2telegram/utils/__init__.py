@@ -296,7 +296,7 @@ class Reddit2TelegramSender(object):
     def __init__(self, t_channel=None, config=None):
         super(Reddit2TelegramSender, self).__init__()
         if config is None:
-            with open('configs/prod.yml') as f:
+            with open(os.path.join('configs', 'prod.yml')) as f:
                 config = yaml.safe_load(f.read())
         self.config = config
         self.telegram_bot = telegram.Bot(self.config['telegram']['token'])
