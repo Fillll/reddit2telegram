@@ -9,7 +9,7 @@ t_channel = '@r_Showerthoughts'
 
 
 def send_post(submission, r2t):
-    what, _, _ = get_url(submission)
+    what, _ = get_url(submission)
     if what != 'text':
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     if submission.score < 111:
