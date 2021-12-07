@@ -1,5 +1,6 @@
 # encoding:utf-8
 
+import urllib
 from urllib.parse import urlparse
 import requests
 from requests.exceptions import InvalidSchema, MissingSchema
@@ -28,7 +29,7 @@ from utils.tech import short_sleep, long_sleep
 GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
 
 
-TELEGRAM_AUTOPLAY_LIMIT = 10 * 1024 * 1024
+TELEGRAM_AUTOPLAY_LIMIT = 50 * 1024 * 1024
 TELEGRAM_VIDEO_LIMIT = 50 * 1024 * 1024
 
 TELEGRAM_CAPTION_LIMIT = 1024
@@ -97,7 +98,7 @@ def get_url(submission, mp4_instead_gif=True):
                 # It's a gif
                 dict_of_dicts_of_pics[counter // 10][counter] = {'url': item_with_media['mp4'], 'type': 'video'}
             counter += 1
-        return TYPE_GALLERY, dict_of_dicts_of_pics, None
+        return TYPE_GALLERY, dict_of_dicts_of_pics
 
     url = submission.url
     url_content = what_is_inside(url)
@@ -105,9 +106,9 @@ def get_url(submission, mp4_instead_gif=True):
     if submission.is_video:
         if 'reddit_video' in submission.media:
             if submission.media['reddit_video'].get('is_gif', False):
-                return TYPE_GIF, submission.media['reddit_video']['fallback_url'], 'mp4'
-            return TYPE_VIDEO, submission.media['reddit_video']['fallback_url'], 'mp4'
-            # return TYPE_OTHER, url, None
+                return TYPE_GIF, submission.media['reddit_video']['fallback_url']
+            return TYPE_VIDEO, submission.media['reddit_video']['fallback_url']
+            # return TYPE_OTHER, url
 
     try:
         if len(submission.crosspost_parent_list) > 0:
@@ -115,34 +116,34 @@ def get_url(submission, mp4_instead_gif=True):
             if parent_submission_json['is_video'] == True:
                 if 'reddit_video' in parent_submission_json['media']:
                     if parent_submission_json['media']['reddit_video'].get('is_gif', False):
-                        return TYPE_GIF, parent_submission_json['media']['reddit_video']['fallback_url'], 'mp4'
-                    return TYPE_VIDEO, parent_submission_json['media']['reddit_video']['fallback_url'], 'mp4'
+                        return TYPE_GIF, parent_submission_json['media']['reddit_video']['fallback_url']
+                    return TYPE_VIDEO, parent_submission_json['media']['reddit_video']['fallback_url']
     except:
         # Not a crosspost
         pass
 
     if (CONTENT_JPEG == url_content or CONTENT_PNG == url_content):
-        return TYPE_IMG, url, url_content.split('/')[1]
+        return TYPE_IMG, url
 
     if CONTENT_GIF in url_content:
         if url.endswith('.gif') and mp4_instead_gif:
             # Let's try to find .mp4 file.
             url_mp4 = url[:-4] + '.mp4'
             if CONTENT_MP4 == what_is_inside(url_mp4):
-                return TYPE_GIF, url_mp4, 'mp4'
-        return TYPE_GIF, url, 'gif'
+                return TYPE_GIF, url_mp4
+        return TYPE_GIF, url
     
     if url.endswith('.gifv'):
         if mp4_instead_gif:
             url_mp4 = url[:-5] + '.mp4'
             if CONTENT_MP4 == what_is_inside(url_mp4):
-                return TYPE_GIF, url_mp4, 'mp4'
+                return TYPE_GIF, url_mp4
         if CONTENT_GIF in what_is_inside(url[0:-1]):
-            return TYPE_GIF, url[0:-1], 'gif'
+            return TYPE_GIF, url[0:-1]
 
     if submission.is_self is True:
         # Self submission with text
-        return TYPE_TEXT, None, None
+        return TYPE_TEXT, None
 
     if urlparse(url).netloc == 'imgur.com':
         # Imgur
@@ -151,10 +152,10 @@ def get_url(submission, mp4_instead_gif=True):
         path_parts = urlparse(url).path.split('/')
         if path_parts[1] == 'gallery':
             # TODO: gallary handling
-            return TYPE_OTHER, url, None
+            return TYPE_OTHER, url
         elif path_parts[1] == 'topic':
             # TODO: topic handling
-            return TYPE_OTHER, url, None
+            return TYPE_OTHER, url
         elif path_parts[1] == 'a':
             # An imgur album
             album = imgur_client.get_album(path_parts[2])
@@ -174,36 +175,36 @@ def get_url(submission, mp4_instead_gif=True):
                     'ext': ext
                 }
             if len(story) == 1:
-                return story[1]['what'], story[1]['url'], story[1]['ext']
-            return TYPE_ALBUM, story, None
+                return story[1]['what'], story[1]['url']
+            return TYPE_ALBUM, story
         else:
             # Just imgur img
             img = imgur_client.get_image(path_parts[1].split('.')[0])
             if not img.animated:
-                return TYPE_IMG, img.link, img.type.split('/')[1]
+                return TYPE_IMG, img.link
             else:
                 if mp4_instead_gif:
-                    return TYPE_GIF, img.mp4, 'mp4'
+                    return TYPE_GIF, img.mp4
                 else:
-                    # return 'gif', img.link, 'gif'
-                    return TYPE_GIF, img.gifv[:-1], 'gif'
+                    # return 'gif', img.link
+                    return TYPE_GIF, img.gifv[:-1]
     elif 'gfycat.com' in urlparse(url).netloc:
         rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
         try:
             r = requests.get(GFYCAT_GET + rname)
             if r.status_code != 200:
                 logging.info('Gfy fail prevented!')
-                return TYPE_OTHER, url, None
+                return TYPE_OTHER, url
             urls = r.json()['gfyItem']
             if mp4_instead_gif:
-                return TYPE_GIF, urls['mp4Url'], 'mp4'
+                return TYPE_GIF, urls['mp4Url']
             else:
-                return TYPE_GIF, urls['max5mbGif'], 'gif'
+                return TYPE_GIF, urls['max5mbGif']
         except KeyError:
             logging.info('Gfy fail prevented!')
-            return TYPE_OTHER, url, None
+            return TYPE_OTHER, url
     else:
-        return TYPE_OTHER, url, None
+        return TYPE_OTHER, url
 
 
 def download_file(url, filename):
@@ -279,6 +280,13 @@ def weighted_random_subreddit(weights):
         if random_value < cumulative_sum:
             return k
     return k
+
+
+def get_url_size(url):
+    # https://stackoverflow.com/questions/55226378/how-can-i-get-the-file-size-from-a-link-without-downloading-it-in-python
+    req = urllib.request.Request(url, method='HEAD')
+    f = urllib.request.urlopen(req)
+    return int(f.headers['Content-Length'])
 
 
 class Reddit2TelegramSender(object):
@@ -372,7 +380,9 @@ class Reddit2TelegramSender(object):
     def was_before(self, url):
         result = self.urls.find_one({
             'channel': self.t_channel.lower(),
-            'url': {'$regex': url.split('/')[-1]}
+            'url': {
+                '$regex': url.split('/')[-1]
+            }
         })
         if result is None:
             return False
@@ -406,28 +416,27 @@ class Reddit2TelegramSender(object):
             logging.info('Duplicated found!')
             return True
 
-    def send_gif_img(self, what, url, ext, text, parse_mode=None):
+    def send_gif_img(self, what, url, text, parse_mode=None):
         if what == TYPE_GIF:
-            return self.send_gif(url, ext, text, parse_mode)
+            return self.send_gif(url, text, parse_mode)
         elif what == TYPE_IMG:
-            return self.send_img(url, ext, text, parse_mode)
+            return self.send_img(url, text, parse_mode)
         else:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
-    def send_gif(self, url, ext, text, parse_mode=None):
-        filename = self._get_file_name(ext)
-        # Download gif
-        if not download_file(url, filename):
-            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+    def send_gif(self, url, text, parse_mode=None):
         # Telegram will not autoplay big gifs
-        if os.path.getsize(filename) > TELEGRAM_AUTOPLAY_LIMIT:
+        if get_url_size(url) > TELEGRAM_AUTOPLAY_LIMIT:
+            print('Too big.')
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        f = open(filename, 'rb')
-        self.telegram_bot.send_document(chat_id=self.t_channel, document=f, caption=text, parse_mode=parse_mode)
-        f.close()
+        self.telegram_bot.send_document(chat_id=self.t_channel,
+            document=url,
+            caption=text,
+            parse_mode=parse_mode
+        )
         if len(next_text) > 1:
             short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
@@ -478,18 +487,16 @@ class Reddit2TelegramSender(object):
                                 disable_web_page_preview=False,
                                 parse_mode='HTML')
 
-    def send_img(self, url, ext, text, parse_mode=None):
+    def send_img(self, url, text, parse_mode=None):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             logging.info('Long pic in {}.'.format(self.t_channel))
             return self._send_img_as_link(url, text)
         try:
-            # Download and send as regular file
-            filename = self._get_file_name(ext)
-            if not download_file(url, filename):
-                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-            f = open(filename, 'rb')
-            self.telegram_bot.send_photo(chat_id=self.t_channel, photo=f, caption=text, parse_mode=parse_mode)
-            f.close()
+            self.telegram_bot.send_photo(chat_id=self.t_channel,
+                photo=f,
+                caption=text,
+                parse_mode=parse_mode
+            )
             return SupplyResult.SUCCESSFULLY
         except TelegramError as e:
             logging.info('TelegramError prevented at {tc}.'.format(tc=self.t_channel))
@@ -534,10 +541,10 @@ class Reddit2TelegramSender(object):
         for num, item in sorted(story.items(), key=lambda x: x[0]):
             text = '# {}'.format(num)
             if item['what'] == TYPE_GIF:
-                if not self.send_gif(item['url'], item['ext'], text):
+                if not self.send_gif(item['url'], text):
                     just_send(num, item)
             elif item['what'] == TYPE_IMG:
-                if not self.send_img(item['url'], item['ext'], text):
+                if not self.send_img(item['url'], text):
                     just_send(num, item)
             elif item['what'] == 'text':
                 just_send(num, item)
@@ -636,7 +643,7 @@ class Reddit2TelegramSender(object):
             return SupplyResult.SKIP_FOR_NOW
 
         try:
-            what, url, ext = get_url(submission)
+            what, url = get_url(submission)
         except Exception as e:
             logging.info('HTTP fail prevented at {}!'.format(self.t_channel))
             return SupplyResult.SKIP_FOR_NOW
@@ -644,7 +651,6 @@ class Reddit2TelegramSender(object):
         formatters = {
             'what': what,
             'url': url,
-            'ext': ext,
             'title': submission.title,
             'self_text': submission.selftext,
             'link': submission.url,
@@ -675,7 +681,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                return self.send_gif(url, ext, text)
+                return self.send_gif(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_IMG:
             what_to_do = kwargs.get('img', True)
@@ -684,7 +690,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                return self.send_img(url, ext, text)
+                return self.send_img(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         elif what == TYPE_ALBUM:
             what_to_do = kwargs.get('album', True)
