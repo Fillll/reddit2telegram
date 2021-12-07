@@ -28,6 +28,7 @@ def import_submodule(submodule_name):
 
 
 def set_new_channel(channel, **kwargs):
+    channel = channel.replace('@', '')
     config = get_config()
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     channels = db[CHANNELS_COLLECTION]
@@ -35,10 +36,10 @@ def set_new_channel(channel, **kwargs):
     if is_any is not None:
         return
     details = {
-        'submodule':channel.lower(),
+        'submodule': channel.lower(),
         'channel': '@' + channel,
         'subreddit': kwargs['subreddit'],
-        'tags': kwargs['tags'],
+        'tags': kwargs['tags'].lower(),
         'min_upvotes_limit': kwargs.get('min_upvotes_limit', None),
         'submissions_ranking': kwargs.get('submissions_ranking', 'hot'),
         'submissions_limit': kwargs.get('submissions_limit', 100)
