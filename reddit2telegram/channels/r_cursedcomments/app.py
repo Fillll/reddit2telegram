@@ -11,7 +11,7 @@ t_channel = '@r_CursedComments'
 
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
+    what, url = get_url(submission)
 
     # If this func returns:
     # False – it means that we will not send
@@ -54,6 +54,6 @@ def send_post(submission, r2t):
         r2t.send_text(text)
         return r2t.send_album(url)
     elif what in ('gif', 'img'):
-        return r2t.send_gif_img(what, url, ext, text) # returns True
+        return r2t.send_gif_img(what, url, text) # returns True
     else:
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION

@@ -13,7 +13,7 @@ t_channel = '@fakealbumcovers'
 separators = [" - ", " — ", " – ", " -- ", " | ", " • ", "- ", " // ", "-", " by "]
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
+    what, url = get_url(submission)
 
     fullTitle = submission.title
     link = submission.shortlink
@@ -69,6 +69,6 @@ def send_post(submission, r2t):
     if what == 'img':
         if r2t.dup_check_and_mark(url) is True:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-        return r2t.send_gif_img(what, url, ext, text, parse_mode='HTML')
+        return r2t.send_gif_img(what, url, text, parse_mode='HTML')
     else:
       return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
