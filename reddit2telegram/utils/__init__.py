@@ -493,7 +493,7 @@ class Reddit2TelegramSender(object):
             return self._send_img_as_link(url, text)
         try:
             self.telegram_bot.send_photo(chat_id=self.t_channel,
-                photo=f,
+                photo=url,
                 caption=text,
                 parse_mode=parse_mode
             )

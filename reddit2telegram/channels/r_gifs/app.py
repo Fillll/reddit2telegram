@@ -8,7 +8,7 @@ t_channel = '@r_gifs'
 
 
 def send_post(submission, r2t):
-    what, gif_url, ext = get_url(submission)
+    what, gif_url = get_url(submission)
     if what != 'gif':
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
@@ -21,4 +21,4 @@ def send_post(submission, r2t):
         return r2t.send_text(text, disable_web_page_preview=True)
 
     text = '{}\n{}\n\nby @r_gifs'.format(title, link)
-    return r2t.send_gif(gif_url, ext, text)
+    return r2t.send_gif(gif_url, text)
