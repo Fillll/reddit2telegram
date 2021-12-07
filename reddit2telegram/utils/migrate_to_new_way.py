@@ -49,5 +49,20 @@ def main():
 
     print(submodules_moved)
 
+
+def remove_dead_submodules():
+    submodules_moved = list()
+    for submodule_path in glob('~/reddit2telegram/reddit2telegram/channels/*/'):
+        print(submodule_path)
+        submodule_name = submodule_path.split('/')[-2].lower()
+        print(submodule_name)
+        print('=' * 10)
+        if submodule_name in ('~inactive', '__pycache__'):
+            continue
+        if not os.path.isfile(os.path.join(submodule_path, 'app.py')):
+            print(submodule_name)
+            # input()
+            os.system(f'rm -rf {submodule_path}')
+
 if __name__ == '__main__':
     main()
