@@ -9,7 +9,7 @@ t_channel = '@r_engrish'
 
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
+    what, url = get_url(submission)
     if what not in ('gif', 'img'):
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
@@ -35,4 +35,4 @@ def send_post(submission, r2t):
         t=title,
         l=link,
         c=t_channel)
-    return r2t.send_gif_img(what, url, ext, text)
+    return r2t.send_gif_img(what, url, text)

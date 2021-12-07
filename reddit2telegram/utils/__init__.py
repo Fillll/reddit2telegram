@@ -460,7 +460,7 @@ class Reddit2TelegramSender(object):
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         except:
             # Looks like no audio
-            return self.send_gif(url, '.mp4', text, parse_mode=parse_mode)
+            return self.send_gif(url, text, parse_mode=parse_mode)
 
         # Combine it audio and video
         video_with_audio_filename = self._get_file_name('.1.mp4')
