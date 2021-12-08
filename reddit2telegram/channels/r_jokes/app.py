@@ -13,7 +13,7 @@ t_channel = '@r_jokes'
 
 def send_post(submission, r2t):
     # Check what is inside this submission.
-    what, _, _ = get_url(submission)
+    what, _ = get_url(submission)
 
     # If inside is something but not text
     # then we do not need this submission.

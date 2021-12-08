@@ -41,7 +41,7 @@ subreddit = weighted_random_subreddit({
 
 
 def send_post(submission, r2t):
-    what, url, ext = get_url(submission)
+    what, url = get_url(submission)
     title = submission.title
     link = submission.shortlink
     text = '{}\n{}'.format(title, link)
@@ -58,6 +58,6 @@ def send_post(submission, r2t):
         else:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
     elif what in ('gif', 'img'):
-        return r2t.send_gif_img(what, url, ext, text)
+        return r2t.send_gif_img(what, url, text)
     else:
         return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
