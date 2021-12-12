@@ -439,7 +439,7 @@ class Reddit2TelegramSender(object):
                 parse_mode=parse_mode
             )
         except BadRequest as e:
-            logging.info('Unkown error.')
+            logging.info('Unknown error.')
             return SupplyResult.SKIP_FOR_NOW
         
         if len(next_text) > 1:
