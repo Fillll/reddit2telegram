@@ -312,7 +312,7 @@ class Reddit2TelegramSender(object):
         self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
         self.errors = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['errors']
 
-    def _get_file_name(self, ext):
+    def _get_file_name(self, ext='file'):
         return os.path.join(TEMP_FOLDER,
                             '{name}.{ext}'.format(name=self.t_channel[1:], ext=ext))
 
@@ -432,11 +432,16 @@ class Reddit2TelegramSender(object):
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        self.telegram_bot.send_document(chat_id=self.t_channel,
-            document=url,
-            caption=text,
-            parse_mode=parse_mode
-        )
+        try:
+            self.telegram_bot.send_document(chat_id=self.t_channel,
+                document=url,
+                caption=text,
+                parse_mode=parse_mode
+            )
+        except BadRequest as e:
+            logging.info('Unkown error.')
+            return SupplyResult.SKIP_FOR_NOW
+        
         if len(next_text) > 1:
             short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
@@ -683,6 +688,7 @@ class Reddit2TelegramSender(object):
                 text = text.format(**formatters)
                 return self.send_gif(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
         elif what == TYPE_IMG:
             what_to_do = kwargs.get('img', True)
             if what_to_do:
@@ -692,6 +698,7 @@ class Reddit2TelegramSender(object):
                 text = text.format(**formatters)
                 return self.send_img(url, text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
         elif what == TYPE_ALBUM:
             what_to_do = kwargs.get('album', True)
             if what_to_do:
