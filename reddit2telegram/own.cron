@@ -695,6 +695,7 @@ MASK	submodule_name
 44 * * * *	r_fpv
 44 * * * *	r_radiocontrol
 44 * * * *	r_raspberry_pi
+44 * * * *	r_3dprinting
 45 * * * *	indiancelebs
 55 * * * *	r_pics
 55 * * * *	tech_cleaner
