@@ -21,7 +21,7 @@ def get_config(config_filename=None):
 
 def import_submodule(submodule_name):
     if os.path.isdir(os.path.join('channels', submodule_name)):
-        submodule = importlib.import_module('channels.{}.app'.format(submodule_name))
+        submodule = importlib.import_module(f'channels.{submodule_name}.app')
     else:
         submodule = default_channel.DefaultChannel(submodule_name)
     return submodule

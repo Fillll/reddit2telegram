@@ -47,5 +47,12 @@ class DefaultChannel(object):
 
     def send_post(self, submission, r2t):
         return r2t.send_simple(submission,
-            min_upvotes_limit=self.min_upvotes_limit
+            min_upvotes_limit=self.min_upvotes_limit,
+            text=self.content['text'],
+            gif=self.content['gif'],
+            video=self.content['video'],
+            img=self.content['img'],
+            album=self.content['album'],
+            gallery=self.content['gallery'],
+            other=self.content['other']
         )
