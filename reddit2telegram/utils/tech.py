@@ -10,7 +10,6 @@ import time
 
 import pymongo
 
-import default_channel
 import utils.channels_stuff
 
 
@@ -196,7 +195,7 @@ def get_all_tags(config_filename=None):
                 tags = tags_file.read()
                 all_tags.update(tags.split())
         else:
-            submodule = default_channel.DefaultChannel(submodule_name)
+            submodule = utils.channels_stuff.default_channel.DefaultChannel(submodule_name)
             all_tags.update(submodule.tags.split())
     return all_tags
 
