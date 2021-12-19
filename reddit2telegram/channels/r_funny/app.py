@@ -26,8 +26,10 @@ def send_post(submission, r2t):
         video=True,
         # If you want images, just pass True or text you want under image.
         img=True,
-        # If you want albums, just pass True or text you want under albums.
+        # If you want Imgur albums, just pass True or text you want under albums.
         album=True,
+        # If you want Reddit galleries, just pass True or text you want under albums.
+        gallery=True,
         # If you do not want other submissions, just pass False.
         other=False
     )

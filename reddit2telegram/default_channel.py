@@ -21,6 +21,16 @@ class DefaultChannel(object):
         super(DefaultChannel, self).__init__()
         self.submodule = submodule
         self.get_settings_from_db()
+        if self.content is None:
+            self.content = dict(
+                text=True,
+                gif=True,
+                video=True,
+                img=True,
+                album=True,
+                gallery=True,
+                other=True
+            )
 
     def get_settings_from_db(self):
         config = get_config()
@@ -32,8 +42,8 @@ class DefaultChannel(object):
         self.submissions_limit = channel_details.get('submissions_limit', None)
         self.subreddit = channel_details.get('subreddit', None)
         self.tags = channel_details.get('tags', None)
-
         self.min_upvotes_limit = channel_details.get('min_upvotes_limit', None)
+        self.content = channel_details.get('content', None)
 
     def send_post(self, submission, r2t):
         return r2t.send_simple(submission,
