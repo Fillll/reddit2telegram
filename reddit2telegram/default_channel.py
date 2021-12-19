@@ -31,6 +31,14 @@ class DefaultChannel(object):
                 gallery=True,
                 other=True
             )
+        else:
+            self.content['text'] = self.content.get('text', False)
+            self.content['gif'] = self.content.get('gif', False)
+            self.content['video'] = self.content.get('video', False)
+            self.content['img'] = self.content.get('img', False)
+            self.content['album'] = self.content.get('album', False)
+            self.content['gallery'] = self.content.get('gallery', False)
+            self.content['other'] = self.content.get('other', False)
 
     def get_settings_from_db(self):
         config = get_config()
