@@ -494,7 +494,7 @@ class Reddit2TelegramSender(object):
 
     def send_img(self, url, text, parse_mode=None):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
-            logging.info('Long pic in {}.'.format(self.t_channel))
+            logging.info(f'Long pic in {t_channel}.')
             return self._send_img_as_link(url, text)
         try:
             self.telegram_bot.send_photo(chat_id=self.t_channel,
@@ -504,7 +504,7 @@ class Reddit2TelegramSender(object):
             )
             return SupplyResult.SUCCESSFULLY
         except TelegramError as e:
-            logging.info('TelegramError prevented at {tc}.'.format(tc=self.t_channel))
+            logging.info(f'TelegramError prevented at {t_channel}.')
             # No idea how to handle PHOTO_INVALID_DIMENSIONS :(
             return SupplyResult.SKIP_FOR_NOW
 
