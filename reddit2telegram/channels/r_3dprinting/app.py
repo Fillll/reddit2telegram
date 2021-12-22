@@ -11,7 +11,7 @@ t_channel = '@r_3dprinting'
 
 def send_post(submission, r2t):
     return r2t.send_simple(submission,
-        min_upvotes_limit=25
+        min_upvotes_limit=25,
         text=False,
         gif=True,
         video=True,
