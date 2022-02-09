@@ -2,18 +2,16 @@
 
 from utils import weighted_random_subreddit
 
-
 # Subreddit that will be a source of content
 subreddit = weighted_random_subreddit({
     'China_irl': 1.0,
-    'Chinatown_irl': 0.5,
+    'Chinatown_irl': 1.0,
     # If we want get content from several subreddits
     # please provide here 'subreddit': probability
     # 'any_other_subreddit': 0.02
 })
 # Telegram channel with @reddit2telegram_bot as an admin
-t_channel = '@China_irl_News'
-
+t_channel = '@r_China_irl'
 
 def send_post(submission, r2t):
     return r2t.send_simple(submission,
@@ -27,8 +25,10 @@ def send_post(submission, r2t):
         video=True,
         # If you want images, just pass True or text you want under image.
         img=True,
-        # If you want albums, just pass True or text you want under albums.
+        # If you want Imgur albums, just pass True or text you want under albums.
         album=True,
+        # If you want Reddit galleries, just pass True or text you want under albums.
+        gallery=True,
         # If you do not want other submissions, just pass False.
         other=True
     )
