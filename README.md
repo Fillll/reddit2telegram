@@ -22,8 +22,6 @@ If you appreciate it
 
 Patreon: [donate](https://www.patreon.com/reddit2telegram)
 
-PayPal: [![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6EVWBT64BMXZS)
-
 BTC: `3DydQjRPaykiapdeab6ABAhB5f2JazwaRD`
 
 ETH: `0xc313B7bEbFc605cC5B50fa97902506404D58df80`
