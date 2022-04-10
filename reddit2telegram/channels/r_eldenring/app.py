@@ -15,7 +15,7 @@ t_channel = '@r_eldenring'
 def send_post(submission, r2t):
     return r2t.send_simple(submission,
         
-        min_upvotes_limit=2,
+        min_upvotes_limit=0,
         # If you do not want text submissions, just pass False.
         text=True,
         # If you want gifs, just pass True or text you want under gif.
