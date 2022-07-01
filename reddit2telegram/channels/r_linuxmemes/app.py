@@ -18,7 +18,7 @@ t_channel = '@r_linuxmemes'
 def send_post(submission, r2t):
     return r2t.send_simple(submission,
         # Submission should have at least min_upvotes_limit upvotes.
-        min_upvotes_limit=50,
+        min_upvotes_limit=25,
         # If you do not want text submissions, just pass False.
         text=True,
         # If you want gifs, just pass True or text you want under gif.
