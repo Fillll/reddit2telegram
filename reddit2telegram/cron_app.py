@@ -19,7 +19,7 @@ free_memory_constant = 128.821
 
 def _create_thread_pool(config) -> concurrent.futures.Executor:
     pool_config = config.get('pool', {})
-    pool_class = pool_config.get('class')
+    pool_class = pool_config.get('class', 'ProcessPoolExecutor')
     size = pool_config.get('size', cpu_count())
     if pool_class == 'ThreadPoolExecutor':
         return concurrent.futures.ThreadPoolExecutor(size)
