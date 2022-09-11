@@ -28,7 +28,7 @@ def read_own_cron(own_cron_filename, config):
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
                 list_of_processes_to_start.append(row['submodule_name'])
-        for process_to_start in list_of_processes_to_start
+        for process_to_start in list_of_processes_to_start:
             successfully_started = False
             while not successfully_started:
                 if psutil.virtual_memory().free / 1024**2 > 99.0:
