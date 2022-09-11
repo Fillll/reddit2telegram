@@ -2,21 +2,43 @@
 
 import datetime
 import csv
+import concurrent.futures
 import logging
-from multiprocessing import Process
-import time
-import math
+from multiprocessing import cpu_count
 import random
 
 import yaml
 from croniter import croniter
-import psutil
 
 from supplier import supply
 
 
 logger = logging.getLogger(__name__)
 free_memory_constant = 128.821
+
+
+def _create_thread_pool(config) -> concurrent.futures.Executor:
+    pool_config = config.get('pool', {})
+    pool_class = pool_config.get('class')
+    size = pool_config.get('size', cpu_count())
+    if pool_class == 'ThreadPoolExecutor':
+        return concurrent.futures.ThreadPoolExecutor(size)
+    elif pool_class == 'ProcessPoolExecutor':
+        return concurrent.futures.ProcessPoolExecutor(size)
+    else:
+        raise ValueError(f"Invalid pool class name: {pool_class}")
+
+
+def _process_single_entry(
+    submodule_name,
+    config,
+    is_test,
+):
+    try:
+        return supply(submodule_name, config, is_test)
+    except:
+        # supply() does its own logging and reports errors to Sentry
+        pass
 
 
 def read_own_cron(own_cron_filename, config):
@@ -31,22 +53,12 @@ def read_own_cron(own_cron_filename, config):
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
                 list_of_processes_to_start.append(row['submodule_name'])
-        cycles = 0
-        random.shuffle(list_of_processes_to_start)
-        for process_to_start in list_of_processes_to_start:
-            successfully_started = False
-            while not successfully_started:
-                cycles += 1
-                cycles_factor = math.ceil(cycles / 45)
-                time.sleep(1)
-                free_memory_mb = psutil.virtual_memory().free / 1024**2
-                if free_memory_mb > free_memory_constant * min(cycles_factor, 3):
-                    supplying_process = Process(target=supply, args=(process_to_start, config))
-                    supplying_process.start()
-                    successfully_started = True
-                    break
-                else:
-                    successfully_started = False
+    random.shuffle(list_of_processes_to_start)
+    executor = _create_thread_pool(config)
+    executor.map(
+        lambda submodule_name: _process_single_entry(submodule_name, config),
+        list_of_processes_to_start
+    )
 
 
 def main(config_filename):
