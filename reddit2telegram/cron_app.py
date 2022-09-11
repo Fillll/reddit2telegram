@@ -4,9 +4,11 @@ import datetime
 import csv
 import logging
 from multiprocessing import Process
+import time
 
 import yaml
 from croniter import croniter
+import psutil
 
 from supplier import supply
 
@@ -24,8 +26,15 @@ def read_own_cron(own_cron_filename, config):
             diff = now - prev_run
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
-                supplying_process = Process(target=supply, args=(row['submodule_name'], config))
-                supplying_process.start()
+                successfully_started = False
+                while not successfully_started:
+                    if psutil.virtual_memory().free / 1024**2 > 99.0:
+                        supplying_process = Process(target=supply, args=(row['submodule_name'], config))
+                        supplying_process.start()
+                        successfully_started = True
+                    else:
+                        successfully_started = False
+                        time.sleep(1)
 
 
 def main(config_filename):
