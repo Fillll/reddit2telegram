@@ -59,7 +59,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
 @report_error
 def supply(submodule_name, config, is_test=False):
     if not is_test:
-        long_sleep(2)
+        long_sleep(0.2)
     submodule = utils.channels_stuff.import_submodule(submodule_name)
     submissions_ranking_stated = getattr(submodule, 'submissions_ranking', None)
     if submissions_ranking_stated not in ['hot', 'new', 'top']:
