@@ -31,13 +31,15 @@ def read_own_cron(own_cron_filename, config):
         for process_to_start in list_of_processes_to_start:
             successfully_started = False
             while not successfully_started:
-                if psutil.virtual_memory().free / 1024**2 > 128.821:
+                time.sleep(1)
+                free_memory_mb = psutil.virtual_memory().free / 1024**2
+                if free_memory_mb > 128.821:
                     supplying_process = Process(target=supply, args=(process_to_start, config))
                     supplying_process.start()
                     successfully_started = True
+                    break
                 else:
                     successfully_started = False
-                    time.sleep(1)
 
 
 def main(config_filename):
