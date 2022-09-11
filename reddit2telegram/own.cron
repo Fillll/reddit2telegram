@@ -607,7 +607,7 @@ MASK	submodule_name
 31 * * * *	r_buildapcsales
 31 * * * *	r_dalle2
 31 * * * *	instaindia
-32 * * * *	r_pantsu
+32 * * * *	r_pantsu    # 14.
 32 * * * *	r_dndmemes
 32 * * * *	r_technope
 32 * * * *	instant_regret
@@ -620,7 +620,8 @@ MASK	submodule_name
 32 * * * *	catmemes_reddit
 32 * * * *	ranalog
 32 * * * *	r_danidev
-33 * * * *	greentext
+32 * * * *	r_privacymemes
+33 * * * *	greentext   # 13.
 33 * * * *	rcarporn
 33 * * * *	r_desktops
 33 * * * *	r_djs
