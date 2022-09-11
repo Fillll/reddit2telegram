@@ -1,5 +1,5 @@
 MASK	submodule_name
-00 * * * *	reddit2telegram
+00 * * * *	reddit2telegram # Comments after tab.
 00 * * * *	r_gifs
 00 * * * *	okbuddyretardd
 00 * * * *	stardewvalley_en
@@ -453,7 +453,6 @@ MASK	submodule_name
 23 * * * *	r_publicfreakout
 23 * * * *	r_itemshop
 23 * * * *	rdataisbeautiful
-23 * * * *	r_howyoudoin
 23 * * * *	r_adhd
 23 * * * *	r_tupac
 23 * * * *	rkolc
@@ -634,7 +633,7 @@ MASK	submodule_name
 33 * * * *	r_technicallythetruth
 33 */2 * * *	sailingx
 33 * * * *	r_lal_salaam
-34 * * * *	r_ramen
+34 * * * *	r_ramen # 12.
 34 * * * *	r_wheredidthesodago
 34 * * * *	r_marvelstudios
 34 * * * *	r_cutelittlefangs
@@ -645,7 +644,8 @@ MASK	submodule_name
 34 * * * *	r_chessmemes
 34 * * * *	r_tiktokthots
 34 * * * *	frontlinegirls
-35 * * * *	r_mlp
+34 * * * *	r_chels
+35 * * * *	r_mlp   # 11.
 35 * * * *	r_chemicalreactionsgifs
 35 * * * *	r_vinyl
 35 * * * *	admeme
@@ -656,7 +656,7 @@ MASK	submodule_name
 35 * * * *	holdmycosmo
 35 * * * *	r_iww
 35 * * * *	r_lua
-36 * * * *	politicalhumor
+36 * * * *	politicalhumor  # 10.
 36 * * * *	r_switchhacks
 36 * * * *	r_hentaimemes
 36 * * * *	r_liverpoolfc
@@ -666,7 +666,7 @@ MASK	submodule_name
 36 * * * *	r_osha
 36 * * * *	r_hackintosh
 36 * * * *	oneshot
-37 * * * *	r_bitcoin
+37 * * * *	r_bitcoin   # 9.
 37 * * * *	r_books
 37 * * * *	r_creepyasterisks
 37 * * * *	r_channels_tifu
@@ -675,7 +675,7 @@ MASK	submodule_name
 37 * * * *	terriblefacebookmemes
 37 * * * *	r_islam
 37 * * * *	imaginarypics
-38 * * * *	r_freefolk
+38 * * * *	r_freefolk  # 8.
 38 * * * *	r_suggest
 38 * * * *	alltwitter
 38 * * * *	r_vinesauce
@@ -683,37 +683,38 @@ MASK	submodule_name
 38 * * * *	grndordr
 38 * * * *	r_moviesuggestions
 38 * * * *	r_malaysia
-39 * * * *	rareinsults
+39 * * * *	rareinsults # 7.
 39 * * * *	r_tihi
 39 * * * *	r_therewasanattempt
 39 * * * *	r_freegamefindings
 39 * * * *	ourworldtwd
 39 * * * *	r_kcv
 39 * * * *	r_hearthstone
-40 * * * *	ya_metro
+40 * * * *	ya_metro    # 6.
 40 * * * *	r_sbubby
 40 * * * *	r_watchpeopledieinside
 40 */4 * * *	r_youtubehaiku
 40 * * * *	r_magiarecord
-41 * * * *	r_fantheories
+40 * * * *	rstablediffusion
+41 * * * *	r_fantheories   # 5.
 41 * * * *	r_space
 41 * * * *	loliconsunite
 41 * * * *	sub_eminem
 41 * * * *	manpill
-42 * * * *	r_slimerancher
+42 * * * *	r_slimerancher  # 4.
 42 * * * *	r_privacy
 42 * * * *	r_jailbreak
 42 * * * *	r_devilmaycry
-43 * * * *	r_googleplaydeals
+43 * * * *	r_googleplaydeals   # 3.
 43 * * * *	wasletztepreis
 43 * * * *	r_2meirl4meirl
-44 * * * *	r_crappyoffbrands
+44 * * * *	r_crappyoffbrands   # 2.
 44 * * * *	r_fpv
 44 * * * *	r_radiocontrol
 44 * * * *	r_raspberry_pi
 44 * * * *	r_3dprinting
-45 * * * *	r_algotrading
-45 * * * *	indiancelebs
+45 * * * *	r_algotrading   # 1.
+45 * * * *	indiancelebs    # Last one.
 55 * * * *	r_pics
 55 * * * *	tech_cleaner
 55 11 * * *	tech_anniversary
