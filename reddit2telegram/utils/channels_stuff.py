@@ -75,6 +75,9 @@ class DefaultChannel(object):
         db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
         channels = db[CHANNELS_COLLECTION]
         channel_details = channels.find_one({'submodule': self.submodule})
+        if channel_details is None:
+            self.t_channel = 'NO CHANNEL FOUND FOR: self.submodule'
+            raise
         self.t_channel = channel_details.get('channel', None)
         self.submissions_ranking = channel_details.get('submissions_ranking', None)
         self.submissions_limit = channel_details.get('submissions_limit', None)
