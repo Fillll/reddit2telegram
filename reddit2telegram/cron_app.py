@@ -6,6 +6,7 @@ import logging
 from multiprocessing import Process
 import time
 import math
+import random
 
 import yaml
 from croniter import croniter
@@ -31,6 +32,7 @@ def read_own_cron(own_cron_filename, config):
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
                 list_of_processes_to_start.append(row['submodule_name'])
         cycles = 0
+        random.shuffle(list_of_processes_to_start)
         for process_to_start in list_of_processes_to_start:
             successfully_started = False
             while not successfully_started:
@@ -38,7 +40,7 @@ def read_own_cron(own_cron_filename, config):
                 cycles_factor = math.ceil(cycles / 45)
                 time.sleep(1)
                 free_memory_mb = psutil.virtual_memory().free / 1024**2
-                if free_memory_mb > free_memory_constant * cycles_factor:
+                if free_memory_mb > free_memory_constant * min(cycles_factor, 3):
                     supplying_process = Process(target=supply, args=(process_to_start, config))
                     supplying_process.start()
                     successfully_started = True
