@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 def read_own_cron(own_cron_filename, config):
     with open(own_cron_filename) as tsv_file:
         tsv_reader = csv.DictReader(tsv_file, delimiter='\t')
+        list_of_processes_to_start = list()
         for row in tsv_reader:
             now = datetime.datetime.now()
             cron = croniter(row['MASK'])
@@ -26,15 +27,17 @@ def read_own_cron(own_cron_filename, config):
             diff = now - prev_run
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
-                successfully_started = False
-                while not successfully_started:
-                    if psutil.virtual_memory().free / 1024**2 > 99.0:
-                        supplying_process = Process(target=supply, args=(row['submodule_name'], config))
-                        supplying_process.start()
-                        successfully_started = True
-                    else:
-                        successfully_started = False
-                        time.sleep(1)
+                list_of_processes_to_start.append(row['submodule_name'])
+        for process_to_start in list_of_processes_to_start
+            successfully_started = False
+            while not successfully_started:
+                if psutil.virtual_memory().free / 1024**2 > 99.0:
+                    supplying_process = Process(target=supply, args=(process_to_start, config))
+                    supplying_process.start()
+                    successfully_started = True
+                else:
+                    successfully_started = False
+                    time.sleep(1)
 
 
 def main(config_filename):
