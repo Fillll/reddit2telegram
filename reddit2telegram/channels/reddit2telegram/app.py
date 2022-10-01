@@ -25,7 +25,7 @@ def update_promotion_order():
     all_submodules.remove('reddit2telegram')
     submodules_and_dates = dict()
     for submodule in all_submodules:
-        imported = utils.channels_stuff.import_submodule(submodule_name)
+        imported = utils.channels_stuff.import_submodule(submodule)
         channel = imported.t_channel
         first_date_result = first_date_view.find_one({'_id': channel.lower()})
         if first_date_result is None:
