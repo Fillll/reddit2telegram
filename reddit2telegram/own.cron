@@ -538,7 +538,7 @@ MASK	submodule_name
 27 * * * *	r_gentoo
 27 * * * *	r_homeassistant
 27 * * * *	miku_nakano_fandom
-28 * * * *	r_cryptocurrency
+28 * * * *	r_cryptocurrency	# 18.
 28 * * * *	r_techsupportgore
 28 * * * *	r_osugame
 28 * * * *	r_frogs
@@ -555,7 +555,8 @@ MASK	submodule_name
 28 * * * *	r_maybe
 28 * * * *	unexpected_reddit
 28 * * * *	weirddalle
-29 * * * *	r_indiaa
+28 * * * *	r_bolehland
+29 * * * *	r_indiaa	# 17.
 29 * * * *	r_freegamesonsteam
 29 * * * *	r_interestingasfuck
 29 */2 * * *	r_programming
@@ -572,7 +573,7 @@ MASK	submodule_name
 29 * * * *	r_confidentlyincorrect
 29 * * * *	gnarmains
 29 * * * *	newgreentexts
-30 * * * *	asiangirlsbeingcute
+30 * * * *	asiangirlsbeingcute	# 16.
 30 * * * *	pythondaily
 30 * * * *	reddit_cartoons
 30 * * * *	r_rimworld
@@ -588,7 +589,7 @@ MASK	submodule_name
 30 * * * *	macappsbackup
 30 * * * *	r_thehatedone
 30 * * * *	r_stray
-31 * * * *	r_dndgreentext
+31 * * * *	r_dndgreentext	# 15.
 31 * * * *	r_listentothis
 31 * * * *	r_woooosh
 31 * * * *	r_breadtube
@@ -615,6 +616,8 @@ MASK	submodule_name
 32 * * * *	catmemes_reddit
 32 * * * *	ranalog
 32 * * * *	r_danidev
+32 * * * *	uminekoreddit
+32 * * * *	r_mwii
 33 * * * *	greentext	# 13.
 33 * * * *	rcarporn
 33 * * * *	r_desktops
