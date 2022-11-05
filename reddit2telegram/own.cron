@@ -441,7 +441,7 @@ MASK	submodule_name
 22 * * * *	r_twinpeaks
 22 * * * *	dragonballshitposts
 22 * * * *	artificialintelligence24x7
-23 * * * *	r_explainmelikeimfive
+23 * * * *	r_explainmelikeimfive	# 23
 23 * * * *	r_cpp
 23 * * * *	r_photoshopbattles
 23 * * * *	ingressreddit
@@ -460,7 +460,9 @@ MASK	submodule_name
 23 * * * *	r_kgbtr
 23 * * * *	moonshotcryptos
 23 * * * *	r_lostgeneration
-24,56 * * * *	just_hmmm
+23 * * * *	r_linuxmemes_1
+23 * * * *	r_hamsters
+24,56 * * * *	just_hmmm	# 22
 24 * * * *	r_gaming
 24 * * * *	r_pornhubcomments
 24 * * * *	r_contrapoints
@@ -479,7 +481,10 @@ MASK	submodule_name
 24 * * * *	r_eldenring
 24 * * * *	r_riscv
 24 * * * *	loveforlandlords
-25 * * * *	dailyfoodporn
+24 * * * *	fullegoism
+24 * * * *	r_okbuddychicanery
+24 * * * *	ranarchism
+25 * * * *	dailyfoodporn	# 21
 25 * * * *	r_dontdeadopeninside
 25 * * * *	r_gtaonline
 25 * * * *	r_funnystories
@@ -500,7 +505,7 @@ MASK	submodule_name
 25 * * * *	r_indiandankmemes
 25 * * * *	dailygratitudee
 25 * * * *	r_padres
-26 * * * *	programmer_humor
+26 * * * *	programmer_humor	# 20
 26 * * * *	r_linux
 26 * * * *	r_anime_irl
 26,56 * * * *	soccer_reddit
@@ -519,7 +524,8 @@ MASK	submodule_name
 26 * * * *	r_modelmakers
 26 * * * *	mikuichika_nakano
 26 * * * *	asus_tuf
-27 * * * *	r_overwatch
+26 * * * *	gameplaymation
+27 * * * *	r_overwatch	# 19
 27 * * * *	android
 27 * * * *	indepthstories
 27 * * * *	oddly_satisfy
@@ -536,6 +542,8 @@ MASK	submodule_name
 27 * * * *	r_gentoo
 27 * * * *	r_homeassistant
 27 * * * *	miku_nakano_fandom
+27 * * * *	r_computers
+27 * * * *	r_femalecelebritybiceps
 28 * * * *	r_cryptocurrency	# 18.
 28 * * * *	r_techsupportgore
 28 * * * *	r_osugame
