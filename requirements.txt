@@ -2,7 +2,7 @@ pyyaml
 praw
 python-telegram-bot
 yandex.translate
-pymongo
+pymongo==3.12
 requests
 imgurpython
 raven
