@@ -1,4 +1,4 @@
-#encoding:utf-8
+# encoding:utf-8
 
 import datetime
 import csv
@@ -14,7 +14,6 @@ from supplier import supply
 
 
 logger = logging.getLogger(__name__)
-free_memory_constant = 128.821
 
 
 def _create_thread_pool(config) -> concurrent.futures.Executor:
@@ -32,7 +31,7 @@ def _create_thread_pool(config) -> concurrent.futures.Executor:
 def _process_single_entry(
     submodule_name,
     config,
-    is_test,
+    is_test=False,
 ):
     try:
         return supply(submodule_name, config, is_test)
