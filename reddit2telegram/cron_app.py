@@ -51,7 +51,8 @@ def read_own_cron(own_cron_filename, config):
             diff = now - prev_run
             diff_seconds = diff.total_seconds()
             if 0.0 <= diff_seconds and diff_seconds <= 59.9:
-                list_of_processes_to_start.append(row['submodule_name'])
+                submodule_name = row['submodule_name'].split('\t')[0]
+                list_of_processes_to_start.append(submodule_name)
     random.shuffle(list_of_processes_to_start)
     executor = _create_thread_pool(config)
     executor.map(
