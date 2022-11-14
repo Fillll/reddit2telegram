@@ -150,7 +150,7 @@ MASK	submodule_name
 08 * * * *	rattit
 08 * * * *	r_nottheonion
 08 * * * *	vaporwaveaesthetics
-08 * * * *	rjacksucksatlife
+08,18,28,38 * * * *	rjacksucksatlife
 08 * * * *	r_deepintoutube
 08 * * * *	r_phoenixsc
 08 * * * *	r_rimesegate
@@ -462,6 +462,8 @@ MASK	submodule_name
 23 * * * *	r_lostgeneration
 23 * * * *	r_linuxmemes_1
 23 * * * *	r_hamsters
+23 * * * *	r_edgerunners
+23 * * * *	mapporncirclejerk
 24,56 * * * *	just_hmmm	# 22
 24 * * * *	r_gaming
 24 * * * *	r_pornhubcomments
