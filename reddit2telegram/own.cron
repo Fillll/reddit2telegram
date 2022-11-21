@@ -401,7 +401,7 @@ MASK	submodule_name
 20 * * * *	r_chargers
 20 * * * *	r_arknights
 20 * * * *	r_smugs
-21 * * * *	r_changemyview
+21 * * * *	r_changemyview	# 25
 21 * * * *	r_porn
 21 * * * *	arma
 21 * * * *	r_megane
@@ -421,6 +421,8 @@ MASK	submodule_name
 21 * * * *	danknaruto
 21 * * * *	reddit196
 21 * * * *	r_chodi
+21 * * * *	r_komisan
+21 * * * *	r_bleach
 22 * * * *	redditcats	# 24
 22 * * * *	r_f1
 22 * * * *	r_grandorder
@@ -442,6 +444,9 @@ MASK	submodule_name
 22 * * * *	dragonballshitposts
 22 * * * *	artificialintelligence24x7
 22 * * * *	r_askmen
+22 * * * *	r_witcher3
+22 * * * *	r_ultrakill
+22 * * * *	r_manhwa
 23 * * * *	r_explainmelikeimfive	# 23
 23 * * * *	r_cpp
 23 * * * *	r_photoshopbattles
