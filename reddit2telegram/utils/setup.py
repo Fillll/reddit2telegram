@@ -21,7 +21,7 @@ def create_view_with_first_dates(config_filename=None):
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     if VIEW_NAME not in db.collection_names():
         db.command('create', VIEW_NAME,
-            viewOn='urls', 
+            viewOn='urls',
             pipeline=[
                 {
                     '$group':
@@ -55,6 +55,8 @@ def ensure_index(config_filename=None):
     channels = db['channels']
     channels.create_index([('channel', pymongo.ASCENDING)])
     channels.create_index([('submodule', pymongo.ASCENDING)])
+    tasks = db['tasks']
+    tasks.create_index([('status', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
     print('ENSURE INDEX END.')
 
 
