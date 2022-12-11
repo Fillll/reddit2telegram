@@ -381,6 +381,7 @@ MASK	submodule_name
 19 * * * *	memes_evangelion
 19 * * * *	legalcatadvice
 19 * * * *	r_mechanicalkeyboards
+19 * * * *	r_scala
 20 * * * *	awwnime	# 26
 20 * * * *	rtf2memes
 20 * * * *	r_latestagecapitalism
@@ -760,4 +761,3 @@ MASK	submodule_name
 59 * * * *	r_battlestations
 59 * * * *	r_pokemonmasters
 59 */2 * * *	r_badcode
-30 * * * *	r_scala
