@@ -40,5 +40,8 @@ def send_post(submission, r2t):
         status_name = TaskStatus(status_id).name
         status_count = status['count']
         text_to_send += f'  →  {status_name} ({status_id}): {status_count}\n'
+    deleted_cnt = r2t.tasks.delete_many({'status': TaskStatus.SUCCESS.value})
+    text_to_send += f'Deleted tasks: {deleted_cnt.deleted_count}.'
+    # ✅ Done.
     r2t.send_text(text_to_send)
     return SupplyResult.STOP_THIS_SUPPLY
