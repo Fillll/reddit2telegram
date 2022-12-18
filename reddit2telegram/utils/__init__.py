@@ -311,6 +311,7 @@ class Reddit2TelegramSender(object):
         self.urls = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['urls']
         self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
         self.errors = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['errors']
+        self.tasks = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['tasks']
 
     def _get_file_name(self, ext='file'):
         return os.path.join(TEMP_FOLDER,

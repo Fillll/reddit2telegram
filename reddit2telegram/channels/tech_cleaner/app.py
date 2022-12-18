@@ -2,6 +2,7 @@ import subprocess
 
 from utils import SupplyResult, clean_after_module
 from utils.tech import get_dev_channel
+from task_queue import TaskStatus
 
 import psutil
 
@@ -22,5 +23,22 @@ def send_post(submission, r2t):
     vnstat_output = subprocess.check_output(['vnstat', '-m'])
     current_month_traffic = str(vnstat_output).split('\\n')[-4].split(' | ')[-2].strip()
     text_to_send += f'Current month traffic: {current_month_traffic}.'
+    # Task statuses.
+    status_list = r2t.tasks.aggregate([
+        {
+            '$group': {
+                '_id': '$status',
+                'count': {
+                    '$sum': 1
+                }
+            }
+        }
+    ])
+    text_to_send += 'Stati:\n'
+    for status in list(status_list):
+        status_id = status['_id']
+        status_name = TaskStatus(status_id).name
+        status_count = status['count']
+        text_to_send += f'  →  {status_name} ({status_id}): {status_count}\n'
     r2t.send_text(text_to_send)
     return SupplyResult.STOP_THIS_SUPPLY
