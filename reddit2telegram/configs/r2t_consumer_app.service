@@ -1,0 +1,11 @@
+[Unit]
+Description=r2t_consumer
+
+[Service]
+WorkingDirectory=/home/olive/reddit2telegram/reddit2telegram
+ExecStart=/home/olive/reddit2telegram/env/bin/python task_queue_consumer.py --config configs/prod.yml
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
