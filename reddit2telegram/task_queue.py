@@ -3,6 +3,7 @@ import time
 from concurrent.futures import Executor
 from enum import Enum
 from typing import List, Mapping
+import gc
 
 import pymongo
 from bson.objectid import ObjectId
@@ -94,6 +95,7 @@ def start_consumer(
             logger.info('Found %d new tasks', len(new_tasks))
             for t in new_tasks:
                 executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
+            gc.collect()
             time.sleep(sleep_interval_seconds)
         except KeyboardInterrupt:
             logger.info('Stopping consumer')
