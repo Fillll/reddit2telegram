@@ -22,7 +22,7 @@ def send_post(submission, r2t):
     # Traffic.
     vnstat_output = subprocess.check_output(['vnstat', '-m'])
     current_month_traffic = str(vnstat_output).split('\\n')[-4].split(' | ')[-2].strip()
-    text_to_send += f'Current month traffic: {current_month_traffic}.'
+    text_to_send += f'Current month traffic: {current_month_traffic}.\n'
     # Task statuses.
     status_list = r2t.tasks.aggregate([
         {
