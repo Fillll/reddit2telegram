@@ -361,7 +361,7 @@ MASK	submodule_name
 18 * * * *	r_madokamagica
 18 * * * *	r_heraldry
 18 * * * *	rshittymoviedetails
-19 0 */2 * *	r_behindthegifs
+19 0 */2 * *	r_behindthegifs	# 27
 19 * * * *	r_wellthatsucks
 19 * * * *	r_comedycemetery
 19 * * * *	r_econ
@@ -382,6 +382,10 @@ MASK	submodule_name
 19 * * * *	legalcatadvice
 19 * * * *	r_mechanicalkeyboards
 19 * * * *	r_scala
+19 * * * *	r_onepiecer
+19 * * * *	r_manga2
+19 * * * *	r_fate
+19 * * * *	r_okbuddyfresca
 20 * * * *	awwnime	# 26
 20 * * * *	rtf2memes
 20 * * * *	r_latestagecapitalism
