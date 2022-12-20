@@ -18,11 +18,13 @@ def send_post(submission, r2t):
     text_to_send += f'Free memory: {free_memory_mb:.3f}MB.\n'
     # Disk.
     total_size = clean_after_module()
-    text_to_send += 'Deleted: ' + str(round(total_size / (1024.0 ** 3), 3)) + 'GB.\n'
+    text_to_send += 'Deleted files: ' + str(round(total_size / (1024.0 ** 3), 3)) + 'GB.\n'
     # Traffic.
     vnstat_output = subprocess.check_output(['vnstat', '-m'])
     current_month_traffic = str(vnstat_output).split('\\n')[-4].split(' | ')[-2].strip()
     text_to_send += f'Current month traffic: {current_month_traffic}.\n'
+    current_month_estimate = str(vnstat_output).split('\\n')[-2].split('|')[-2].strip()
+    text_to_send += f'Current month estimate: {current_month_estimate}.\n'
     # Task statuses.
     status_list = r2t.tasks.aggregate([
         {
