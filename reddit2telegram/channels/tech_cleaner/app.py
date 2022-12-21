@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 from utils import SupplyResult, clean_after_module
 from utils.tech import get_dev_channel
@@ -19,6 +20,10 @@ def send_post(submission, r2t):
     # Disk.
     total_size = clean_after_module()
     text_to_send += 'Deleted files: ' + str(round(total_size / (1024.0 ** 3), 3)) + 'GB.\n'
+    # Available disk.
+    disk_report = os.statvfs('/')
+    available_gigs = (disk_report.f_bavail * disk_report.f_frsize) / 1024 ** 3
+    text_to_send += f'Available disk space: {available_gigs:.3f}GB.\n'
     # Traffic.
     vnstat_output = subprocess.check_output(['vnstat', '-m'])
     current_month_traffic = str(vnstat_output).split('\\n')[-4].split(' | ')[-2].strip()
