@@ -41,7 +41,7 @@ def send_post(submission, r2t):
             }
         }
     ])
-    text_to_send += 'Stati:\n'
+    text_to_send += "Tasks' stati:\n"
     for status in list(status_list):
         status_id = status['_id']
         status_name = TaskStatus(status_id).name
