@@ -2,6 +2,12 @@
 
 ## Run `setup.py`
 
+it takes care of indexes.
+
+```bash
+python utils/setup.py
+```
+
 ## Setup `systemd`
 
 ```bash
