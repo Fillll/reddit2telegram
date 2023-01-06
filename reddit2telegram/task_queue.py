@@ -76,6 +76,7 @@ def execute_task(collection: Collection, id: ObjectId, name: str, args: Mapping)
             raise Exception(f'Task {name} not found')
         func(**args)
         update_task_status(collection, id, TaskStatus.SUCCESS)
+        logger.info(f'Task {name} successfully executed.')
     except Exception as e:
         logger.exception(f'Task {name} failed with exception')
         update_task_status(collection, id, TaskStatus.FAILED)
@@ -94,7 +95,15 @@ def start_consumer(
             new_tasks = select_all_available_tasks(collection)
             logger.info('Found %d new tasks', len(new_tasks))
             for t in new_tasks:
-                executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
+                task_age = time.time() - t['created_at']
+                # logger.info(f'Task age is {round(task_age / 60)} mins.')
+                if task_age < 25 * 60:
+                    # If task was create less than 25 mins ago, then ok.
+                    executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
+                else:
+                    # If the task is older than 25 mins, just skip.
+                    # logger.info(f'Too old task → {round(task_age / 60)} mins.')
+                    update_task_status(collection, t['_id'], TaskStatus.FAILED)
             gc.collect()
             time.sleep(sleep_interval_seconds)
         except KeyboardInterrupt:
