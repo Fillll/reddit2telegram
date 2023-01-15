@@ -22,7 +22,7 @@ def send_post(submission, r2t):
         # Submission should have at least min_upvotes_limit upvotes.
         min_upvotes_limit=100,
         # If you do not want text submissions, just pass False.
-        text=False,
+        text=True,
         # If you want gifs, just pass True or text you want under gif.
         gif=True,
         # If you want videos, just pass True or text you want under gif.
