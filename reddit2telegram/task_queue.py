@@ -26,6 +26,7 @@ class TaskStatus(Enum):
     IN_PROGRESS = 2
     SUCCESS = 3
     FAILED = 4
+    SCHEDULED = 5
 
 
 def create_task_dict(task_name: str, args: Mapping):
@@ -100,6 +101,7 @@ def start_consumer(
                 if task_age < 25 * 60:
                     # If task was create less than 25 mins ago, then ok.
                     executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
+                    update_task_status(collection, t['_id'], TaskStatus.SCHEDULED)
                 else:
                     # If the task is older than 25 mins, just skip.
                     # logger.info(f'Too old task → {round(task_age / 60)} mins.')
