@@ -341,7 +341,7 @@ MASK	submodule_name
 17 * * * *	privacyguides
 17 * * * *	cricketshitpost
 17 * * * *	r_kochin
-18 * * * *	r_mild
+18 * * * *	r_mild	# 28
 18 * * * *	r_beamazed
 18 * * * *	bikinimoe
 18 * * * *	lyricalquotes
@@ -361,6 +361,10 @@ MASK	submodule_name
 18 * * * *	r_madokamagica
 18 * * * *	r_heraldry
 18 * * * *	rshittymoviedetails
+18 * * * *	dongistansub
+18 * * * *	r_psychology1
+18 * * * *	r_literaturememes
+18 * * * *	r_muscularcelebrities
 19 0 */2 * *	r_behindthegifs	# 27
 19 * * * *	r_wellthatsucks
 19 * * * *	r_comedycemetery
@@ -387,6 +391,7 @@ MASK	submodule_name
 19 * * * *	r_okbuddyfresca
 19 * * * *	r_churchofemma
 19 * * * *	r_gharkekalesh
+19 * * * *	r_punee
 20 * * * *	awwnime	# 26
 20 * * * *	rtf2memes
 20 * * * *	r_latestagecapitalism
