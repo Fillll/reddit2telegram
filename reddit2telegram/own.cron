@@ -742,8 +742,8 @@ MASK	submodule_name
 44 * * * *	r_3dprinting
 45 * * * *	r_algotrading	# 1.
 45 * * * *	indiancelebs	# Last one.
+54 * * * *	tech_cleaner
 55 * * * *	r_pics
-55 * * * *	tech_cleaner
 55 11 * * *	tech_anniversary
 55 14 * * sat	tech_weekly_radar
 55 */6 * * *	tech_store_stat

@@ -30,7 +30,7 @@ def send_post(submission, r2t):
     text_to_send += f'Current month traffic: {current_month_traffic}.\n'
     current_month_estimate = str(vnstat_output).split('\\n')[-2].split('|')[-2].strip()
     text_to_send += f'Current month estimate: {current_month_estimate}.\n'
-    # Task statuses.
+    # Task stati.
     status_list = r2t.tasks.aggregate([
         {
             '$group': {
@@ -42,13 +42,34 @@ def send_post(submission, r2t):
         }
     ])
     text_to_send += "Tasks' stati:\n"
-    for status in list(status_list):
+    status_list = list(status_list)
+    tasks_stati = r2t.settings.find_one({'setting': 'tasks-stati'})
+    if tasks_stati is None:
+        tasks_stati = dict()
+    else:
+        tasks_stati = tasks_stati['data']
+    deleted_cnt = 0
+    for status in sorted(status_list, key=lambda x: x['_id']):
         status_id = status['_id']
         status_name = TaskStatus(status_id).name
+        current_stat = tasks_stati.get(status_name, {'amt': 0, 'cycles_cnt': 0})
         status_count = status['count']
-        text_to_send += f'  →  {status_name} ({status_id}): {status_count}\n'
-    deleted_cnt = r2t.tasks.delete_many({'status': TaskStatus.SUCCESS.value})
-    text_to_send += f'Deleted tasks: {deleted_cnt.deleted_count}.'
+        current_stat['amt'] += status_count
+        current_stat['cycles_cnt'] += 1
+        tasks_stati[status_name] = current_stat
+        average_rate = current_stat['amt'] / current_stat['cycles_cnt']
+        text_to_send += f'  →  {status_name} ({status_id}): {status_count} (avg: {average_rate:.3f})\n'
+        deleted_cnt += r2t.tasks.delete_many({'status': status_id}).deleted_count
+    text_to_send += f'Deleted tasks: {deleted_cnt}.'
+    r2t.settings.find_one_and_update(
+        filter={'setting': 'tasks-stati'},
+        update={'$set':
+            {
+                'data': tasks_stati
+            }
+        },
+        upsert=True
+    )
     # ✅ Done.
     r2t.send_text(text_to_send)
     return SupplyResult.STOP_THIS_SUPPLY
