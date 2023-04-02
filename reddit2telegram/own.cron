@@ -344,6 +344,9 @@ MASK	submodule_name
 17 * * * *	r_dankinindia
 17 * * * *	worldnewsvideo
 17 * * * *	rexmuslim
+17 * * * *	r_metalgearsolid
+17 * * * *	r_thesilphroad
+17 * * * *	env_chat
 18 * * * *	r_mild	# 28
 18 * * * *	r_beamazed
 18 * * * *	bikinimoe
@@ -707,8 +710,7 @@ MASK	submodule_name
 37 * * * *	terriblefacebookmemes
 37 * * * *	r_islam
 37 * * * *	imaginarypics
-38 * * * *	r_freefolk	# 8.
-38 * * * *	r_suggest
+38 * * * *	r_suggest	# 8.
 38 * * * *	alltwitter
 38 * * * *	r_vinesauce
 38 * * * *	r_tfirl
