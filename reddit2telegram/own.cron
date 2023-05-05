@@ -319,7 +319,7 @@ MASK	submodule_name
 16 * * * *	r_axieinfinity
 16 * * * *	r_plipplip
 16 16 * * *	minimalwallz
-17 * * * *	dash_cams	# 29
+17 * * * *	dash_cams	# 29.
 17 * * * *	r_mildlyinfuriating
 17 * * * *	r_cricket
 17 * * * *	r_sweatypalms
@@ -346,7 +346,9 @@ MASK	submodule_name
 17 * * * *	r_metalgearsolid
 17 * * * *	r_thesilphroad
 17 * * * *	env_chat
-18 * * * *	r_mild	# 28
+17 * * * *	r_redfall
+17 * * * *	oldschoolrunescape2007
+18 * * * *	r_mild	# 28.
 18 * * * *	r_beamazed
 18 * * * *	bikinimoe
 18 * * * *	lyricalquotes
@@ -374,7 +376,7 @@ MASK	submodule_name
 18 * * * *	r_nijisanji
 18 * * * *	r_shitposttc
 18 * * * *	chainsawfolk
-19 0 */2 * *	r_behindthegifs	# 27
+19 0 */2 * *	r_behindthegifs	# 27.
 19 * * * *	r_wellthatsucks
 19 * * * *	r_comedycemetery
 19 * * * *	r_econ
