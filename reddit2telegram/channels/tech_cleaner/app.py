@@ -50,6 +50,7 @@ def send_post(submission, r2t):
     else:
         tasks_stati = tasks_stati["data"]
     deleted_cnt = 0
+    max_cycles_cnt = 0
     for each_possible_status in TaskStatus:
         status_id = each_possible_status.value
         status_name = each_possible_status.name
@@ -57,8 +58,9 @@ def send_post(submission, r2t):
         status_count = get_status_count_from_status_list(status_list, status_id)
         current_stat["amt"] += status_count
         current_stat["cycles_cnt"] += 1
+        max_cycles_cnt = max(current_stat["cycles_cnt"], max_cycles_cnt)
         tasks_stati[status_name] = current_stat
-        average_rate = current_stat["amt"] / current_stat["cycles_cnt"]
+        average_rate = current_stat["amt"] / max_cycles_cnt
         text_to_send += f"  →  {status_name} ({status_id}): {status_count} (avg: {average_rate:.3f})\n"
         deleted_cnt += r2t.tasks.delete_many({"status": status_id}).deleted_count
     text_to_send += f"Deleted tasks: {deleted_cnt}."
