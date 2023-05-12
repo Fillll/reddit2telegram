@@ -12,6 +12,9 @@ subreddit = "all"
 t_channel = get_dev_channel()
 
 
+SETTING_NAME = "tasks-stati"
+
+
 def get_status_count_from_status_list(status_list, status_id):
     short_status_list = [status for status in status_list if status["_id"] == status_id]
     if len(short_status_list) == 0:
@@ -44,7 +47,7 @@ def send_post(submission, r2t):
     status_list = r2t.tasks.aggregate([{"$group": {"_id": "$status", "count": {"$sum": 1}}}])
     text_to_send += "Tasks' stati:\n"
     status_list = list(status_list)
-    tasks_stati = r2t.settings.find_one({"setting": "tasks-stati"})
+    tasks_stati = r2t.settings.find_one({"setting": SETTING_NAME})
     if tasks_stati is None:
         tasks_stati = dict()
     else:
@@ -68,7 +71,7 @@ def send_post(submission, r2t):
         deleted_cnt += r2t.tasks.delete_many({"status": status_id}).deleted_count
     text_to_send += f"Deleted tasks: {deleted_cnt}."
     text_to_send += f"Total cycles: {max_cycles_cnt}."
-    r2t.settings.find_one_and_update(filter={"setting": "tasks-stati"}, update={"$set": {"data": tasks_stati}}, upsert=True)
+    r2t.settings.find_one_and_update(filter={"setting": SETTING_NAME}, update={"$set": {"data": tasks_stati}}, upsert=True)
     # ✅ Done.
     r2t.send_text(text_to_send)
     return SupplyResult.STOP_THIS_SUPPLY
