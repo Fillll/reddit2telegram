@@ -51,6 +51,10 @@ def send_post(submission, r2t):
         tasks_stati = tasks_stati["data"]
     deleted_cnt = 0
     max_cycles_cnt = 0
+    for each_status_name in tasks_stati.keys():
+        each_status_cycles_cnt = tasks_stati[each_status_name]["cycles_cnt"]
+        max_cycles_cnt = max(max_cycles_cnt, each_status_cycles_cnt)
+    max_cycles_cnt += 1
     for each_possible_status in TaskStatus:
         status_id = each_possible_status.value
         status_name = each_possible_status.name
@@ -58,7 +62,6 @@ def send_post(submission, r2t):
         status_count = get_status_count_from_status_list(status_list, status_id)
         current_stat["amt"] += status_count
         current_stat["cycles_cnt"] += 1
-        max_cycles_cnt = max(current_stat["cycles_cnt"], max_cycles_cnt)
         tasks_stati[status_name] = current_stat
         average_rate = current_stat["amt"] / max_cycles_cnt
         text_to_send += f"  →  {status_name} ({status_id}): {status_count} (avg: {average_rate:.3f})\n"
