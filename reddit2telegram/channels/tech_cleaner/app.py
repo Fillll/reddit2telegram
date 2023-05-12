@@ -67,6 +67,7 @@ def send_post(submission, r2t):
         text_to_send += f"  →  {status_name} ({status_id}): {status_count} (avg: {average_rate:.3f})\n"
         deleted_cnt += r2t.tasks.delete_many({"status": status_id}).deleted_count
     text_to_send += f"Deleted tasks: {deleted_cnt}."
+    text_to_send += f"Total cycles: {max_cycles_cnt}."
     r2t.settings.find_one_and_update(filter={"setting": "tasks-stati"}, update={"$set": {"data": tasks_stati}}, upsert=True)
     # ✅ Done.
     r2t.send_text(text_to_send)
