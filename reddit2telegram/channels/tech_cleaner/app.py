@@ -67,7 +67,7 @@ def send_post(submission, r2t):
         current_stat["cycles_cnt"] += 1
         tasks_stati[status_name] = current_stat
         average_rate = current_stat["amt"] / max_cycles_cnt
-        text_to_send += f"  →  {status_name} ({status_id}): {status_count} (avg: {average_rate:.3f})\n"
+        text_to_send += f"  →  {status_name}: {status_count} (avg: {average_rate:.3f})\n"
         deleted_cnt += r2t.tasks.delete_many({"status": status_id}).deleted_count
     text_to_send += f"Deleted tasks: {deleted_cnt}.\n"
     text_to_send += f"Total cycles: {max_cycles_cnt}.\n"
