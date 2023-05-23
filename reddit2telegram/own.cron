@@ -299,7 +299,7 @@ MASK	submodule_name
 15 * * * *	food_from_reddit
 15 * * * *	r_workreform
 15 * * * *	r_embedded
-16 * * * *	denpasong
+16 * * * *	denpasong	# 30.
 16 * * * *	fakealbumcovers
 16 * * * *	r_ik_ihe
 16 * * * *	facepalmers
@@ -319,6 +319,7 @@ MASK	submodule_name
 16 * * * *	r_axieinfinity
 16 * * * *	r_plipplip
 16 16 * * *	minimalwallz
+16 * * * *	subredditmix
 17 * * * *	dash_cams	# 29.
 17 * * * *	r_mildlyinfuriating
 17 * * * *	r_cricket
@@ -428,7 +429,8 @@ MASK	submodule_name
 20 * * * *	r_africa
 20 * * * *	r_science
 20 * * * *	jeeneetardsreddit
-21 * * * *	r_changemyview	# 25
+20 * * * *	r_deathstranding
+21 * * * *	r_changemyview	# 25.
 21 * * * *	r_porn
 21 * * * *	arma
 21 * * * *	r_megane
@@ -451,7 +453,7 @@ MASK	submodule_name
 21 * * * *	r_pokemonrmxp
 21 * * * *	r_ramiayana
 21 * * * *	r_versus
-22 * * * *	redditcats	# 24
+22 * * * *	redditcats	# 24.
 22 * * * *	r_f1
 22 * * * *	r_grandorder
 22 * * * *	redditpiracy
@@ -474,7 +476,7 @@ MASK	submodule_name
 22 * * * *	r_askmen
 22 * * * *	r_witcher3
 22 * * * *	r_ultrakill
-23 * * * *	r_explainmelikeimfive	# 23
+23 * * * *	r_explainmelikeimfive	# 23.
 23 * * * *	r_cpp
 23 * * * *	r_photoshopbattles
 23 * * * *	ingressreddit
