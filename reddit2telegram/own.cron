@@ -280,7 +280,7 @@ MASK	submodule_name
 14 * * * *	fate_hot
 14 * * * *	reddit_whatcouldgowrong
 14 * * * *	reddit_pride
-15 */4 * * *	history
+15 */4 * * *	history	# 31.
 15 * * * *	r_biganimetiddies
 15 * * * *	r_disneyvacation
 15 * * * *	livestreamfail
@@ -299,6 +299,10 @@ MASK	submodule_name
 15 * * * *	food_from_reddit
 15 * * * *	r_workreform
 15 * * * *	r_embedded
+15 * * * *	hub_posts
+15 * * * *	r_shitposting0
+15 * * * *	r_travis_scott
+15 * * * *	passdenied
 16 * * * *	denpasong	# 30.
 16 * * * *	fakealbumcovers
 16 * * * *	r_ik_ihe
@@ -327,6 +331,8 @@ MASK	submodule_name
 16 * * * *	r_hiphopheads
 16 * * * *	r_kendricklamar
 16 * * * *	emulationx
+16 * * * *	r_dotnet
+16 * * * *	r_nvidia
 17 * * * *	dash_cams	# 29.
 17 * * * *	r_mildlyinfuriating
 17 * * * *	r_cricket
