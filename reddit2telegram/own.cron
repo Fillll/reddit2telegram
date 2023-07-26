@@ -11,6 +11,7 @@ MASK	submodule_name
 00 */2 * * *	tnomod
 00,30 * * * *	rekabufeed
 00 * * * *	r_windows_redesign
+00 * * * *	r_furry_irl
 */15 * * * *	leagueofmemes
 01-10 0 * * *	r_til
 01 * * * *	ingressprimefeedback
