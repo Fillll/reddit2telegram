@@ -458,10 +458,7 @@ class Reddit2TelegramSender(object):
 
         try:
             # Download audio
-            audio_playlist_url = url[:url.rfind('/')] + '/HLS_AUDIO_160_K.m3u8'
-            audio_playlist = m3u8.load(audio_playlist_url)
-            segment_0 = audio_playlist.segments[0]
-            audio_url = segment_0.absolute_uri
+            audio_url = url[:url.rfind('/')] + '/DASH_AUDIO_128.mp4'
             audio_filename = filename + '.aac'
             if not download_file(audio_url, audio_filename):
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
