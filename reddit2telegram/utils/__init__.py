@@ -21,7 +21,6 @@ from pymongo.collection import ReturnDocument
 import telegram
 from telegram.error import TelegramError, BadRequest
 from telegram import ParseMode
-import m3u8
 
 from utils.tech import short_sleep, long_sleep
 
