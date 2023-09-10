@@ -32,7 +32,7 @@ LTC: `MT3gDG9VZvSDmsRexQ3k19JLxhDSCjf45T`
 Currently alive channels
 ------------------------
 
-Complete list of all active channels (more than 700) is available at our channel [@reddit2telegram](https://t.me/reddit2telegram).
+Complete list of all active channels (more than 800) is available at our channel [@reddit2telegram](https://t.me/reddit2telegram).
 
 
 This is a pet-project 🐶
