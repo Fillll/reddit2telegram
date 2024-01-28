@@ -10,6 +10,16 @@ from reporting_stuff import report_error
 from utils.tech import long_sleep, short_sleep, no_chance_to_post_due_to_errors_cnt
 
 
+def submissions_safe(submissions):
+    # Because reddit start banning for too much API calls.
+    try:
+        yield next(submissions)
+    except StopIteration:
+        raise
+    except Exception as e:
+        long_sleep(2.818281828 * 3.14159 / 2)
+
+
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
     reddit = praw.Reddit(
         user_agent=config['reddit']['user_agent'],
@@ -28,7 +38,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
         logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
     r2t = utils.Reddit2TelegramSender(channel_to_post, config)
     success = False
-    for submission in submissions:
+    for submission in submissions_safe(submissions):
         link = submission.shortlink
         if r2t.was_before(link):
             continue
