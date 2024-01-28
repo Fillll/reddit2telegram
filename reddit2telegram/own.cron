@@ -240,7 +240,7 @@ MASK	submodule_name
 12 * * * *	reddit_facepalm
 12 * * * *	r_atheism
 12 * * * *	r_redpillmalayalam
-13 * * * *	rddit
+13 * * * *	rddit	# 33.
 13 * * * *	r_bettereveryloop
 13 * * * *	r_digimon
 13 * * * *	rsoccerbetting
@@ -260,6 +260,12 @@ MASK	submodule_name
 13 * * * *	saber_fgo
 13 * * * *	dailydankmemes
 13 * * * *	reddit_animalsbeingderps
+13 * * * *	reddit_lineart
+13 * * * *	r_opensource
+13 * * * *	cricketshitpostreddit
+13 * * * *	gamecubereddit
+13 * * * *	wiireddit
+13 * * * *	r_videoengineering
 14 11 * * 1,3,5	datascientology	# 32.
 14 * * * *	r_opensignups
 14 * * * *	r_furry
