@@ -473,6 +473,8 @@ class Reddit2TelegramSender(object):
         # Telegram will not autoplay big gifs
         if os.path.getsize(video_with_audio_filename) > TELEGRAM_VIDEO_LIMIT:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+        if os.path.getsize(video_with_audio_filename) == 0:
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
