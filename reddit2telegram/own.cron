@@ -237,6 +237,8 @@ MASK	submodule_name
 12 * * * *	india_latest
 12 * * * *	r_honkaistarrail
 12 * * * *	reddit_ich_iel
+12 * * * *	cryptocurrencies_news
+12 * * * *	cryptomoonpoop
 13 * * * *	rddit	# 33.
 13 * * * *	r_bettereveryloop
 13 * * * *	r_digimon
@@ -332,6 +334,7 @@ MASK	submodule_name
 15 * * * *	r_discoelysium
 15 * * * *	r_psx
 15 * * * *	stablediffusion_r
+15 * * * *	r_futurology
 16 * * * *	denpasong	# 30.
 16 * * * *	fakealbumcovers
 16 * * * *	r_ik_ihe
