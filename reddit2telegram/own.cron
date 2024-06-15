@@ -363,6 +363,7 @@ MASK	submodule_name
 16 * * * *	r_dotnet
 16 * * * *	r_nvidia
 16 * * * *	worldnewsvideo
+16 * * * *	rminecraftbuilds
 17 * * * *	dash_cams	# 29.
 17 * * * *	r_mildlyinfuriating
 17 * * * *	r_cricket
