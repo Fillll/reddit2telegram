@@ -242,6 +242,7 @@ MASK	submodule_name
 12 * * * *	r_nosurf
 12 * * * *	reddit_iwanttolearn
 12 * * * *	asuszpehyrusg14
+12 * * * *	r_medicoretards
 13 * * * *	rddit	# 33.
 13 * * * *	r_bettereveryloop
 13 * * * *	r_digimon
@@ -274,6 +275,7 @@ MASK	submodule_name
 13 * * * *	hollowknight22
 13 * * * *	frameworkslaptop
 13 * * * *	fightpornos
+13 * * * *	r_mbti
 14 11 * * 1,3,5	datascientology	# 32.
 14 * * * *	r_opensignups
 14 * * * *	r_furry
@@ -305,6 +307,7 @@ MASK	submodule_name
 14 * * * *	reddit_infographic
 14 * * * *	r_gaminglaptops
 14 * * * *	oshinoko_reddit
+14 * * * *	r_atheismindia
 15 */4 * * *	history	# 31.
 15 * * * *	r_biganimetiddies
 15 * * * *	r_disneyvacation
@@ -363,7 +366,9 @@ MASK	submodule_name
 16 * * * *	r_dotnet
 16 * * * *	r_nvidia
 16 * * * *	worldnewsvideo
+16 * * * *	redditoor
 16 * * * *	rminecraftbuilds
+16 * * * *	rprojectzomboid
 17 * * * *	dash_cams	# 29.
 17 * * * *	r_mildlyinfuriating
 17 * * * *	r_cricket
