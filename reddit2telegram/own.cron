@@ -194,7 +194,7 @@ MASK	submodule_name
 10 * * * *	animemaids_hot
 10 * * * *	onetruemegumin
 10 * * * *	r_gintama
-11 * * * *	r_streetwear
+11 * * * *	r_streetwear	# 35.
 11 * * * *	streetmoe
 11 * * * *	r_thinkpadsforsale
 11 * * * *	r_thatsinsane
@@ -213,6 +213,9 @@ MASK	submodule_name
 11 * * * *	shrineofmiku
 11 * * * *	r_catastrophicfailure
 11 * * * *	r_pinetime
+11 * * * *	sbr_army
+11 * * * *	r_military
+11 * * * *	r_lotrmemes
 12 * * * *	oldschoolcool	# 34.
 12 * * * *	r_damnthatsinteresting
 12 * * * *	r_foxes
@@ -245,6 +248,8 @@ MASK	submodule_name
 12 * * * *	ckreddit
 12 * * * *	r_literature
 12 * * * *	r_meirl
+12 * * * *	fumofumoreddit
+12 * * * *	r_geopolitics
 13 * * * *	rddit	# 33.
 13 * * * *	r_bettereveryloop
 13 * * * *	r_digimon
