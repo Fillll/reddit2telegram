@@ -222,6 +222,8 @@ MASK	submodule_name
 11 * * * *	r_salesforce
 11 * * * *	r_wetlanderhumor
 11 * * * *	redditvaporents
+11 * * * *	r_signalis
+11 * * * *	r_losercity
 12 * * * *	oldschoolcool	# 34.
 12 * * * *	r_damnthatsinteresting
 12 * * * *	r_foxes
@@ -255,6 +257,7 @@ MASK	submodule_name
 12 * * * *	r_meirl
 12 * * * *	fumofumoreddit
 12 * * * *	r_geopolitics
+12 * * * *	r_madisonbeerlewd
 13 * * * *	rddit	# 33.
 13 * * * *	r_bettereveryloop
 13 * * * *	r_digimon
@@ -287,6 +290,7 @@ MASK	submodule_name
 13 * * * *	frameworkslaptop
 13 * * * *	fightpornos
 13 * * * *	r_mbti
+13 * * * *	rgreenroomconfessions
 14 11 * * 1,3,5	datascientology	# 32.
 14 * * * *	r_opensignups
 14 * * * *	r_furry
@@ -318,6 +322,7 @@ MASK	submodule_name
 14 * * * *	r_gaminglaptops
 14 * * * *	oshinoko_reddit
 14 * * * *	r_atheismindia
+14 * * * *	femcelgrippysockjail
 15 */4 * * *	history	# 31.
 15 * * * *	r_biganimetiddies
 15 * * * *	r_disneyvacation
