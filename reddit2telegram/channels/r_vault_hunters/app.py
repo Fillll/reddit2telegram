@@ -7,7 +7,9 @@ subreddit = weighted_random_subreddit({
     'borderHands': 1,
     'Borderlands': 1,
     'Borderlands2': 1,
-    'borderlands3': 1
+    'borderlands3': 1,
+    'wonderlands': 1,
+    'borderlands4': 1
 })
 t_channel = '@r_vault_hunters'
 
