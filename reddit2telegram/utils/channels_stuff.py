@@ -2,12 +2,14 @@
 
 import os
 import importlib
+import re
 
 import pymongo
 import yaml
 
 
 CHANNELS_COLLECTION = 'channels'
+_SIMPLE_SEND_RE = re.compile(r'^\s*return\s+r2t\.send_simple\(submission\)\s*$')
 
 
 def get_config(config_filename=None):
@@ -17,19 +19,69 @@ def get_config(config_filename=None):
         return yaml.safe_load(config_file.read())
 
 
+def get_db(config_filename=None):
+    config = get_config(config_filename=config_filename)
+    return pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
+
+
+def _get_channels_collection(config_filename=None):
+    db = get_db(config_filename=config_filename)
+    return db[CHANNELS_COLLECTION]
+
+
+def get_channel_doc(submodule_name, config_filename=None):
+    channels = _get_channels_collection(config_filename=config_filename)
+    return channels.find_one({'submodule': submodule_name.lower()})
+
+
+def _file_based_overrides(config):
+    channels_config = config.get('channels', {})
+    file_based = channels_config.get('file_based', [])
+    return set(name.lower() for name in file_based)
+
+
+def is_simple_channel_module(submodule_name):
+    app_path = os.path.join('channels', submodule_name, 'app.py')
+    if not os.path.isfile(app_path):
+        return False
+    with open(app_path, 'r') as app_file:
+        code = app_file.read()
+    lines = [
+        line.strip()
+        for line in code.splitlines()
+        if line.strip() and not line.strip().startswith('#')
+    ]
+    has_simple_send = any(_SIMPLE_SEND_RE.match(line) for line in lines)
+    if not has_simple_send:
+        return False
+    for line in lines:
+        if 'r2t.send_simple' in line and not _SIMPLE_SEND_RE.match(line):
+            return False
+    if sum(1 for line in lines if line.startswith('def ')) > 1:
+        return False
+    return True
+
+
 def import_submodule(submodule_name):
-    if os.path.isdir(os.path.join('channels', submodule_name)):
-        submodule = importlib.import_module(f'channels.{submodule_name}.app')
-    else:
-        submodule = DefaultChannel(submodule_name)
-    return submodule
+    config = get_config()
+    submodule_name = submodule_name.lower()
+    channel_dir = os.path.join('channels', submodule_name)
+    has_module = os.path.isdir(channel_dir)
+    has_db = get_channel_doc(submodule_name) is not None
+    force_file = submodule_name in _file_based_overrides(config)
+
+    if force_file and has_module:
+        return importlib.import_module(f'channels.{submodule_name}.app')
+    if has_db and (not has_module or is_simple_channel_module(submodule_name)):
+        return DefaultChannel(submodule_name)
+    if has_module:
+        return importlib.import_module(f'channels.{submodule_name}.app')
+    return DefaultChannel(submodule_name)
 
 
 def set_new_channel(channel, **kwargs):
     channel = channel.replace('@', '')
-    config = get_config()
-    db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
-    channels = db[CHANNELS_COLLECTION]
+    channels = _get_channels_collection()
     is_any = channels.find_one({'submodule': channel.lower()})
     if is_any is not None:
         return
@@ -49,7 +101,7 @@ class DefaultChannel(object):
     '''docstring for DefaultChannel'''
     def __init__(self, submodule):
         super(DefaultChannel, self).__init__()
-        self.submodule = submodule
+        self.submodule = submodule.lower()
         self.get_settings_from_db()
         if self.content is None:
             self.content = dict(
@@ -71,13 +123,10 @@ class DefaultChannel(object):
             self.content['other'] = self.content.get('other', False)
 
     def get_settings_from_db(self):
-        config = get_config()
-        db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
-        channels = db[CHANNELS_COLLECTION]
-        channel_details = channels.find_one({'submodule': self.submodule})
+        channel_details = get_channel_doc(self.submodule)
         if channel_details is None:
             self.t_channel = 'NO CHANNEL FOUND FOR: self.submodule'
-            raise
+            raise ValueError('No channel found in DB for submodule: {}'.format(self.submodule))
         self.t_channel = channel_details.get('channel', None)
         self.submissions_ranking = channel_details.get('submissions_ranking', None)
         self.submissions_limit = channel_details.get('submissions_limit', None)
@@ -97,3 +146,15 @@ class DefaultChannel(object):
             gallery=self.content['gallery'],
             other=self.content['other']
         )
+
+
+def get_tags_for_submodule(submodule_name):
+    submodule_name = submodule_name.lower()
+    channel_doc = get_channel_doc(submodule_name)
+    if channel_doc and channel_doc.get('tags'):
+        return channel_doc.get('tags')
+    tags_filename = os.path.join('channels', submodule_name, 'tags.txt')
+    if os.path.exists(tags_filename):
+        with open(tags_filename, 'r') as tags_file:
+            return tags_file.read()
+    return None

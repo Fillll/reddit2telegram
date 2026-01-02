@@ -1,6 +1,6 @@
 pyyaml
 praw
-python-telegram-bot==13.15
+python-telegram-bot==20.7
 yandex.translate
 pymongo==3.12
 requests

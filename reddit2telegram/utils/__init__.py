@@ -13,14 +13,16 @@ from datetime import datetime
 import logging
 import enum
 import subprocess
+import asyncio
 
 from imgurpython import ImgurClient
 import yaml
 import pymongo
 from pymongo.collection import ReturnDocument
-import telegram
 from telegram.error import TelegramError, BadRequest
-from telegram import ParseMode
+from telegram import Bot, InputMediaPhoto, InputMediaVideo
+from telegram.constants import ParseMode
+from telegram.request import HTTPXRequest
 
 from utils.tech import short_sleep, long_sleep
 
@@ -298,12 +300,25 @@ class Reddit2TelegramSender(object):
             with open(os.path.join('configs', 'prod.yml')) as f:
                 config = yaml.safe_load(f.read())
         self.config = config
-        self.telegram_bot = telegram.Bot(self.config['telegram']['token'])
+        request = HTTPXRequest(connection_pool_size=8, pool_timeout=30)
+        self.telegram_bot = Bot(self.config['telegram']['token'], request=request)
+        self._loop = asyncio.new_event_loop()
         if t_channel is None:
             t_channel = '@r_channels_test'
         self.t_channel = t_channel
         self._make_mongo_connections()
         short_sleep()
+
+    def _run_async(self, coro):
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            loop = None
+        if loop and loop.is_running():
+            return asyncio.run_coroutine_threadsafe(coro, loop).result()
+        if self._loop.is_closed():
+            self._loop = asyncio.new_event_loop()
+        return self._loop.run_until_complete(coro)
 
     def _make_mongo_connections(self):
         self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']
@@ -434,11 +449,11 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         try:
-            self.telegram_bot.send_document(chat_id=self.t_channel,
+            self._run_async(self.telegram_bot.send_document(chat_id=self.t_channel,
                 document=url,
                 caption=text,
                 parse_mode=parse_mode
-            )
+            ))
         except BadRequest as e:
             logging.info('Unknown error.')
             return SupplyResult.SKIP_FOR_NOW
@@ -479,7 +494,7 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         f = open(video_with_audio_filename, 'rb')
-        self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode)
+        self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode))
         f.close()
         if len(next_text) > 1:
             short_sleep()
@@ -497,11 +512,11 @@ class Reddit2TelegramSender(object):
             logging.info(f'Long pic in {self.t_channel}.')
             return self._send_img_as_link(url, text)
         try:
-            self.telegram_bot.send_photo(chat_id=self.t_channel,
+            self._run_async(self.telegram_bot.send_photo(chat_id=self.t_channel,
                 photo=url,
                 caption=text,
                 parse_mode=parse_mode
-            )
+            ))
             return SupplyResult.SUCCESSFULLY
         except TelegramError as e:
             logging.info(f'TelegramError prevented at {self.t_channel}.')
@@ -510,10 +525,10 @@ class Reddit2TelegramSender(object):
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
-            self.telegram_bot.send_message(chat_id=self.t_channel,
+            self._run_async(self.telegram_bot.send_message(chat_id=self.t_channel,
                                             text=text,
                                             disable_web_page_preview=disable_web_page_preview,
-                                            parse_mode=parse_mode)
+                                            parse_mode=parse_mode))
             return SupplyResult.SUCCESSFULLY
         # If text is longer than 4096 symbols.
         next_text = text
@@ -521,19 +536,19 @@ class Reddit2TelegramSender(object):
             list_of_words = next_text.split(' ')
             if len(list_of_words[0]) > 4096:
                 new_text, next_text = self._split_4096(next_text)
-                self.telegram_bot.send_message(chat_id=self.t_channel,
+                self._run_async(self.telegram_bot.send_message(chat_id=self.t_channel,
                                                 text=new_text,
                                                 disable_web_page_preview=disable_web_page_preview,
-                                                parse_mode=parse_mode)
+                                                parse_mode=parse_mode))
             elif len(list_of_words[0]) <= 4096:
                 # If first word is less than 4096.
                 words_to_send = list()
                 while (len(list_of_words) > 0) and (sum([len(x) for x in words_to_send]) + len(words_to_send) + len(list_of_words[0]) <= 4096):
                     words_to_send.append(list_of_words.pop(0))
-                self.telegram_bot.send_message(chat_id=self.t_channel,
+                self._run_async(self.telegram_bot.send_message(chat_id=self.t_channel,
                                                 text=' '.join(words_to_send),
                                                 disable_web_page_preview=disable_web_page_preview,
-                                                parse_mode=parse_mode)
+                                                parse_mode=parse_mode))
                 next_text = ' '.join(list_of_words)
             short_sleep()
         return SupplyResult.SUCCESSFULLY
@@ -568,17 +583,17 @@ class Reddit2TelegramSender(object):
 
             for item in sorted(dict_of_pics.items(), key=lambda item: item[0]):
                 if item[1]['type'] == 'pic':
-                    list_of_items_in_one_group.append(telegram.InputMediaPhoto(item[1]['url']))
+                    list_of_items_in_one_group.append(InputMediaPhoto(item[1]['url']))
                 elif item[1]['type'] == 'video':
-                    list_of_items_in_one_group.append(telegram.InputMediaVideo(item[1]['url']))
+                    list_of_items_in_one_group.append(InputMediaVideo(item[1]['url']))
                 else:
                     logging.error('Unkown item in gallery.')
                     return SupplyResult.SKIP_FOR_NOW 
 
             try:
-                self.telegram_bot.send_media_group(chat_id=self.t_channel,
+                self._run_async(self.telegram_bot.send_media_group(chat_id=self.t_channel,
                                                 media=list_of_items_in_one_group,
-                                                timeout=66)
+                                                timeout=66))
                 logging.info('Successful gallery sent.')
             except Exception as e:
                 logging.error('Gallery sent failed.')
@@ -588,6 +603,22 @@ class Reddit2TelegramSender(object):
 
     def forward_last_message_from_the_channel(self, from_channel_name):
         pass
+
+    def get_chat_administrators(self, chat_id):
+        return self._run_async(self.telegram_bot.get_chat_administrators(chat_id=chat_id))
+
+    def get_updates(self, **kwargs):
+        return self._run_async(self.telegram_bot.get_updates(**kwargs))
+
+    def forward_message(self, chat_id, from_chat_id, message_id):
+        return self._run_async(self.telegram_bot.forward_message(
+            chat_id=chat_id,
+            from_chat_id=from_chat_id,
+            message_id=message_id
+        ))
+
+    def get_chat_members_count(self, chat_id):
+        return self._run_async(self.telegram_bot.get_chat_members_count(chat_id=chat_id))
 
     def send_simple(self, submission, **kwargs):
         '''

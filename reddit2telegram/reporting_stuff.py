@@ -11,7 +11,8 @@ from raven.conf import setup_logging
 import utils
 
 
-with open(os.path.join('configs', 'prod.yml')) as config_file:
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), 'configs', 'prod.yml')
+with open(CONFIG_PATH) as config_file:
     config = yaml.safe_load(config_file.read())
 
 

@@ -3,7 +3,7 @@
 import csv
 import logging
 import time
-import importlib
+import utils.channels_stuff
 
 import yaml
 
@@ -28,7 +28,7 @@ def get_names(admins):
 
 
 def get_admins_list(r2t, channel_name):
-    return get_names(r2t.telegram_bot.get_chat_administrators(chat_id=channel_name))
+    return get_names(r2t.get_chat_administrators(chat_id=channel_name))
 
 
 def read_cron_and_get_admins(own_cron_filename, output_filename, config):
@@ -38,7 +38,7 @@ def read_cron_and_get_admins(own_cron_filename, output_filename, config):
         tsv_writer = csv.DictWriter(output_admin_file, delimiter='\t', fieldnames=['SUBMODULE', 'CHANNEL', 'ADMINS'])
         tsv_writer.writeheader()
         for row in tsv_reader:
-            submodule = importlib.import_module('channels.{}.app'.format(row['submodule_name']))
+            submodule = utils.channels_stuff.import_submodule(row['submodule_name'])
             channel = submodule.t_channel
             results = {
                 'CHANNEL': channel,
