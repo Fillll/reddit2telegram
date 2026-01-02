@@ -34,12 +34,6 @@ def get_channel_doc(submodule_name, config_filename=None):
     return channels.find_one({'submodule': submodule_name.lower()})
 
 
-def _file_based_overrides(config):
-    channels_config = config.get('channels', {})
-    file_based = channels_config.get('file_based', [])
-    return set(name.lower() for name in file_based)
-
-
 def is_simple_channel_module(submodule_name):
     app_path = os.path.join('channels', submodule_name, 'app.py')
     if not os.path.isfile(app_path):
@@ -63,15 +57,11 @@ def is_simple_channel_module(submodule_name):
 
 
 def import_submodule(submodule_name):
-    config = get_config()
     submodule_name = submodule_name.lower()
     channel_dir = os.path.join('channels', submodule_name)
     has_module = os.path.isdir(channel_dir)
     has_db = get_channel_doc(submodule_name) is not None
-    force_file = submodule_name in _file_based_overrides(config)
 
-    if force_file and has_module:
-        return importlib.import_module(f'channels.{submodule_name}.app')
     if has_db and (not has_module or is_simple_channel_module(submodule_name)):
         return DefaultChannel(submodule_name)
     if has_module:

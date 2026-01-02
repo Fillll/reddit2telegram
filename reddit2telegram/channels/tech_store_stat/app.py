@@ -151,11 +151,31 @@ def send_post(submission, r2t):
         'errors': 0,
         'prev_members': 0
     }
-    all_submodules = get_all_submodules()
+    all_submodules = list(get_all_submodules())
     number_of_modules = len(all_submodules)
     # sleep_coef = math.log(450 / number_of_modules) / math.log(2.718281828 / 3.14159)
     sleep_coef = 2000 / 3 / 2 / number_of_modules
     channels_stat = dict()
+    missing_channels = set()
+
+    def is_missing_channel_error(exc):
+        msg = str(exc).lower()
+        return any(key in msg for key in (
+            'chat not found',
+            'channel not found',
+            'not found',
+            'forbidden',
+            'private'
+        ))
+
+    def notify_missing_channel(channel_name):
+        if channel_name in missing_channels:
+            return
+        missing_channels.add(channel_name)
+        try:
+            r2t.send_text('Missing channel: {channel}.'.format(channel=channel_name))
+        except Exception:
+            pass
     for submodule_name in random.sample(all_submodules, k=number_of_modules):
         short_sleep(sleep_coef)
         submodule = utils.channels_stuff.import_submodule(submodule_name)
@@ -172,8 +192,16 @@ def send_post(submission, r2t):
             total['admins'] += len(admins)
         except Exception as e:
             total['errors'] += 1
-            err_to_send = 'Failed to get admins for {channel}.'.format(channel=channel_name)
-            r2t.send_text(err_to_send)
+            err_to_send = 'Failed to get admins for {channel}. {error}'.format(
+                channel=channel_name,
+                error=str(e)
+            )
+            try:
+                r2t.send_text(err_to_send)
+            except Exception:
+                pass
+            if is_missing_channel_error(e):
+                notify_missing_channel(channel_name)
             logging.error(err_to_send)
         short_sleep(sleep_coef)
         try:
@@ -190,8 +218,16 @@ def send_post(submission, r2t):
             }
         except Exception as e:
             total['errors'] += 1
-            err_to_send = 'Failed to get members count for {channel}.'.format(channel=channel_name)
-            r2t.send_text(err_to_send)
+            err_to_send = 'Failed to get members count for {channel}. {error}'.format(
+                channel=channel_name,
+                error=str(e)
+            )
+            try:
+                r2t.send_text(err_to_send)
+            except Exception:
+                pass
+            if is_missing_channel_error(e):
+                notify_missing_channel(channel_name)
             logging.error(err_to_send)
         else:
             # If they pass something special

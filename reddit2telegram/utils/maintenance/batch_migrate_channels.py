@@ -14,14 +14,12 @@ def load_config():
         return yaml.safe_load(f.read())
 
 
-def list_submodules(file_based):
+def list_submodules():
     names = []
     for name in os.listdir(CHANNELS_DIR):
         if name in ('~inactive', '~migrated', '__pycache__'):
             continue
         if name.startswith('tech_'):
-            continue
-        if name in file_based:
             continue
         app_path = os.path.join(CHANNELS_DIR, name, 'app.py')
         if os.path.isfile(app_path):
@@ -104,7 +102,6 @@ def parse_module(app_path):
 
 def migrate_batch(limit=10):
     config = load_config()
-    file_based = set(config.get('channels', {}).get('file_based', []))
     client = pymongo.MongoClient(host=config['db']['host'])
     db = client[config['db']['name']]
     channels = db['channels']
@@ -112,7 +109,7 @@ def migrate_batch(limit=10):
     migrated_dir = os.path.join(CHANNELS_DIR, '~migrated')
     os.makedirs(migrated_dir, exist_ok=True)
 
-    submodules = list_submodules(file_based)[:limit]
+    submodules = list_submodules()[:limit]
     results = []
 
     for name in submodules:

@@ -618,6 +618,8 @@ class Reddit2TelegramSender(object):
         ))
 
     def get_chat_members_count(self, chat_id):
+        if hasattr(self.telegram_bot, 'get_chat_member_count'):
+            return self._run_async(self.telegram_bot.get_chat_member_count(chat_id=chat_id))
         return self._run_async(self.telegram_bot.get_chat_members_count(chat_id=chat_id))
 
     def send_simple(self, submission, **kwargs):
