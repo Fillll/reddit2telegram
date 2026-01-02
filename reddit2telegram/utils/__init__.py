@@ -158,26 +158,8 @@ def get_url(submission, mp4_instead_gif=True):
             # TODO: topic handling
             return TYPE_OTHER, url
         elif path_parts[1] == 'a':
-            # An imgur album
-            album = imgur_client.get_album(path_parts[2])
-            story = dict()
-            for num, img in enumerate(album.images):
-                number = num + 1
-                what = TYPE_IMG
-                link = img['link']
-                ext = img['type'].split('/')[1]
-                if img['animated']:
-                    what = TYPE_GIF
-                    link = img['mp4'] if mp4_instead_gif else img['gifv'][:-1]
-                    ext = 'mp4' if mp4_instead_gif else 'gif'
-                story[number] = {
-                    'url': link,
-                    'what': what,
-                    'ext': ext
-                }
-            if len(story) == 1:
-                return story[1]['what'], story[1]['url']
-            return TYPE_ALBUM, story
+            # Imgur albums are no longer supported; fall back to plain link.
+            return TYPE_OTHER, url
         else:
             # Just imgur img
             img = imgur_client.get_image(path_parts[1].split('.')[0])
@@ -601,6 +583,24 @@ class Reddit2TelegramSender(object):
             long_sleep(cnt + 1)
         return SupplyResult.SUCCESSFULLY
 
+    def _album_to_gallery(self, story):
+        # Convert album story to gallery groups of up to 10 items.
+        dict_of_dicts = dict()
+        counter = 0
+        for _, item in sorted(story.items(), key=lambda x: x[0]):
+            if counter % 10 == 0:
+                dict_of_dicts[counter // 10] = dict()
+            if item['what'] == TYPE_IMG:
+                item_type = 'pic'
+            else:
+                item_type = 'video'
+            dict_of_dicts[counter // 10][counter] = {
+                'url': item['url'],
+                'type': item_type
+            }
+            counter += 1
+        return dict_of_dicts
+
     def forward_last_message_from_the_channel(self, from_channel_name):
         pass
 
@@ -737,8 +737,7 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                self.send_text(text)
-                return self.send_album(url)
+                return self.send_gallery(self._album_to_gallery(url), text)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         # Text submission

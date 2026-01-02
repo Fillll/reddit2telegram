@@ -4,6 +4,6 @@ python-telegram-bot==20.7
 yandex.translate
 pymongo==3.12
 requests
-imgurpython
 raven
 croniter
+imgurpython
