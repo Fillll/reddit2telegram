@@ -2,7 +2,6 @@
 
 import random
 from datetime import datetime
-import os
 import hashlib
 
 import pymongo
@@ -99,12 +98,10 @@ def what_channel(submodule_name_to_promte):
 
 
 def get_tags(submodule_name_to_promte):
-    tags_filename = os.path.join('channels', submodule_name_to_promte, 'tags.txt')
-    if not os.path.exists(tags_filename):
+    tags_string = utils.channels_stuff.get_tags_for_submodule(submodule_name_to_promte)
+    if not tags_string:
         return None
-    with open(tags_filename, 'r') as tags_file:
-        tags = tags_file.read()
-        return tags.split()
+    return tags_string.split()
 
 
 def make_nice_submission(submission, r2t, submodule_name_to_promte, extra_ending=None, **kwargs):

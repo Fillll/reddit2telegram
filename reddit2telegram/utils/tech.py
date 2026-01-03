@@ -187,16 +187,9 @@ def get_all_tags(config_filename=None):
     all_submodules = get_all_public_submodules(config_filename=config_filename)
     all_tags = set()
     for submodule in all_submodules:
-        if os.path.isdir(os.path.join('channels', submodule_name)):
-            tags_filename = os.path.join('channels', submodule, 'tags.txt')
-            if not os.path.exists(tags_filename):
-                continue
-            with open(tags_filename, 'r') as tags_file:
-                tags = tags_file.read()
-                all_tags.update(tags.split())
-        else:
-            submodule = utils.channels_stuff.default_channel.DefaultChannel(submodule_name)
-            all_tags.update(submodule.tags.split())
+        tags = utils.channels_stuff.get_tags_for_submodule(submodule)
+        if tags:
+            all_tags.update(tags.split())
     return all_tags
 
 
