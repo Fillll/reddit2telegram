@@ -54,8 +54,8 @@ Easiest way is to ask for new channel at [@r_channels](https://t.me/r_channels).
 But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
 
 ```cron
-46 * * * * ~/reddit2telegram/auto_update.sh
-* * * * * ~/reddit2telegram/reddit2telegram/cron_job.sh
+46 * * * * /root/reddit2telegram/auto_update.sh
+* * * * * /root/reddit2telegram/reddit2telegram/cron_thread_job.sh
 ```
 
 Tests
