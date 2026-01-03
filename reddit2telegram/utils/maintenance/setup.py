@@ -45,6 +45,7 @@ def ensure_index(config_filename=None):
     stats = db['stats']
     stats.create_index([('channel', pymongo.ASCENDING), ('ts', pymongo.ASCENDING)])
     urls = db['urls']
+    urls.create_index([('channel', pymongo.ASCENDING), ('url_id', pymongo.ASCENDING)])
     urls.create_index([('channel', pymongo.ASCENDING), ('url', pymongo.ASCENDING)])
     contents = db['contents']
     contents.create_index([('channel', pymongo.ASCENDING), ('md5_sum', pymongo.ASCENDING)])

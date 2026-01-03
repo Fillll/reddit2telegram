@@ -376,12 +376,18 @@ class Reddit2TelegramSender(object):
             return False
 
     def was_before(self, url):
+        url_id = url.split('/')[-1]
         result = self.urls.find_one({
             'channel': self.t_channel.lower(),
-            'url': {
-                '$regex': url.split('/')[-1]
-            }
+            'url_id': url_id
         })
+        if result is None:
+            result = self.urls.find_one({
+                'channel': self.t_channel.lower(),
+                'url': {
+                    '$regex': url_id
+                }
+            })
         if result is None:
             return False
         else:
@@ -389,7 +395,7 @@ class Reddit2TelegramSender(object):
 
     def mark_as_was_before(self, url, sent=True):
         self.urls.insert_one({
-            'url': url,
+            'url_id': url.split('/')[-1],
             'ts': datetime.utcnow(),
             'channel': self.t_channel.lower(),
             'sent': sent
