@@ -311,6 +311,7 @@ class Reddit2TelegramSender(object):
         self.settings = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['settings']
 
     def _get_file_name(self, ext='file'):
+        os.makedirs(TEMP_FOLDER, exist_ok=True)
         return os.path.join(TEMP_FOLDER,
                             '{name}.{ext}'.format(name=self.t_channel[1:], ext=ext))
 
@@ -472,6 +473,8 @@ class Reddit2TelegramSender(object):
         video_with_audio_filename = self._get_file_name('.1.mp4')
         cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s -hide_banner -loglevel panic -y' % (filename, audio_filename, video_with_audio_filename)
         subprocess.call(cmd, shell=True)
+        if not os.path.exists(video_with_audio_filename):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         # Telegram will not autoplay big gifs
         if os.path.getsize(video_with_audio_filename) > TELEGRAM_VIDEO_LIMIT:
