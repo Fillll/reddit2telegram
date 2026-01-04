@@ -16,7 +16,7 @@ def submissions_safe(submissions):
         try:
             yield next(submissions)
         except StopIteration:
-            raise StopIteration
+            return
         except Exception as e:
             long_sleep(2.818281828 * 3.14159 / 2)
 
