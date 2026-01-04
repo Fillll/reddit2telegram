@@ -194,6 +194,8 @@ def download_file(url, filename):
     # http://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py
     # NOTE the stream=True parameter
     r = requests.get(url, stream=True)
+    if r.status_code >= 400:
+        return False
     chunk_counter = 0
     chunk_size = 1024
     with open(filename, 'wb') as f:
@@ -452,39 +454,62 @@ class Reddit2TelegramSender(object):
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
         return SupplyResult.SUCCESSFULLY
 
-    def send_video(self, url, text, parse_mode=None):
+    def _get_dash_audio_url(self, dash_url):
+        try:
+            resp = requests.get(dash_url)
+            if resp.status_code >= 400:
+                return None
+            base_urls = re.findall(r'<BaseURL>([^<]+)</BaseURL>', resp.text)
+            audio_urls = [u for u in base_urls if 'AUDIO' in u.upper()]
+            if not audio_urls:
+                return None
+            audio_file = audio_urls[-1]
+            base = dash_url.split('DASHPlaylist.mpd')[0]
+            query = ''
+            if '?' in dash_url:
+                query = '?' + dash_url.split('?', 1)[1]
+            return base + audio_file + query
+        except Exception:
+            return None
+
+    def send_video(self, url, text, parse_mode=None, dash_url=None):
         filename = self._get_file_name('.mp4')
 
         # Download video
         if not download_file(url, filename):
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
+        video_to_send = filename
         try:
             # Download audio
-            audio_url = url[:url.rfind('/')] + '/DASH_AUDIO_128.mp4'
+            audio_url = None
+            if dash_url:
+                audio_url = self._get_dash_audio_url(dash_url)
+            if audio_url is None:
+                audio_url = url[:url.rfind('/')] + '/DASH_AUDIO_128.mp4'
             audio_filename = filename + '.aac'
             if not download_file(audio_url, audio_filename):
-                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+                raise RuntimeError('No audio track')
         except:
-            # Looks like no audio
-            return self.send_gif(url, text, parse_mode=parse_mode)
-
-        # Combine it audio and video
-        video_with_audio_filename = self._get_file_name('.1.mp4')
-        cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s -hide_banner -loglevel panic -y' % (filename, audio_filename, video_with_audio_filename)
-        subprocess.call(cmd, shell=True)
-        if not os.path.exists(video_with_audio_filename):
-            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+            # Looks like no audio, send video without audio
+            pass
+        else:
+            # Combine it audio and video
+            video_with_audio_filename = self._get_file_name('.1.mp4')
+            cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s -hide_banner -loglevel panic -y' % (filename, audio_filename, video_with_audio_filename)
+            subprocess.call(cmd, shell=True)
+            if os.path.exists(video_with_audio_filename) and os.path.getsize(video_with_audio_filename) > 0:
+                video_to_send = video_with_audio_filename
 
         # Telegram will not autoplay big gifs
-        if os.path.getsize(video_with_audio_filename) > TELEGRAM_VIDEO_LIMIT:
+        if os.path.getsize(video_to_send) > TELEGRAM_VIDEO_LIMIT:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
-        if os.path.getsize(video_with_audio_filename) == 0:
+        if os.path.getsize(video_to_send) == 0:
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        f = open(video_with_audio_filename, 'rb')
+        f = open(video_to_send, 'rb')
         self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode))
         f.close()
         if len(next_text) > 1:
@@ -785,7 +810,13 @@ class Reddit2TelegramSender(object):
                 if isinstance(what_to_do, str):
                     text = what_to_do
                 text = text.format(**formatters)
-                return self.send_video(url, text)
+                dash_url = None
+                try:
+                    if submission.media and 'reddit_video' in submission.media:
+                        dash_url = submission.media['reddit_video'].get('dash_url')
+                except Exception:
+                    dash_url = None
+                return self.send_video(url, text, dash_url=dash_url)
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         # Gallery submission
