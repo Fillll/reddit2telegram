@@ -1,4 +1,3 @@
-#encoding:utf-8
 from utils import weighted_random_subreddit
 
 subreddit = weighted_random_subreddit({
