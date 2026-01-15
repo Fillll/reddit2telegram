@@ -142,35 +142,98 @@ def get_url(submission, mp4_instead_gif=True):
         if CONTENT_GIF in what_is_inside(url[0:-1]):
             return TYPE_GIF, url[0:-1]
 
+    if urlparse(url).netloc in ['i.imgur.com', 'i.stack.imgur.com']:
+        lower_url = url.lower()
+        if lower_url.endswith('.gifv'):
+            if mp4_instead_gif:
+                return TYPE_GIF, url[:-5] + '.mp4'
+            return TYPE_GIF, url
+        if lower_url.endswith('.gif') or lower_url.endswith('.mp4'):
+            return TYPE_GIF, url
+        if lower_url.endswith('.jpg') or lower_url.endswith('.jpeg') or lower_url.endswith('.png'):
+            return TYPE_IMG, url
+
     if submission.is_self is True:
         # Self submission with text
         return TYPE_TEXT, None
 
-    if urlparse(url).netloc == 'imgur.com':
+    if urlparse(url).netloc in ['imgur.com', 'www.imgur.com', 'm.imgur.com']:
         # Imgur
-        imgur_config = yaml.safe_load(open(os.path.join('configs', 'imgur.yml')).read())
-        imgur_client = ImgurClient(imgur_config['client_id'], imgur_config['client_secret'])
-        path_parts = urlparse(url).path.split('/')
-        if path_parts[1] == 'gallery':
-            # TODO: gallary handling
+        imgur_config = None
+        main_config_path = os.path.join('configs', 'prod.yml')
+        if os.path.exists(main_config_path):
+            main_config = yaml.safe_load(open(main_config_path).read())
+            imgur_config = main_config.get('imgur')
+        if imgur_config is None:
+            imgur_config_path = os.path.join('configs', 'imgur.yml')
+            if os.path.exists(imgur_config_path):
+                imgur_config = yaml.safe_load(open(imgur_config_path).read())
+        if not imgur_config:
+            logging.info('Imgur config missing; fallback to plain link.')
             return TYPE_OTHER, url
-        elif path_parts[1] == 'topic':
+        imgur_client = ImgurClient(imgur_config['client_id'], imgur_config['client_secret'])
+        path_parts = [part for part in urlparse(url).path.split('/') if part]
+
+        def imgur_image_to_story_item(img):
+            if not getattr(img, 'animated', False):
+                return {'what': TYPE_IMG, 'url': img.link}
+            if mp4_instead_gif and getattr(img, 'mp4', None):
+                return {'what': TYPE_GIF, 'url': img.mp4}
+            gifv = getattr(img, 'gifv', None)
+            if gifv and gifv.endswith('.gifv'):
+                return {'what': TYPE_GIF, 'url': gifv[:-1]}
+            return {'what': TYPE_GIF, 'url': img.link}
+
+        def imgur_album_to_story(images):
+            story = dict()
+            for idx, img in enumerate(images, start=1):
+                story[idx] = imgur_image_to_story_item(img)
+            return story
+
+        if not path_parts:
+            return TYPE_OTHER, url
+
+        if path_parts[0] == 'gallery':
+            if len(path_parts) < 2:
+                return TYPE_OTHER, url
+            gallery_id = path_parts[1].split('.')[0]
+            try:
+                album = imgur_client.get_album(gallery_id)
+                if getattr(album, 'images', None):
+                    return TYPE_ALBUM, imgur_album_to_story(album.images)
+            except Exception:
+                pass
+            try:
+                img = imgur_client.get_image(gallery_id)
+                item = imgur_image_to_story_item(img)
+                return item['what'], item['url']
+            except Exception:
+                return TYPE_OTHER, url
+
+        elif path_parts[0] == 'topic':
             # TODO: topic handling
             return TYPE_OTHER, url
-        elif path_parts[1] == 'a':
-            # Imgur albums are no longer supported; fall back to plain link.
-            return TYPE_OTHER, url
+
+        elif path_parts[0] == 'a':
+            if len(path_parts) < 2:
+                return TYPE_OTHER, url
+            album_id = path_parts[1].split('.')[0]
+            try:
+                album = imgur_client.get_album(album_id)
+                if getattr(album, 'images', None):
+                    return TYPE_ALBUM, imgur_album_to_story(album.images)
+            except Exception:
+                return TYPE_OTHER, url
+
         else:
-            # Just imgur img
-            img = imgur_client.get_image(path_parts[1].split('.')[0])
-            if not img.animated:
-                return TYPE_IMG, img.link
-            else:
-                if mp4_instead_gif:
-                    return TYPE_GIF, img.mp4
-                else:
-                    # return 'gif', img.link
-                    return TYPE_GIF, img.gifv[:-1]
+            # Just imgur img (including /r/{sub}/{id} style URLs).
+            img_id = path_parts[-1].split('.')[0]
+            try:
+                img = imgur_client.get_image(img_id)
+                item = imgur_image_to_story_item(img)
+                return item['what'], item['url']
+            except Exception:
+                return TYPE_OTHER, url
     elif 'gfycat.com' in urlparse(url).netloc:
         rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
         try:
@@ -270,8 +333,14 @@ def weighted_random_subreddit(weights):
 def get_url_size(url):
     # https://stackoverflow.com/questions/55226378/how-can-i-get-the-file-size-from-a-link-without-downloading-it-in-python
     req = urllib.request.Request(url, method='HEAD')
-    f = urllib.request.urlopen(req)
-    return int(f.headers['Content-Length'])
+    try:
+        f = urllib.request.urlopen(req)
+    except Exception:
+        return 0
+    content_length = f.headers.get('Content-Length')
+    if not content_length:
+        return 0
+    return int(content_length)
 
 
 class Reddit2TelegramSender(object):

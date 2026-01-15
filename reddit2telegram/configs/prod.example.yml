@@ -12,6 +12,9 @@ reddit:
   client_secret: "client_secret"
   username: "reddit2telegram_bot"
   password: "very strong password"
+imgur:
+  client_id: "imgur_client_id"
+  client_secret: "imgur_client_secret"
 cron_file: "own.cron"
 pool:
   class: ThreadPoolExecutor
