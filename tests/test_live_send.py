@@ -29,6 +29,7 @@ TEST_GIF_URL = os.getenv(
     'https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif'
 )
 TEST_IMGUR_SUBMISSION = os.getenv('R2T_TEST_IMGUR_SUBMISSION', 'https://redd.it/7kvjuz')
+TEST_GALLERY_SUBMISSION = os.getenv('R2T_TEST_GALLERY_SUBMISSION', 'https://redd.it/1qcarql')
 
 
 class LiveSendTests(unittest.TestCase):
@@ -79,7 +80,8 @@ class LiveSendTests(unittest.TestCase):
             '5) video (ffmpeg)',
             '6) long text',
             '7) album',
-            '8) imgur submission'
+            '8) imgur submission',
+            '9) gallery submission'
         ])
         result = r2t.send_text(plan, disable_web_page_preview=True)
         self.assertEqual(result, utils.SupplyResult.SUCCESSFULLY)
@@ -159,6 +161,21 @@ class LiveSendTests(unittest.TestCase):
         submission = reddit.submission(url=TEST_IMGUR_SUBMISSION)
         what, url = utils.get_url(submission)
         self.assertIn(what, {utils.TYPE_GIF, utils.TYPE_IMG, utils.TYPE_ALBUM})
+        r2t = utils.Reddit2TelegramSender(TEST_CHANNEL, self.config)
+        result = r2t.send_simple(submission)
+        self.assertEqual(result, utils.SupplyResult.SUCCESSFULLY)
+
+    def test_send_gallery_submission(self):
+        reddit = supplier.praw.Reddit(
+            user_agent=self.config['reddit']['user_agent'],
+            client_id=self.config['reddit']['client_id'],
+            client_secret=self.config['reddit']['client_secret'],
+            username=self.config['reddit']['username'],
+            password=self.config['reddit']['password']
+        )
+        submission = reddit.submission(url=TEST_GALLERY_SUBMISSION)
+        what, _ = utils.get_url(submission)
+        self.assertEqual(what, utils.TYPE_GALLERY)
         r2t = utils.Reddit2TelegramSender(TEST_CHANNEL, self.config)
         result = r2t.send_simple(submission)
         self.assertEqual(result, utils.SupplyResult.SUCCESSFULLY)

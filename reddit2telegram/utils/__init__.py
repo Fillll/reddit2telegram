@@ -2,6 +2,7 @@
 
 import urllib
 from urllib.parse import urlparse
+from html import unescape
 import requests
 from requests.exceptions import InvalidSchema, MissingSchema
 import os
@@ -68,6 +69,14 @@ class SupplyResult(enum.Enum):
     STOP_THIS_SUPPLY = 3
 
 
+def _normalize_reddit_media_url(url):
+    url = unescape(url)
+    parsed = urlparse(url)
+    if parsed.netloc == 'preview.redd.it':
+        return f'https://i.redd.it{parsed.path}'
+    return url.replace('auto=webp', 'auto=jpg')
+
+
 def get_url(submission, mp4_instead_gif=True):
     '''
     return TYPE, URL
@@ -94,10 +103,12 @@ def get_url(submission, mp4_instead_gif=True):
             item_with_media = submission.media_metadata[item[1]]['s']
             if 'u' in item_with_media:
                 # It's a pic
-                dict_of_dicts_of_pics[counter // 10][counter] = {'url': item_with_media['u'], 'type': 'pic'}
+                url = _normalize_reddit_media_url(item_with_media['u'])
+                dict_of_dicts_of_pics[counter // 10][counter] = {'url': url, 'type': 'pic'}
             else:
                 # It's a gif
-                dict_of_dicts_of_pics[counter // 10][counter] = {'url': item_with_media['mp4'], 'type': 'video'}
+                url = _normalize_reddit_media_url(item_with_media['mp4'])
+                dict_of_dicts_of_pics[counter // 10][counter] = {'url': url, 'type': 'video'}
             counter += 1
         return TYPE_GALLERY, dict_of_dicts_of_pics
 
@@ -677,11 +688,10 @@ class Reddit2TelegramSender(object):
 
             try:
                 self._run_async(self.telegram_bot.send_media_group(chat_id=self.t_channel,
-                                                media=list_of_items_in_one_group,
-                                                timeout=66))
+                                                media=list_of_items_in_one_group))
                 logging.info('Successful gallery sent.')
             except Exception as e:
-                logging.error('Gallery sent failed.')
+                logging.error('Gallery sent failed: %s', e)
             cnt += 1
             long_sleep(cnt + 1)
         return SupplyResult.SUCCESSFULLY
