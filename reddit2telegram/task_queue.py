@@ -17,6 +17,8 @@ COLLECTION = 'tasks'
 
 TASK_SUPPLY = 'supply'
 
+ABANDONED_TASK_MIN_AGE_SECONDS = 60
+
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +69,29 @@ def select_all_available_tasks(collection: Collection):
     }, sort=[('created_at', pymongo.ASCENDING)]))
 
 
+def recover_abandoned_tasks(collection: Collection):
+    cutoff = time.time() - ABANDONED_TASK_MIN_AGE_SECONDS
+    result = collection.update_many(
+        {
+            'status': {
+                '$in': [
+                    TaskStatus.IN_PROGRESS.value,
+                    TaskStatus.SCHEDULED.value,
+                ]
+            },
+            'updated_at': {'$lt': cutoff},
+        },
+        {
+            '$set': {
+                'status': TaskStatus.NEW.value,
+                'updated_at': time.time(),
+            },
+        }
+    )
+    if result.modified_count:
+        logger.warning('Recovered %d abandoned tasks', result.modified_count)
+
+
 def execute_task(collection: Collection, id: ObjectId, name: str, args: Mapping):
     update_task_status(collection, id, TaskStatus.IN_PROGRESS)
     try:
@@ -90,6 +115,7 @@ def start_consumer(
 ):
     running = True
     collection = mongo_database[COLLECTION]
+    recover_abandoned_tasks(collection)
     logger.info('Starting consumer %s', executor)
     while running:
         try:
