@@ -27,7 +27,8 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
         client_id=config['reddit']['client_id'],
         client_secret=config['reddit']['client_secret'],
         username=config['reddit']['username'],
-        password=config['reddit']['password']
+        password=config['reddit']['password'],
+        requestor_kwargs={'timeout': utils.REDDIT_TIMEOUT}
     )
     if submissions_ranking == 'top':
         submissions = reddit.subreddit(subreddit).top(limit=submissions_limit)

@@ -1,10 +1,9 @@
 # encoding:utf-8
 
-import urllib
 from urllib.parse import urlparse
 from html import unescape
 import requests
-from requests.exceptions import InvalidSchema, MissingSchema
+from requests.exceptions import InvalidSchema, MissingSchema, RequestException
 import os
 import imghdr
 import random
@@ -15,6 +14,7 @@ import logging
 import enum
 import subprocess
 import asyncio
+import threading
 
 from imgurpython import ImgurClient
 import yaml
@@ -61,6 +61,16 @@ TEMP_FOLDER = 'tmp'
 ERRORS_CNT_LIMIT = 2
 
 
+HTTP_TIMEOUT = (5, 20)
+HEAD_TIMEOUT = (3, 8)
+TELEGRAM_TIMEOUT = 30
+REDDIT_TIMEOUT = 20
+
+
+_MONGO_DATABASES = {}
+_MONGO_LOCK = threading.Lock()
+
+
 @enum.unique
 class SupplyResult(enum.Enum):
     SUCCESSFULLY = 0
@@ -77,6 +87,20 @@ def _normalize_reddit_media_url(url):
     return url.replace('auto=webp', 'auto=jpg')
 
 
+def _http_request(method, url, *, timeout=HTTP_TIMEOUT, **kwargs):
+    kwargs.setdefault('timeout', timeout)
+    return requests.request(method, url, **kwargs)
+
+
+def _get_shared_database(config):
+    key = (config['db']['host'], config['db']['name'])
+    with _MONGO_LOCK:
+        if key not in _MONGO_DATABASES:
+            client = pymongo.MongoClient(host=key[0])
+            _MONGO_DATABASES[key] = client[key[1]]
+        return _MONGO_DATABASES[key]
+
+
 def get_url(submission, mp4_instead_gif=True):
     '''
     return TYPE, URL
@@ -84,11 +108,13 @@ def get_url(submission, mp4_instead_gif=True):
     '''
     
     def what_is_inside(url):
-        header = requests.head(url).headers
-        if 'Content-Type' in header:
-            return header['Content-Type']
-        else:
+        try:
+            response = _http_request('head', url, timeout=HEAD_TIMEOUT, allow_redirects=True)
+        except RequestException:
             return ''
+        if 'Content-Type' in response.headers:
+            return response.headers['Content-Type']
+        return ''
 
     # If reddit native gallery
     if hasattr(submission, 'gallery_data'):
@@ -248,7 +274,7 @@ def get_url(submission, mp4_instead_gif=True):
     elif 'gfycat.com' in urlparse(url).netloc:
         rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
         try:
-            r = requests.get(GFYCAT_GET + rname)
+            r = _http_request('get', GFYCAT_GET + rname)
             if r.status_code != 200:
                 logging.info('Gfy fail prevented!')
                 return TYPE_OTHER, url
@@ -257,7 +283,7 @@ def get_url(submission, mp4_instead_gif=True):
                 return TYPE_GIF, urls['mp4Url']
             else:
                 return TYPE_GIF, urls['max5mbGif']
-        except KeyError:
+        except (KeyError, RequestException):
             logging.info('Gfy fail prevented!')
             return TYPE_OTHER, url
     else:
@@ -267,20 +293,23 @@ def get_url(submission, mp4_instead_gif=True):
 def download_file(url, filename):
     # http://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py
     # NOTE the stream=True parameter
-    r = requests.get(url, stream=True)
-    if r.status_code >= 400:
+    try:
+        with _http_request('get', url, stream=True) as r:
+            if r.status_code >= 400:
+                return False
+            chunk_counter = 0
+            chunk_size = 1024
+            with open(filename, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=chunk_size):
+                    if chunk:  # filter out keep-alive new chunks
+                        f.write(chunk)
+                        #f.flush() commented by recommendation from J.F.Sebastian
+                        chunk_counter += 1
+                        # It is not possible to send greater than 50 MB via Telegram
+                        if chunk_counter > TELEGRAM_VIDEO_LIMIT / chunk_size:
+                            return False
+    except RequestException:
         return False
-    chunk_counter = 0
-    chunk_size = 1024
-    with open(filename, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=chunk_size):
-            if chunk:  # filter out keep-alive new chunks
-                f.write(chunk)
-                #f.flush() commented by recommendation from J.F.Sebastian
-                chunk_counter += 1
-                # It is not possible to send greater than 50 MB via Telegram
-                if chunk_counter > TELEGRAM_VIDEO_LIMIT / chunk_size:
-                    return False
     return True
 
 
@@ -314,20 +343,23 @@ def clean_after_module(submodule_name=None):
 
 def md5_sum_from_url(url):
     try:
-        r = requests.get(url, stream=True)
+        r = _http_request('get', url, stream=True)
     except InvalidSchema:
         return None
     except MissingSchema:
         return None
+    except RequestException:
+        return None
     chunk_counter = 0
     hash_store = hashlib.md5()
-    for chunk in r.iter_content(chunk_size=1024):
-        if chunk:  # filter out keep-alive new chunks
-            hash_store.update(chunk)
-            chunk_counter += 1
-            # It is not possible to send greater than 50 MB via Telegram
-            if chunk_counter > 50 * 1024:
-                return None
+    with r:
+        for chunk in r.iter_content(chunk_size=1024):
+            if chunk:  # filter out keep-alive new chunks
+                hash_store.update(chunk)
+                chunk_counter += 1
+                # It is not possible to send greater than 50 MB via Telegram
+                if chunk_counter > 50 * 1024:
+                    return None
     return hash_store.hexdigest()
 
 
@@ -343,12 +375,11 @@ def weighted_random_subreddit(weights):
 
 def get_url_size(url):
     # https://stackoverflow.com/questions/55226378/how-can-i-get-the-file-size-from-a-link-without-downloading-it-in-python
-    req = urllib.request.Request(url, method='HEAD')
     try:
-        f = urllib.request.urlopen(req)
-    except Exception:
+        response = _http_request('head', url, timeout=HEAD_TIMEOUT, allow_redirects=True)
+    except RequestException:
         return 0
-    content_length = f.headers.get('Content-Length')
+    content_length = response.headers.get('Content-Length')
     if not content_length:
         return 0
     return int(content_length)
@@ -364,7 +395,13 @@ class Reddit2TelegramSender(object):
             with open(os.path.join('configs', 'prod.yml')) as f:
                 config = yaml.safe_load(f.read())
         self.config = config
-        request = HTTPXRequest(connection_pool_size=8, pool_timeout=30)
+        request = HTTPXRequest(
+            connection_pool_size=8,
+            pool_timeout=TELEGRAM_TIMEOUT,
+            read_timeout=TELEGRAM_TIMEOUT,
+            write_timeout=TELEGRAM_TIMEOUT,
+            connect_timeout=TELEGRAM_TIMEOUT,
+        )
         self.telegram_bot = Bot(self.config['telegram']['token'], request=request)
         self._loop = asyncio.new_event_loop()
         if t_channel is None:
@@ -385,12 +422,13 @@ class Reddit2TelegramSender(object):
         return self._loop.run_until_complete(coro)
 
     def _make_mongo_connections(self):
-        self.stats = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['stats']
-        self.urls = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['urls']
-        self.contents = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['contents']
-        self.errors = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['errors']
-        self.tasks = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['tasks']
-        self.settings = pymongo.MongoClient(host=self.config['db']['host'])[self.config['db']['name']]['settings']
+        database = _get_shared_database(self.config)
+        self.stats = database['stats']
+        self.urls = database['urls']
+        self.contents = database['contents']
+        self.errors = database['errors']
+        self.tasks = database['tasks']
+        self.settings = database['settings']
 
     def _get_file_name(self, ext='file'):
         os.makedirs(TEMP_FOLDER, exist_ok=True)
@@ -536,7 +574,7 @@ class Reddit2TelegramSender(object):
 
     def _get_dash_audio_url(self, dash_url):
         try:
-            resp = requests.get(dash_url)
+            resp = _http_request('get', dash_url)
             if resp.status_code >= 400:
                 return None
             base_urls = re.findall(r'<BaseURL>([^<]+)</BaseURL>', resp.text)
