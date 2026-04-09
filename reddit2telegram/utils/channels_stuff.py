@@ -10,6 +10,8 @@ import yaml
 
 CHANNELS_COLLECTION = 'channels'
 _SIMPLE_SEND_RE = re.compile(r'^\s*return\s+r2t\.send_simple\(submission\)\s*$')
+_SUBREDDIT_URL_RE = re.compile(r'(?:https?://)?(?:www\.)?reddit\.com/r/([^/?#\s]+)', re.IGNORECASE)
+_CHANNEL_URL_RE = re.compile(r'(?:https?://)?(?:t(?:elegram)?\.me/)([^/?#\s]+)', re.IGNORECASE)
 
 
 def get_config(config_filename=None):
@@ -69,22 +71,86 @@ def import_submodule(submodule_name):
     return DefaultChannel(submodule_name)
 
 
-def set_new_channel(channel, **kwargs):
-    channel = channel.replace('@', '')
-    channels = _get_channels_collection()
-    is_any = channels.find_one({'submodule': channel.lower()})
-    if is_any is not None:
-        return
-    details = {
-        'submodule': channel.lower(),
-        'channel': '@' + channel,
-        'subreddit': kwargs['subreddit'],
-        'tags': kwargs['tags'].lower(),
+def normalize_subreddit_name(subreddit):
+    subreddit = subreddit.strip()
+    subreddit = re.sub(r'^\s*subreddit\s*:\s*', '', subreddit, flags=re.IGNORECASE)
+    match = _SUBREDDIT_URL_RE.search(subreddit)
+    if match:
+        subreddit = match.group(1)
+    else:
+        subreddit = subreddit.strip().strip('/')
+        if subreddit.lower().startswith('r/'):
+            subreddit = subreddit[2:]
+    if (not subreddit) or any(char.isspace() for char in subreddit):
+        return ''
+    subreddit = subreddit.strip().strip('/')
+    return subreddit
+
+
+def normalize_channel_name(channel):
+    channel = channel.strip()
+    channel = re.sub(r'^\s*channel\s*:\s*', '', channel, flags=re.IGNORECASE)
+    match = _CHANNEL_URL_RE.search(channel)
+    if match:
+        channel = match.group(1)
+    channel = channel.strip().strip('/')
+    if channel.startswith('@'):
+        channel = channel[1:]
+    if (not channel) or any(char.isspace() for char in channel):
+        return ''
+    return channel
+
+
+def normalize_tags(tags):
+    tags = tags.strip()
+    tags = re.sub(r'^\s*tags\s*:\s*', '', tags, flags=re.IGNORECASE)
+    normalized = []
+    seen = set()
+    for raw_part in re.split(r'[\s,]+', tags):
+        part = raw_part.strip()
+        if not part:
+            continue
+        if not part.startswith('#'):
+            part = '#' + part.lstrip('#')
+        if part not in seen:
+            normalized.append(part)
+            seen.add(part)
+    return ' '.join(normalized)
+
+
+def _build_channel_details(channel, **kwargs):
+    normalized_channel = normalize_channel_name(channel)
+    normalized_subreddit = normalize_subreddit_name(kwargs['subreddit'])
+    normalized_tags = normalize_tags(kwargs['tags'])
+    return {
+        'submodule': normalized_channel.lower(),
+        'channel': '@' + normalized_channel,
+        'subreddit': normalized_subreddit,
+        'tags': normalized_tags,
         'min_upvotes_limit': kwargs.get('min_upvotes_limit', None),
         'submissions_ranking': kwargs.get('submissions_ranking', 'hot'),
         'submissions_limit': kwargs.get('submissions_limit', 100)
     }
+
+
+def set_new_channel(channel, **kwargs):
+    channels = _get_channels_collection()
+    details = _build_channel_details(channel, **kwargs)
+    is_any = channels.find_one({'submodule': details['submodule']})
+    if is_any is not None:
+        return
     channels.insert_one(details)
+
+
+def upsert_channel(channel, **kwargs):
+    channels = _get_channels_collection()
+    details = _build_channel_details(channel, **kwargs)
+    channels.update_one(
+        {'submodule': details['submodule']},
+        {'$set': details},
+        upsert=True
+    )
+    return channels.find_one({'submodule': details['submodule']})
 
 
 class DefaultChannel(object):
