@@ -2,7 +2,7 @@ pyyaml
 praw
 python-telegram-bot==20.7
 yandex.translate
-pymongo==3.12
+pymongo==4.6.3
 requests
 raven
 croniter
