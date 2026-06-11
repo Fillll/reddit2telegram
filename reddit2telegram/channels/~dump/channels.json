@@ -9231,5 +9231,14 @@
     "submodule": "r_dealsforindia",
     "subreddit": "dealsforindia",
     "tags": "#deals #india #discounts #shopping #sales"
+  },
+  {
+    "channel": "@r_fumofumosub",
+    "min_upvotes_limit": null,
+    "submissions_limit": 100,
+    "submissions_ranking": "hot",
+    "submodule": "r_fumofumosub",
+    "subreddit": "fumofumo+fumotouhou",
+    "tags": "#fumo #touhou #plush #anime"
   }
 ]
