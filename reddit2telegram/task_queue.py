@@ -42,13 +42,17 @@ def create_task_dict(task_name: str, args: Mapping):
 
 
 def submit(mongo_database: Database, task_name: str, args: Mapping):
-    task = create_task_dict()
-    task_id = mongo_database[COLLECTION].insert_one(task)
-    logger.info(f'Submitted task {task_id}')
+    task = create_task_dict(task_name, args)
+    result = mongo_database[COLLECTION].insert_one(task)
+    logger.info(f'Submitted task {result.inserted_id}')
 
 
 def submit_batch(mongo_database: Database, task_name: str, args_list: List[Mapping]):
-    tasks = map(lambda args: create_task_dict(task_name, args), args_list)
+    args_list = list(args_list)
+    if not args_list:
+        logger.info('No tasks to submit')
+        return
+    tasks = [create_task_dict(task_name, args) for args in args_list]
     result = mongo_database[COLLECTION].insert_many(tasks)
     logger.info(f"Inserted {len(result.inserted_ids)} tasks")
 

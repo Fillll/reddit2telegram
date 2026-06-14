@@ -4,9 +4,7 @@ import sys
 import os
 
 import yaml
-from raven import Client
-from raven.handlers.logging import SentryHandler
-from raven.conf import setup_logging
+import sentry_sdk
 
 import utils
 
@@ -17,9 +15,8 @@ with open(CONFIG_PATH) as config_file:
 
 
 if 'sentry' in config:
-    client = Client(config['sentry'], auto_log_stacks=True)
-    handler = SentryHandler(client)
-    setup_logging(handler)
+    sentry_sdk.init(dsn=config['sentry'])
+    client = sentry_sdk
 else:
     client = None
     logging.info('Sentry.io not loaded')
@@ -27,6 +24,8 @@ else:
 
 def send_report_to_dev_chat(exc):
     link = None
+    title = 'unknown'
+    channel = str(config['telegram']['dev_chat'])
     r2t = utils.Reddit2TelegramSender(config['telegram']['dev_chat'], config)
     frame = sys.exc_info()[2]
     frame = frame.tb_next
@@ -66,7 +65,7 @@ def report_error(fn):
             fn(*args, **kwargs)
         except Exception as e:
             if client:  # has sentry instance
-                client.captureException()
+                client.capture_exception(e)
             else:
                 logging.exception('Exception Ignored.')
             send_report_to_dev_chat(e)
