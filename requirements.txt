@@ -7,3 +7,4 @@ requests
 sentry-sdk
 croniter
 imgurpython
+psutil
