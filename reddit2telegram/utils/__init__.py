@@ -421,6 +421,33 @@ class Reddit2TelegramSender(object):
             self._loop = asyncio.new_event_loop()
         return self._loop.run_until_complete(coro)
 
+    def close(self):
+        loop = getattr(self, '_loop', None)
+        if loop is None or loop.is_closed():
+            return
+        bot = getattr(self, 'telegram_bot', None)
+        if bot is not None:
+            try:
+                if loop.is_running():
+                    asyncio.run_coroutine_threadsafe(bot.shutdown(), loop).result()
+                else:
+                    loop.run_until_complete(bot.shutdown())
+            except Exception:
+                logging.exception('Failed to shutdown Telegram bot cleanly.')
+        loop.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+    def __del__(self):
+        try:
+            self.close()
+        except Exception:
+            pass
+
     def _make_mongo_connections(self):
         database = _get_shared_database(self.config)
         self.stats = database['stats']

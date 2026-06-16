@@ -26,37 +26,37 @@ def send_report_to_dev_chat(exc):
     link = None
     title = 'unknown'
     channel = str(config['telegram']['dev_chat'])
-    r2t = utils.Reddit2TelegramSender(config['telegram']['dev_chat'], config)
-    frame = sys.exc_info()[2]
-    frame = frame.tb_next
-    while frame:
-        local_vars = frame.tb_frame.f_locals
-        if ('submodule_name' in local_vars) and ('submodule' in local_vars):
-            submodule = local_vars['submodule_name']
-            channel = local_vars['submodule'].t_channel
-            title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
-        if 'submission' in local_vars:
-            link = local_vars['submission'].shortlink
+    with utils.Reddit2TelegramSender(config['telegram']['dev_chat'], config) as r2t:
+        frame = sys.exc_info()[2]
         frame = frame.tb_next
-    if link is not None:
-        error_cnt = r2t.store_error_link(channel, link)
-        title = '{title}\nlink: {link}\nerror_cnt: {cnt}'.format(
-                    title=title,
-                    link=link,
-                    cnt=error_cnt['cnt']
-                )
-    else:
-        error_cnt = r2t.store_error_no_link(channel)
-        title = '{title}\nerror_cnt: {cnt}'.format(
-                    title=title,
-                    cnt=error_cnt['cnt']
-                )
+        while frame:
+            local_vars = frame.tb_frame.f_locals
+            if ('submodule_name' in local_vars) and ('submodule' in local_vars):
+                submodule = local_vars['submodule_name']
+                channel = local_vars['submodule'].t_channel
+                title = 'submodule: {}\nchannel: {}'.format(submodule, channel)
+            if 'submission' in local_vars:
+                link = local_vars['submission'].shortlink
+            frame = frame.tb_next
+        if link is not None:
+            error_cnt = r2t.store_error_link(channel, link)
+            title = '{title}\nlink: {link}\nerror_cnt: {cnt}'.format(
+                        title=title,
+                        link=link,
+                        cnt=error_cnt['cnt']
+                    )
+        else:
+            error_cnt = r2t.store_error_no_link(channel)
+            title = '{title}\nerror_cnt: {cnt}'.format(
+                        title=title,
+                        cnt=error_cnt['cnt']
+                    )
 
-    report = '<b>r2t error</b>\n{t}\n\n\n<pre>{e}</pre>'.format(
-        t=title,
-        e=exc
-    )
-    r2t.send_text(report, parse_mode='HTML')
+        report = '<b>r2t error</b>\n{t}\n\n\n<pre>{e}</pre>'.format(
+            t=title,
+            e=exc
+        )
+        r2t.send_text(report, parse_mode='HTML')
 
 
 def report_error(fn):

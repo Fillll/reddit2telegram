@@ -102,8 +102,8 @@ def say_congrats(submodule_name, channel, achievement):
         )
     )
     short_sleep()
-    bot = utils.Reddit2TelegramSender(submodule.t_channel)
-    bot.forward_last_message_from_the_channel('@reddit2telegram')
+    with utils.Reddit2TelegramSender(submodule.t_channel) as bot:
+        bot.forward_last_message_from_the_channel('@reddit2telegram')
     long_sleep()
 
 

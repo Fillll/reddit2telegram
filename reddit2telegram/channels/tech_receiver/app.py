@@ -52,7 +52,8 @@ def _clear_state(settings, user_id):
 
 
 def _send_reply(user_id, text, config):
-    utils.Reddit2TelegramSender(user_id, config).send_text(text)
+    with utils.Reddit2TelegramSender(user_id, config) as r2t:
+        r2t.send_text(text)
 
 
 def _help_text():

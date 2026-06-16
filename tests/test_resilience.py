@@ -90,3 +90,34 @@ def test_shared_database_reuses_single_mongo_client():
     assert db_one == {'db_name': 'reddit2telegram'}
     assert db_two == db_one
     assert calls == ['localhost']
+
+
+def test_reddit2telegram_sender_close_closes_event_loop():
+    utils._MONGO_DATABASES.clear()
+    config = {
+        'telegram': {'token': '123:abc'},
+        'db': {'host': 'localhost', 'name': 'reddit2telegram'},
+    }
+
+    class FakeClient:
+        def __init__(self, host):
+            pass
+
+        def __getitem__(self, name):
+            return {
+                'stats': object(),
+                'urls': object(),
+                'contents': object(),
+                'errors': object(),
+                'tasks': object(),
+                'settings': object(),
+            }
+
+    with mock.patch('utils.short_sleep'), mock.patch('utils.pymongo.MongoClient', FakeClient):
+        sender = utils.Reddit2TelegramSender('@r_channels_test', config)
+
+    loop = sender._loop
+    sender.close()
+
+    assert loop.is_closed()
+    utils._MONGO_DATABASES.clear()
