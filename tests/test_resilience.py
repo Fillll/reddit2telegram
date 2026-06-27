@@ -43,6 +43,88 @@ def test_recover_abandoned_tasks_requeues_stale_non_terminal_work():
     assert update['$set']['updated_at'] == 1_000
 
 
+def test_fail_expired_new_tasks_marks_old_new_work_failed():
+    collection = FakeCollection(modified_count=2)
+
+    with mock.patch('task_queue.time.time', return_value=2_000):
+        task_queue.fail_expired_new_tasks(collection)
+
+    assert len(collection.calls) == 1
+    selector, update = collection.calls[0]
+    assert selector['status'] == task_queue.TaskStatus.NEW.value
+    assert selector['created_at']['$lt'] == 500
+    assert update['$set']['status'] == task_queue.TaskStatus.FAILED.value
+    assert update['$set']['updated_at'] == 2_000
+
+
+def test_claim_available_tasks_claims_bounded_tasks_atomically():
+    class FakeClaimCollection:
+        def __init__(self):
+            self.tasks = [
+                {
+                    '_id': 'one',
+                    'name': task_queue.TASK_SUPPLY,
+                    'args': {'submodule_name': 'r_one'},
+                    'status': task_queue.TaskStatus.NEW.value,
+                    'created_at': 900,
+                },
+                {
+                    '_id': 'two',
+                    'name': task_queue.TASK_SUPPLY,
+                    'args': {'submodule_name': 'r_two'},
+                    'status': task_queue.TaskStatus.NEW.value,
+                    'created_at': 901,
+                },
+            ]
+            self.calls = []
+
+        def find_one_and_update(self, selector, update, **kwargs):
+            self.calls.append((selector, update, kwargs))
+            for task in self.tasks:
+                if (
+                    task['status'] == selector['status']
+                    and task['created_at'] >= selector['created_at']['$gte']
+                ):
+                    task.update(update['$set'])
+                    return dict(task)
+            return None
+
+    collection = FakeClaimCollection()
+
+    with mock.patch('task_queue.time.time', return_value=1_000):
+        claimed = task_queue.claim_available_tasks(collection, limit=1)
+
+    assert [task['_id'] for task in claimed] == ['one']
+    assert collection.tasks[0]['status'] == task_queue.TaskStatus.SCHEDULED.value
+    assert collection.tasks[1]['status'] == task_queue.TaskStatus.NEW.value
+    assert len(collection.calls) == 1
+
+
+def test_hydrate_supply_args_loads_config_file(tmp_path):
+    config_file = tmp_path / 'prod.yml'
+    config_file.write_text(
+        'db:\n'
+        '  host: localhost\n'
+        '  name: reddit2telegram\n',
+        encoding='utf-8'
+    )
+
+    args = task_queue._hydrate_supply_args({
+        'submodule_name': 'r_python',
+        'config_filename': str(config_file),
+    })
+
+    assert args == {
+        'submodule_name': 'r_python',
+        'config': {
+            'db': {
+                'host': 'localhost',
+                'name': 'reddit2telegram',
+            }
+        },
+    }
+
+
 def test_get_url_returns_other_when_head_request_fails():
     submission = SimpleNamespace(
         url='https://example.com/image.jpg',

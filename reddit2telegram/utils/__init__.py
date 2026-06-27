@@ -3,6 +3,7 @@
 from urllib.parse import urlparse
 from html import unescape
 import requests
+from requests.adapters import HTTPAdapter
 from requests.exceptions import InvalidSchema, MissingSchema, RequestException
 import os
 import imghdr
@@ -69,6 +70,7 @@ REDDIT_TIMEOUT = 20
 
 _MONGO_DATABASES = {}
 _MONGO_LOCK = threading.Lock()
+_HTTP_LOCAL = threading.local()
 
 
 @enum.unique
@@ -87,9 +89,20 @@ def _normalize_reddit_media_url(url):
     return url.replace('auto=webp', 'auto=jpg')
 
 
+def _get_http_session():
+    session = getattr(_HTTP_LOCAL, 'session', None)
+    if session is None:
+        session = requests.Session()
+        adapter = HTTPAdapter(pool_connections=32, pool_maxsize=32)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        _HTTP_LOCAL.session = session
+    return session
+
+
 def _http_request(method, url, *, timeout=HTTP_TIMEOUT, **kwargs):
     kwargs.setdefault('timeout', timeout)
-    return requests.request(method, url, **kwargs)
+    return _get_http_session().request(method, url, **kwargs)
 
 
 def _get_shared_database(config):
@@ -139,13 +152,15 @@ def get_url(submission, mp4_instead_gif=True):
         return TYPE_GALLERY, dict_of_dicts_of_pics
 
     url = submission.url
-    url_content = what_is_inside(url)
+    parsed_url = urlparse(url)
+    lower_url = url.lower()
 
     if submission.is_video:
-        if 'reddit_video' in submission.media:
-            if submission.media['reddit_video'].get('is_gif', False):
-                return TYPE_GIF, submission.media['reddit_video']['fallback_url']
-            return TYPE_VIDEO, submission.media['reddit_video']['fallback_url']
+        media = submission.media or {}
+        if 'reddit_video' in media:
+            if media['reddit_video'].get('is_gif', False):
+                return TYPE_GIF, media['reddit_video']['fallback_url']
+            return TYPE_VIDEO, media['reddit_video']['fallback_url']
             # return TYPE_OTHER, url
 
     try:
@@ -159,6 +174,26 @@ def get_url(submission, mp4_instead_gif=True):
     except:
         # Not a crosspost
         pass
+
+    if submission.is_self is True:
+        # Self submission with text
+        return TYPE_TEXT, None
+
+    if parsed_url.netloc == 'i.redd.it':
+        if lower_url.endswith('.jpg') or lower_url.endswith('.jpeg') or lower_url.endswith('.png'):
+            return TYPE_IMG, url
+
+    if parsed_url.netloc in ['i.imgur.com', 'i.stack.imgur.com']:
+        if lower_url.endswith('.gifv'):
+            if mp4_instead_gif:
+                return TYPE_GIF, url[:-5] + '.mp4'
+            return TYPE_GIF, url
+        if lower_url.endswith('.gif') or lower_url.endswith('.mp4'):
+            return TYPE_GIF, url
+        if lower_url.endswith('.jpg') or lower_url.endswith('.jpeg') or lower_url.endswith('.png'):
+            return TYPE_IMG, url
+
+    url_content = what_is_inside(url)
 
     if (CONTENT_JPEG == url_content or CONTENT_PNG == url_content):
         return TYPE_IMG, url
@@ -179,8 +214,7 @@ def get_url(submission, mp4_instead_gif=True):
         if CONTENT_GIF in what_is_inside(url[0:-1]):
             return TYPE_GIF, url[0:-1]
 
-    if urlparse(url).netloc in ['i.imgur.com', 'i.stack.imgur.com']:
-        lower_url = url.lower()
+    if parsed_url.netloc in ['i.imgur.com', 'i.stack.imgur.com']:
         if lower_url.endswith('.gifv'):
             if mp4_instead_gif:
                 return TYPE_GIF, url[:-5] + '.mp4'
@@ -190,11 +224,7 @@ def get_url(submission, mp4_instead_gif=True):
         if lower_url.endswith('.jpg') or lower_url.endswith('.jpeg') or lower_url.endswith('.png'):
             return TYPE_IMG, url
 
-    if submission.is_self is True:
-        # Self submission with text
-        return TYPE_TEXT, None
-
-    if urlparse(url).netloc in ['imgur.com', 'www.imgur.com', 'm.imgur.com']:
+    if parsed_url.netloc in ['imgur.com', 'www.imgur.com', 'm.imgur.com']:
         # Imgur
         imgur_config = None
         main_config_path = os.path.join('configs', 'prod.yml')
@@ -290,25 +320,44 @@ def get_url(submission, mp4_instead_gif=True):
         return TYPE_OTHER, url
 
 
-def download_file(url, filename):
+def download_file(url, filename, max_size=TELEGRAM_VIDEO_LIMIT):
     # http://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py
     # NOTE the stream=True parameter
     try:
         with _http_request('get', url, stream=True) as r:
             if r.status_code >= 400:
                 return False
-            chunk_counter = 0
-            chunk_size = 1024
+            content_length = r.headers.get('Content-Length')
+            if content_length and int(content_length) > max_size:
+                return False
+            bytes_downloaded = 0
+            chunk_size = 256 * 1024
+            too_large = False
             with open(filename, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=chunk_size):
                     if chunk:  # filter out keep-alive new chunks
+                        bytes_downloaded += len(chunk)
+                        if bytes_downloaded > max_size:
+                            too_large = True
+                            break
                         f.write(chunk)
-                        #f.flush() commented by recommendation from J.F.Sebastian
-                        chunk_counter += 1
-                        # It is not possible to send greater than 50 MB via Telegram
-                        if chunk_counter > TELEGRAM_VIDEO_LIMIT / chunk_size:
-                            return False
+            if too_large:
+                try:
+                    os.remove(filename)
+                except FileNotFoundError:
+                    pass
+                return False
     except RequestException:
+        try:
+            os.remove(filename)
+        except FileNotFoundError:
+            pass
+        return False
+    except (OSError, ValueError):
+        try:
+            os.remove(filename)
+        except FileNotFoundError:
+            pass
         return False
     return True
 
@@ -350,16 +399,20 @@ def md5_sum_from_url(url):
         return None
     except RequestException:
         return None
-    chunk_counter = 0
     hash_store = hashlib.md5()
     with r:
-        for chunk in r.iter_content(chunk_size=1024):
+        if r.status_code >= 400:
+            return None
+        content_length = r.headers.get('Content-Length')
+        if content_length and int(content_length) > TELEGRAM_VIDEO_LIMIT:
+            return None
+        bytes_downloaded = 0
+        for chunk in r.iter_content(chunk_size=256 * 1024):
             if chunk:  # filter out keep-alive new chunks
-                hash_store.update(chunk)
-                chunk_counter += 1
-                # It is not possible to send greater than 50 MB via Telegram
-                if chunk_counter > 50 * 1024:
+                bytes_downloaded += len(chunk)
+                if bytes_downloaded > TELEGRAM_VIDEO_LIMIT:
                     return None
+                hash_store.update(chunk)
     return hash_store.hexdigest()
 
 
@@ -515,7 +568,7 @@ class Reddit2TelegramSender(object):
         result = self.errors.find_one({
             'channel': self.t_channel.lower(),
             'url': url.lower()
-        })
+        }, projection={'cnt': True, '_id': False})
         if result is None:
             return False
         elif result['cnt'] >= ERRORS_CNT_LIMIT:
@@ -525,17 +578,23 @@ class Reddit2TelegramSender(object):
 
     def was_before(self, url):
         url_id = url.split('/')[-1]
+        channel = self.t_channel.lower()
         result = self.urls.find_one({
-            'channel': self.t_channel.lower(),
+            'channel': channel,
             'url_id': url_id
-        })
+        }, projection={'_id': True})
         if result is None:
             result = self.urls.find_one({
-                'channel': self.t_channel.lower(),
+                'channel': channel,
+                'url': url.lower()
+            }, projection={'_id': True})
+        if result is None:
+            result = self.urls.find_one({
+                'channel': channel,
                 'url': {
-                    '$regex': url_id
+                    '$regex': re.escape(url_id)
                 }
-            })
+            }, projection={'_id': True})
         if result is None:
             return False
         else:
@@ -544,6 +603,7 @@ class Reddit2TelegramSender(object):
     def mark_as_was_before(self, url, sent=True):
         self.urls.insert_one({
             'url_id': url.split('/')[-1],
+            'url': url.lower(),
             'ts': datetime.utcnow(),
             'channel': self.t_channel.lower(),
             'sent': sent
@@ -553,20 +613,26 @@ class Reddit2TelegramSender(object):
         md5_sum = md5_sum_from_url(url)
         if md5_sum is None:
             return False
-        result = self.contents.find_one({
-            'channel': self.t_channel.lower(),
-            'md5_sum': md5_sum
-        })
-        if result is None:
-            self.contents.insert_one({
-                'md5_sum': md5_sum,
-                'ts': datetime.utcnow(),
-                'channel': self.t_channel.lower()
-            })
-            return False
-        else:
+        result = self.contents.find_one_and_update(
+            {
+                'channel': self.t_channel.lower(),
+                'md5_sum': md5_sum
+            },
+            {
+                '$setOnInsert': {
+                    'md5_sum': md5_sum,
+                    'ts': datetime.utcnow(),
+                    'channel': self.t_channel.lower()
+                }
+            },
+            projection={'_id': True},
+            return_document=ReturnDocument.BEFORE,
+            upsert=True
+        )
+        if result is not None:
             logging.info('Duplicated found!')
             return True
+        return False
 
     def send_gif_img(self, what, url, text, parse_mode=None):
         if what == TYPE_GIF:
@@ -654,9 +720,8 @@ class Reddit2TelegramSender(object):
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        f = open(video_to_send, 'rb')
-        self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode))
-        f.close()
+        with open(video_to_send, 'rb') as f:
+            self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode))
         if len(next_text) > 1:
             short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)

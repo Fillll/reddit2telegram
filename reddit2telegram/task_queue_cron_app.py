@@ -7,6 +7,7 @@ logging.basicConfig(
 
 import datetime
 import csv
+import os
 import random
 
 import pymongo
@@ -19,7 +20,7 @@ import task_queue
 logger = logging.getLogger(__name__)
 
 
-def read_own_cron(own_cron_filename, config):
+def read_own_cron(own_cron_filename, config, config_filename=None):
     with open(own_cron_filename) as tsv_file:
         tsv_reader = csv.DictReader(tsv_file, delimiter='\t')
         list_of_processes_to_start = list()
@@ -34,16 +35,21 @@ def read_own_cron(own_cron_filename, config):
                 list_of_processes_to_start.append(submodule_name)
     random.shuffle(list_of_processes_to_start)
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
-    task_queue.submit_batch(db, task_queue.TASK_SUPPLY, [{
-        'submodule_name': submodule_name,
-        'config': config,
-    } for submodule_name in list_of_processes_to_start])
+    task_args = []
+    for submodule_name in list_of_processes_to_start:
+        args = {'submodule_name': submodule_name}
+        if config_filename is not None:
+            args['config_filename'] = os.path.abspath(config_filename)
+        else:
+            args['config'] = config
+        task_args.append(args)
+    task_queue.submit_batch(db, task_queue.TASK_SUPPLY, task_args)
 
 
 def main(config_filename):
     with open(config_filename) as config_file:
         config = yaml.safe_load(config_file.read())
-        read_own_cron(config['cron_file'], config)
+        read_own_cron(config['cron_file'], config, config_filename=config_filename)
 
 
 if __name__ == '__main__':

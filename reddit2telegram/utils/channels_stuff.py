@@ -3,6 +3,7 @@
 import os
 import importlib
 import re
+import threading
 
 import pymongo
 import yaml
@@ -12,6 +13,8 @@ CHANNELS_COLLECTION = 'channels'
 _SIMPLE_SEND_RE = re.compile(r'^\s*return\s+r2t\.send_simple\(submission\)\s*$')
 _SUBREDDIT_URL_RE = re.compile(r'(?:https?://)?(?:www\.)?reddit\.com/r/([^/?#\s]+)', re.IGNORECASE)
 _CHANNEL_URL_RE = re.compile(r'(?:https?://)?(?:t(?:elegram)?\.me/)([^/?#\s]+)', re.IGNORECASE)
+_MONGO_DATABASES = {}
+_MONGO_LOCK = threading.Lock()
 
 
 def get_config(config_filename=None):
@@ -23,7 +26,12 @@ def get_config(config_filename=None):
 
 def get_db(config_filename=None):
     config = get_config(config_filename=config_filename)
-    return pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
+    key = (config['db']['host'], config['db']['name'])
+    with _MONGO_LOCK:
+        if key not in _MONGO_DATABASES:
+            client = pymongo.MongoClient(host=key[0])
+            _MONGO_DATABASES[key] = client[key[1]]
+        return _MONGO_DATABASES[key]
 
 
 def _get_channels_collection(config_filename=None):
@@ -62,10 +70,11 @@ def import_submodule(submodule_name):
     submodule_name = submodule_name.lower()
     channel_dir = os.path.join('channels', submodule_name)
     has_module = os.path.isdir(channel_dir)
-    has_db = get_channel_doc(submodule_name) is not None
+    channel_doc = get_channel_doc(submodule_name)
+    has_db = channel_doc is not None
 
     if has_db and (not has_module or is_simple_channel_module(submodule_name)):
-        return DefaultChannel(submodule_name)
+        return DefaultChannel(submodule_name, channel_doc=channel_doc)
     if has_module:
         return importlib.import_module(f'channels.{submodule_name}.app')
     return DefaultChannel(submodule_name)
@@ -155,10 +164,10 @@ def upsert_channel(channel, **kwargs):
 
 class DefaultChannel(object):
     '''docstring for DefaultChannel'''
-    def __init__(self, submodule):
+    def __init__(self, submodule, channel_doc=None):
         super(DefaultChannel, self).__init__()
         self.submodule = submodule.lower()
-        self.get_settings_from_db()
+        self.get_settings_from_db(channel_doc=channel_doc)
         if self.content is None:
             self.content = dict(
                 text=True,
@@ -178,8 +187,8 @@ class DefaultChannel(object):
             self.content['gallery'] = self.content.get('gallery', False)
             self.content['other'] = self.content.get('other', False)
 
-    def get_settings_from_db(self):
-        channel_details = get_channel_doc(self.submodule)
+    def get_settings_from_db(self, channel_doc=None):
+        channel_details = channel_doc or get_channel_doc(self.submodule)
         if channel_details is None:
             self.t_channel = 'NO CHANNEL FOUND FOR: self.submodule'
             raise ValueError('No channel found in DB for submodule: {}'.format(self.submodule))

@@ -58,6 +58,7 @@ def ensure_index(config_filename=None):
     channels.create_index([('submodule', pymongo.ASCENDING)])
     tasks = db['tasks']
     tasks.create_index([('status', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
+    tasks.create_index([('status', pymongo.ASCENDING), ('updated_at', pymongo.ASCENDING)])
     print('ENSURE INDEX END.')
 
 

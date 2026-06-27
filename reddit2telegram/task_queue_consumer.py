@@ -30,7 +30,9 @@ def main(config_filename):
         config = yaml.safe_load(config_file.read())
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     executor = _create_thread_pool(config)
-    task_queue.start_consumer(db, executor, 5)
+    pool_size = config.get('pool', {}).get('size', cpu_count())
+    batch_size = config.get('consumer', {}).get('batch_size', pool_size * 2)
+    task_queue.start_consumer(db, executor, 5, batch_size=batch_size)
 
 
 if __name__ == '__main__':

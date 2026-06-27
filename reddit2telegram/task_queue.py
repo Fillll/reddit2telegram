@@ -3,12 +3,13 @@ import time
 from concurrent.futures import Executor
 from enum import Enum
 from typing import List, Mapping
-import gc
 
 import pymongo
 from bson.objectid import ObjectId
 from pymongo.database import Database
 from pymongo.collection import Collection
+from pymongo.collection import ReturnDocument
+import yaml
 
 from supplier import supply
 
@@ -18,6 +19,8 @@ COLLECTION = 'tasks'
 TASK_SUPPLY = 'supply'
 
 ABANDONED_TASK_MIN_AGE_SECONDS = 60
+TASK_MAX_AGE_SECONDS = 25 * 60
+CLAIM_BATCH_SIZE = 100
 
 
 logger = logging.getLogger(__name__)
@@ -31,13 +34,15 @@ class TaskStatus(Enum):
     SCHEDULED = 5
 
 
-def create_task_dict(task_name: str, args: Mapping):
+def create_task_dict(task_name: str, args: Mapping, now=None):
+    if now is None:
+        now = time.time()
     return {
         'name': task_name,
         'args': args,
         'status': TaskStatus.NEW.value,
-        'created_at': time.time(),
-        'updated_at': time.time(),
+        'created_at': now,
+        'updated_at': now,
     }
 
 
@@ -52,7 +57,8 @@ def submit_batch(mongo_database: Database, task_name: str, args_list: List[Mappi
     if not args_list:
         logger.info('No tasks to submit')
         return
-    tasks = [create_task_dict(task_name, args) for args in args_list]
+    now = time.time()
+    tasks = [create_task_dict(task_name, args, now=now) for args in args_list]
     result = mongo_database[COLLECTION].insert_many(tasks)
     logger.info(f"Inserted {len(result.inserted_ids)} tasks")
 
@@ -71,6 +77,53 @@ def select_all_available_tasks(collection: Collection):
     return list(collection.find({
         'status': TaskStatus.NEW.value,
     }, sort=[('created_at', pymongo.ASCENDING)]))
+
+
+def fail_expired_new_tasks(collection: Collection):
+    cutoff = time.time() - TASK_MAX_AGE_SECONDS
+    result = collection.update_many(
+        {
+            'status': TaskStatus.NEW.value,
+            'created_at': {'$lt': cutoff},
+        },
+        {
+            '$set': {
+                'status': TaskStatus.FAILED.value,
+                'updated_at': time.time(),
+            },
+        }
+    )
+    if result.modified_count:
+        logger.warning('Failed %d expired new tasks', result.modified_count)
+
+
+def claim_available_tasks(collection: Collection, limit: int = CLAIM_BATCH_SIZE):
+    claimed_tasks = []
+    cutoff = time.time() - TASK_MAX_AGE_SECONDS
+    for _ in range(limit):
+        task = collection.find_one_and_update(
+            {
+                'status': TaskStatus.NEW.value,
+                'created_at': {'$gte': cutoff},
+            },
+            {
+                '$set': {
+                    'status': TaskStatus.SCHEDULED.value,
+                    'updated_at': time.time(),
+                },
+            },
+            sort=[('created_at', pymongo.ASCENDING)],
+            projection={
+                'name': True,
+                'args': True,
+                'created_at': True,
+            },
+            return_document=ReturnDocument.AFTER,
+        )
+        if task is None:
+            break
+        claimed_tasks.append(task)
+    return claimed_tasks
 
 
 def recover_abandoned_tasks(collection: Collection):
@@ -96,12 +149,25 @@ def recover_abandoned_tasks(collection: Collection):
         logger.warning('Recovered %d abandoned tasks', result.modified_count)
 
 
+def _hydrate_supply_args(args: Mapping):
+    if 'config' in args:
+        return args
+    if 'config_filename' not in args:
+        return args
+    hydrated_args = dict(args)
+    config_filename = hydrated_args.pop('config_filename')
+    with open(config_filename) as config_file:
+        hydrated_args['config'] = yaml.safe_load(config_file.read())
+    return hydrated_args
+
+
 def execute_task(collection: Collection, id: ObjectId, name: str, args: Mapping):
     update_task_status(collection, id, TaskStatus.IN_PROGRESS)
     try:
         func = None
         if name == TASK_SUPPLY:
             func = supply
+            args = _hydrate_supply_args(args)
         else:
             raise Exception(f'Task {name} not found')
         func(**args)
@@ -116,6 +182,7 @@ def start_consumer(
     mongo_database: Database,
     executor: Executor,
     sleep_interval_seconds: float,
+    batch_size: int = CLAIM_BATCH_SIZE,
 ):
     running = True
     collection = mongo_database[COLLECTION]
@@ -123,20 +190,11 @@ def start_consumer(
     logger.info('Starting consumer %s', executor)
     while running:
         try:
-            new_tasks = select_all_available_tasks(collection)
-            logger.info('Found %d new tasks', len(new_tasks))
+            fail_expired_new_tasks(collection)
+            new_tasks = claim_available_tasks(collection, batch_size)
+            logger.info('Claimed %d new tasks', len(new_tasks))
             for t in new_tasks:
-                task_age = time.time() - t['created_at']
-                # logger.info(f'Task age is {round(task_age / 60)} mins.')
-                if task_age < 25 * 60:
-                    # If task was create less than 25 mins ago, then ok.
-                    executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
-                    update_task_status(collection, t['_id'], TaskStatus.SCHEDULED)
-                else:
-                    # If the task is older than 25 mins, just skip.
-                    # logger.info(f'Too old task → {round(task_age / 60)} mins.')
-                    update_task_status(collection, t['_id'], TaskStatus.FAILED)
-            gc.collect()
+                executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
             time.sleep(sleep_interval_seconds)
         except KeyboardInterrupt:
             logger.info('Stopping consumer')
