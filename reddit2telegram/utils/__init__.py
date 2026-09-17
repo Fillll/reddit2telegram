@@ -917,6 +917,7 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
+        # Skip removed submissions so removal notices are not sent as posts.
         if getattr(submission, 'removed_by_category', None):
             return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
