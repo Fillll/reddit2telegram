@@ -917,6 +917,9 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
+        if getattr(submission, 'removed_by_category', None):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
         max_selftext_len = kwargs.get('max_selftext_len', -1)
 
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
