@@ -6854,7 +6854,7 @@
     "tags": "#furry #memes #shitposting #humor"
   },
   {
-    "channel": "@rCitiesSkylines",
+    "channel": "@r_CitiesSkylines",
     "min_upvotes_limit": null,
     "submissions_limit": 100,
     "submissions_ranking": "hot",
@@ -6913,8 +6913,8 @@
     "submissions_limit": 100,
     "submissions_ranking": "hot",
     "submodule": "subredditav1",
-    "subreddit": "AV1",
-    "tags": "#av1 #avif #aomedia"
+    "subreddit": "AV1+AV2",
+    "tags": "#av1 #avif #aomedia #av2"
   },
   {
     "channel": "@r_VoicesOfTheVoid",
@@ -9249,5 +9249,14 @@
     "submodule": "r_animedubs",
     "subreddit": "Animedubs",
     "tags": "#anime #dub #animedubs #englishdub"
+  },
+  {
+    "channel": "@r_classicwow",
+    "min_upvotes_limit": null,
+    "submissions_limit": 100,
+    "submissions_ranking": "hot",
+    "submodule": "r_classicwow",
+    "subreddit": "classicwow",
+    "tags": "#wow #classicwow #mmo"
   }
 ]
