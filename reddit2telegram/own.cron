@@ -138,6 +138,7 @@ MASK	submodule_name
 07 * * * *	r_malazan
 07 * * * *	r_bangalore
 07 * * * *	r_metalmemes
+07 * * * *	r_youll_be_banned
 08 * * * *	reddit_all
 08 * * * *	comics
 08 * * * *	r_imaginary_network
@@ -841,6 +842,7 @@ MASK	submodule_name
 45 * * * *	indiancelebs	# Last one.
 46 * * * *	r_tourettesguy
 47 * * * *	fourtran
+48 * * * *	r_toonami
 54 * * * *	tech_cleaner
 55 * * * *	r_pics
 55 11 * * *	tech_anniversary
