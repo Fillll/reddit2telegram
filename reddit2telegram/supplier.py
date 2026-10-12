@@ -4,6 +4,7 @@ import logging
 
 import yaml
 import praw
+import requests
 
 import utils
 from reporting_stuff import report_error
@@ -22,50 +23,52 @@ def submissions_safe(submissions):
 
 
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
-    reddit = praw.Reddit(
-        user_agent=config['reddit']['user_agent'],
-        client_id=config['reddit']['client_id'],
-        client_secret=config['reddit']['client_secret'],
-        username=config['reddit']['username'],
-        password=config['reddit']['password'],
-        requestor_kwargs={'timeout': utils.REDDIT_TIMEOUT}
-    )
-    if submissions_ranking == 'top':
-        submissions = reddit.subreddit(subreddit).top(limit=submissions_limit)
-    elif submissions_ranking == 'hot':
-        submissions = reddit.subreddit(subreddit).hot(limit=submissions_limit)
-    elif submissions_ranking == 'new':
-        submissions = reddit.subreddit(subreddit).new(limit=submissions_limit)
-    else:
-        logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
-    with utils.Reddit2TelegramSender(channel_to_post, config) as r2t:
-        success = False
-        for submission in submissions_safe(submissions):
-            link = submission.shortlink
-            if r2t.was_before(link):
-                continue
-            if r2t.too_much_errors(link):
-                continue
-            if kwargs.get('extra_args', False):
-                success = how_to_post(submission, r2t, **kwargs)
-            else:
-                success = how_to_post(submission, r2t)
-            if success == utils.SupplyResult.SUCCESSFULLY:
-                # Every thing is ok, post was sent
-                r2t.mark_as_was_before(link, sent=True)
-                break
-            elif success == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION:
-                # Do not want to send this post
-                r2t.mark_as_was_before(link, sent=False)
-                continue
-            elif success == utils.SupplyResult.SKIP_FOR_NOW:
-                # Do not want to send now
-                continue
-            elif success == utils.SupplyResult.STOP_THIS_SUPPLY:
-                # If None — do not want to send anything this time
-                break
-            else:
-                logging.error('Unknown SupplyResult. {}'.format(success))
+    # PRAW does not close its HTTP session on context-manager exit.
+    with requests.Session() as reddit_http:
+        reddit = praw.Reddit(
+            user_agent=config['reddit']['user_agent'],
+            client_id=config['reddit']['client_id'],
+            client_secret=config['reddit']['client_secret'],
+            username=config['reddit']['username'],
+            password=config['reddit']['password'],
+            requestor_kwargs={'timeout': utils.REDDIT_TIMEOUT, 'session': reddit_http}
+        )
+        if submissions_ranking == 'top':
+            submissions = reddit.subreddit(subreddit).top(limit=submissions_limit)
+        elif submissions_ranking == 'hot':
+            submissions = reddit.subreddit(subreddit).hot(limit=submissions_limit)
+        elif submissions_ranking == 'new':
+            submissions = reddit.subreddit(subreddit).new(limit=submissions_limit)
+        else:
+            logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
+        with utils.Reddit2TelegramSender(channel_to_post, config) as r2t:
+            success = False
+            for submission in submissions_safe(submissions):
+                link = submission.shortlink
+                if r2t.was_before(link):
+                    continue
+                if r2t.too_much_errors(link):
+                    continue
+                if kwargs.get('extra_args', False):
+                    success = how_to_post(submission, r2t, **kwargs)
+                else:
+                    success = how_to_post(submission, r2t)
+                if success == utils.SupplyResult.SUCCESSFULLY:
+                    # Every thing is ok, post was sent
+                    r2t.mark_as_was_before(link, sent=True)
+                    break
+                elif success == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION:
+                    # Do not want to send this post
+                    r2t.mark_as_was_before(link, sent=False)
+                    continue
+                elif success == utils.SupplyResult.SKIP_FOR_NOW:
+                    # Do not want to send now
+                    continue
+                elif success == utils.SupplyResult.STOP_THIS_SUPPLY:
+                    # If None — do not want to send anything this time
+                    break
+                else:
+                    logging.error('Unknown SupplyResult. {}'.format(success))
 
 
 @report_error

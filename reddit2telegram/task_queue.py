@@ -1,5 +1,6 @@
 import logging
 import time
+import threading
 from concurrent.futures import Executor
 from enum import Enum
 from typing import List, Mapping
@@ -183,19 +184,34 @@ def start_consumer(
     executor: Executor,
     sleep_interval_seconds: float,
     batch_size: int = CLAIM_BATCH_SIZE,
+    max_pending: int = None,
+    stop_event=None,
 ):
-    running = True
+    if max_pending is None:
+        max_pending = batch_size
+    if batch_size < 1 or max_pending < 1:
+        raise ValueError('Consumer batch_size and max_pending must be positive')
+    stop_event = stop_event if stop_event is not None else threading.Event()
+    pending = set()
     collection = mongo_database[COLLECTION]
     recover_abandoned_tasks(collection)
     logger.info('Starting consumer %s', executor)
-    while running:
+    while not stop_event.is_set():
         try:
+            completed = {future for future in pending if future.done()}
+            pending.difference_update(completed)
+            for future in completed:
+                try:
+                    future.result()
+                except Exception:
+                    logger.exception('Consumer worker failed')
             fail_expired_new_tasks(collection)
-            new_tasks = claim_available_tasks(collection, batch_size)
+            available = max_pending - len(pending)
+            new_tasks = claim_available_tasks(collection, min(batch_size, available)) if available else []
             logger.info('Claimed %d new tasks', len(new_tasks))
             for t in new_tasks:
-                executor.submit(execute_task, collection, t['_id'], t['name'], t['args'])
-            time.sleep(sleep_interval_seconds)
+                pending.add(executor.submit(execute_task, collection, t['_id'], t['name'], t['args']))
+            stop_event.wait(sleep_interval_seconds)
         except KeyboardInterrupt:
-            logger.info('Stopping consumer')
-            running = False
+            stop_event.set()
+    logger.info('Stopped claiming tasks; draining %d pending jobs', len(pending))

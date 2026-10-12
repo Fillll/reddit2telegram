@@ -3,6 +3,7 @@
 from urllib.parse import urlparse
 from html import unescape
 import requests
+import httpx
 from requests.adapters import HTTPAdapter
 from requests.exceptions import InvalidSchema, MissingSchema, RequestException
 import os
@@ -71,6 +72,15 @@ REDDIT_TIMEOUT = 20
 _MONGO_DATABASES = {}
 _MONGO_LOCK = threading.Lock()
 _HTTP_LOCAL = threading.local()
+# Parse the certificate store once instead of allocating it for every channel job.
+_TELEGRAM_SSL_CONTEXT = httpx.create_ssl_context()
+# python-telegram-bot 20.x buffers uploaded files in memory.
+_VIDEO_UPLOAD_SLOTS = threading.BoundedSemaphore(4)
+
+
+class _TelegramRequest(HTTPXRequest):
+    def _build_client(self):
+        return httpx.AsyncClient(verify=_TELEGRAM_SSL_CONTEXT, **self._client_kwargs)
 
 
 @enum.unique
@@ -93,7 +103,7 @@ def _get_http_session():
     session = getattr(_HTTP_LOCAL, 'session', None)
     if session is None:
         session = requests.Session()
-        adapter = HTTPAdapter(pool_connections=32, pool_maxsize=32)
+        adapter = HTTPAdapter(pool_connections=4, pool_maxsize=1)
         session.mount('http://', adapter)
         session.mount('https://', adapter)
         _HTTP_LOCAL.session = session
@@ -448,20 +458,29 @@ class Reddit2TelegramSender(object):
             with open(os.path.join('configs', 'prod.yml')) as f:
                 config = yaml.safe_load(f.read())
         self.config = config
-        request = HTTPXRequest(
-            connection_pool_size=8,
+        request = _TelegramRequest(
+            connection_pool_size=1,
             pool_timeout=TELEGRAM_TIMEOUT,
             read_timeout=TELEGRAM_TIMEOUT,
             write_timeout=TELEGRAM_TIMEOUT,
             connect_timeout=TELEGRAM_TIMEOUT,
         )
-        self.telegram_bot = Bot(self.config['telegram']['token'], request=request)
+        self._telegram_request = request
+        # This sender never polls updates concurrently with sending. Sharing the
+        # transport also avoids constructing a second unused HTTP/TLS client.
+        self.telegram_bot = Bot(
+            self.config['telegram']['token'], request=request, get_updates_request=request
+        )
         self._loop = asyncio.new_event_loop()
         if t_channel is None:
             t_channel = '@r_channels_test'
         self.t_channel = t_channel
-        self._make_mongo_connections()
-        short_sleep()
+        try:
+            self._make_mongo_connections()
+            short_sleep()
+        except BaseException:
+            self.close()
+            raise
 
     def _run_async(self, coro):
         try:
@@ -478,16 +497,19 @@ class Reddit2TelegramSender(object):
         loop = getattr(self, '_loop', None)
         if loop is None or loop.is_closed():
             return
-        bot = getattr(self, 'telegram_bot', None)
-        if bot is not None:
-            try:
+        request = getattr(self, '_telegram_request', None)
+        try:
+            if request is not None:
+                # Bot.shutdown() is a no-op unless Bot.initialize() was called.
+                # Close the owned transport directly, including failed jobs.
                 if loop.is_running():
-                    asyncio.run_coroutine_threadsafe(bot.shutdown(), loop).result()
+                    asyncio.run_coroutine_threadsafe(request.shutdown(), loop).result()
                 else:
-                    loop.run_until_complete(bot.shutdown())
-            except Exception:
-                logging.exception('Failed to shutdown Telegram bot cleanly.')
-        loop.close()
+                    loop.run_until_complete(request.shutdown())
+        except Exception:
+            logging.exception('Failed to shutdown Telegram HTTP client cleanly.')
+        finally:
+            loop.close()
 
     def __enter__(self):
         return self
@@ -720,7 +742,7 @@ class Reddit2TelegramSender(object):
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        with open(video_to_send, 'rb') as f:
+        with _VIDEO_UPLOAD_SLOTS, open(video_to_send, 'rb') as f:
             self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode))
         if len(next_text) > 1:
             short_sleep()

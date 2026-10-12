@@ -5,6 +5,8 @@ logging.basicConfig(
 )
 
 import concurrent.futures
+import signal
+import threading
 from multiprocessing import cpu_count
 
 import pymongo
@@ -29,10 +31,25 @@ def main(config_filename):
     with open(config_filename) as config_file:
         config = yaml.safe_load(config_file.read())
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
-    executor = _create_thread_pool(config)
     pool_size = config.get('pool', {}).get('size', cpu_count())
     batch_size = config.get('consumer', {}).get('batch_size', pool_size * 2)
-    task_queue.start_consumer(db, executor, 5, batch_size=batch_size)
+    max_pending = config.get('consumer', {}).get('max_pending', pool_size)
+    stop_event = threading.Event()
+
+    def stop(signum, frame):
+        logging.info('Received signal %d; draining workers', signum)
+        stop_event.set()
+
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGINT, stop)
+    try:
+        with _create_thread_pool(config) as executor:
+            task_queue.start_consumer(
+                db, executor, 5, batch_size=batch_size,
+                max_pending=max_pending, stop_event=stop_event,
+            )
+    finally:
+        db.client.close()
 
 
 if __name__ == '__main__':
