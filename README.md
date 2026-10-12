@@ -71,3 +71,17 @@ Live integration tests send real messages to `@r_channels_test` and use Reddit A
 ```bash
 R2T_LIVE_TESTS=1 /root/reddit2telegram/.venv/bin/python -m unittest tests/test_live_send.py
 ```
+
+Live resource regression tests verify actual Telegram message IDs, repeated-job
+and exception cleanup, six concurrent video jobs with the four-upload limit,
+photo/GIF/gallery delivery, video download and audio merging, and live
+Reddit-to-Telegram supply. They generate media locally and serve video inputs
+on loopback; Telegram receives real uploads. Messages are paced, and media files
+are isolated from production's temporary-file cleaner. All sends target
+`@r_channels_test`; the configured bot must have posting rights there.
+
+```bash
+R2T_LIVE_TESTS=1 .venv/bin/python -m unittest tests/test_live_resources.py -v
+```
+
+Leave `R2T_LIVE_TESTS` unset during offline test runs.
