@@ -1,0 +1,10 @@
+#!/bin/sh
+# Git supplies: local ref, local SHA, remote ref, remote SHA.
+while read -r local_ref local_sha remote_ref remote_sha; do
+    case "$remote_ref" in
+        refs/heads/master|refs/heads/main)
+            echo 'Direct pushes to the default branch are disabled. Push a topic branch and open a PR.' >&2
+            exit 1
+            ;;
+    esac
+done
