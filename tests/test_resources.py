@@ -6,6 +6,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
 import sys
+import subprocess
+import json
 
 import pytest
 import requests
@@ -14,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'reddit2telegram
 import supplier
 import task_queue
 import utils
+import task_queue_consumer
 
 
 def make_sender(monkeypatch):
@@ -185,3 +188,50 @@ def test_video_uploads_are_limited_across_worker_threads(monkeypatch, tmp_path):
     assert all(result == utils.SupplyResult.SUCCESSFULLY for result in results)
     assert 2 <= peak <= 4
     assert active == 0
+
+
+def test_native_allocator_arena_limit_with_32_workers(tmp_path):
+    # Use a fresh interpreter so this test does not tune pytest's allocator.
+    code = r'''
+import ctypes, gc, json, ssl, sys, threading
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+import task_queue_consumer
+
+if not task_queue_consumer._limit_malloc_arenas(4):
+    sys.exit(77)
+barrier = threading.Barrier(32)
+def allocate(_):
+    barrier.wait()
+    for i in range(3):
+        context = ssl.create_default_context()
+    del context
+with ThreadPoolExecutor(32) as pool:
+    list(pool.map(allocate, range(32)))
+gc.collect()
+libc = ctypes.CDLL(None)
+libc.fopen.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+libc.fopen.restype = ctypes.c_void_p
+libc.malloc_info.argtypes = [ctypes.c_int, ctypes.c_void_p]
+libc.fclose.argtypes = [ctypes.c_void_p]
+stream = libc.fopen(sys.argv[1].encode(), b'w')
+assert stream
+try:
+    assert libc.malloc_info(0, stream) == 0
+finally:
+    libc.fclose(stream)
+print(json.dumps({'arenas': Path(sys.argv[1]).read_text().count('<heap nr=')}))
+'''
+    app_dir = Path(__file__).resolve().parent.parent / 'reddit2telegram'
+    result = subprocess.run([sys.executable, '-c', code, str(tmp_path / 'malloc.xml')],
+                            cwd=app_dir, capture_output=True, text=True, timeout=60)
+    if result.returncode == 77:
+        pytest.skip('Native allocator does not support arena tuning')
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout)['arenas'] <= 4
+
+
+@pytest.mark.parametrize('value', [0, -1, '4'])
+def test_invalid_native_arena_limit(value):
+    with pytest.raises(ValueError, match='positive integer'):
+        task_queue_consumer._limit_malloc_arenas(value)

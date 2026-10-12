@@ -61,6 +61,11 @@ But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
 Tests
 -----
 
+The consumer keeps at most `consumer.max_pending` submitted jobs (default: pool
+size). Video uploads are limited to four at a time. On glibc systems,
+`pool.malloc_arenas` defaults to four to reduce memory retained by native
+allocation pools. SIGTERM/SIGINT stop new claims and drain submitted work.
+
 Live integration tests send real messages to `@r_channels_test` and use Reddit API.
 
 ```bash

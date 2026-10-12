@@ -5,6 +5,7 @@ logging.basicConfig(
 )
 
 import concurrent.futures
+import ctypes
 import signal
 import threading
 from multiprocessing import cpu_count
@@ -13,6 +14,26 @@ import pymongo
 import yaml
 
 import task_queue
+
+
+def _limit_malloc_arenas(max_arenas):
+    if not isinstance(max_arenas, int) or max_arenas < 1:
+        raise ValueError('pool.malloc_arenas must be a positive integer')
+    try:
+        mallopt = ctypes.CDLL(None).mallopt
+    except AttributeError:
+        # Other platforms/allocators do not expose glibc's arena tuning API.
+        logging.info('Native allocator arena tuning is unavailable')
+        return False
+    mallopt.argtypes = [ctypes.c_int, ctypes.c_int]
+    mallopt.restype = ctypes.c_int
+    # M_ARENA_MAX from malloc.h. Configure before Mongo/worker threads start.
+    configured = bool(mallopt(-8, max_arenas))
+    if configured:
+        logging.info('Limited native allocator to %d arenas', max_arenas)
+    else:
+        logging.warning('Native allocator rejected arena limit')
+    return configured
 
 
 def _create_thread_pool(config) -> concurrent.futures.Executor:
@@ -30,6 +51,7 @@ def _create_thread_pool(config) -> concurrent.futures.Executor:
 def main(config_filename):
     with open(config_filename) as config_file:
         config = yaml.safe_load(config_file.read())
+    _limit_malloc_arenas(config.get('pool', {}).get('malloc_arenas', 4))
     db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
     pool_size = config.get('pool', {}).get('size', cpu_count())
     batch_size = config.get('consumer', {}).get('batch_size', pool_size * 2)
