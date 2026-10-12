@@ -1,5 +1,18 @@
 # PR Details
 
+SemVer: patch
+
+Replace `patch` above with `minor` or `major` when appropriate. Explain the
+release level and any migration below. `bootstrap` is only for the initial 1.0.0.
+
+## Change and validation
+
+_What changes for users/operators, why, and how was it verified?_
+
+- [ ] Updated `VERSION` with exactly one appropriate increment from the base.
+- [ ] Added the matching dated entry to `Changelog.md` without changing past releases.
+- [ ] Passed relevant tests and release checks.
+
 ## Subreddit
 
 _What subreddit?_

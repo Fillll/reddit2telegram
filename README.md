@@ -58,6 +58,40 @@ But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
 * * * * * /root/reddit2telegram/reddit2telegram/cron_thread_job.sh
 ```
 
+Versions and contributions
+--------------------------
+
+`VERSION` records the current stable version, starting at **1.0.0**. See
+[Changelog.md](Changelog.md) for release notes. Every change goes through a PR,
+including maintenance and channel additions. Maintainers may merge their own
+PRs after validation; direct pushes to `master` are prohibited.
+
+The compatibility contract covers documented CLI arguments and configuration,
+persisted MongoDB formats requiring migration, and established posting behavior.
+Following [SemVer](https://semver.org/), incompatible changes increment major,
+compatible new features/channels and deprecations increment minor, and compatible
+fixes and maintenance increment patch. Each PR makes one release increment and
+includes one `SemVer: major`, `SemVer: minor`, or `SemVer: patch` line in its body.
+The initial release PR uses `SemVer: bootstrap`.
+
+On a fresh topic branch, prepare and validate a release:
+
+```bash
+git config core.hooksPath scripts/hooks
+git fetch origin
+git switch -c fix/example origin/master
+python3 scripts/release.py bump patch --summary 'Describe the change for operators.'
+python3 scripts/release.py validate --base-ref origin/master --bump patch
+python3 -m unittest discover -s tests -p test_release.py
+git push -u origin HEAD
+```
+
+Include `VERSION`, `Changelog.md`, and the implementation in the PR. Refresh the
+bump if another release merges first. Use squash or merge commits. After a
+validated PR merges, GitHub Actions publishes the matching `vX.Y.Z` tag and
+release notes; existing tags are immutable.
+Release checks use no application credentials and never send Telegram messages.
+
 Tests
 -----
 

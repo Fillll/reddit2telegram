@@ -1,0 +1,31 @@
+name: Release checks
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  release-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Validate version bump and immutable changelog history
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: python scripts/release.py validate --base-ref "$BASE_SHA"
+      - name: Test release tooling and push guard
+        run: python -m unittest discover -s tests -p test_release.py -v

@@ -62,6 +62,8 @@ fabric.properties
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts
+# Keep repository release tooling; virtualenv Scripts directories stay ignored.
+!/scripts/
 pyvenv.cfg
 .venv
 pip-selfcheck.json
