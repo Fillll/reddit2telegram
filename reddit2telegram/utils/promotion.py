@@ -43,4 +43,3 @@ def make_nice_submission(submission, r2t, submodule_name_to_promte, extra_ending
         gallery='{announcement_heading}{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}'
     )
     return result
-
