@@ -4,6 +4,24 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.8] - 2026-10-17
+
+### Fixed
+
+- Derive stable anniversary dates from successfully sent posts instead of the
+  statistics collection start; allow explicit dates and handle February 29.
+  Skip missing history and isolate invalid channels rather than aborting all sends.
+- Deliver annual introductions featuring the main feed and community, with a
+  deterministic paginated channel directory and direct text birthday notices.
+  The daily sweep no longer depends on Reddit listings or media availability.
+- Persist annually unique message plans, acknowledged Telegram IDs, and run
+  outcomes independently of the queue cleaner. Resume rejected/unsent parts on
+  later sweeps; hold interrupted or ambiguous sends for review rather than risk
+  duplicates. Expose a read-only report/preview and keep test sends isolated.
+- Propagate supply failures after reporting them so partial anniversary runs
+  cannot be recorded as successful tasks. Preserve the original error if
+  developer-chat reporting fails. No migration or historical replay is required.
+
 ## [1.0.7] - 2026-10-17
 
 ### Fixed

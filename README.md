@@ -139,3 +139,54 @@ R2T_LIVE_TESTS=1 .venv/bin/python -m unittest tests/test_live_resources.py -v
 ```
 
 Leave `R2T_LIVE_TESTS` unset during offline test runs.
+
+Anniversary announcements
+------------------------
+
+`tech_anniversary` runs daily at 11:55 UTC without fetching a Reddit listing.
+On a channel's anniversary, its introduction features `@reddit2telegram`, then
+the `@r_channels` community, followed by the birthday greeting and a paginated
+directory of other scheduled channels. A short birthday notice also goes to
+the main channel, community, and developer chat. Identical destinations are
+deduplicated. Announcements use text, so unavailable Reddit media cannot block
+them.
+
+The default anniversary date is the earliest **successfully sent** post in
+`urls`, never the start of statistics collection. This is an earliest-known-post
+date, not a verified Telegram creation date. It is saved once in `settings`
+under `_id: r2t_anniversary_date:<lowercase channel>` so history cleanup cannot
+move it. A channel document's optional `anniversary_date` (`YYYY-MM-DD` or a
+BSON datetime) overrides that default. Channels without either date are skipped
+and reported; one missing or invalid channel does not prevent other sends.
+February 29 anniversaries are observed on February 28 in non-leap years.
+
+Annual delivery records use `_id: r2t_anniversary_delivery:<channel>:<UTC year>`
+in `settings`. Their message text and directory order are frozen when queued;
+each acknowledged Telegram message ID is saved before the next send. Daily
+runs resume outstanding messages from earlier days and never repeat completed
+parts. Channels removed from the schedule are not sent queued retries. Every
+invocation also leaves a `kind: r2t_anniversary_run` record containing its start,
+finish, outcome, due/completed/pending counts, missing history, and errors. The
+next lease owner marks a crashed sweep as interrupted. The hourly task cleaner
+does not remove any of these records. No historical
+anniversaries are backfilled on installation.
+
+Inspect dates, upcoming/due channels, a complete message preview, pending parts,
+and the last seven days of run history without writing state or sending messages:
+
+```bash
+.venv/bin/python scripts/anniversary_report.py
+.venv/bin/python scripts/anniversary_report.py --date 2027-02-12 --days 30
+```
+
+A sweep lease prevents overlapping workers. Telegram API rejections are safe to
+retry, while timeouts and interrupted requests are recorded as `uncertain`.
+Telegram does not provide an idempotency key for sends, so these parts require
+checking the destination before another attempt. After that check, an operator
+can conditionally update the event in `settings`: select its `_id` and
+`deliveries.<index>.state: uncertain`; set that part's state to `sent` and its
+`message_ids` to the verified IDs if it arrived, or reset it to `pending` if it
+did not. The next scheduled run resumes the remaining parts. A partial run is
+reported as a supply failure, with the retained run ID for diagnosis. The
+existing `supplier.py --test --sub tech_anniversary` path sends only a sample to
+`@r_channels_test` and leaves production anniversary records untouched.
