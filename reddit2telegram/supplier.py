@@ -7,6 +7,7 @@ import praw
 import requests
 
 import utils
+from utils.http_resources import session as http_session
 from reporting_stuff import report_error
 from utils.tech import long_sleep, short_sleep, no_chance_to_post_due_to_errors_cnt
 
@@ -22,9 +23,10 @@ def submissions_safe(submissions):
             long_sleep(2.818281828 * 3.14159 / 2)
 
 
+@utils.media_job()
 def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, submissions_ranking, submissions_limit, config, **kwargs):
     # PRAW does not close its HTTP session on context-manager exit.
-    with requests.Session() as reddit_http:
+    with http_session() as reddit_http:
         reddit = praw.Reddit(
             user_agent=config['reddit']['user_agent'],
             client_id=config['reddit']['client_id'],

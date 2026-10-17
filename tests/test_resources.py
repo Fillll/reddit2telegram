@@ -155,10 +155,12 @@ def test_consumer_keeps_excess_work_in_database_and_releases_completed_slots():
 def test_video_uploads_are_limited_across_worker_threads(monkeypatch, tmp_path):
     active = 0
     peak = 0
+    preparing = 0
+    peak_preparing = 0
     lock = threading.Lock()
 
     async def upload(**kwargs):
-        nonlocal active, peak
+        nonlocal active, peak, preparing
         with lock:
             active += 1
             peak = max(peak, active)
@@ -167,10 +169,15 @@ def test_video_uploads_are_limited_across_worker_threads(monkeypatch, tmp_path):
         finally:
             with lock:
                 active -= 1
+                preparing -= 1
 
     def download(url, filename):
+        nonlocal preparing, peak_preparing
         if filename.endswith('.aac'):
             return False
+        with lock:
+            preparing += 1
+            peak_preparing = max(peak_preparing, preparing)
         Path(filename).write_bytes(b'video')
         return True
 
@@ -186,7 +193,8 @@ def test_video_uploads_are_limited_across_worker_threads(monkeypatch, tmp_path):
     with ThreadPoolExecutor(max_workers=12) as pool:
         results = list(pool.map(lambda sender: sender.send_video('https://local/video', 'test'), senders))
     assert all(result == utils.SupplyResult.SUCCESSFULLY for result in results)
-    assert 2 <= peak <= 4
+    assert peak == 2
+    assert peak_preparing == 2, 'Downloads started before a media pipeline slot was available'
     assert active == 0
 
 

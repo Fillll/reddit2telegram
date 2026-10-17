@@ -96,9 +96,28 @@ Tests
 -----
 
 The consumer keeps at most `consumer.max_pending` submitted jobs (default: pool
-size). Video uploads are limited to four at a time. On glibc systems,
+size). Two video jobs may download, mux, and upload concurrently. Uploads stream
+from disk, and each sender removes its private temporary files on close. Media
+HTTP sessions close after each job; verified TLS contexts are shared across
+connections. On glibc systems,
 `pool.malloc_arenas` defaults to four to reduce memory retained by native
-allocation pools. SIGTERM/SIGINT stop new claims and drain submitted work.
+allocation pools. Once per minute, a consumer above 256 MiB collects dead job
+cycles and returns unused native heap pages to the OS. SIGTERM/SIGINT stop new
+claims and drain submitted work.
+
+Resource monitoring includes the worker, ffmpeg children, and cgroup file cache.
+The kernel peak catches spikes between samples. These targets use decimal bytes:
+500 MB during normal operation and 1 GB during spikes. Run a single sample from
+cron, or add `--seconds 86400 --interval 5` for a full-day observation:
+
+```bash
+python3 scripts/monitor_resources.py --log logs/service_resources.jsonl
+```
+
+Offline tests exercise real local TLS and a 49 MiB multipart upload without
+production credentials. For a fresh checkout, copy `tests/offline-config.yml` to
+`reddit2telegram/configs/prod.yml` before `python -m pytest -q`. GitHub Actions
+does this automatically; live tests remain disabled.
 
 Live integration tests send real messages to `@r_channels_test` and use Reddit API.
 
@@ -107,7 +126,7 @@ R2T_LIVE_TESTS=1 /root/reddit2telegram/.venv/bin/python -m unittest tests/test_l
 ```
 
 Live resource regression tests verify actual Telegram message IDs, repeated-job
-and exception cleanup, six concurrent video jobs with the four-upload limit,
+and exception cleanup, six concurrent video jobs with the two-pipeline limit,
 photo/GIF/gallery delivery, video download and audio merging, and live
 Reddit-to-Telegram supply. They generate media locally and serve video inputs
 on loopback; Telegram receives real uploads. Messages are paced, and media files

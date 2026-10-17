@@ -1,9 +1,9 @@
 pyyaml
 praw
-python-telegram-bot==20.7
+python-telegram-bot==21.11.1
 yandex.translate
 pymongo==3.12
-requests
+requests>=2.32.5
 sentry-sdk
 croniter
 imgurpython

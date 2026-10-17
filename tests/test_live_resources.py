@@ -261,7 +261,7 @@ class LiveResourceTests(unittest.TestCase):
         with ThreadPoolExecutor(max_workers=6) as pool:
             message_ids = list(pool.map(send, range(6)))
         self.assertEqual(len(set(message_ids)), 6)
-        self.assertLessEqual(self.state.peak_uploads, 4)
+        self.assertLessEqual(self.state.peak_uploads, 2)
         self.assertEqual(self.state.active_uploads, 0)
 
     def test_real_gallery_delivery_is_confirmed(self):

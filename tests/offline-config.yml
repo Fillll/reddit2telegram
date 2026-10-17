@@ -1,0 +1,8 @@
+# Deliberately fake settings for offline tests. No external services are used.
+telegram:
+  token: '123:offline-test'
+  dev_chat: -1
+  papa: '0'
+db:
+  host: localhost
+  name: r2t_offline_tests
