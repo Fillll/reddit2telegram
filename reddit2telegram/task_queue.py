@@ -13,6 +13,7 @@ from pymongo.collection import ReturnDocument
 import yaml
 
 from supplier import supply
+from utils.memory import release_unused_memory
 
 
 COLLECTION = 'tasks'
@@ -205,6 +206,7 @@ def start_consumer(
                     future.result()
                 except Exception:
                     logger.exception('Consumer worker failed')
+            release_unused_memory()
             fail_expired_new_tasks(collection)
             available = max_pending - len(pending)
             new_tasks = claim_available_tasks(collection, min(batch_size, available)) if available else []

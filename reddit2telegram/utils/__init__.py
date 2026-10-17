@@ -4,7 +4,6 @@ from urllib.parse import urlparse
 from html import unescape
 import requests
 import httpx
-from requests.adapters import HTTPAdapter
 from requests.exceptions import InvalidSchema, MissingSchema, RequestException
 import os
 import imghdr
@@ -17,17 +16,20 @@ import enum
 import subprocess
 import asyncio
 import threading
+import tempfile
+import json
 
 from imgurpython import ImgurClient
 import yaml
 import pymongo
 from pymongo.collection import ReturnDocument
 from telegram.error import TelegramError, BadRequest
-from telegram import Bot, InputMediaPhoto, InputMediaVideo
+from telegram import Bot, InputFile, InputMediaPhoto, InputMediaVideo
 from telegram.constants import ParseMode
 from telegram.request import HTTPXRequest
 
 from utils.tech import short_sleep, long_sleep
+from utils.http_resources import media_session, media_job
 
 
 GFYCAT_GET = 'https://api.gfycat.com/v1/gfycats/'
@@ -71,11 +73,11 @@ REDDIT_TIMEOUT = 20
 
 _MONGO_DATABASES = {}
 _MONGO_LOCK = threading.Lock()
-_HTTP_LOCAL = threading.local()
 # Parse the certificate store once instead of allocating it for every channel job.
 _TELEGRAM_SSL_CONTEXT = httpx.create_ssl_context()
-# python-telegram-bot 20.x buffers uploaded files in memory.
-_VIDEO_UPLOAD_SLOTS = threading.BoundedSemaphore(4)
+# Bound the whole download/mux/upload pipeline, including subprocesses and file
+# cache, rather than letting 32 workers prepare media while waiting to upload.
+_VIDEO_UPLOAD_SLOTS = threading.BoundedSemaphore(2)
 
 
 class _TelegramRequest(HTTPXRequest):
@@ -100,19 +102,25 @@ def _normalize_reddit_media_url(url):
 
 
 def _get_http_session():
-    session = getattr(_HTTP_LOCAL, 'session', None)
-    if session is None:
-        session = requests.Session()
-        adapter = HTTPAdapter(pool_connections=4, pool_maxsize=1)
-        session.mount('http://', adapter)
-        session.mount('https://', adapter)
-        _HTTP_LOCAL.session = session
-    return session
+    return media_session()
 
 
 def _http_request(method, url, *, timeout=HTTP_TIMEOUT, **kwargs):
     kwargs.setdefault('timeout', timeout)
     return _get_http_session().request(method, url, **kwargs)
+
+
+def _metadata(url, max_size=1024 * 1024):
+    # A failed metadata endpoint can redirect to a media file or an HTML page.
+    # Bound the actual response, including chunked bodies without a size header.
+    with _http_request('get', url, stream=True) as response:
+        response.raise_for_status()
+        content = bytearray()
+        for chunk in response.iter_content(64 * 1024):
+            if len(content) + len(chunk) > max_size:
+                raise ValueError('Metadata response exceeds 1 MiB')
+            content.extend(chunk)
+        return content.decode('utf-8', errors='replace')
 
 
 def _get_shared_database(config):
@@ -314,16 +322,12 @@ def get_url(submission, mp4_instead_gif=True):
     elif 'gfycat.com' in urlparse(url).netloc:
         rname = re.findall(r'gfycat.com\/(?:detail\/)?(\w*)', url)[0]
         try:
-            r = _http_request('get', GFYCAT_GET + rname)
-            if r.status_code != 200:
-                logging.info('Gfy fail prevented!')
-                return TYPE_OTHER, url
-            urls = r.json()['gfyItem']
+            urls = json.loads(_metadata(GFYCAT_GET + rname))['gfyItem']
             if mp4_instead_gif:
                 return TYPE_GIF, urls['mp4Url']
             else:
                 return TYPE_GIF, urls['max5mbGif']
-        except (KeyError, RequestException):
+        except (KeyError, ValueError, RequestException):
             logging.info('Gfy fail prevented!')
             return TYPE_OTHER, url
     else:
@@ -377,6 +381,8 @@ def clean_after_module(submodule_name=None):
     total_size = 0
     for filename in os.listdir(TEMP_FOLDER):
         if filename == 'empty.md':
+            continue
+        if not os.path.isfile(os.path.join(TEMP_FOLDER, filename)):
             continue
         if submodule_name is not None:
             # Clean after specific
@@ -510,6 +516,9 @@ class Reddit2TelegramSender(object):
             logging.exception('Failed to shutdown Telegram HTTP client cleanly.')
         finally:
             loop.close()
+            files = getattr(self, '_temp_files', None)
+            if files is not None:
+                files.cleanup()
 
     def __enter__(self):
         return self
@@ -534,8 +543,10 @@ class Reddit2TelegramSender(object):
 
     def _get_file_name(self, ext='file'):
         os.makedirs(TEMP_FOLDER, exist_ok=True)
-        return os.path.join(TEMP_FOLDER,
-                            '{name}.{ext}'.format(name=self.t_channel[1:], ext=ext))
+        files = getattr(self, '_temp_files', None)
+        if files is None:
+            self._temp_files = files = tempfile.TemporaryDirectory(prefix='r2t-', dir=TEMP_FOLDER)
+        return os.path.join(files.name, 'media.' + ext.lstrip('.'))
 
     def _split_1024(self, text):
         new_text = ''
@@ -689,10 +700,7 @@ class Reddit2TelegramSender(object):
 
     def _get_dash_audio_url(self, dash_url):
         try:
-            resp = _http_request('get', dash_url)
-            if resp.status_code >= 400:
-                return None
-            base_urls = re.findall(r'<BaseURL>([^<]+)</BaseURL>', resp.text)
+            base_urls = re.findall(r'<BaseURL>([^<]+)</BaseURL>', _metadata(dash_url))
             audio_urls = [u for u in base_urls if 'AUDIO' in u.upper()]
             if not audio_urls:
                 return None
@@ -706,6 +714,10 @@ class Reddit2TelegramSender(object):
             return None
 
     def send_video(self, url, text, parse_mode=None, dash_url=None):
+        with _VIDEO_UPLOAD_SLOTS:
+            return self._send_video(url, text, parse_mode, dash_url)
+
+    def _send_video(self, url, text, parse_mode=None, dash_url=None):
         filename = self._get_file_name('.mp4')
 
         # Download video
@@ -729,10 +741,17 @@ class Reddit2TelegramSender(object):
         else:
             # Combine it audio and video
             video_with_audio_filename = self._get_file_name('.1.mp4')
-            cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s -hide_banner -loglevel panic -y' % (filename, audio_filename, video_with_audio_filename)
-            subprocess.call(cmd, shell=True)
-            if os.path.exists(video_with_audio_filename) and os.path.getsize(video_with_audio_filename) > 0:
-                video_to_send = video_with_audio_filename
+            try:
+                subprocess.run([
+                    'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y',
+                    '-threads', '1', '-i', filename, '-threads', '1', '-i', audio_filename,
+                    '-map', '0:v:0', '-map', '1:a:0', '-c', 'copy', video_with_audio_filename,
+                ], check=True, timeout=60, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except (subprocess.SubprocessError, OSError):
+                logging.warning('Audio mux failed; sending the original video')
+            else:
+                if os.path.exists(video_with_audio_filename) and os.path.getsize(video_with_audio_filename) > 0:
+                    video_to_send = video_with_audio_filename
 
         # Telegram will not autoplay big gifs
         if os.path.getsize(video_to_send) > TELEGRAM_VIDEO_LIMIT:
@@ -742,8 +761,9 @@ class Reddit2TelegramSender(object):
         next_text = ''
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
-        with _VIDEO_UPLOAD_SLOTS, open(video_to_send, 'rb') as f:
-            self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=f, caption=text, parse_mode=parse_mode))
+        with open(video_to_send, 'rb') as f:
+            video = InputFile(f, filename='video.mp4', read_file_handle=False)
+            self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=video, caption=text, parse_mode=parse_mode))
         if len(next_text) > 1:
             short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)

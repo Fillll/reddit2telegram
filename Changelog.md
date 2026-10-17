@@ -4,6 +4,20 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.1] - 2026-10-16
+
+### Fixed
+
+- Close media HTTP sessions after every job and share a verified TLS certificate
+  context across Reddit and media connections.
+- Stream video uploads from disk with python-telegram-bot 21.11.1 instead of
+  buffering entire files. Limit complete video pipelines to two, copy audio
+  during bounded ffmpeg muxes, and remove each sender's private temporary files.
+- Bound metadata responses to 1 MiB and periodically collect dead job graphs
+  and return unused native heap pages to the operating system.
+- Add offline TLS and large-upload regression checks, application CI, and a
+  whole-service resource recorder for the 500 MB normal / 1 GB spike targets.
+
 ## [1.0.0] - 2026-10-12
 
 ### Added

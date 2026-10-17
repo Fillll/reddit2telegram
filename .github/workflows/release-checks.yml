@@ -29,3 +29,18 @@ jobs:
         run: python scripts/release.py validate --base-ref "$BASE_SHA"
       - name: Test release tooling and push guard
         run: python -m unittest discover -s tests -p test_release.py -v
+  application-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install application and test dependencies
+        run: python -m pip install -r requirements.txt pytest
+      - name: Run offline application and memory regression tests
+        env:
+          R2T_LIVE_TESTS: '0'
+        run: |
+          cp tests/offline-config.yml reddit2telegram/configs/prod.yml
+          python -m pytest -q
