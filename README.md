@@ -114,7 +114,9 @@ python3 scripts/monitor_resources.py --log logs/service_resources.jsonl
 ```
 
 Offline tests exercise real local TLS and a 49 MiB multipart upload without
-production credentials. For a fresh checkout, copy `tests/offline-config.yml` to
+production credentials. Install test dependencies with
+`python -m pip install -r requirements.txt -r tests/requirements.txt`.
+For a fresh checkout, copy `tests/offline-config.yml` to
 `reddit2telegram/configs/prod.yml` before `python -m pytest -q`. GitHub Actions
 does this automatically; live tests remain disabled.
 

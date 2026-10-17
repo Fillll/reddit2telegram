@@ -81,6 +81,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
                     break
                 else:
                     logging.error('Unknown SupplyResult. {}'.format(success))
+            return success
 
 
 @report_error
@@ -88,6 +89,10 @@ def supply(submodule_name, config, is_test=False):
     if not is_test:
         long_sleep(0.2)
     submodule = utils.channels_stuff.import_submodule(submodule_name)
+    if not getattr(submodule, 'requires_submission', True):
+        channel = '@r_channels_test' if is_test else submodule.t_channel
+        with utils.Reddit2TelegramSender(channel, config) as r2t:
+            return submodule.send_post(None, r2t)
     submissions_ranking_stated = getattr(submodule, 'submissions_ranking', None)
     if submissions_ranking_stated not in ['hot', 'new', 'top']:
         submissions_ranking = 'hot'

@@ -506,6 +506,15 @@ class Reddit2TelegramSender(object):
             self._loop = asyncio.new_event_loop()
         return self._loop.run_until_complete(coro)
 
+    def _send_message(self, coro):
+        """Expose acknowledged message IDs to jobs that need durable delivery state."""
+        result = self._run_async(coro)
+        callback = getattr(self, 'on_message_sent', None)
+        if callback is not None:
+            messages = result if isinstance(result, (list, tuple)) else [result]
+            callback([message.message_id for message in messages])
+        return result
+
     def close(self):
         loop = getattr(self, '_loop', None)
         if loop is None or loop.is_closed():
@@ -696,7 +705,7 @@ class Reddit2TelegramSender(object):
         if len(text) > TELEGRAM_CAPTION_LIMIT:
             text, next_text = self._split_1024(text)
         try:
-            self._run_async(self.telegram_bot.send_document(chat_id=self.t_channel,
+            self._send_message(self.telegram_bot.send_document(chat_id=self.t_channel,
                 document=url,
                 caption=text,
                 parse_mode=parse_mode
@@ -781,7 +790,7 @@ class Reddit2TelegramSender(object):
             text, next_text = self._split_1024(text)
         with open(video_to_send, 'rb') as f:
             video = InputFile(f, filename='video.mp4', read_file_handle=False)
-            self._run_async(self.telegram_bot.send_video(chat_id=self.t_channel, video=video, caption=text, parse_mode=parse_mode))
+            self._send_message(self.telegram_bot.send_video(chat_id=self.t_channel, video=video, caption=text, parse_mode=parse_mode))
         if len(next_text) > 1:
             short_sleep()
             self.send_text(next_text, disable_web_page_preview=True, parse_mode=parse_mode)
@@ -798,7 +807,7 @@ class Reddit2TelegramSender(object):
             logging.info(f'Long pic in {self.t_channel}.')
             return self._send_img_as_link(url, text)
         try:
-            self._run_async(self.telegram_bot.send_photo(chat_id=self.t_channel,
+            self._send_message(self.telegram_bot.send_photo(chat_id=self.t_channel,
                 photo=url,
                 caption=text,
                 parse_mode=parse_mode
@@ -811,7 +820,7 @@ class Reddit2TelegramSender(object):
 
     def send_text(self, text, disable_web_page_preview=False, parse_mode=None):
         if len(text) < 4096:
-            self._run_async(self.telegram_bot.send_message(chat_id=self.t_channel,
+            self._send_message(self.telegram_bot.send_message(chat_id=self.t_channel,
                                             text=text,
                                             disable_web_page_preview=disable_web_page_preview,
                                             parse_mode=parse_mode))
@@ -822,7 +831,7 @@ class Reddit2TelegramSender(object):
             list_of_words = next_text.split(' ')
             if len(list_of_words[0]) > 4096:
                 new_text, next_text = self._split_4096(next_text)
-                self._run_async(self.telegram_bot.send_message(chat_id=self.t_channel,
+                self._send_message(self.telegram_bot.send_message(chat_id=self.t_channel,
                                                 text=new_text,
                                                 disable_web_page_preview=disable_web_page_preview,
                                                 parse_mode=parse_mode))
@@ -831,7 +840,7 @@ class Reddit2TelegramSender(object):
                 words_to_send = list()
                 while (len(list_of_words) > 0) and (sum([len(x) for x in words_to_send]) + len(words_to_send) + len(list_of_words[0]) <= 4096):
                     words_to_send.append(list_of_words.pop(0))
-                self._run_async(self.telegram_bot.send_message(chat_id=self.t_channel,
+                self._send_message(self.telegram_bot.send_message(chat_id=self.t_channel,
                                                 text=' '.join(words_to_send),
                                                 disable_web_page_preview=disable_web_page_preview,
                                                 parse_mode=parse_mode))
@@ -877,7 +886,7 @@ class Reddit2TelegramSender(object):
                     return SupplyResult.SKIP_FOR_NOW 
 
             try:
-                self._run_async(self.telegram_bot.send_media_group(chat_id=self.t_channel,
+                self._send_message(self.telegram_bot.send_media_group(chat_id=self.t_channel,
                                                 media=list_of_items_in_one_group))
                 logging.info('Successful gallery sent.')
             except Exception as e:

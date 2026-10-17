@@ -4,6 +4,23 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.7] - 2026-10-17
+
+### Fixed
+
+- Save newly crossed subscriber milestones before advancing statistics and retry
+  pending announcements and forwards on subsequent six-hour sweeps. Forward the
+  exact confirmed message IDs instead of calling an empty forwarding method.
+- Run the statistics sweep without fetching Reddit first, prevent overlapping
+  sweeps, isolate channel/reporting failures, and handle missing or zero history.
+  Prefer the existing Reddit promotion format, with the channel and milestone
+  first; use a plain milestone announcement when Reddit has no usable candidate
+  or is unavailable before a posting attempt.
+- Preserve existing milestone history without replaying old announcements. New
+  delivery records retain attempt counts, confirmed IDs, and failure types in
+  settings; no migration is required. A lost Telegram response can still leave
+  an ambiguous send outcome.
+
 ## [1.0.6] - 2026-10-17
 
 ### Fixed
