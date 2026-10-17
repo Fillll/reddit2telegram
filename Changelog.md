@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.5] - 2026-10-17
+
+### Changed
+
+- Stop scheduling 28 destinations where the bot lacks posting rights or membership access. Preserve their channel definitions for reactivation after admins request it in Town Hall and restore bot access.
+
 ## [1.0.4] - 2026-10-17
 
 ### Changed
