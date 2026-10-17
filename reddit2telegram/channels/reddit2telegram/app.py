@@ -8,6 +8,7 @@ import pymongo
 
 import utils
 from utils import SupplyResult
+from utils.promotion import make_nice_submission
 from utils.tech import get_all_public_submodules
 from utils.setup import get_config
 
@@ -90,43 +91,6 @@ def what_submodule():
 def what_subreddit(submodule_name_to_promte):
     submodule_to_promote = utils.channels_stuff.import_submodule(submodule_name_to_promte)
     return submodule_to_promote.subreddit
-
-
-def what_channel(submodule_name_to_promte):
-    submodule_to_promote = utils.channels_stuff.import_submodule(submodule_name_to_promte)
-    return submodule_to_promote.t_channel
-
-
-def get_tags(submodule_name_to_promte):
-    tags_string = utils.channels_stuff.get_tags_for_submodule(submodule_name_to_promte)
-    if not tags_string:
-        return None
-    return tags_string.split()
-
-
-def make_nice_submission(submission, r2t, submodule_name_to_promte, extra_ending=None, **kwargs):
-    tags = get_tags(submodule_name_to_promte)
-    tags_string = ''
-    if tags is not None:
-        if len(tags) > 0:
-            tags_string = ' '.join(tags)
-    if extra_ending is None:
-        extra_ending = ''
-    submission.title  # to make it non-lazy
-    result = r2t.send_simple(submission,
-        channel_to_promote=what_channel(submodule_name_to_promte),
-        date=datetime.utcfromtimestamp(submission.created_utc).strftime('%Y %b %d'),
-        tags=tags_string,
-        extra_ending=extra_ending,
-        text='{title}\n\n{self_text}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
-        other='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
-        album='{title}\n{link}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
-        gif='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
-        img='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
-        video='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}',
-        gallery='{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}'
-    )
-    return result
 
 
 submodule_name_to_promte = what_submodule()

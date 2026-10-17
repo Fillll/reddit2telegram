@@ -3,18 +3,13 @@
 from datetime import datetime
 import random
 import logging
-import math
-
-import pymongo
 
 import utils
 from utils import SupplyResult
 from utils.get_all_admins import get_admins_list
-from utils.tech import get_dev_channel, get_all_submodules, get_last_members_cnt
-from utils.setup import get_config
-from utils.tech import short_sleep, long_sleep
-from supplier import send_to_channel_from_subreddit
-from channels.reddit2telegram.app import make_nice_submission
+from utils.tech import get_dev_channel, get_all_public_submodules
+from utils.tech import short_sleep
+from utils.achievements import AchievementAnnouncements
 
 
 subreddit = 'all'
@@ -80,180 +75,117 @@ GREAT_ACHIEVEMENTS = [
 ]
 
 
-SETTING_NAME = 'r2t_achievements'
+# This maintenance job must run even if Reddit is unavailable.
+requires_submission = False
 
 
-def say_congrats(submodule_name, channel, achievement):
-    short_sleep()
-    config = get_config()
-    submodule = utils.channels_stuff.import_submodule(submodule_name)
-    subreddit_name = submodule.subreddit
-    send_to_channel_from_subreddit(
-        how_to_post=make_nice_submission,
-        channel_to_post='@reddit2telegram',
-        subreddit=subreddit_name,
-        submodule_name_to_promte=submodule_name,
-        submissions_ranking='top',
-        submissions_limit=1000,
-        config=config,
-        extra_args=True,
-        extra_ending='🏆 Great achievement!\n💪 Milestone of {number} subscribers.'.format(
-            number=achievement
-        )
-    )
-    short_sleep()
-    with utils.Reddit2TelegramSender(submodule.t_channel) as bot:
-        bot.forward_last_message_from_the_channel('@reddit2telegram')
-    long_sleep()
-
-
-def set_achievement(submodule_name, channel, achievement, settings):
-    if settings.find_one({'setting': SETTING_NAME}) is None:
-        settings.insert_one({
-            'setting': SETTING_NAME,
-            'channels': {
-                channel.lower(): [achievement]
-            }
-        })
-    else:
-        current_state = settings.find_one({'setting': SETTING_NAME})
-        channels = current_state['channels']
-        if channel.lower() in channels:
-            channels[channel.lower()].append(achievement)
-        else:
-            channels[channel.lower()] = [achievement]
-        settings.find_one_and_update(
-            {
-                'setting': SETTING_NAME
-            },
-            {
-                '$set': 
-                {
-                    'channels': channels
-                }
-            }
-        )
-    say_congrats(submodule_name, channel, achievement)
+def _report(r2t, text, **kwargs):
+    try:
+        r2t.send_text(text, **kwargs)
+    except Exception:
+        logging.warning('Could not send achievement sweep status')
 
 
 def send_post(submission, r2t):
-    # To check previous achievements
-    config = get_config()
-    db = pymongo.MongoClient(host=config['db']['host'])[config['db']['name']]
-    settings = db['settings']
-    # Start logging!
-    r2t.send_text('Regular bypass started.')
-    short_sleep()
-    total = {
-        'channels': 0,
-        'members': 0,
-        'admins': 0,
-        'errors': 0,
-        'prev_members': 0
-    }
-    all_submodules = list(get_all_submodules())
+    announcements = AchievementAnnouncements(r2t.settings, r2t.config)
+    if not announcements.acquire():
+        logging.info('Another achievement sweep is already running')
+        return SupplyResult.STOP_THIS_SUPPLY
+    try:
+        return _sweep(r2t, announcements)
+    finally:
+        announcements.release()
+
+
+def _sweep(r2t, announcements):
+    _report(r2t, 'Regular bypass started.')
+    total = dict(channels=0, members=0, admins=0, errors=0, prev_members=0)
+    all_submodules = list(get_all_public_submodules())
     number_of_modules = len(all_submodules)
-    # sleep_coef = math.log(450 / number_of_modules) / math.log(2.718281828 / 3.14159)
-    sleep_coef = 2000 / 3 / 2 / number_of_modules
-    channels_stat = dict()
-    missing_channels = set()
+    sleep_coef = 2000 / 3 / 2 / max(number_of_modules, 1)
+    channels_stat = {}
+    seen_channels = set()
 
-    def is_missing_channel_error(exc):
-        msg = str(exc).lower()
-        return any(key in msg for key in (
-            'chat not found',
-            'channel not found',
-            'not found',
-            'forbidden',
-            'private'
-        ))
-
-    def notify_missing_channel(channel_name):
-        if channel_name in missing_channels:
-            return
-        missing_channels.add(channel_name)
-        try:
-            r2t.send_text('Missing channel: {channel}.'.format(channel=channel_name))
-        except Exception:
-            pass
     for submodule_name in random.sample(all_submodules, k=number_of_modules):
+        announcements.renew()
         short_sleep(sleep_coef)
-        submodule = utils.channels_stuff.import_submodule(submodule_name)
-        channel_name = submodule.t_channel
+        try:
+            submodule = utils.channels_stuff.import_submodule(submodule_name)
+            channel_name = submodule.t_channel
+            # Technical destinations and duplicate schedules are not separate
+            # public channels and must not generate milestone announcements.
+            if not isinstance(channel_name, str) or not channel_name.startswith('@'):
+                continue
+            if channel_name.lower() in seen_channels:
+                continue
+            seen_channels.add(channel_name.lower())
+        except Exception:
+            total['errors'] += 1
+            logging.warning('Could not load channel %s during achievement sweep', submodule_name)
+            continue
+
         stat_to_store = {
-            'channel': channel_name.lower(),
-            'ts': datetime.utcnow(),
-            'submodule': submodule_name
+            'channel': channel_name.lower(), 'ts': datetime.utcnow(),
+            'submodule': submodule_name,
         }
         total['channels'] += 1
         try:
             admins = get_admins_list(r2t, channel_name)
             stat_to_store['admins'] = admins
             total['admins'] += len(admins)
-        except Exception as e:
+        except Exception:
             total['errors'] += 1
-            err_to_send = 'Failed to get admins for {channel}. {error}'.format(
-                channel=channel_name,
-                error=str(e)
-            )
-            try:
-                r2t.send_text(err_to_send)
-            except Exception:
-                pass
-            if is_missing_channel_error(e):
-                notify_missing_channel(channel_name)
-            logging.error(err_to_send)
+            _report(r2t, 'Failed to get admins for {channel}.'.format(channel=channel_name))
+            logging.warning('Failed to get admins for %s', channel_name)
+
         short_sleep(sleep_coef)
         try:
             current_members_cnt = r2t.get_chat_members_count(chat_id=channel_name)
+            # An admin-only failure snapshot must not hide the last valid count.
+            previous = r2t.stats.find_one(
+                {'channel': channel_name.lower(), 'members_cnt': {'$gte': 0}},
+                sort=[('ts', -1)],
+            )
+            # A first observation establishes a baseline, rather than announcing
+            # every historical milestone for a newly added channel.
+            prev_members_cnt = previous['members_cnt'] if previous else current_members_cnt
+            for achievement in GREAT_ACHIEVEMENTS:
+                if prev_members_cnt < achievement <= current_members_cnt:
+                    announcements.queue(submodule_name, channel_name, achievement)
+            # Persist the crossing before advancing the statistics checkpoint.
             stat_to_store['members_cnt'] = current_members_cnt
+            r2t.stats.insert_one(stat_to_store)
             total['members'] += current_members_cnt
-            prev_members_cnt = get_last_members_cnt(r2t, channel_name)
             total['prev_members'] += prev_members_cnt
             channels_stat[channel_name] = {
-                'prev_cnt': prev_members_cnt,
-                'curr_cnt': current_members_cnt,
+                'prev_cnt': prev_members_cnt, 'curr_cnt': current_members_cnt,
                 'diff': current_members_cnt - prev_members_cnt,
-                'perc_diff': (current_members_cnt - prev_members_cnt) / prev_members_cnt
+                'perc_diff': ((current_members_cnt - prev_members_cnt) / prev_members_cnt
+                              if prev_members_cnt else 0),
             }
-        except Exception as e:
+        except Exception:
             total['errors'] += 1
-            err_to_send = 'Failed to get members count for {channel}. {error}'.format(
-                channel=channel_name,
-                error=str(e)
-            )
-            try:
-                r2t.send_text(err_to_send)
-            except Exception:
-                pass
-            if is_missing_channel_error(e):
-                notify_missing_channel(channel_name)
-            logging.error(err_to_send)
-        else:
-            # If they pass something special
-            for achievement in GREAT_ACHIEVEMENTS:
-                if (prev_members_cnt < achievement) and (achievement <= current_members_cnt):
-                    # Achievement reached
-                    r2t.send_text('🏆 {channel}\n{n1} ➡️ {n2}'.format(
-                        n1=prev_members_cnt,
-                        n2=current_members_cnt,
-                        channel=channel_name
-                    ))
-                    setting_result = settings.find_one({'setting': SETTING_NAME})
-                    if setting_result is None:
-                        set_achievement(submodule_name, channel_name, achievement, settings)
-                    elif channel_name.lower() not in setting_result['channels']:
-                        set_achievement(submodule_name, channel_name, achievement, settings)
-                    elif achievement not in setting_result['channels'][channel_name.lower()]:
-                        set_achievement(submodule_name, channel_name, achievement, settings)
-                    else:
-                        # Was already archived
-                        long_sleep()
-        
-        r2t.stats.insert_one(stat_to_store)
+            _report(r2t, 'Failed to collect statistics or queue milestones for {channel}.'.format(
+                channel=channel_name))
+            logging.warning('Failed to collect statistics or queue milestones for %s', channel_name)
+
+    # Retry durable events regardless of whether the channel crossed a milestone
+    # again, lost subscribers, or could not be inspected in this sweep.
+    for event in announcements.pending():
+        announcements.renew()
+        try:
+            announcements.deliver(event)
+        except Exception as exc:
+            total['errors'] += 1
+            r2t.settings.update_one({'_id': event['_id']}, {'$set': {
+                'last_error_type': type(exc).__name__, 'last_failure_at': datetime.utcnow(),
+            }})
+            logging.warning('Milestone delivery pending: %s (%s)', event['_id'], type(exc).__name__)
+            _report(r2t, 'Milestone delivery pending: {channel}, {achievement} subscribers.'.format(
+                **event))
 
     members_diff = total['members'] - total['prev_members']
-    perc_diff = round((members_diff / total['prev_members']) * 100, 2)
+    perc_diff = round((members_diff / total['prev_members']) * 100, 2) if total['prev_members'] else 0
     if members_diff < 0:
         sign = ''
     elif members_diff == 0:
@@ -273,7 +205,7 @@ def send_post(submission, r2t):
     text_to_send += '<pre>Admins: {n}.</pre>\n'.format(n=total['admins'])
     text_to_send += '<pre>Errors during bypass: {n}.</pre>\n'.format(n=total['errors'])
     text_to_send += '\n<i>See you!</i>'
-    r2t.send_text(text_to_send, parse_mode='HTML')
+    _report(r2t, text_to_send, parse_mode='HTML')
     short_sleep()
     text_to_send = '📈 <b>TOP 5 GAIN</b> 📈\n'
     top_5_gain = dict(sorted(channels_stat.items(), key=lambda item: item[1]['diff'], reverse=True)[:5])
@@ -293,7 +225,7 @@ def send_post(submission, r2t):
             to_cnt=v['curr_cnt'],
             perc_diff=round(v['perc_diff'] * 100, 2)
         )
-    r2t.send_text(text_to_send, parse_mode='HTML')
+    _report(r2t, text_to_send, parse_mode='HTML')
     short_sleep()
     text_to_send = '📉 <b>TOP 5 FALL</b> 📉\n'
     for k, v in bottom_5_gain.items():
@@ -311,6 +243,6 @@ def send_post(submission, r2t):
             to_cnt=v['curr_cnt'],
             perc_diff=round(v['perc_diff'] * 100, 2)
         )
-    r2t.send_text(text_to_send, parse_mode='HTML')
+    _report(r2t, text_to_send, parse_mode='HTML')
     # It's not a proper supply, so just stop.
     return SupplyResult.STOP_THIS_SUPPLY
