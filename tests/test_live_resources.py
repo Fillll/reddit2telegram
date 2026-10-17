@@ -322,6 +322,34 @@ class LiveResourceTests(unittest.TestCase):
         for sender in senders:
             self.assert_closed(sender)
 
+    def test_cached_reddit_image_classification_and_delivery_needs_no_post_fetch(self):
+        from utils.http_resources import session as http_session
+
+        with http_session() as http:
+            with mock.patch.object(http, 'send', wraps=http.send) as network:
+                reddit = supplier.praw.Reddit(
+                    user_agent=self.config['reddit']['user_agent'],
+                    client_id=self.config['reddit']['client_id'],
+                    client_secret=self.config['reddit']['client_secret'],
+                    username=self.config['reddit']['username'],
+                    password=self.config['reddit']['password'],
+                    requestor_kwargs={'timeout': utils.REDDIT_TIMEOUT, 'session': http},
+                )
+                posts = reddit.subreddit(os.getenv('R2T_TEST_SUBREDDIT', 'aww')).new(limit=25)
+                post = next((p for p in supplier.submissions_safe(posts) if p.url.startswith('https://i.redd.it/')
+                             and p.url.lower().endswith(('.jpg', '.jpeg', '.png'))), None)
+                self.assertIsNotNone(post, 'No native Reddit image in the test listing')
+                before = network.call_count
+                kind, url = utils.get_url(post)
+                self.assertEqual(network.call_count, before, 'Classification fetched a full post/comment tree')
+                self.assertEqual(kind, utils.TYPE_IMG)
+                with self.sender() as sender:
+                    result = sender.send_img(url, self.caption('cached Reddit image without comment fetch'))
+                    self.assertEqual(result, utils.SupplyResult.SUCCESSFULLY)
+                    self.assert_delivery(sender.messages[-1])
+                    self.assertTrue(sender.messages[-1].photo)
+                self.assert_closed(sender)
+
 
 if __name__ == '__main__':
     unittest.main()
