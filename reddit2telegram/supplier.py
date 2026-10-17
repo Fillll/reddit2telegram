@@ -4,12 +4,21 @@ import logging
 
 import yaml
 import praw
+from praw.models import ListingGenerator
 import requests
 
 import utils
 from utils.http_resources import session as http_session
 from reporting_stuff import report_error
 from utils.tech import long_sleep, short_sleep, no_chance_to_post_due_to_errors_cnt
+
+
+def _bound_listing_page_size(submissions):
+    if isinstance(submissions, ListingGenerator):
+        # PRAW's limit caps the total candidates, while this request parameter
+        # caps each retained page. Pagination still examines the full limit.
+        submissions.params['limit'] = min(submissions.limit or 25, 25)
+    return submissions
 
 
 def submissions_safe(submissions):
@@ -43,6 +52,7 @@ def send_to_channel_from_subreddit(how_to_post, channel_to_post, subreddit, subm
             submissions = reddit.subreddit(subreddit).new(limit=submissions_limit)
         else:
             logging.error('Unknown submissions_ranking. {}'.format(submissions_ranking))
+        _bound_listing_page_size(submissions)
         with utils.Reddit2TelegramSender(channel_to_post, config) as r2t:
             success = False
             for submission in submissions_safe(submissions):

@@ -4,6 +4,17 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.2] - 2026-10-16
+
+### Fixed
+
+- Use cached listing fields to classify images, text, videos, galleries, and
+  crossposts without fetching full post/comment trees for absent optional fields.
+- Retain at most 25 candidates per listing page while preserving the configured
+  total limit, ordering, and pagination. This reduces per-job metadata allocation.
+- Add real-PRAW regression tests and live Reddit-image delivery checks that
+  assert classification makes no additional post/comment API request.
+
 ## [1.0.1] - 2026-10-16
 
 ### Fixed

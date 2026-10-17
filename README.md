@@ -105,6 +105,10 @@ allocation pools. Once per minute, a consumer above 256 MiB collects dead job
 cycles and returns unused native heap pages to the OS. SIGTERM/SIGINT stop new
 claims and drain submitted work.
 
+Reddit listings retain at most 25 candidates per page, while still scanning the
+configured total candidate limit. Media classification uses cached listing
+fields so absent gallery/crosspost fields do not fetch full comment trees.
+
 Resource monitoring includes the worker, ffmpeg children, and cgroup file cache.
 The kernel peak catches spikes between samples. These targets use decimal bytes:
 500 MB during normal operation and 1 GB during spikes. Run a single sample from

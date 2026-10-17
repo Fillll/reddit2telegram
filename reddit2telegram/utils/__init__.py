@@ -147,11 +147,18 @@ def get_url(submission, mp4_instead_gif=True):
             return response.headers['Content-Type']
         return ''
 
-    # If reddit native gallery
-    if hasattr(submission, 'gallery_data'):
+    # Loading a lazy submission's URL hydrates it once. Listing submissions
+    # already contain this field: do not fetch their full post/comment trees
+    # merely to discover that optional gallery/crosspost attributes are absent.
+    url = submission.url
+    cached = vars(submission)
+    gallery_data = cached.get('gallery_data')
+    if gallery_data is None and cached.get('is_gallery'):
+        gallery_data = getattr(submission, 'gallery_data', None)
+    if gallery_data:
         dict_of_dicts_of_pics = dict()
         list_of_media = dict()
-        for item in submission.gallery_data['items']:
+        for item in gallery_data['items']:
             list_of_media[item['id']] = item['media_id']
         counter = 0
         for item in sorted(list_of_media.items(), key=lambda item: item[0]):
@@ -169,11 +176,10 @@ def get_url(submission, mp4_instead_gif=True):
             counter += 1
         return TYPE_GALLERY, dict_of_dicts_of_pics
 
-    url = submission.url
     parsed_url = urlparse(url)
     lower_url = url.lower()
 
-    if submission.is_video:
+    if cached.get('is_video', False):
         media = submission.media or {}
         if 'reddit_video' in media:
             if media['reddit_video'].get('is_gif', False):
@@ -182,8 +188,9 @@ def get_url(submission, mp4_instead_gif=True):
             # return TYPE_OTHER, url
 
     try:
-        if len(submission.crosspost_parent_list) > 0:
-            parent_submission_json = submission.crosspost_parent_list[0]
+        crossposts = cached.get('crosspost_parent_list', [])
+        if crossposts:
+            parent_submission_json = crossposts[0]
             if parent_submission_json['is_video'] == True:
                 if 'reddit_video' in parent_submission_json['media']:
                     if parent_submission_json['media']['reddit_video'].get('is_gif', False):
