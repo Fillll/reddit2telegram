@@ -90,6 +90,7 @@ class RecordingBot(Bot):
 class RecordingSender(utils.Reddit2TelegramSender):
     def __init__(self, config, root, state):
         self.messages = []
+        self.media_paths = set()
         self.root = root / uuid.uuid4().hex
         self.root.mkdir()
         super().__init__(TEST_CHANNEL, config)
@@ -99,8 +100,10 @@ class RecordingSender(utils.Reddit2TelegramSender):
         )
 
     def _get_file_name(self, ext='file'):
-        # Isolate files from production's cleaner and concurrent test senders.
-        return str(self.root / ('video' + ext))
+        # Exercise production's actual private directory and cleanup lifecycle.
+        filename = super()._get_file_name(ext)
+        self.media_paths.add(Path(filename))
+        return filename
 
     def _run_async(self, coro):
         result = super()._run_async(coro)
@@ -238,9 +241,16 @@ class LiveResourceTests(unittest.TestCase):
             message = sender.messages[-1]
             self.assert_delivery(message)
             self.assertIsNotNone(message.video)
+            self.assertTrue(sender.media_paths)
+            self.assertTrue(all(not path.parent.exists() for path in sender.media_paths),
+                            'A completed upload retained its production temporary directory')
+            # Inspect what Telegram actually received after local media cleanup.
+            delivered = sender.root / 'delivered.mp4'
+            remote = sender._run_async(sender.telegram_bot.get_file(message.video.file_id))
+            sender._run_async(remote.download_to_drive(custom_path=delivered))
             probe = subprocess.run([
                 'ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type', '-of', 'json',
-                sender._get_file_name('.1.mp4'),
+                str(delivered),
             ], check=True, capture_output=True, text=True, timeout=10)
             self.assertEqual({stream['codec_type'] for stream in json.loads(probe.stdout)['streams']},
                              {'audio', 'video'})

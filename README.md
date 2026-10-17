@@ -97,7 +97,8 @@ Tests
 
 The consumer keeps at most `consumer.max_pending` submitted jobs (default: pool
 size). Two video jobs may download, mux, and upload concurrently. Uploads stream
-from disk, and each sender removes its private temporary files on close. Media
+from disk, and every attempt removes its private files before returning a
+pipeline slot, including oversized rejections and interrupted uploads. Media
 HTTP sessions close after each job; verified TLS contexts are shared across
 connections. On glibc systems,
 `pool.malloc_arenas` defaults to four to reduce memory retained by native
