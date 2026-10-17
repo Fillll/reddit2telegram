@@ -22,12 +22,6 @@ If you appreciate it
 
 Patreon: [donate](https://www.patreon.com/reddit2telegram)
 
-BTC: `3DydQjRPaykiapdeab6ABAhB5f2JazwaRD`
-
-ETH: `0xc313B7bEbFc605cC5B50fa97902506404D58df80`
-
-LTC: `MT3gDG9VZvSDmsRexQ3k19JLxhDSCjf45T`
-
 
 Currently alive channels
 ------------------------
