@@ -2,6 +2,7 @@
 import logging
 import sys
 import os
+from functools import wraps
 
 import yaml
 import sentry_sdk
@@ -60,13 +61,18 @@ def send_report_to_dev_chat(exc):
 
 
 def report_error(fn):
+    @wraps(fn)
     def wrapper(*args, **kwargs):
         try:
-            fn(*args, **kwargs)
+            return fn(*args, **kwargs)
         except Exception as e:
             if client:  # has sentry instance
                 client.capture_exception(e)
             else:
-                logging.exception('Exception Ignored.')
-            send_report_to_dev_chat(e)
+                logging.exception('Supply failed.')
+            try:
+                send_report_to_dev_chat(e)
+            except Exception:
+                logging.exception('Failed to report supply error to the developer chat.')
+            raise
     return wrapper
