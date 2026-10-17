@@ -509,6 +509,7 @@ class Reddit2TelegramSender(object):
     def close(self):
         loop = getattr(self, '_loop', None)
         if loop is None or loop.is_closed():
+            self._cleanup_temp_files()
             return
         request = getattr(self, '_telegram_request', None)
         try:
@@ -523,9 +524,13 @@ class Reddit2TelegramSender(object):
             logging.exception('Failed to shutdown Telegram HTTP client cleanly.')
         finally:
             loop.close()
-            files = getattr(self, '_temp_files', None)
-            if files is not None:
-                files.cleanup()
+            self._cleanup_temp_files()
+
+    def _cleanup_temp_files(self):
+        files = getattr(self, '_temp_files', None)
+        if files is not None:
+            files.cleanup()
+            self._temp_files = None
 
     def __enter__(self):
         return self
@@ -722,7 +727,13 @@ class Reddit2TelegramSender(object):
 
     def send_video(self, url, text, parse_mode=None, dash_url=None):
         with _VIDEO_UPLOAD_SLOTS:
-            return self._send_video(url, text, parse_mode, dash_url)
+            try:
+                return self._send_video(url, text, parse_mode, dash_url)
+            finally:
+                # A rejected candidate can be followed by a long API retry on
+                # the same sender. Release its file cache before the next video
+                # takes this slot, on success, rejection, and upload failure.
+                self._cleanup_temp_files()
 
     def _send_video(self, url, text, parse_mode=None, dash_url=None):
         filename = self._get_file_name('.mp4')

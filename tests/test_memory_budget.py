@@ -121,6 +121,34 @@ def test_metadata_limit_closes_chunked_response_before_body_is_buffered(monkeypa
     response.__exit__.assert_called_once()
 
 
+def test_rejected_videos_leave_no_files_while_senders_remain_alive(monkeypatch, tmp_path):
+    monkeypatch.setattr(utils, 'TEMP_FOLDER', str(tmp_path))
+
+    def download(url, filename):
+        size = (2 if filename.endswith('.aac') else 49) * 1024 * 1024
+        with open(filename, 'wb') as handle:
+            handle.truncate(size)  # Sparse files exercise limits without allocating GB of RAM/disk.
+        return True
+
+    def mux(args, **kwargs):
+        with open(args[-1], 'wb') as handle:
+            handle.truncate(51 * 1024 * 1024)
+        return subprocess.CompletedProcess(args, 0)
+
+    monkeypatch.setattr(utils, 'download_file', download)
+    monkeypatch.setattr(utils.subprocess, 'run', mux)
+    senders = [object.__new__(utils.Reddit2TelegramSender) for _ in range(12)]
+    for i, sender in enumerate(senders):
+        sender.t_channel = f'@test{i}'
+    with ThreadPoolExecutor(12) as workers:
+        results = list(workers.map(lambda sender: sender.send_video('https://local/video', 'test'), senders))
+    assert all(result == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION for result in results)
+    # A rejected candidate may be followed by a long Reddit retry on the same
+    # sender. Its files must be gone before another video gets the pipeline slot.
+    leftover = sum(path.stat().st_size for path in tmp_path.rglob('*') if path.is_file())
+    assert leftover == 0, f'Rejected videos retained {leftover / 2**20:.0f} MiB of media files'
+
+
 def test_large_video_reaches_http_backend_without_full_file_buffer(monkeypatch, tmp_path):
     size = 49 * 1024 * 1024
     fixture = tmp_path / 'fixture.mp4'
@@ -154,11 +182,13 @@ def test_large_video_reaches_http_backend_without_full_file_buffer(monkeypatch, 
     monkeypatch.setattr(utils, 'short_sleep', lambda: None)
     monkeypatch.setattr(utils.Reddit2TelegramSender, '_make_mongo_connections', lambda self: None)
     monkeypatch.setattr(utils, 'TEMP_FOLDER', str(tmp_path))
+    downloaded = []
 
     def download(url, filename):
         if filename.endswith('.aac'):
             return False
         shutil.copyfile(fixture, filename)
+        downloaded.append(Path(filename))
         return True
 
     monkeypatch.setattr(utils, 'download_file', download)
@@ -173,8 +203,8 @@ def test_large_video_reaches_http_backend_without_full_file_buffer(monkeypatch, 
                 peak = tracemalloc.get_traced_memory()[1]
             finally:
                 tracemalloc.stop()
-            directory = Path(sender._get_file_name('.mp4')).parent
-            assert directory.exists()
+            directory = downloaded[0].parent
+            assert not directory.exists(), 'Finished upload retained media until sender close'
         assert received and received[0] > size
         assert peak < 12 * 1024 * 1024, f'49 MiB upload allocated {peak / 2**20:.1f} MiB'
         assert not directory.exists(), 'Closed sender retained downloaded media'
@@ -182,6 +212,29 @@ def test_large_video_reaches_http_backend_without_full_file_buffer(monkeypatch, 
         server.shutdown()
         server.server_close()
         thread.join(2)
+
+
+def test_failed_upload_releases_files_before_sender_close(monkeypatch, tmp_path):
+    monkeypatch.setattr(utils, 'TEMP_FOLDER', str(tmp_path))
+
+    def download(url, filename):
+        if filename.endswith('.aac'):
+            return False
+        Path(filename).write_bytes(b'video')
+        return True
+
+    async def upload(**kwargs):
+        assert not kwargs['video'].input_file_content.closed
+        raise RuntimeError('upload interrupted')
+
+    monkeypatch.setattr(utils, 'download_file', download)
+    sender = object.__new__(utils.Reddit2TelegramSender)
+    sender.t_channel = '@test'
+    sender.telegram_bot = mock.Mock(send_video=upload)
+    sender._run_async = asyncio.run
+    with pytest.raises(RuntimeError, match='upload interrupted'):
+        sender.send_video('https://local/video', 'test')
+    assert not list(tmp_path.iterdir()), 'Failed upload retained its temporary directory'
 
 
 def test_maintenance_reclaims_dead_job_cycles_without_waiting_for_automatic_gc(monkeypatch):

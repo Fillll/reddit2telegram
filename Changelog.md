@@ -4,6 +4,16 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.3] - 2026-10-17
+
+### Fixed
+
+- Release video temporary files before returning pipeline slots, including
+  oversized rejections and interrupted uploads. A sender waiting on later API
+  work can no longer retain old media outside the two-pipeline bound.
+- Verify immediate cleanup with retained senders and inspect audio/video tracks
+  in the file delivered by Telegram after local upload files have been removed.
+
 ## [1.0.2] - 2026-10-16
 
 ### Fixed
