@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.0.9] - 2026-10-24
+
+### Fixed
+
+- Remove the unavailable alternative donation link from announcement footers and the pinned-message template; Patreon remains the only donation option.
+
 ## [1.0.8] - 2026-10-17
 
 ### Fixed

@@ -21,7 +21,7 @@ Q: How to make similar channels?
 A: Ask at @r_channels or use manual at https://github.com/Fillll/reddit2telegram.
 
 Q: Where to donate?
-A: Patreon: https://www.patreon.com/reddit2telegram. Other ways: https://bit.ly/r2t_donate.
+A: Patreon: https://www.patreon.com/reddit2telegram.
 
 Q: How to ask about new channel?
 A: Simple steps:
