@@ -369,6 +369,7 @@ def test_job_runs_without_reddit_and_test_mode_never_updates_production_ledger(s
 
 
 def test_job_exposes_partial_delivery_as_failed_supply(sweep, monkeypatch):
+    monkeypatch.setattr(ann, 'utc_now', lambda: datetime(2026, 10, 17))
     sender, _, service = sweep
     monkeypatch.setattr(job, 'AnniversaryAnnouncements', lambda _: service)
     sender.errors['@r_alpha'] = BadRequest('chat not found')
@@ -377,6 +378,7 @@ def test_job_exposes_partial_delivery_as_failed_supply(sweep, monkeypatch):
 
 
 def test_queue_records_partial_supply_as_failure_even_if_error_reporting_fails(sweep, monkeypatch):
+    monkeypatch.setattr(ann, 'utc_now', lambda: datetime(2026, 10, 17))
     import task_queue
 
     sender, db, service = sweep

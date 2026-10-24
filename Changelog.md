@@ -9,6 +9,7 @@ The history before this initial versioned snapshot remains in Git.
 ### Fixed
 
 - Remove the unavailable alternative donation link from announcement footers and the pinned-message template; Patreon remains the only donation option.
+- Fix the date in two anniversary failure tests so they remain valid after October 17.
 
 ## [1.0.8] - 2026-10-17
 
