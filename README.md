@@ -52,6 +52,17 @@ But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
 * * * * * /root/reddit2telegram/reddit2telegram/cron_thread_job.sh
 ```
 
+The main channel runs in `reddit2telegram/own.cron` follow a descending
+staircase: one at minute 45, two at minute 44, and generally `46 - minute`.
+Fill the earlier minutes evenly below that limit when there are fewer channels
+than the full staircase can hold. With 834 channels, minutes 00–05 have 25 main
+runs each, minutes 06–22 have 24, and minutes 23–45 descend from 23 to one.
+No main runs start after minute 45. A channel's main run is the earliest minute
+in its first schedule row; the remaining minutes and subsequent rows are extra
+runs. Keep these extra schedules and `tech_*` jobs separate from the staircase.
+Changing the distribution must preserve each channel's run frequency and its
+hour, day, month, and weekday restrictions.
+
 Versions and contributions
 --------------------------
 

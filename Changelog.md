@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.1.1] - 2026-10-31
+
+### Fixed
+
+- Restore the descending main-channel schedule, keeping extra runs and technical jobs unchanged.
+
 ## [1.1.0] - 2026-10-31
 
 ### Added
