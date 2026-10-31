@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.1.3] - 2026-10-31
+
+### Fixed
+
+- Move all main runs before minute 46 and extend only the necessary descending tail; preserve extra and technical schedules.
+
 ## [1.1.2] - 2026-10-31
 
 ### Fixed

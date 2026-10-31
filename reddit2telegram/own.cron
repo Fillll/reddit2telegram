@@ -425,6 +425,9 @@ MASK	submodule_name
 17 * * * *	oldschoolrunescape2007
 17 * * * *	r_wordington
 17 * * * *	r_ultraleft
+17 * * * *	r_insidemollywood
+17 * * * *	r_tourettesguy
+17 * * * *	fourtran
 18 * * * *	r_mild	# 28.
 18 * * * *	r_beamazed
 18 * * * *	bikinimoe
@@ -452,6 +455,7 @@ MASK	submodule_name
 18 * * * *	r_nijisanji
 18 * * * *	r_shitposttc
 18 * * * *	chainsawfolk
+18 * * * *	r_toonami
 19 0 */2 * *	r_behindthegifs	# 27.
 19 * * * *	r_wellthatsucks
 19 * * * *	r_comedycemetery
@@ -475,6 +479,10 @@ MASK	submodule_name
 19 * * * *	r_okbuddyfresca
 19 * * * *	r_churchofemma
 19 * * * *	r_gharkekalesh
+19 * * * *	r_lain_sub
+19 * * * *	r_pics
+19 * * * *	r_chemistry
+19 */2 * * *	r_texans
 20 * * * *	awwnime	# 26.
 20 * * * *	rtf2memes
 20 * * * *	r_latestagecapitalism
@@ -499,6 +507,8 @@ MASK	submodule_name
 20 * * * *	jeeneetardsreddit
 20 * * * *	r_deathstranding
 20 * * * *	goodboomerhumor
+20 * * * *	r_reddevils
+20 * * * *	r_pcmasterrace
 21 * * * *	r_changemyview	# 25.
 21 * * * *	r_porn
 21 * * * *	arma
@@ -521,6 +531,9 @@ MASK	submodule_name
 21 * * * *	r_komisan
 21 * * * *	r_pokemonrmxp
 21 * * * *	r_ramiayana
+21 * * * *	r_vim
+21 * * * *	r_wikileaks
+21 * * * *	r_shittyramen
 22 * * * *	redditcats	# 24.
 22 * * * *	r_f1
 22 * * * *	r_grandorder
@@ -542,6 +555,9 @@ MASK	submodule_name
 22 * * * *	artificialintelligence24x7
 22 * * * *	r_askmen
 22 * * * *	r_witcher3
+22 12,20 * * *	r_unexpectedhamilton
+22 * * * *	r_talesfromtechsupport
+22 * * * *	reddit_androiddev
 23 * * * *	r_explainmelikeimfive	# 23.
 23 * * * *	r_cpp
 23 * * * *	r_photoshopbattles
@@ -564,6 +580,7 @@ MASK	submodule_name
 23 * * * *	r_hamsters
 23 * * * *	r_edgerunners
 23 * * * *	mapporncirclejerk
+23 * * * *	bestoftweets
 24,56 * * * *	just_hmmm	# 22.
 24 * * * *	r_gaming
 24 * * * *	r_pornhubcomments
@@ -585,6 +602,7 @@ MASK	submodule_name
 24 * * * *	fullegoism
 24 * * * *	r_okbuddychicanery
 24 * * * *	ranarchism
+24 * * * *	r_pewdiepiesubmissions
 25 * * * *	dailyfoodporn	# 21.
 25 * * * *	r_dontdeadopeninside
 25 * * * *	r_gtaonline
@@ -605,6 +623,8 @@ MASK	submodule_name
 25 * * * *	r_indiandankmemes
 25 * * * *	dailygratitudee
 25 * * * *	r_padres
+25 * * * *	proceduralgeneration
+25 * * * *	blackpeopletweets
 26 * * * *	programmer_humor	# 20.
 26 * * * *	r_linux
 26 * * * *	r_anime_irl
@@ -624,6 +644,7 @@ MASK	submodule_name
 26 * * * *	r_modelmakers
 26 * * * *	mikuichika_nakano
 26 * * * *	asus_tuf
+26 * * * *	engrish
 27 * * * *	r_overwatch	# 19.
 27 * * * *	android
 27 * * * *	indepthstories
@@ -642,6 +663,7 @@ MASK	submodule_name
 27 * * * *	miku_nakano_fandom
 27 * * * *	r_computers
 27 * * * *	r_femalecelebritybiceps
+27 * * * *	r_polandball
 28 * * * *	r_cryptocurrency	# 18.
 28 * * * *	r_techsupportgore
 28 * * * *	r_osugame
@@ -659,6 +681,7 @@ MASK	submodule_name
 28 * * * *	unexpected_reddit
 28 * * * *	weirddalle
 28 * * * *	r_bolehland
+28 * * * *	r_battlestations
 29 * * * *	r_freegamesonsteam	# 17.
 29 * * * *	r_interestingasfuck
 29 */2 * * *	r_programming
@@ -675,6 +698,9 @@ MASK	submodule_name
 29 * * * *	r_confidentlyincorrect
 29 * * * *	gnarmains
 29 * * * *	newgreentexts
+29 * * * *	r_pokemonmasters
+29 */2 * * *	r_badcode
+29 * * * *	reddit_argentina
 30 * * * *	asiangirlsbeingcute	# 16.
 30 * * * *	pythondaily
 30 * * * *	reddit_cartoons
@@ -691,7 +717,6 @@ MASK	submodule_name
 30 * * * *	r_thehatedone
 30 * * * *	r_stray
 30 * * * *	brasildob
-30 * * * *	r_insidemollywood
 31 * * * *	r_dndgreentext	# 15.
 31 * * * *	r_listentothis
 31 * * * *	r_woooosh
@@ -706,6 +731,7 @@ MASK	submodule_name
 31 * * * *	the100backup
 31 * * * *	r_buildapcsales
 31 * * * *	r_dalle2
+31 * * * *	r_nikkemobile
 32 * * * *	r_dndmemes	# 14.
 32 * * * *	r_technope
 32 * * * *	instant_regret
@@ -811,34 +837,8 @@ MASK	submodule_name
 44 * * * *	r_crappyoffbrands	# 2.
 44 * * * *	r_fpv
 45 * * * *	r_algotrading	# 1.
-46 * * * *	r_tourettesguy
-47 * * * *	fourtran
-48 * * * *	r_toonami
-49 * * * *	r_lain_sub
 54 * * * *	tech_cleaner
-55 * * * *	r_pics
 55 11 * * *	tech_anniversary
 55 14 * * sat	tech_weekly_radar
 55 */6 * * *	tech_store_stat
 56 * * * *	tech_receiver
-56 * * * *	r_chemistry
-56 */2 * * *	r_texans
-56 * * * *	r_reddevils
-57 * * * *	r_pcmasterrace
-57 * * * *	r_vim
-57 * * * *	r_wikileaks
-57 * * * *	r_shittyramen
-57 12,20 * * *	r_unexpectedhamilton
-58 * * * *	r_talesfromtechsupport
-58 * * * *	reddit_androiddev
-58 * * * *	bestoftweets
-59 * * * *	r_pewdiepiesubmissions
-59 * * * *	proceduralgeneration
-59 * * * *	blackpeopletweets
-59 * * * *	engrish
-59 * * * *	r_polandball
-59 * * * *	r_battlestations
-59 * * * *	r_pokemonmasters
-59 */2 * * *	r_badcode
-59 * * * *	reddit_argentina
-59 * * * *	r_nikkemobile

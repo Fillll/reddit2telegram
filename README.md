@@ -55,10 +55,13 @@ But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
 When tidying the main-run schedule in `reddit2telegram/own.cron`, start at
 minute 45 with one main run, then two at 44, three at 43, and so on. Move only
 the excess runs backward and stop as soon as earlier gaps absorb them; do not
-redistribute the rest of the hour. The current adjustment covers minutes 34–45.
+redistribute the rest of the hour. Main runs must not start at minutes 46–59;
+include any main runs found there in the backward fill. The current adjustment
+covers minutes 17–45, leaving minutes 00–16 as they were.
 A channel's main run is the earliest minute in its first schedule row; other
 minutes and subsequent rows are extra runs. Preserve those extra schedules,
 `tech_*` jobs, and each channel's run frequency and calendar restrictions.
+Extra runs and technical jobs may still start after minute 45.
 
 Versions and contributions
 --------------------------
