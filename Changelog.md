@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.1.0] - 2026-10-31
+
+### Added
+
+- Activate r/Lain delivery to @r_Lain_Sub hourly at minute 49 UTC.
+
 ## [1.0.9] - 2026-10-24
 
 ### Fixed
