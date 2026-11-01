@@ -3,6 +3,7 @@ use crate::{
     metrics::{self, Metrics},
     model::{self, Config, Error, Result, Supply, now},
     reddit::Reddit,
+    reporting::{self, Reporter},
     sender::{self, Sender},
 };
 use chrono::{Datelike, Local, Timelike};
@@ -21,6 +22,7 @@ pub struct App {
     pub config: Arc<Config>,
     pub db: Database,
     pub videos: Arc<Semaphore>,
+    pub reporter: Reporter,
 }
 impl App {
     pub async fn load(path: &Path) -> Result<Self> {
@@ -32,11 +34,19 @@ impl App {
                 config.values["pool"]["malloc_arenas"].as_i64().unwrap_or(4) as i32,
             );
         }
-        let db = config.database().await?;
+        let reporter = Reporter::new(&config)?;
+        let db = match config.database().await {
+            Ok(db) => db,
+            Err(error) => {
+                reporter.capture(error, "startup");
+                return Err(error);
+            }
+        };
         Ok(Self {
             config,
             db,
             videos: Arc::new(Semaphore::new(2)),
+            reporter,
         })
     }
     pub async fn sender(&self, destination: serde_json::Value, metrics: Metrics) -> Result<Sender> {
@@ -92,8 +102,20 @@ impl App {
                 config,
                 db,
                 videos: self.videos.clone(),
+                reporter: self.reporter.clone(),
             };
-            job.supply(module, metrics.clone()).await
+            let mut context = reporting::Context::default();
+            let result = job.supply(module, metrics.clone(), &mut context).await;
+            if let Err(error) = result {
+                job.reporter.capture(error, module);
+                if reporting::developer(&job, module, &context, error, metrics.clone())
+                    .await
+                    .is_err()
+                {
+                    eprintln!("developer reporting failed for {module}");
+                }
+            }
+            result
         }
         .await;
         let stored = tasks
@@ -109,9 +131,21 @@ impl App {
         }
         result
     }
-    pub async fn supply(&self, module: &str, metrics: Metrics) -> Result<()> {
+    pub async fn supply(
+        &self,
+        module: &str,
+        metrics: Metrics,
+        context: &mut reporting::Context,
+    ) -> Result<()> {
         model::long_sleep(0.2).await;
         let channel = custom::resolve(self, module).await?;
+        context.channel = Some(
+            channel
+                .destination
+                .as_str()
+                .map(str::to_owned)
+                .unwrap_or_else(|| channel.destination.to_string()),
+        );
         if !channel.requires_submission {
             let sender = self.sender(channel.destination.clone(), metrics).await?;
             custom::maintenance(self, module, &sender).await?;
@@ -123,6 +157,7 @@ impl App {
             vec!["hot", "new", "top"]
         };
         for ranking in rankings {
+            context.link = None;
             let mut reddit = Reddit::new(self.config.clone(), metrics.clone())?;
             let sender = self
                 .sender(channel.destination.clone(), metrics.clone())
@@ -159,6 +194,7 @@ impl App {
                     scanned += 1;
                     let submission = &item["data"];
                     let link = format!("https://redd.it/{}", model::text(submission, "id"));
+                    context.link = Some(link.clone());
                     if sender.was_before(&link).await? || sender.too_many_errors(&link).await? {
                         continue;
                     }
@@ -185,6 +221,7 @@ impl App {
                 break;
             }
         }
+        context.link = None;
         sender::clean(
             &self.config,
             Some(&channel.destination.as_str().unwrap_or("").to_owned()),
@@ -213,7 +250,8 @@ pub async fn consumer(app: App) -> Result<()> {
     let mut next_memory_check = tokio::time::Instant::now();
     let mut terminate = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())?;
     let mut interrupt = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::interrupt())?;
-    loop {
+    let outcome:Result<()>=async{
+      loop {
         if tokio::time::Instant::now() >= next_memory_check {
             next_memory_check = tokio::time::Instant::now() + Duration::from_secs(60);
             #[cfg(all(target_os = "linux", target_env = "gnu"))]
@@ -261,10 +299,12 @@ pub async fn consumer(app: App) -> Result<()> {
             });
         }
         tokio::select! {_=terminate.recv()=>break,_=interrupt.recv()=>break,_=tokio::time::sleep(Duration::from_secs(5))=>{}}
-    }
+      }
+      Ok(())
+    }.await;
     eprintln!("draining {} pending jobs", pending.len());
     while pending.join_next().await.is_some() {}
-    Ok(())
+    outcome
 }
 
 pub fn schedules(config: &Config) -> Result<Vec<(String, String)>> {

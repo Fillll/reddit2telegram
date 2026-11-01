@@ -196,7 +196,7 @@ pub async fn post(
         "tech_cleaner" => maintenance::cleaner(app, sender).await,
         "tech_receiver" => maintenance::receiver(app, sender).await,
         "tech_weekly_radar" => maintenance::weekly(app, sender).await,
-        "tech_store_stat" | "tech_anniversary" => Err(Error::IncompletePort),
+        "tech_store_stat" | "tech_anniversary" => maintenance(app, module, sender).await,
         _ => sender.simple(submission, &channel.options).await,
     }
 }

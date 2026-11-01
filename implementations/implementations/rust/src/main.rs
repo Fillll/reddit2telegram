@@ -8,6 +8,7 @@ mod metrics;
 mod model;
 mod queue;
 mod reddit;
+mod reporting;
 mod sender;
 
 use model::{Error, Result};
@@ -44,9 +45,13 @@ async fn run() -> Result<()> {
         .map(|pair| PathBuf::from(&pair[1]))
         .unwrap_or_else(|| PathBuf::from("configs/prod.yml"));
     let app = queue::App::load(&path).await?;
-    match role {
-        "consumer" => queue::consumer(app).await,
-        "scheduler" => queue::scheduler(app).await,
+    let result = match role {
+        "consumer" => queue::consumer(app.clone()).await,
+        "scheduler" => queue::scheduler(app.clone()).await,
         _ => Err(Error::Config),
+    };
+    if let Err(error) = result {
+        app.reporter.capture(error, role);
     }
+    result
 }
