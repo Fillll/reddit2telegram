@@ -1,0 +1,32 @@
+{
+  "r_porn": {
+    "t_channel": "@r_porn"
+  },
+  "r_youll_be_banned": {
+    "t_channel": "@r_youll_be_banned"
+  },
+  "reddit2telegram": {
+    "t_channel": "@reddit2telegram",
+    "submissions_ranking": "top",
+    "submissions_limit": 1000
+  },
+  "tech_anniversary": {
+    "subreddit": "all",
+    "requires_submission": false
+  },
+  "tech_cleaner": {
+    "subreddit": "all"
+  },
+  "tech_receiver": {
+    "subreddit": "all",
+    "t_channel": "@r_channels"
+  },
+  "tech_store_stat": {
+    "subreddit": "all",
+    "requires_submission": false
+  },
+  "tech_weekly_radar": {
+    "subreddit": "all",
+    "t_channel": "@reddit2telegram"
+  }
+}
