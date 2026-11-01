@@ -65,10 +65,11 @@ jobs:
           for path in output.iterdir():
               if path.is_dir() and path.suffix in ('.resources','.bundle'):
                   shutil.copytree(path,destination/path.name)
-          subprocess.run(['patchelf','--set-rpath','$ORIGIN/lib',str(destination/'r2t-swift')],check=True)
+          # DT_RPATH also reaches transitive dependencies of bundled libraries.
+          subprocess.run(['patchelf','--force-rpath','--set-rpath','$ORIGIN/lib',str(destination/'r2t-swift')],check=True)
           (destination/'system-packages.txt').write_text(subprocess.check_output(['dpkg-query','-W'],text=True))
           PY
-          LD_LIBRARY_PATH="$PWD/dist/r2t-swift/lib" dist/r2t-swift/r2t-swift --describe > dist/r2t-swift/swift-build.json
+          env -u LD_LIBRARY_PATH dist/r2t-swift/r2t-swift --describe > dist/r2t-swift/swift-build.json
           sha256sum dist/r2t-swift/r2t-swift > dist/r2t-swift/swift-build.sha256
           tar -C dist -czf dist/r2t-swift-linux-x86_64.tar.gz r2t-swift
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
