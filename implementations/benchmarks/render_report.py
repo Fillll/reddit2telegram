@@ -11,6 +11,7 @@ matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.lines import Line2D
+from matplotlib.text import Text
 import numpy as np
 
 from report_data import LABELS, NAMES, finite, require_final
@@ -279,13 +280,28 @@ def render(bundle, path):
     figure.canvas.draw()
     renderer = figure.canvas.get_renderer()
     outside = []
-    for index, artist in enumerate(figure.texts):
+    for index, artist in enumerate(figure.findobj(match=Text)):
+        if not artist.get_visible() or not artist.get_text():
+            continue
         bounds = artist.get_window_extent(renderer)
         if bounds.x0 < 0 or bounds.y0 < 0 or bounds.x1 > figure.bbox.x1 or bounds.y1 > figure.bbox.y1:
             outside.append(index)
     if outside:
         plt.close(figure)
         raise ValueError('Report text extends outside the image; adjust layout before export')
+    for axis in figure.axes:
+        for authored_table in axis.tables:
+            for cell in authored_table.get_celld().values():
+                box = cell.get_window_extent(renderer)
+                text_box = cell.get_text().get_window_extent(renderer)
+                if text_box.x0 < box.x0-1 or text_box.x1 > box.x1+1 or text_box.y0 < box.y0-1 or text_box.y1 > box.y1+1:
+                    plt.close(figure)
+                    raise ValueError('A table label overflows its cell; adjust layout before export')
+    text_boxes = [(artist, artist.get_window_extent(renderer)) for artist in figure.texts if artist.get_text()]
+    for index, (_, box) in enumerate(text_boxes):
+        if any(box.overlaps(other) for _, other in text_boxes[index+1:]):
+            plt.close(figure)
+            raise ValueError('Report narrative blocks overlap; adjust layout before export')
     temporary = path.with_name(path.stem+f'.{os.getpid()}.png')
     figure.savefig(temporary, dpi=200, format='png', facecolor=BACKGROUND,
                    metadata={'Title': 'r2t live runtime comparison', 'Description': 'Seven fresh sequential live windows; see comparison.json for evidence and limits.'})
@@ -294,4 +310,6 @@ def render(bundle, path):
     plt.close(figure)
     return dict(python=platform.python_version(), matplotlib=matplotlib.__version__,
                 numpy=np.__version__, pixels=list(size), dpi=200,
-                figure_text_inside_canvas=True, rendered_visual_inspection='pending')
+                figure_text_inside_canvas=True, table_text_inside_cells=True,
+                figure_narrative_blocks_do_not_overlap=True,
+                rendered_visual_inspection='pending')
