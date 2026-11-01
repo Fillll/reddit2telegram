@@ -1,5 +1,6 @@
 mod custom;
 mod http;
+mod maintenance;
 mod metrics;
 mod model;
 mod queue;
