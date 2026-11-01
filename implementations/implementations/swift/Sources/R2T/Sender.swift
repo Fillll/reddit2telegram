@@ -310,13 +310,15 @@ final class Sender {
         if ["title", "selftext", "score", "subreddit", "over_18"].contains(where: { submission[$0] == nil }) { submission = try reddit.hydrate(submission) }
         let score = Int(number(submission["score"]))
         if truth(options["nsfw_filter_out"] ?? true) && truth(submission["over_18"]) { return .reject }
-        if truth(options["check_dups"]) && !mediaInfo.url.isEmpty && (try duplicate(mediaInfo.url)) { return .reject }
+        if truth(options["check_dups"]) && !mediaInfo.url.isEmpty {
+            if try duplicate(mediaInfo.url) { return .reject }
+        }
         let rule = options[mediaInfo.kind] ?? true
         if !truth(rule) { return .reject }
         var fields = ["what": mediaInfo.kind, "url": mediaInfo.url, "title": text(submission["title"]),
             "self_text": text(submission["selftext"]), "link": text(submission["url"]), "short_link": "https://redd.it/" + text(submission["id"]),
             "subreddit_name": text(submission["subreddit"]), "score": String(score), "upvotes": human(score), "channel": channel]
-        for (key, value) in options { fields[key] = value as? String ?? (try json(value)) }
+        for (key, value) in options { fields[key] = try value as? String ?? json(value) }
         let fallback: String
         switch mediaInfo.kind {
         case "text": fallback = "{title}\n\n{self_text}\n\n{short_link}\n{channel}"

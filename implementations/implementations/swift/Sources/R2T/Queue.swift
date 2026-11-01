@@ -6,8 +6,9 @@ final class App {
     let config: Config
     let db: Database
     let videos: DispatchSemaphore
-    init(config: Config, db: Database? = nil, videos: DispatchSemaphore = DispatchSemaphore(value: 2)) throws {
-        self.config = config; self.db = try db ?? config.database(); self.videos = videos
+    let reporter: Reporter
+    init(config: Config, db: Database? = nil, videos: DispatchSemaphore = DispatchSemaphore(value: 2), reporter: Reporter) throws {
+        self.config = config; self.db = try db ?? config.database(); self.videos = videos; self.reporter = reporter
     }
     func sender(_ destination: Any, metrics: Metrics) throws -> Sender {
         try Sender(config: config, db: db, destination: destination, metrics: metrics, videos: videos)
@@ -25,13 +26,13 @@ final class App {
             if let values = args["config"] as? Doc { next.values = values }
             else if let filename = args["config_filename"] as? String { next = try Config(path: filename) }
             let sameDatabase = try json(next.values["db"] ?? null) == json(config.values["db"] ?? null)
-            let job = try App(config: next, db: sameDatabase ? db : nil, videos: videos)
+            let job = try App(config: next, db: sameDatabase ? db : nil, videos: videos, reporter: reporter)
             var context = ErrorContext()
             do { try job.supply(module, metrics: metrics, context: &context) }
             catch {
-                // Native Sentry and developer reporting are added before the
-                // full-port guard is enabled. Preserve the original task error.
-                log("Supply failed for \(module): \(safeError(error))", warning: true)
+                reporter.capture(error, module: module)
+                do { try reportDeveloper(job, module: module, context: context, error: error, metrics: metrics) }
+                catch { log("developer reporting failed for \(module)", warning: true) }
                 throw error
             }
             log("Modified \(try db.update("tasks", filter, ["$set": ["status": 3, "updated_at": now()]])) docs")
@@ -47,7 +48,7 @@ final class App {
     func supply(_ module: String, metrics: Metrics, context: inout ErrorContext) throws {
         longSleep(0.2)
         let channel = try Channels.resolve(self, module: module)
-        context.channel = channel.destination as? String ?? (try json(channel.destination))
+        context.channel = try channel.destination as? String ?? json(channel.destination)
         if !channel.requiresSubmission {
             let sender = try self.sender(channel.destination, metrics: metrics)
             _ = try Channels.maintenance(self, module: module, sender: sender)

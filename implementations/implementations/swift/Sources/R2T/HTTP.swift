@@ -77,7 +77,7 @@ final class HTTP {
         let response: HTTPResponse
         if let video {
             var fields: [String: String] = [:]
-            for (key, value) in params { fields[key] = value as? String ?? (try json(value)) }
+            for (key, value) in params { fields[key] = try value as? String ?? json(value) }
             response = try request("POST", "https://api.telegram.org/bot\(token)/\(method)",
                 multipart: ["fields": fields, "files": ["video": ["path": video.path, "filename": "video.mp4", "content_type": "video/mp4"]]])
         } else {
