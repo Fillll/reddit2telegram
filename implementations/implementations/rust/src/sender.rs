@@ -368,16 +368,37 @@ impl Sender {
         let lower = url.to_lowercase();
         if let Some(items) = submission["gallery_data"]["items"].as_array() {
             let mut media = Vec::new();
-            for item in items {
+            let numeric = items.iter().all(|item| item["id"].as_i64().is_some());
+            let strings = items.iter().all(|item| item["id"].as_str().is_some());
+            if !numeric && !strings {
+                return Err(Error::Media);
+            }
+            let mut ordered: Vec<_> = items.iter().rev().collect();
+            ordered.sort_by(|a, b| {
+                if numeric {
+                    a["id"].as_i64().cmp(&b["id"].as_i64())
+                } else {
+                    a["id"].as_str().cmp(&b["id"].as_str())
+                }
+            });
+            ordered.dedup_by(|a, b| a["id"] == b["id"]);
+            for item in ordered {
                 let source = &submission["media_metadata"][text(item, "media_id")]["s"];
                 let (kind, link) = if let Some(s) = source["u"].as_str() {
                     ("photo", s)
                 } else {
                     ("video", source["mp4"].as_str().ok_or(Error::Media)?)
                 };
-                let normalized = html_escape::decode_html_entities(link)
-                    .replace("https://preview.redd.it/", "https://i.redd.it/")
-                    .replace("auto=webp", "auto=jpg");
+                let decoded = html_escape::decode_html_entities(link);
+                let normalized = if let Ok(parsed) = url::Url::parse(&decoded) {
+                    if parsed.host_str() == Some("preview.redd.it") {
+                        format!("https://i.redd.it{}", parsed.path())
+                    } else {
+                        decoded.replace("auto=webp", "auto=jpg")
+                    }
+                } else {
+                    decoded.replace("auto=webp", "auto=jpg")
+                };
                 media.push(json!({"type":kind,"media":normalized}));
             }
             return Ok(Media {
@@ -567,7 +588,8 @@ impl Sender {
                         let link = if animated {
                             v["mp4"]
                                 .as_str()
-                                .or_else(|| v["gifv"].as_str())
+                                .filter(|v| !v.is_empty())
+                                .or_else(|| v["gifv"].as_str().filter(|v| !v.is_empty()))
                                 .unwrap_or_else(|| text(v, "link"))
                         } else {
                             text(v, "link")
