@@ -211,9 +211,28 @@ pub async fn consumer(app: App) -> Result<()> {
         .await?;
     let workers = Arc::new(Semaphore::new(app.config.worker_size()));
     let mut pending = JoinSet::new();
+    let mut next_memory_check = tokio::time::Instant::now();
     let mut terminate = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())?;
     let mut interrupt = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::interrupt())?;
     loop {
+        if tokio::time::Instant::now() >= next_memory_check {
+            next_memory_check = tokio::time::Instant::now() + Duration::from_secs(60);
+            #[cfg(all(target_os = "linux", target_env = "gnu"))]
+            if std::fs::read_to_string("/proc/self/status")
+                .ok()
+                .and_then(|s| {
+                    s.lines()
+                        .find(|l| l.starts_with("VmRSS:"))
+                        .and_then(|l| l.split_whitespace().nth(1))
+                        .and_then(|n| n.parse::<u64>().ok())
+                })
+                .is_some_and(|kb| kb >= 256 * 1024)
+            {
+                unsafe {
+                    libc::malloc_trim(0);
+                }
+            }
+        }
         while pending.try_join_next().is_some() {}
         tasks
             .update_many(

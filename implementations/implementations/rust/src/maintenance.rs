@@ -146,8 +146,29 @@ pub async fn public_channels(app: &App, sender: &Sender) -> Result<Vec<String>> 
             channel.to_owned(),
         ));
     }
+    let mut unique = HashMap::new();
+    for (date, channel) in ordered {
+        unique.insert(channel, date);
+    }
+    let mut ordered: Vec<_> = unique
+        .into_iter()
+        .map(|(channel, date)| (date, channel))
+        .collect();
     ordered.sort_by_key(|(date, _)| *date);
     Ok(ordered.into_iter().map(|(_, c)| c).collect())
+}
+async fn first_members(
+    stats: &mongodb::Collection<Document>,
+    filter: Document,
+    sort: Document,
+) -> Result<f64> {
+    let mut cursor = stats.find(filter).sort(sort).limit(100).await?;
+    while let Some(record) = cursor.try_next().await? {
+        if let Some(count) = model::numeric(&record, "members_cnt") {
+            return Ok(count);
+        }
+    }
+    Err(Error::Config)
 }
 pub async fn weekly(app: &App, sender: &Sender) -> Result<Supply> {
     let channels = public_channels(app, sender).await?;
@@ -178,19 +199,20 @@ pub async fn weekly(app: &App, sender: &Sender) -> Result<Supply> {
         if (last_date - first_date) / 86400000 <= 31 {
             new.push(channel.clone());
         }
-        let previous = stats
-            .find_one(doc! {"channel":channel.to_lowercase(),"ts":{"$gte":cutoff}})
-            .sort(doc! {"ts":1})
-            .await?
-            .ok_or(Error::Config)?;
-        let difference = model::numeric(&latest, "members_cnt").ok_or(Error::Config)?
-            - model::numeric(&previous, "members_cnt").ok_or(Error::Config)?;
-        if difference >= 5. {
+        let previous = first_members(
+            &stats,
+            doc! {"channel":channel.to_lowercase(),"ts":{"$gte":cutoff}},
+            doc! {"ts":1},
+        )
+        .await?;
+        let current = first_members(&stats, filter, doc! {"ts":-1}).await?;
+        let difference = current - previous;
+        if difference >= 10. {
             growers.push((difference, channel.clone()));
         }
     }
     growers.sort_by(|a, b| b.0.total_cmp(&a.0));
-    let growers: Vec<_> = growers.into_iter().map(|(_, c)| c).collect();
+    let growers: Vec<_> = growers.into_iter().take(3).map(|(_, c)| c).collect();
     let featured = channels
         .choose(&mut rand::thread_rng())
         .ok_or(Error::Config)?;
@@ -210,7 +232,7 @@ pub async fn weekly(app: &App, sender: &Sender) -> Result<Supply> {
             growers.join(", ")
         ));
     }
-    body.push_str("For questions, discussions and new channels:\n@r_channels\n\nQ: What is it?\nA: https://github.com/Fillll/reddit2telegram.\n\nQ: Where to donate?\nA: Patreon: https://www.patreon.com/reddit2telegram.");
+    body.push_str("🙋\nQ: How can I help?\nA: Support us on Patreon and promote your favorite channels!\n\nQ: How to make similar channels?\nA: Ask at @r_channels or use manual at https://github.com/Fillll/reddit2telegram.\n\nQ: Where to donate?\nA: Patreon: https://www.patreon.com/reddit2telegram.");
     sender.send_text(&body, false, Some("HTML")).await?;
     tokio::time::sleep(Duration::from_secs(2)).await;
     for (index, page) in channels.chunks(100).enumerate() {

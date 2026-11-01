@@ -162,7 +162,9 @@ impl Sender {
             .await
         {
             Ok(_) => Ok(Supply::Sent),
-            Err(Error::Rejected | Error::Telegram) => Ok(Supply::Skip),
+            Err(Error::Rejected | Error::Telegram | Error::Network | Error::Timeout) => {
+                Ok(Supply::Skip)
+            }
             Err(error) => Err(error),
         }
     }
@@ -531,8 +533,13 @@ impl Sender {
         if parts.is_empty() || parts[0] == "topic" {
             return Ok(Media::link("other", url));
         }
-        let id = parts.last().unwrap().split('.').next().unwrap_or("");
         let album = parts[0] == "a" || parts[0] == "gallery";
+        let identifier = if album {
+            parts.get(1).copied().unwrap_or("")
+        } else {
+            parts.last().copied().unwrap_or("")
+        };
+        let id = identifier.split('.').next().unwrap_or("");
         for endpoint in if album {
             vec!["album", "image"]
         } else {
