@@ -64,6 +64,75 @@ processes and children remain accounted in cumulative slice counters.
 Runtime control and raw data are local-only in ignored `state/` and `runs/`.
 `results/` contains only curated, reviewed summaries and the final report.
 
+### Supplementary process observations
+
+`process_sampler.py --directory /absolute/path/to/run` observes only the worker
+cgroup and its existing processes. It never starts application work, changes
+the schedule or extends a window. Run it in its own user service, outside the
+scheduler accounting slice, immediately after each new window begins. It holds
+a per-run lock, appends observations across a crash restart and always retains
+the original deadline.
+
+The Python 3.12 supplement began partway through its window; earlier process
+detail is unavailable. The primary cgroup collector retains its original full
+window. Separate process RSS is sampled; short ffmpeg lifetimes can be missed.
+Parent reaped-child CPU plus live child CPU includes work between polls, but it
+cannot identify every short child's executable. Report that CPU as helpers,
+including ffmpeg and maintenance utilities. FFmpeg-specific observed CPU is a
+lower bound, not an exact total. These limits belong in the final image.
+
+### Single-image report
+
+The report uses original manifests, samples, events, queue snapshots, notes,
+process observations and the experiment ledger. Missing values remain missing.
+CPU distributions use valid intervals of at most ten seconds; cumulative CPU
+totals can retain monotonic deltas across longer gaps. Post-deadline boundary
+reads are excluded. Timings require paired in-window start/end events; counters
+describe observed job ends. Memory includes cgroup file cache, and kernel
+lifetime peaks remain separate from sampled window maxima.
+
+The common body comparison uses non-Telegram decoded response bytes and
+Telegram request bytes. Python does not count Telegram response bodies; the
+extra native counters remain available without being added to the common
+comparison. Body bytes exclude TLS/framing and remote Telegram URL fetches.
+
+Install plotting wheels into an independent tooling environment, not the
+measured production environment:
+
+```sh
+python3 -m venv /absolute/path/report-env
+/absolute/path/report-env/bin/pip install --only-binary=:all: --require-hashes -r implementations/benchmarks/report-requirements.txt
+```
+
+Inspect current evidence without generating a final artifact:
+
+```sh
+python3 implementations/benchmarks/report.py --runs /absolute/path/runs --inspect
+python3 implementations/benchmarks/verify_report.py --runs /absolute/path/runs --receipt /private/path/arithmetic-check.json
+```
+
+The verifier independently reconciles consequential statistics against a
+temporary private copy of the fresh live observations; it creates no benchmark
+traffic or fabricated inputs. It checks counts, CPU deltas/weighted means,
+memory/timing percentiles, backlog, source hashes and window boundaries. Its
+receipt states the actual scope, including whether repeated execution IDs
+need a separate pairing review. The private raw copy is removed afterwards.
+
+After all seven windows finalize, generate the image and portable evidence:
+
+```sh
+/absolute/path/report-env/bin/python implementations/benchmarks/report.py --runs /absolute/path/runs --output implementations/benchmarks/results
+```
+
+The renderer refuses an unfinished, repeated or overlapping experiment. It
+produces `r2t-live-comparison.png`, `comparison.json`, `distributions.csv`,
+`windows.csv`, `counters.csv` and a rendering receipt. The PNG is 4800 by 4400
+pixels. Inspect the exported image for readable labels, clipping and faithful
+values before delivery; an import/build check does not prove visual quality.
+Only allowlisted aggregate/build metadata is exported, not raw process/job IDs,
+arguments, configuration values, payloads or URLs. A reviewed portable JSON
+bundle can also be rendered with `--bundle /path/comparison.json`.
+
 ## Interpretation
 
 All variants use actual Reddit, Telegram and MongoDB. Sequential live days have
