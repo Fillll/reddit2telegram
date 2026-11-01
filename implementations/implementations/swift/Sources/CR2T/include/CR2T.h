@@ -10,6 +10,7 @@ void r2t_free(void *p);
 void r2t_allocator(int arenas, int trim);
 void r2t_install_signals(void);
 int r2t_stopping(void);
+void r2t_wait_stop(int milliseconds);
 char *r2t_yaml_json(const char *path);
 char *r2t_digest(const char *algorithm, const void *bytes, size_t length);
 void *r2t_db_open(const char *uri);

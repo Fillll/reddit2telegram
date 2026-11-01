@@ -8,9 +8,15 @@ let args = Array(CommandLine.arguments.dropFirst())
 do {
     if args.contains("--describe") {
         r2t_init()
+        var assets: [String: String] = [:]
+        for name in ["local_channels", "weighted_channel", "milestones"] {
+            guard let path = Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Assets") else { throw R2TError.config }
+            assets[name] = try digest(String(contentsOf: path, encoding: .utf8))
+        }
         print(try json(["language": "swift", "compiler": BuildInfo.compiler,
             "source_commit": BuildInfo.commit, "version": BuildInfo.version,
             "full_port_complete": fullPortComplete, "profile": "release -O",
+            "language_mode": "Swift 5 mode; Swift 6.4.2 compiler", "configuration_sha256": assets,
             "mongodb_client": String(cString: r2t_mongoc_version()),
             "http_client": String(cString: r2t_curl_version())]))
     } else if args.contains("--version") {

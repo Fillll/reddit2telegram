@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "CR2T.h"
 #include <bson/bson.h>
 #include <mongoc/mongoc.h>
@@ -12,10 +13,18 @@
 #include <string.h>
 #include <errno.h>
 #include <time.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <poll.h>
 
 static pthread_once_t once = PTHREAD_ONCE_INIT;
 static volatile sig_atomic_t stopping = 0;
-static void stop(int sig) { (void)sig; stopping = 1; }
+static int stop_pipe[2] = {-1,-1};
+static void stop(int sig) {
+    (void)sig; int saved_errno=errno; stopping=1;
+    if(stop_pipe[1]>=0) { char byte=1; ssize_t ignored=write(stop_pipe[1],&byte,1); (void)ignored; }
+    errno=saved_errno;
+}
 /* Driver messages can include connection strings. Swift reports only safe
  * categories and codes, never arbitrary transport error text. */
 static void quiet_log(mongoc_log_level_t level, const char *domain,
@@ -34,12 +43,18 @@ void r2t_allocator(int arenas, int trim) {
     if (trim) malloc_trim(0);
 }
 void r2t_install_signals(void) {
+    if(stop_pipe[0]<0 && pipe2(stop_pipe,O_NONBLOCK|O_CLOEXEC)!=0) stop_pipe[0]=stop_pipe[1]=-1;
     struct sigaction action = {0}; action.sa_handler = stop;
     sigemptyset(&action.sa_mask);
     sigaction(SIGTERM, &action, NULL); sigaction(SIGINT, &action, NULL);
     signal(SIGPIPE, SIG_IGN);
 }
 int r2t_stopping(void) { return stopping; }
+void r2t_wait_stop(int milliseconds) {
+    if(stopping) return;
+    struct pollfd fd={.fd=stop_pipe[0],.events=POLLIN};
+    (void)poll(&fd,stop_pipe[0]>=0 ? 1 : 0,milliseconds);
+}
 const char *r2t_mongoc_version(void) { return mongoc_get_version(); }
 const char *r2t_curl_version(void) { return curl_version(); }
 

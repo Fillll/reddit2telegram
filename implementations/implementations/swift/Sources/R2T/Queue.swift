@@ -129,10 +129,9 @@ func consumer(_ app: App) throws {
         }
         log("Claimed \(batch.count) new tasks")
         for task in batch { queue.addOperation { app.runJob(task) } }
-        // Signals interrupt the wait within 100ms without changing the five
-        // second polling cadence during normal operation.
-        let deadline = DispatchTime.now().uptimeNanoseconds + 5_000_000_000
-        while r2t_stopping() == 0 && DispatchTime.now().uptimeNanoseconds < deadline { Thread.sleep(forTimeInterval: 0.1) }
+        // One blocking wait, interrupted by the signal self-pipe, like the
+        // reference's Event.wait(5). Avoid extra idle CPU from frequent wakes.
+        r2t_wait_stop(5000)
     }
 }
 
