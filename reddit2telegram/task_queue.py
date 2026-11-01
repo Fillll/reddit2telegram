@@ -11,6 +11,7 @@ from pymongo.database import Database
 from pymongo.collection import Collection
 from pymongo.collection import ReturnDocument
 import yaml
+import benchmark_metrics
 
 from supplier import supply
 from utils.memory import release_unused_memory
@@ -62,6 +63,7 @@ def submit_batch(mongo_database: Database, task_name: str, args_list: List[Mappi
     now = time.time()
     tasks = [create_task_dict(task_name, args, now=now) for args in args_list]
     result = mongo_database[COLLECTION].insert_many(tasks)
+    benchmark_metrics.emit(benchmark_metrics.active_run(), 'scheduler_submitted', submitted_jobs=len(tasks))
     logger.info(f"Inserted {len(result.inserted_ids)} tasks")
 
 
@@ -163,9 +165,12 @@ def _hydrate_supply_args(args: Mapping):
     return hydrated_args
 
 
-def execute_task(collection: Collection, id: ObjectId, name: str, args: Mapping):
-    update_task_status(collection, id, TaskStatus.IN_PROGRESS)
+def execute_task(collection: Collection, id: ObjectId, name: str, args: Mapping, created_at=None):
+    measurement = benchmark_metrics.begin_job(id, args.get('submodule_name'), created_at)
+    outcome = 'failed'
+    error_type = None
     try:
+        update_task_status(collection, id, TaskStatus.IN_PROGRESS)
         func = None
         if name == TASK_SUPPLY:
             func = supply
@@ -174,10 +179,14 @@ def execute_task(collection: Collection, id: ObjectId, name: str, args: Mapping)
             raise Exception(f'Task {name} not found')
         func(**args)
         update_task_status(collection, id, TaskStatus.SUCCESS)
+        outcome = 'success'
         logger.info(f'Task {name} successfully executed.')
     except Exception as e:
+        error_type = type(e).__name__
         logger.exception(f'Task {name} failed with exception')
         update_task_status(collection, id, TaskStatus.FAILED)
+    finally:
+        benchmark_metrics.finish_job(measurement, outcome, error_type)
 
 
 def start_consumer(
@@ -212,7 +221,8 @@ def start_consumer(
             new_tasks = claim_available_tasks(collection, min(batch_size, available)) if available else []
             logger.info('Claimed %d new tasks', len(new_tasks))
             for t in new_tasks:
-                pending.add(executor.submit(execute_task, collection, t['_id'], t['name'], t['args']))
+                pending.add(executor.submit(execute_task, collection, t['_id'], t['name'], t['args'],
+                                            t.get('created_at')))
             stop_event.wait(sleep_interval_seconds)
         except KeyboardInterrupt:
             stop_event.set()

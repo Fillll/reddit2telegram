@@ -1,4 +1,8 @@
 #encoding:utf-8
+if __name__ == '__main__':
+    from runtime_dispatch import dispatch
+    dispatch('scheduler')
+
 import logging
 logging.basicConfig(
     level=logging.INFO,
