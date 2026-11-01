@@ -222,7 +222,7 @@ def start_consumer(
             logger.info('Claimed %d new tasks', len(new_tasks))
             for t in new_tasks:
                 pending.add(executor.submit(execute_task, collection, t['_id'], t['name'], t['args'],
-                                            created_at=t.get('created_at')))
+                                            t.get('created_at')))
             stop_event.wait(sleep_interval_seconds)
         except KeyboardInterrupt:
             stop_event.set()
