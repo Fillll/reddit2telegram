@@ -1,5 +1,4 @@
-//! Native channel policies. Deployment stays disabled until the durable
-//! achievement/anniversary state machines have also been ported and reviewed.
+//! Native channel policies for the complete currently scheduled workload.
 use crate::{
     maintenance,
     model::{self, Error, Result, Supply},
@@ -15,7 +14,7 @@ use sha1::{Digest, Sha1};
 use std::{collections::BTreeSet, sync::OnceLock};
 use tokio::sync::OnceCell;
 
-pub const FULL_PORT_COMPLETE: bool = false;
+pub const FULL_PORT_COMPLETE: bool = true;
 static WEIGHTED: OnceLock<String> = OnceLock::new();
 static PROMOTION: OnceCell<String> = OnceCell::const_new();
 pub struct Channel {
@@ -182,7 +181,7 @@ pub async fn maintenance(app: &App, module: &str, sender: &Sender) -> Result<Sup
     match module {
         "tech_anniversary" => crate::anniversaries::run(app, sender).await,
         "tech_store_stat" => crate::achievements::run(app, sender).await,
-        _ => Err(Error::IncompletePort),
+        _ => Err(Error::UnknownTask),
     }
 }
 pub async fn post(

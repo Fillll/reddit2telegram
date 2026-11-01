@@ -5,20 +5,15 @@ MongoDB task and posting schema, and the same ffmpeg command as Python. No
 Python subprocess executes application work. Configuration remains the existing
 `reddit2telegram/configs/prod.yml`; run from `reddit2telegram/`.
 
-The port is under construction. Consumer and scheduler execution are explicitly
-disabled until all scheduled custom channels and durable announcement state
-machines are ported. A normal-posting subset must not enter the live comparison.
+The complete scheduled workload is implemented, including subscriber sweeps,
+achievement and anniversary delivery, compatible leases/checkpoints, Sentry and
+developer reporting. See [PORTING.md](PORTING.md) for the source coverage review.
+Compilation and source review do not establish live correctness or performance;
+those observations come from the single scheduled 24-hour live window.
 
-Source coverage so far: queue/scheduler, Reddit OAuth and bounded listings,
-media classification/download/mux/upload, text splitting and Telegram delivery,
-database-backed channels, weighted channel selection, promotions, channel intake,
-cleanup and weekly summaries. The release build passes in CI. These are build
-and source-review milestones, not live performance results.
-
-Remaining before deployment: achievement/statistics sweeps, annually unique
-anniversary delivery, compatible lease/checkpoint/uncertain-send handling,
-Sentry/developer error reporting, and final behavioral/source review. The
-`FULL_PORT_COMPLETE` guard stays false until those requirements are implemented.
+Keep this branch unmerged while a Python measurement is active. The binary may
+take production traffic only after its final checked artifact is selected by the
+benchmark runner and the preceding configuration has finished its window.
 
 ```sh
 cargo build --release --locked --manifest-path implementations/implementations/rust/Cargo.toml

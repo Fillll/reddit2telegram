@@ -272,8 +272,8 @@ fn normalize(input: &str, kind: &str) -> String {
     if kind == "subreddit" && value.to_lowercase().starts_with("r/") {
         value = value[2..].into();
     }
-    if kind == "channel" {
-        value = value.trim_start_matches('@').into();
+    if kind == "channel" && value.starts_with('@') {
+        value = value[1..].into();
     }
     if value.is_empty() || value.chars().any(char::is_whitespace) {
         String::new()
@@ -282,8 +282,7 @@ fn normalize(input: &str, kind: &str) -> String {
     }
 }
 fn normalize_tags(input: &str) -> String {
-    let prefix = regex::Regex::new(r"(?i)^\s*tags\s*:\s*").expect("literal regex");
-    let value = prefix.replace(input.trim(), "");
+    let value = input.trim();
     let mut seen = BTreeSet::new();
     let mut tags = Vec::new();
     for part in value

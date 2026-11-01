@@ -27,17 +27,18 @@ pub struct App {
 impl App {
     pub async fn load(path: &Path) -> Result<Self> {
         let config = Arc::new(Config::load(path)?);
+        let arenas = match config.values["pool"].get("malloc_arenas") {
+            Some(value) => value
+                .as_i64()
+                .filter(|n| *n >= 1 && *n <= i32::MAX as i64)
+                .ok_or(Error::Config)?,
+            None => 4,
+        };
         #[cfg(all(target_os = "linux", target_env = "gnu"))]
         unsafe {
-            libc::mallopt(
-                libc::M_ARENA_MAX,
-                config.values["pool"]["malloc_arenas"].as_i64().unwrap_or(4) as i32,
-            );
+            libc::mallopt(libc::M_ARENA_MAX, arenas as i32);
         }
-        model::info(format!(
-            "Limited native allocator to {} arenas",
-            config.values["pool"]["malloc_arenas"].as_i64().unwrap_or(4)
-        ));
+        model::info(format!("Limited native allocator to {} arenas", arenas));
         let reporter = Reporter::new(&config)?;
         let db = match config.database().await {
             Ok(db) => db,
