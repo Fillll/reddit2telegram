@@ -63,6 +63,10 @@ final class Sender {
         http = try HTTP(metrics: metrics, telegram: true); media = try HTTP(metrics: metrics)
         shortSleep()
     }
+    init(copy: Sender, destination: Any) {
+        config = copy.config; db = copy.db; self.destination = destination
+        http = copy.http; media = copy.media; videos = copy.videos; metrics = copy.metrics
+    }
     var channel: String { destination as? String ?? ((try? json(destination)) ?? "") }
     @discardableResult func api(_ method: String, _ params: Doc = [:]) throws -> Any {
         var params = params

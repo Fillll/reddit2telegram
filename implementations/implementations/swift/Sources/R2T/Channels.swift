@@ -89,6 +89,7 @@ enum Channels {
     static func maintenance(_ app: App, module: String, sender: Sender) throws -> Supply {
         // Kept fail-closed until the durable maintenance/state-machine port is
         // complete; main's full-port guard also blocks all application roles.
+        if module == "tech_anniversary" { return try Anniversaries.run(app, sender: sender) }
         throw R2TError.incompletePort
     }
     static func post(_ app: App, module: String, channel: Channel, submission: Doc, sender: Sender, reddit: Reddit) throws -> Supply {
