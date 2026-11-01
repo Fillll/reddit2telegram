@@ -1,0 +1,53 @@
+name: Native implementation builds
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'implementations/implementations/rust/**'
+      - '.github/workflows/native-builds.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-builds-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: implementations/implementations/rust
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.99.1 --profile minimal --component rustfmt
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            implementations/implementations/rust/target
+          key: rust-linux-1.99.1-${{ hashFiles('implementations/implementations/rust/Cargo.lock') }}
+      - name: Check formatting
+        run: cargo +1.99.1 fmt -- --check
+      - name: Compile native release without application traffic
+        run: cargo +1.99.1 build --release --locked -j 2
+      - name: Record binary identity
+        run: |
+          target/release/r2t-rust --describe > target/release/rust-build.json
+          sha256sum target/release/r2t-rust > target/release/rust-build.sha256
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: r2t-rust-linux-x86_64-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            implementations/implementations/rust/target/release/r2t-rust
+            implementations/implementations/rust/target/release/rust-build.json
+            implementations/implementations/rust/target/release/rust-build.sha256
+          retention-days: 14
