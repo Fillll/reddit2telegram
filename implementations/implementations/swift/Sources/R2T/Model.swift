@@ -82,9 +82,13 @@ func integer64(_ value: Any?) -> Int64 {
     return 0
 }
 func safeError(_ error: Error) -> R2TError { error as? R2TError ?? .io }
+private let logLock = NSLock()
+private let logFormatter: DateFormatter = {
+    let f = DateFormatter(); f.locale = Locale(identifier: "en_US_POSIX"); f.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"; return f
+}()
 func log(_ message: String, warning: Bool = false) {
-    let formatter = DateFormatter(); formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-    let line = "\(formatter.string(from: Date())) - r2t.swift - \(warning ? "WARNING" : "INFO") - \(message)\n"
+    logLock.lock(); defer { logLock.unlock() }
+    let line = "\(logFormatter.string(from: Date())) - r2t.swift - \(warning ? "WARNING" : "INFO") - \(message)\n"
     FileHandle.standardError.write(Data(line.utf8))
 }
 func pause(_ low: Double, _ high: Double) { Thread.sleep(forTimeInterval: Double.random(in: low..<high)) }
