@@ -17,6 +17,14 @@ A running manifest, a deadline or an observation timeout alone does not prove
 that a process stopped. Recheck the same service/PID after a transient failure;
 do not replace a still-running collector merely because observation expired.
 
+`watch_window.py --directory /absolute/path/to/run --minutes 60` polls the
+actual worker and both observer services plus fresh data once per minute. It
+checks the selected executable and initial worker PID, emits read-only health
+snapshots, and returns a verified-wait checkpoint or a request for inspection.
+It never repairs or restarts anything. `--once` is a bounded preflight. A worker
+identity change must be reviewed and recorded before acknowledging a new PID;
+do not edit the original manifest to hide a restart.
+
 ## At the absolute deadline
 
 Wait for the existing collector to finalize its manifest and ledger. Inspect

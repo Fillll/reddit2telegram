@@ -27,7 +27,8 @@ jobs:
           python -m pip install --only-binary=:all: --require-hashes -r implementations/benchmarks/report-requirements.txt
       - name: Check tooling without application traffic or fabricated report values
         run: |
-          python -m py_compile implementations/benchmarks/process_sampler.py implementations/benchmarks/report_data.py implementations/benchmarks/report.py implementations/benchmarks/render_report.py implementations/benchmarks/verify_report.py
+          python -m py_compile implementations/benchmarks/process_sampler.py implementations/benchmarks/report_data.py implementations/benchmarks/report.py implementations/benchmarks/render_report.py implementations/benchmarks/verify_report.py implementations/benchmarks/watch_window.py
           python implementations/benchmarks/report.py --help
           python implementations/benchmarks/verify_report.py --help
+          python implementations/benchmarks/watch_window.py --help
           python -c 'import sys; sys.path.insert(0,"implementations/benchmarks"); import render_report; print("Static renderer imports:",render_report.matplotlib.__version__)'
