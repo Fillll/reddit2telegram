@@ -18,12 +18,15 @@ type Database struct {
 
 func newDatabase(config *Config) (*Database, error) {
 	values := doc(at(config.Values, "db"))
+	if field(values, "name") == "" {
+		return nil, fault("Database")
+	}
 	uri := field(values, "host")
 	if !strings.Contains(uri, "://") {
 		uri = "mongodb://" + uri
 	}
 	client, e := mongo.Connect(options.Client().ApplyURI(uri).SetBSONOptions(&options.BSONOptions{DefaultDocumentM: true}))
-	if e != nil || field(values, "name") == "" {
+	if e != nil {
 		return nil, fault("Database")
 	}
 	return &Database{Client: client, Name: field(values, "name")}, nil

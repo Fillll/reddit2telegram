@@ -330,7 +330,7 @@ func nice(app *App, module string, submission D, sender *Sender, reddit *Reddit,
 	if e != nil {
 		return Skip, e
 	}
-	tags = strings.Join(strings.Fields(tags), " ")
+	tags = strings.Join(words(tags), " ")
 	options := D{"channel_to_promote": handle, "date": timeText(num(at(submission, "created_utc"), 0), "2006 Jan 02", true), "tags": tags, "extra_ending": ending, "announcement_heading": heading}
 	for _, kind := range []string{"text", "other", "album", "gif", "img", "video", "gallery"} {
 		prefix := "{announcement_heading}{title}"

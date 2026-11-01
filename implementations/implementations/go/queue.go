@@ -259,7 +259,7 @@ func consumer(app *App) error {
 			if raw, e := os.ReadFile("/proc/self/status"); e == nil {
 				for _, line := range strings.Split(string(raw), "\n") {
 					if strings.HasPrefix(line, "VmRSS:") {
-						values := strings.Fields(line)
+						values := words(line)
 						if len(values) > 1 {
 							if rss, e := strconv.ParseUint(values[1], 10, 64); e == nil && rss >= 256*1024 {
 								debug.FreeOSMemory()
@@ -316,7 +316,7 @@ func schedules(config *Config) ([]Schedule, error) {
 	lines := strings.Split(string(raw), "\n")
 	rows := []Schedule{}
 	for _, line := range lines[1:] {
-		if strings.TrimSpace(line) == "" {
+		if trimSpace(line) == "" {
 			continue
 		}
 		parts := strings.Split(line, "\t")
@@ -389,7 +389,7 @@ func cronField(expression string, current, minimum, maximum int) (bool, error) {
 	return matched, nil
 }
 func cronMatches(mask string, stamp float64) (bool, error) {
-	fields := strings.Fields(mask)
+	fields := words(mask)
 	if len(fields) != 5 {
 		return false, fault("Config")
 	}

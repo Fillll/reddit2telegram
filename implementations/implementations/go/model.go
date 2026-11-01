@@ -16,6 +16,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 	"unicode/utf16"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -24,6 +25,13 @@ import (
 
 type D map[string]any
 type A = []any
+
+func pythonSpace(r rune) bool       { return unicode.IsSpace(r) || (r >= 0x1c && r <= 0x1f) }
+func words(value string) []string   { return strings.FieldsFunc(value, pythonSpace) }
+func trimSpace(value string) string { return strings.TrimFunc(value, pythonSpace) }
+
+const spaceCharacters = `\s\p{Z}\x{0085}\x{001c}-\x{001f}\x{000b}`
+
 type Fault struct {
 	Kind string
 	Code int

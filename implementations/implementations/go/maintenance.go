@@ -20,7 +20,7 @@ func cleaner(app *App, sender *Sender) (Supply, error) {
 	free := -1.0
 	for _, line := range strings.Split(string(raw), "\n") {
 		if strings.HasPrefix(line, "MemFree:") {
-			values := strings.Fields(line)
+			values := words(line)
 			if len(values) > 1 {
 				n, err := strconv.ParseFloat(values[1], 64)
 				if err == nil {
@@ -53,7 +53,7 @@ func cleaner(app *App, sender *Sender) (Supply, error) {
 	if len(trafficParts) < 2 || len(estimateParts) < 2 {
 		return Skip, fault("Io")
 	}
-	traffic, estimate := strings.TrimSpace(trafficParts[len(trafficParts)-2]), strings.TrimSpace(estimateParts[len(estimateParts)-2])
+	traffic, estimate := trimSpace(trafficParts[len(trafficParts)-2]), trimSpace(estimateParts[len(estimateParts)-2])
 	aggregate, e := app.DB.command("aggregate", "tasks", D{"pipeline": A{D{"$group": D{"_id": "$status", "count": D{"$sum": 1}}}}, "cursor": D{}})
 	if e != nil {
 		return Skip, e
@@ -233,16 +233,16 @@ func weekly(app *App, sender *Sender) (Supply, error) {
 const receiverHelp = "Send channel data in one message:\nsubreddit: https://reddit.com/r/example\nchannel: @example_channel\ntags: #tag1 #tag2 #tag3\n\nOr send it step by step:\n1. subreddit\n2. channel\n3. tags\n\nCommands:\n/newchannel to restart\n/cancel to clear the current draft"
 
 func normalizeName(input, kind string) string {
-	prefix := regexp.MustCompile(`(?i)^\s*` + kind + `\s*:\s*`)
-	value := prefix.ReplaceAllString(strings.TrimSpace(input), "")
-	pattern := `(?i)(?:https?://)?(?:www\.)?reddit\.com/r/([^/?#\s]+)`
+	prefix := regexp.MustCompile(`(?i)^[` + spaceCharacters + `]*` + kind + `[` + spaceCharacters + `]*:[` + spaceCharacters + `]*`)
+	value := prefix.ReplaceAllString(trimSpace(input), "")
+	pattern := `(?i)(?:https?://)?(?:www\.)?reddit\.com/r/([^/?#` + spaceCharacters + `]+)`
 	if kind != "subreddit" {
-		pattern = `(?i)(?:https?://)?(?:t(?:elegram)?\.me/)([^/?#\s]+)`
+		pattern = `(?i)(?:https?://)?(?:t(?:elegram)?\.me/)([^/?#` + spaceCharacters + `]+)`
 	}
 	if match := regexp.MustCompile(pattern).FindStringSubmatch(value); len(match) > 1 {
 		value = match[1]
 	} else {
-		value = strings.Trim(strings.TrimSpace(value), "/")
+		value = strings.Trim(trimSpace(value), "/")
 	}
 	if kind == "subreddit" && strings.HasPrefix(lower(value), "r/") {
 		value = value[2:]
@@ -250,17 +250,17 @@ func normalizeName(input, kind string) string {
 	if kind == "channel" {
 		value = strings.TrimPrefix(value, "@")
 	}
-	if value == "" || len(strings.Fields(value)) != 1 {
+	if value == "" || len(words(value)) != 1 {
 		return ""
 	}
-	return strings.Trim(strings.TrimSpace(value), "/")
+	return strings.Trim(trimSpace(value), "/")
 }
 func normalizeTags(input string) string {
-	value := regexp.MustCompile(`(?i)^\s*tags\s*:\s*`).ReplaceAllString(strings.TrimSpace(input), "")
+	value := regexp.MustCompile(`(?i)^[`+spaceCharacters+`]*tags[`+spaceCharacters+`]*:[`+spaceCharacters+`]*`).ReplaceAllString(trimSpace(input), "")
 	value = strings.ReplaceAll(value, ",", " ")
 	seen := map[string]bool{}
 	tags := []string{}
-	for _, part := range strings.Fields(value) {
+	for _, part := range words(value) {
 		if !strings.HasPrefix(part, "#") {
 			part = "#" + part
 		}
@@ -277,7 +277,7 @@ func completeData(data D) bool {
 func completeRequest(input string) D {
 	lines := []string{}
 	for _, line := range strings.Split(input, "\n") {
-		line = strings.TrimSpace(line)
+		line = trimSpace(line)
 		if line != "" {
 			lines = append(lines, line)
 		}
@@ -334,7 +334,7 @@ func saveChannel(app *App, source *Sender, user int64, data D) error {
 }
 func processMessage(app *App, sender *Sender, user int64, input string) error {
 	filter := D{"setting": fmt.Sprintf("tech_receiver_state:%d", user)}
-	low := lower(strings.TrimSpace(input))
+	low := lower(trimSpace(input))
 	if low == "/help" || low == "help" {
 		return reply(app, sender, user, receiverHelp)
 	}

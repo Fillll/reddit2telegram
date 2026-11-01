@@ -156,6 +156,37 @@ type countedTransport struct {
 	base http.RoundTripper
 }
 
+// Closing a request body waits for its current read/counter update. This keeps
+// asynchronous HTTP writer activity inside the job's final measurement event.
+type countedBody struct {
+	source   io.ReadCloser
+	onRead   func(uint64)
+	mu       sync.Mutex
+	closed   atomic.Bool
+	once     sync.Once
+	closeErr error
+}
+
+func (b *countedBody) Read(p []byte) (int, error) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	if b.closed.Load() {
+		return 0, io.ErrClosedPipe
+	}
+	n, e := b.source.Read(p)
+	if n > 0 {
+		b.onRead(uint64(n))
+	}
+	return n, e
+}
+func (b *countedBody) Close() error {
+	b.closed.Store(true)
+	b.once.Do(func() { b.closeErr = b.source.Close() })
+	b.mu.Lock()
+	b.mu.Unlock()
+	return b.closeErr
+}
+
 func (t countedTransport) RoundTrip(request *http.Request) (*http.Response, error) {
 	t.h.count("request_attempts", 1)
 	var writes atomic.Int64
@@ -189,25 +220,6 @@ func (t countedTransport) RoundTrip(request *http.Request) (*http.Response, erro
 			}
 		},
 	}))
-	if request.Body != nil && t.h.Telegram {
-		original := request.Body
-		request.Body = struct {
-			io.Reader
-			io.Closer
-		}{countingReader{Reader: original, OnRead: func(n uint64) { t.h.count("request_body_bytes", n) }}, original}
-		if originalGetBody := request.GetBody; originalGetBody != nil {
-			request.GetBody = func() (io.ReadCloser, error) {
-				body, err := originalGetBody()
-				if err != nil {
-					return nil, err
-				}
-				return struct {
-					io.Reader
-					io.Closer
-				}{countingReader{Reader: body, OnRead: func(n uint64) { t.h.count("request_body_bytes", n) }}, body}, nil
-			}
-		}
-	}
 	response, e := t.base.RoundTrip(request)
 	if response != nil {
 		t.h.count("requests", 1)
@@ -250,6 +262,35 @@ func (h *Http) request(method, endpoint string, headers D, body io.Reader, outpu
 		request.Header.Set(k, str(v))
 	}
 	request.Header.Set("Accept-Encoding", "gzip")
+	if request.Body != nil && h.Telegram {
+		var bodyMu sync.Mutex
+		bodies := []*countedBody{}
+		wrap := func(source io.ReadCloser) io.ReadCloser {
+			wrapped := &countedBody{source: source, onRead: func(n uint64) { h.count("request_body_bytes", n) }}
+			bodyMu.Lock()
+			bodies = append(bodies, wrapped)
+			bodyMu.Unlock()
+			return wrapped
+		}
+		request.Body = wrap(request.Body)
+		if originalGetBody := request.GetBody; originalGetBody != nil {
+			request.GetBody = func() (io.ReadCloser, error) {
+				body, e := originalGetBody()
+				if e != nil {
+					return nil, e
+				}
+				return wrap(body), nil
+			}
+		}
+		defer func() {
+			bodyMu.Lock()
+			snapshot := append([]*countedBody{}, bodies...)
+			bodyMu.Unlock()
+			for _, body := range snapshot {
+				_ = body.Close()
+			}
+		}()
+	}
 	client := h.client(method == "HEAD")
 	// The wrapper is installed once per client, before this job first uses it.
 	h.mu.Lock()
@@ -341,7 +382,9 @@ func (h *Http) api(token, method string, params D, video string) (any, error) {
 		reader, writer := io.Pipe()
 		form := multipart.NewWriter(writer)
 		contentType := form.FormDataContentType()
+		producerDone := make(chan struct{})
 		go func() {
+			defer close(producerDone)
 			var outcome error
 			defer func() { _ = writer.CloseWithError(outcome) }()
 			for k, v := range params {
@@ -371,6 +414,7 @@ func (h *Http) api(token, method string, params D, video string) (any, error) {
 		}()
 		r, e = h.request("POST", endpoint, D{"Content-Type": contentType}, reader, "", 0, false, false)
 		_ = reader.Close()
+		<-producerDone
 	} else {
 		r, e = h.request("POST", endpoint, D{"Content-Type": "application/json"}, strings.NewReader(dump(params)), "", 0, false, false)
 	}

@@ -38,7 +38,12 @@ func metadata() D {
 		"full_port_complete": fullPortComplete, "profile": "optimized default gc compiler; trimpath; CGO_ENABLED=0",
 		"configuration_sha256": hashes, "dependencies": dependencies, "gomaxprocs": runtime.GOMAXPROCS(0)}
 }
-func run() error {
+func run() (outcome error) {
+	defer func() {
+		if recover() != nil {
+			outcome = fault("NativeError")
+		}
+	}()
 	args := os.Args[1:]
 	if slices.Contains(args, "--describe") {
 		fmt.Println(dump(metadata()))
