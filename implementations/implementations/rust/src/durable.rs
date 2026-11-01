@@ -18,15 +18,17 @@ pub fn integer(value: &Bson) -> Option<i64> {
     match value {
         Bson::Int32(n) => Some(*n as i64),
         Bson::Int64(n) => Some(*n),
-        Bson::Double(n) if n.is_finite() => Some(*n as i64),
+        Bson::Double(n) if n.is_finite() && n.fract() == 0. => Some(*n as i64),
         _ => None,
     }
 }
-pub fn identifiers(event: &Document, key: &str) -> Vec<i64> {
+pub fn identifiers(event: &Document, key: &str) -> Result<Vec<i64>> {
     event
         .get_array(key)
-        .map(|a| a.iter().filter_map(integer).collect())
-        .unwrap_or_default()
+        .map_err(|_| Error::Config)?
+        .iter()
+        .map(|value| integer(value).ok_or(Error::Config))
+        .collect()
 }
 pub fn duplicate_key(error: &mongodb::error::Error) -> bool {
     use mongodb::error::{ErrorKind, WriteFailure};

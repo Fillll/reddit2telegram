@@ -1,3 +1,4 @@
+mod achievements;
 mod anniversaries;
 mod custom;
 mod durable;

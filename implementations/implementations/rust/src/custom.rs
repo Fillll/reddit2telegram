@@ -180,6 +180,7 @@ pub async fn resolve(app: &App, module: &str) -> Result<Channel> {
 pub async fn maintenance(app: &App, module: &str, sender: &Sender) -> Result<Supply> {
     match module {
         "tech_anniversary" => crate::anniversaries::run(app, sender).await,
+        "tech_store_stat" => crate::achievements::run(app, sender).await,
         _ => Err(Error::IncompletePort),
     }
 }
