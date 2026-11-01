@@ -154,7 +154,39 @@ std::string lower(std::string v) {
         c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
     return v;
 }
+static uint32_t next_codepoint(const std::string &s, size_t &i) {
+    auto c = static_cast<unsigned char>(s[i++]);
+    if (c < 0x80)
+        return c;
+    int remaining = (c & 0xe0) == 0xc0 ? 1 : (c & 0xf0) == 0xe0 ? 2 : (c & 0xf8) == 0xf0 ? 3 : 0;
+    uint32_t value = c & ((1u << (6 - remaining)) - 1);
+    for (int n = 0; n < remaining && i < s.size(); n++) {
+        auto b = static_cast<unsigned char>(s[i]);
+        if ((b & 0xc0) != 0x80)
+            break;
+        value = (value << 6) | (b & 63);
+        i++;
+    }
+    return value;
+}
+static bool whitespace(uint32_t c) {
+    return (c >= 9 && c <= 13) || (c >= 0x1c && c <= 0x20) || c == 0x85 || c == 0xa0 ||
+           c == 0x1680 || (c >= 0x2000 && c <= 0x200a) || c == 0x2028 || c == 0x2029 ||
+           c == 0x202f || c == 0x205f || c == 0x3000;
+}
 std::string trim(const std::string &s, const std::string &chars) {
+    if (chars == " \t\r\n") {
+        size_t first = s.size(), last = 0;
+        for (size_t i = 0; i < s.size();) {
+            auto begin = i;
+            auto c = next_codepoint(s, i);
+            if (!whitespace(c)) {
+                first = std::min(first, begin);
+                last = i;
+            }
+        }
+        return first == s.size() ? "" : s.substr(first, last - first);
+    }
     auto a = s.find_first_not_of(chars);
     return a == std::string::npos ? "" : s.substr(a, s.find_last_not_of(chars) - a + 1);
 }
@@ -180,11 +212,21 @@ std::string join(const std::vector<std::string> &v, const std::string &d) {
     return out;
 }
 std::vector<std::string> words(const std::string &s) {
-    std::istringstream in(s);
     std::vector<std::string> v;
-    std::string x;
-    while (in >> x)
-        v.push_back(x);
+    std::optional<size_t> start;
+    for (size_t i = 0; i < s.size();) {
+        auto begin = i;
+        auto c = next_codepoint(s, i);
+        if (whitespace(c)) {
+            if (start) {
+                v.push_back(s.substr(*start, begin - *start));
+                start.reset();
+            }
+        } else if (!start)
+            start = begin;
+    }
+    if (start)
+        v.push_back(s.substr(*start));
     return v;
 }
 void replace_all(std::string &s, const std::string &a, const std::string &b) {

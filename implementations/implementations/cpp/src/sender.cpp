@@ -3,7 +3,13 @@
 #include <regex>
 namespace r2t {
 static std::string regex_escape(const std::string &s) {
-    return std::regex_replace(s, std::regex(R"([.^$|()\[\]{}*+?\\])"), R"(\$&)");
+    std::string out;
+    for (char c : s) {
+        if (std::string_view(R"(\.^$|()[]{}*+?)").find(c) != std::string_view::npos)
+            out += '\\';
+        out += c;
+    }
+    return out;
 }
 std::string html_escape(std::string v) {
     replace_all(v, "&", "&amp;");
@@ -33,17 +39,21 @@ static std::string utf8(uint32_t n) {
     return s;
 }
 std::string html_decode(std::string value) {
-    static const std::regex numeric("&#(x[0-9a-fA-F]+|[0-9]+);");
-    std::vector<std::smatch> matches;
+    static const std::regex numeric("&#([xX][0-9a-fA-F]+|[0-9]+);");
+    struct Entity {
+        size_t position, length;
+        std::string value;
+    };
+    std::vector<Entity> matches;
     for (std::sregex_iterator i(value.begin(), value.end(), numeric), end; i != end; ++i)
-        matches.push_back(*i);
+        matches.push_back({size_t(i->position()), size_t(i->length()), (*i)[1].str()});
     for (auto i = matches.rbegin(); i != matches.rend(); ++i) {
-        auto s = (*i)[1].str();
+        auto s = i->value;
         try {
-            auto n = std::stoul(s.starts_with("x") ? s.substr(1) : s, nullptr,
-                                s.starts_with("x") ? 16 : 10);
+            auto hex = s.starts_with("x") || s.starts_with("X");
+            auto n = std::stoul(hex ? s.substr(1) : s, nullptr, hex ? 16 : 10);
             if (n <= 0x10ffff && !(n >= 0xd800 && n <= 0xdfff))
-                value.replace(i->position(), i->length(), utf8(n));
+                value.replace(i->position, i->length, utf8(n));
         } catch (...) {
         }
     }
