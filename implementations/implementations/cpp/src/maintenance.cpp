@@ -185,6 +185,8 @@ static std::string normalize(const std::string &input, const std::string &kind) 
     return trim(trim(value), "/");
 }
 static std::string normalize_tags(std::string input) {
+    input =
+        std::regex_replace(trim(input), std::regex("^\\s*tags\\s*:\\s*", std::regex::icase), "");
     replace_all(input, ",", " ");
     std::set<std::string> seen;
     std::vector<std::string> tags;
