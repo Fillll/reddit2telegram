@@ -136,6 +136,7 @@ std::string form(const std::map<std::string, std::string> &fields) {
     return join(parts, "&");
 }
 ParsedURL parse_url(const std::string &value) {
+    r2t_init();
     auto url = curl_url();
     if (!url)
         throw Error(Kind::Media);

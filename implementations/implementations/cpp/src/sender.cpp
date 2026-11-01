@@ -553,15 +553,15 @@ Supply Sender::simple(Json submission, const Json &options, Reddit &reddit) cons
         replace_all(markdown, "{short_link}", "[{short_link}]({short_link})");
         replace_all(markdown, "{channel}", "[{channel}]({channel})");
         try {
-            return send_text(format(markdown, fields), preview, "Markdown");
+            return send_text(r2t::format(markdown, fields), preview, "Markdown");
         } catch (const Error &e) {
             if (e.kind != Kind::Rejected)
                 throw;
             log("Markdown fail in " + channel() + "; sending as plain text.");
-            return send_text(format(pattern, fields), preview);
+            return send_text(r2t::format(pattern, fields), preview);
         }
     }
-    auto body = format(pattern, fields);
+    auto body = r2t::format(pattern, fields);
     if (info.kind == "img")
         return send_image(info.url, body);
     if (info.kind == "gif")
