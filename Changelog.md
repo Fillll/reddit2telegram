@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.2.1] - 2026-11-01
+
+### Fixed
+
+- Exclude post-deadline resource usage when a live benchmark collector resumes late.
+
 ## [1.2.0] - 2026-11-01
 
 ### Added
