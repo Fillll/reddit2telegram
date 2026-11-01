@@ -2,17 +2,18 @@
 #define R2T_C_MODEL_H
 #define _GNU_SOURCE
 #include "CR2T.h"
-#ifndef JANSSON_THREAD_SAFE_REFCOUNT
-#error The worker pool requires Jansson with atomic reference counts.
-#endif
-/* Jansson's iterator API lacks const qualifiers but does not mutate the map. */
-#define JOBJECT_FOREACH(object, key, value) json_object_foreach((json_t *)(object), key, value)
 #include <jansson.h>
 #include <pthread.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <time.h>
+
+#ifndef JANSSON_THREAD_SAFE_REFCOUNT
+#error The worker pool requires Jansson with atomic reference counts.
+#endif
+/* Jansson's iterator API lacks const qualifiers but does not mutate the map. */
+#define JOBJECT_FOREACH(object, key, value) json_object_foreach((json_t *)(object), key, value)
 
 typedef enum {
     E_NONE,
