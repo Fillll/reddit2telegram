@@ -6,7 +6,7 @@ use bytes::Bytes;
 use futures_util::{StreamExt, stream};
 use reqwest::{Client, Method, Response, StatusCode};
 use serde_json::Value;
-use std::{path::Path, time::Duration};
+use std::{path::Path, sync::Arc, time::Duration};
 use tokio::io::AsyncWriteExt;
 use tokio_util::io::ReaderStream;
 
@@ -14,42 +14,75 @@ use tokio_util::io::ReaderStream;
 pub struct Http {
     pub client: Client,
     pub metrics: Metrics,
+    head: Arc<tokio::sync::OnceCell<Client>>,
 }
 impl Http {
     pub fn new(metrics: Metrics, connect: u64) -> Result<Self> {
+        let client = Self::build_client(
+            metrics.clone(),
+            connect,
+            if connect == 30 { 30 } else { 20 },
+            connect == 30,
+        )?;
+        Ok(Self {
+            client,
+            metrics,
+            head: Arc::new(tokio::sync::OnceCell::new()),
+        })
+    }
+    fn build_client(metrics: Metrics, connect: u64, read: u64, telegram: bool) -> Result<Client> {
+        let redirects = if telegram {
+            reqwest::redirect::Policy::none()
+        } else {
+            reqwest::redirect::Policy::custom(move |attempt| {
+                if attempt.previous().len() >= 30 {
+                    return attempt.error("redirect limit");
+                }
+                metrics.status("http", attempt.status().as_u16());
+                metrics.count("http_request_attempts", 1);
+                attempt.follow()
+            })
+        };
         let client = Client::builder()
             .http1_only()
             .connect_timeout(Duration::from_secs(connect))
+            .read_timeout(Duration::from_secs(read))
             .pool_max_idle_per_host(1)
-            .redirect(reqwest::redirect::Policy::limited(30))
+            .redirect(redirects)
             .build()
             .map_err(|_| Error::Network)?;
-        Ok(Self { client, metrics })
+        Ok(client)
     }
     pub async fn send(
         &self,
         builder: reqwest::RequestBuilder,
-        timeout: u64,
+        _timeout: u64,
         prefix: &str,
     ) -> Result<Response> {
         self.metrics.count(&format!("{prefix}_request_attempts"), 1);
-        let response =
-            match tokio::time::timeout(Duration::from_secs(timeout), builder.send()).await {
-                Ok(Ok(response)) => response,
-                Ok(Err(_)) => {
-                    self.metrics.count(&format!("{prefix}_transport_errors"), 1);
-                    return Err(Error::Network);
-                }
-                Err(_) => {
-                    self.metrics.count(&format!("{prefix}_transport_errors"), 1);
-                    return Err(Error::Timeout);
-                }
-            };
+        let response = match builder.send().await {
+            Ok(response) => response,
+            Err(error) => {
+                self.metrics.count(&format!("{prefix}_transport_errors"), 1);
+                return Err(if error.is_timeout() {
+                    Error::Timeout
+                } else {
+                    Error::Network
+                });
+            }
+        };
         self.metrics.status(prefix, response.status().as_u16());
         Ok(response)
     }
     pub async fn request(&self, method: Method, url: &str, timeout: u64) -> Result<Response> {
-        self.send(self.client.request(method, url), timeout, "http")
+        let client = if method == Method::HEAD {
+            self.head
+                .get_or_try_init(|| async { Self::build_client(self.metrics.clone(), 3, 8, false) })
+                .await?
+        } else {
+            &self.client
+        };
+        self.send(client.request(method, url), timeout, "http")
             .await
     }
     pub async fn body(

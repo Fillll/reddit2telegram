@@ -1,6 +1,5 @@
 use crate::{
     custom,
-    http::Http,
     metrics::{self, Metrics},
     model::{self, Config, Error, Result, Supply, now},
     reddit::Reddit,

@@ -47,7 +47,7 @@ pub async fn cleaner(app: &App, sender: &Sender) -> Result<Supply> {
     let lines: Vec<_> = output.split('\n').collect();
     let traffic = lines
         .get(lines.len().saturating_sub(4))
-        .and_then(|l| l.split(" | ").rev().nth(1))
+        .and_then(|l| l.rsplit(" | ").nth(1))
         .ok_or(Error::Io)?
         .trim();
     let estimate = lines

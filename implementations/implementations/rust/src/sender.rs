@@ -15,13 +15,8 @@ use mongodb::{
 };
 use reqwest::Method;
 use serde_json::{Value, json};
-use std::{
-    collections::HashMap,
-    path::{Path, PathBuf},
-    sync::Arc,
-    time::Duration,
-};
-use tokio::{io::AsyncWriteExt, process::Command, sync::Semaphore};
+use std::{collections::HashMap, sync::Arc, time::Duration};
+use tokio::{process::Command, sync::Semaphore};
 
 pub const MEDIA_LIMIT: u64 = 50 * 1024 * 1024;
 #[derive(Clone)]
