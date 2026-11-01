@@ -244,7 +244,7 @@ Supply maintenance(const App &app, const std::string &module, Sender &sender) {
         return receiver(app, sender);
     if (module == "tech_weekly_radar")
         return weekly(app, sender);
-    throw Error(Kind::IncompletePort);
+    throw Error(Kind::UnknownTask);
 }
 Supply post(const App &app, const std::string &module, const Channel &channel,
             const Json &submission, Sender &sender, Reddit &reddit) {

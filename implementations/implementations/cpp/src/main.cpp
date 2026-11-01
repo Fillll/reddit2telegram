@@ -3,7 +3,7 @@
 #include "queue.hpp"
 #include <iostream>
 namespace r2t {
-inline constexpr bool full_port_complete = false;
+inline constexpr bool full_port_complete = true;
 }
 int main(int argc, char **argv) {
     using namespace r2t;

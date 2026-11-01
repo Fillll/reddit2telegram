@@ -45,8 +45,9 @@ Builds use checksum-pinned LLVM 23.1.4 and nlohmann/json 3.12.0 with C++23,
 optimized release flags and LTO. Runtime library/package receipts, compiler and
 source identity, literal configuration hashes and an executable checksum travel
 with the artifact. Compilation and `--describe` use no app credentials or app
-traffic. The full-port execution guard remains disabled until compilation and
-artifact review pass; the subsequent live window still needs to establish
+traffic. Full source compilation and packaging passed before enabling the
+application roles; inspect the exact enabled artifact before handoff. The
+subsequent live window still needs to establish
 observed delivery, stability, errors, backlog and resource usage.
 
 The implementation uses bounded native threads, libmongoc/libcurl/OpenSSL and a

@@ -8,9 +8,9 @@ Source coverage includes pooled MongoDB commands with BSON IDs/dates, configurat
 schema-1 telemetry, streaming media delivery, Reddit acquisition, queue/scheduling,
 channel policies, channel intake, cleanup, weekly reporting, subscriber snapshots,
 durable milestone/anniversary delivery and credential-safe error reporting.
-See PORTING.md for the mapping and review limits. `full_port_complete=false`
-keeps application execution blocked while the first complete native build and
-artifact review remain pending. No C++ live validation has run yet.
+See PORTING.md for the mapping and review limits. Complete source compilation
+and packaging passed; the enabled application must pass an exact-head build
+and artifact review before deployment. No C++ live validation has run yet.
 
 Release compilation runs on GitHub Actions, away from the measured host. LLVM
 23.1.4 and nlohmann/json 3.12.0 downloads are pinned by SHA-256; runtime library
