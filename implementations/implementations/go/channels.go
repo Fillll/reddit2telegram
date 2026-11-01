@@ -393,7 +393,8 @@ func channelMaintenance(app *App, module string, sender *Sender) (Supply, error)
 		return weekly(app, sender)
 	case "tech_anniversary":
 		return anniversaries(app, sender)
+	case "tech_store_stat":
+		return achievements(app, sender)
 	}
-	// Completion guard remains false until durable announcements are ported.
-	return Skip, fault("IncompletePort")
+	return Skip, fault("UnknownTask")
 }
