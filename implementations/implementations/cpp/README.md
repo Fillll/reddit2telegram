@@ -1,14 +1,16 @@
 # Native C++ implementation
 
-This work in progress implements the scheduled application in C++23. The C
+This implements the scheduled application in C++23. The C
 platform module wraps libmongoc/libbson, libcurl/OpenSSL, libyaml and Linux APIs;
 all application behavior belongs in C++. No Python worker performs native work.
 
-Foundations include pooled MongoDB commands with BSON IDs/dates, configuration,
-credential-safe errors, schema-1 telemetry, streaming media transport and Reddit
-OAuth/listings/hydration. Queue, posting, channel policies and full maintenance
-and durable-announcement behavior remain in progress. `full_port_complete=false`
-blocks execution before reading application configuration or accessing its queue.
+Source coverage includes pooled MongoDB commands with BSON IDs/dates, configuration,
+schema-1 telemetry, streaming media delivery, Reddit acquisition, queue/scheduling,
+channel policies, channel intake, cleanup, weekly reporting, subscriber snapshots,
+durable milestone/anniversary delivery and credential-safe error reporting.
+See PORTING.md for the mapping and review limits. `full_port_complete=false`
+keeps application execution blocked while the first complete native build and
+artifact review remain pending. No C++ live validation has run yet.
 
 Release compilation runs on GitHub Actions, away from the measured host. LLVM
 23.1.4 and nlohmann/json 3.12.0 downloads are pinned by SHA-256; runtime library
