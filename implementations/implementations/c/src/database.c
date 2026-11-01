@@ -32,7 +32,7 @@ json_t *db_command(const Database *db, const char *command, const json_t *value,
     json_auto_t *request = JO(P(command, jr(value))).p;
     const char *key;
     json_t *v;
-    json_object_foreach(fields, key, v) jset(request, key, v);
+    JOBJECT_FOREACH(fields, key, v) jset(request, key, v);
     STR(wire) = dump_json(request);
     int code = 0;
     BSONSTR(raw) = r2t_db_command(db->pool, db->name, wire, &code);

@@ -229,7 +229,7 @@ Media *sender_classify(Sender *s, const json_t *submission, Error *error) {
         Item *ordered __attribute__((cleanup(items_free))) = xcalloc(n ? n : 1, sizeof(Item));
         const char *key;
         size_t at = 0;
-        json_object_foreach(last, key, item) ordered[at++] = (Item){item};
+        JOBJECT_FOREACH(last, key, item) ordered[at++] = (Item){item};
         qsort_r(ordered, n, sizeof(Item), compare_items, &numeric);
         json_auto_t *media = json_array();
         for (i = 0; i < n; i++) {
@@ -399,7 +399,7 @@ bool sender_simple(Sender *s, const json_t *initial, const json_t *options, Redd
             .p;
     const char *key;
     json_t *v;
-    json_object_foreach(options, key, v) {
+    JOBJECT_FOREACH(options, key, v) {
         STR(value) = json_is_string(v) ? xstrdup(text(v)) : dump_json(v);
         json_object_set_new(fields, key, js(value).p);
     }
@@ -415,9 +415,10 @@ bool sender_simple(Sender *s, const json_t *initial, const json_t *options, Redd
         int64_t limit;
         if (integer(get(options, "max_selftext_len"), &limit)) {
             const char *source = field(submission, "selftext");
-            size_t count = codepoints(source),
-                   take = limit < 0 ? (size_t)(-limit) > count ? 0 : count - (size_t)(-limit)
-                                    : (size_t)limit;
+            size_t count = codepoints(source);
+            uint64_t absolute = limit < 0 ? (uint64_t)(-(limit + 1)) + 1 : (uint64_t)limit;
+            size_t take =
+                limit < 0 ? (absolute > count ? 0 : count - (size_t)absolute) : (size_t)absolute;
             STR(prefix) = strndup(source, unicode_offset(source, take));
             STR(body) = strf("%s...", prefix);
             json_object_set_new(fields, "self_text", js(body).p);

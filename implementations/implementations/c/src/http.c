@@ -45,7 +45,7 @@ Response *http_request(Http *h, const char *method, const char *url, const json_
     BUF(header_lines);
     const char *key;
     json_t *v;
-    json_object_foreach(headers, key, v) {
+    JOBJECT_FOREACH(headers, key, v) {
         buffer_text(&header_lines, key);
         buffer_text(&header_lines, ": ");
         buffer_text(&header_lines, text(v));
@@ -136,7 +136,7 @@ json_t *http_api(Http *h, const char *token, const char *method, const json_t *p
         json_auto_t *fields = json_object();
         const char *key;
         json_t *v;
-        json_object_foreach(params, key, v) {
+        JOBJECT_FOREACH(params, key, v) {
             STR(value) = json_is_string(v) ? xstrdup(text(v)) : dump_json(v);
             json_object_set_new(fields, key, js(value).p);
         }
@@ -187,7 +187,7 @@ char *form_body(const json_t *fields) {
     bool first = true;
     const char *key;
     json_t *v;
-    json_object_foreach(fields, key, v) {
+    JOBJECT_FOREACH(fields, key, v) {
         STR(k) = percent_encode(key);
         STR(value) = percent_encode(text(v));
         if (!first)

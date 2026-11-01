@@ -4,6 +4,7 @@
 #include <openssl/rand.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 static pthread_mutex_t cache_lock = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 static char *cached_weighted = NULL, *cached_promotion = NULL;
 static void unlock(pthread_mutex_t **p) {
@@ -34,7 +35,7 @@ json_t *public_modules(const App *app, Error *error) {
     const char *key;
     json_t *value;
     size_t at = 0;
-    json_object_foreach(unique, key, value) values[at++] = js(key).p;
+    JOBJECT_FOREACH(unique, key, value) values[at++] = js(key).p;
     qsort(values, count, sizeof(json_t *), string_compare);
     json_t *out = json_array();
     for (i = 0; i < count; i++)
@@ -53,10 +54,10 @@ static char *weighted(Error *error) {
     double total = 0;
     const char *name;
     json_t *weight;
-    json_object_foreach(weights, name, weight) total += number(weight, 0);
+    JOBJECT_FOREACH(weights, name, weight) total += number(weight, 0);
     REQUIRE(total > 0, E_CONFIG, NULL);
     double draw = (double)(random_bits() >> 11) / 9007199254740992.0 * total;
-    json_object_foreach(weights, name, weight) {
+    JOBJECT_FOREACH(weights, name, weight) {
         if (draw < number(weight, 0)) {
             cached_weighted = xstrdup(name);
             return xstrdup(name);
@@ -184,7 +185,7 @@ static char *promotion_target(const App *app, Error *error) {
     Ordered *values = xcalloc(n ? n : 1, sizeof(Ordered));
     const char *key;
     size_t count = 0;
-    json_object_foreach(order, key, v) {
+    JOBJECT_FOREACH(order, key, v) {
         double stamp = 0;
         bson_timestamp(v, &stamp);
         values[count++] = (Ordered){key, stamp};
