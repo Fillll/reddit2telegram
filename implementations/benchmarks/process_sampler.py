@@ -7,7 +7,7 @@ that distinction rather than implying five-second polling captures every child.
 """
 
 import argparse
-from collections import defaultdict
+import fcntl
 import json
 import os
 from pathlib import Path
@@ -69,11 +69,16 @@ def snapshot(group):
 
 def collect(directory, interval=5):
     directory = directory.resolve()
+    lock = (directory / 'process_sampler.lock').open('a')
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        raise ValueError('A process sampler is already running for this window')
     manifest = json.loads((directory / 'manifest.json').read_text())
     if manifest['deadline'] - manifest['started_at'] != 86400:
         raise ValueError('Expected the original 24-hour window')
     if time.time() >= manifest['deadline']:
-        raise ValueError('The measurement window has already ended')
+        return  # A delayed service restart must not collect beyond the deadline.
     stop = threading.Event()
     for which in (signal.SIGTERM, signal.SIGINT):
         signal.signal(which, lambda *_: stop.set())
