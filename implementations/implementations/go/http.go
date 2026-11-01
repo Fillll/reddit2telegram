@@ -13,6 +13,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptrace"
+	"net/textproto"
 	"net/url"
 	"os"
 	"strings"
@@ -402,7 +403,10 @@ func (h *Http) api(token, method string, params D, video string) (any, error) {
 				return
 			}
 			defer file.Close()
-			part, err := form.CreateFormFile("video", "video.mp4")
+			part, err := form.CreatePart(textproto.MIMEHeader{
+				"Content-Disposition": {`form-data; name="video"; filename="video.mp4"`},
+				"Content-Type":        {"video/mp4"},
+			})
 			if err != nil {
 				outcome = err
 				return

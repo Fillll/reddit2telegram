@@ -14,7 +14,7 @@ var assets embed.FS
 var version = "unbuilt"
 var sourceCommit = "unbuilt"
 
-const fullPortComplete = false
+const fullPortComplete = true
 
 func asset(name string) []byte {
 	raw, e := assets.ReadFile("assets/" + name + ".json")
@@ -35,7 +35,8 @@ func metadata() D {
 		}
 	}
 	return D{"language": "go", "version": version, "source_commit": sourceCommit, "compiler": runtime.Version(),
-		"full_port_complete": fullPortComplete, "profile": "optimized default gc compiler; trimpath; CGO_ENABLED=0",
+		"full_port_complete": fullPortComplete, "profile": "optimized default gc compiler; trimpath; stripped debug tables; CGO_ENABLED=0",
+		"allocator":            "Go runtime GC; 60-second RSS check and FreeOSMemory at 256 MiB; libc arenas do not apply",
 		"configuration_sha256": hashes, "dependencies": dependencies, "gomaxprocs": runtime.GOMAXPROCS(0)}
 }
 func run() (outcome error) {
