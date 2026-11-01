@@ -6,6 +6,7 @@ struct HTTPResponse {
     let body: Data
     let headers: [String: String]
     let tooLarge: Bool
+    let digest: String?
     func json() throws -> Any {
         do { return try parseJSON(body) } catch { throw R2TError.network }
     }
@@ -21,7 +22,7 @@ final class HTTP {
     deinit { r2t_http_close(handle) }
     func request(_ method: String, _ url: String, headers: [String: String] = [:],
                  body: Data = Data(), multipart: Doc? = nil,
-                 output: URL? = nil, limit: UInt64 = 0) throws -> HTTPResponse {
+                 output: URL? = nil, limit: UInt64 = 0, digest: String? = nil) throws -> HTTPResponse {
         let prefix = telegram ? "telegram" : "http"
         let head = method == "HEAD"
         let connect = telegram ? 30 : (head ? 3 : 5)
@@ -31,7 +32,7 @@ final class HTTP {
         metrics.count(prefix + "_request_attempts")
         let raw = body.withUnsafeBytes { bytes in
             r2t_http_request(handle, method, url, headerLines, bytes.baseAddress, bytes.count,
-                specification, output?.path, limit, connect, read, telegram ? 0 : 1)
+                specification, output?.path, limit, connect, read, telegram ? 0 : 1, digest)
         }
         guard let raw else { metrics.count(prefix + "_transport_errors"); throw R2TError.network }
         defer { r2t_response_free(raw) }
@@ -55,7 +56,8 @@ final class HTTP {
             }
         }
         let data = response.body.map { Data(bytes: $0, count: response.length) } ?? Data()
-        return HTTPResponse(status: Int(response.status), body: data, headers: fields, tooLarge: response.too_large != 0)
+        return HTTPResponse(status: Int(response.status), body: data, headers: fields, tooLarge: response.too_large != 0,
+            digest: response.body_digest.map { String(cString: $0) })
     }
     func download(_ url: String, to path: URL, limit: UInt64) -> Bool {
         let ok: Bool

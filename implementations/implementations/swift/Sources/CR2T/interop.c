@@ -131,6 +131,7 @@ typedef struct {
     r2t_response *response; FILE *file; uint64_t maximum;
     double last_progress; curl_off_t last_download, last_upload;
     long idle_seconds;
+    EVP_MD_CTX *digest;
 } transfer;
 static double monotonic_now(void) {
     struct timespec t; clock_gettime(CLOCK_MONOTONIC,&t); return t.tv_sec+t.tv_nsec/1e9;
@@ -139,6 +140,8 @@ static size_t receive(char *bytes, size_t size, size_t count, void *data) {
     transfer *t=data; size_t n=size*count;
     t->last_progress=monotonic_now(); t->response->received+=n;
     if (t->maximum && t->response->received>t->maximum) { t->response->too_large=1; return 0; }
+    if (t->response->too_large) return 0;
+    if (t->digest) return EVP_DigestUpdate(t->digest,bytes,n) ? n : 0;
     if (t->file) return fwrite(bytes,1,n,t->file);
     if (SIZE_MAX-t->response->length<=n) return 0;
     unsigned char *new_body=realloc(t->response->body,t->response->length+n+1);
@@ -149,6 +152,10 @@ static size_t receive(char *bytes, size_t size, size_t count, void *data) {
 }
 static size_t header(char *bytes,size_t size,size_t count,void *data) {
     transfer *t=data; size_t n=size*count;
+    if (t->maximum && n>15 && !strncasecmp(bytes,"Content-Length:",15)) {
+        unsigned long long length=strtoull(bytes+15,NULL,10);
+        if(length>t->maximum) t->response->too_large=1;
+    }
     if (n>=5 && !memcmp(bytes,"HTTP/",5)) {
         free(t->response->headers); t->response->headers=NULL;
         /* Count each real response, including redirects, excluding 100 Continue. */
@@ -205,12 +212,19 @@ void *r2t_http_open(void) { r2t_init(); return curl_easy_init(); }
 void r2t_http_close(void *client) { if(client) curl_easy_cleanup(client); }
 r2t_response *r2t_http_request(void *client,const char *method,const char *url,const char *headers,
     const void *body,size_t body_length,const char *multipart,const char *output_path,uint64_t maximum,
-    long connect_seconds,long read_seconds,int redirects) {
+    long connect_seconds,long read_seconds,int redirects,const char *digest_algorithm) {
     r2t_response *r=calloc(1,sizeof(*r)); if (!r) return NULL;
     CURL *curl=client; if (!curl) { r->error=CURLE_FAILED_INIT; return r; }
     curl_easy_reset(curl);
     transfer t={.response=r,.maximum=maximum,.last_progress=monotonic_now(),.idle_seconds=read_seconds};
-    if (output_path && *output_path) { t.file=fopen(output_path,"wb"); if (!t.file) { r->error=CURLE_WRITE_ERROR; return r; } }
+    if (digest_algorithm) {
+        const EVP_MD *md=EVP_get_digestbyname(digest_algorithm);
+        t.digest=EVP_MD_CTX_new();
+        if(!md || !t.digest || !EVP_DigestInit_ex(t.digest,md,NULL)) {
+            EVP_MD_CTX_free(t.digest); r->error=CURLE_FAILED_INIT; return r;
+        }
+    }
+    if (output_path && *output_path) { t.file=fopen(output_path,"wb"); if (!t.file) { EVP_MD_CTX_free(t.digest); r->error=CURLE_WRITE_ERROR; return r; } }
     curl_easy_setopt(curl,CURLOPT_URL,url);
     curl_easy_setopt(curl,CURLOPT_NOSIGNAL,1L);
     curl_easy_setopt(curl,CURLOPT_CONNECTTIMEOUT,connect_seconds);
@@ -245,10 +259,18 @@ r2t_response *r2t_http_request(void *client,const char *method,const char *url,c
     curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE,&r->status);
     curl_off_t sent=0; curl_easy_getinfo(curl,CURLINFO_SIZE_UPLOAD_T,&sent); r->sent=sent>0 ? (uint64_t)sent : 0;
 finish:
+    if(t.digest) {
+        unsigned char bytes[EVP_MAX_MD_SIZE]; unsigned n=0;
+        if(!r->error && EVP_DigestFinal_ex(t.digest,bytes,&n)) {
+            r->body_digest=malloc(n*2+1);
+            if(r->body_digest) for(unsigned i=0;i<n;i++) snprintf(r->body_digest+i*2,3,"%02x",bytes[i]);
+        }
+        EVP_MD_CTX_free(t.digest);
+    }
     curl_mime_free(mime); curl_slist_free_all(list); free(copy);
     if(t.file) fclose(t.file);
     return r;
 }
 void r2t_response_free(r2t_response *r) {
-    if(r) { free(r->body); free(r->headers); free(r); }
+    if(r) { free(r->body); free(r->headers); free(r->body_digest); free(r); }
 }
