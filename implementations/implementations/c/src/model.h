@@ -49,7 +49,7 @@ bool error_set(Error *error, ErrorKind kind, int code);
 void *xcalloc(size_t count, size_t size);
 char *xstrdup(const char *s);
 char *strf(const char *format, ...) __attribute__((format(printf, 1, 2)));
-void auto_free(void *pointer);
+void auto_free(char **pointer);
 void auto_bson_free(char **pointer);
 #define STR(name) char *name __attribute__((cleanup(auto_free)))
 #define BSONSTR(name) char *name __attribute__((cleanup(auto_bson_free)))

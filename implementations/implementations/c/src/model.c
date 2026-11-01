@@ -45,8 +45,8 @@ char *strf(const char *fmt, ...) {
         abort();
     return s;
 }
-void auto_free(void *p) {
-    free(*(void **)p);
+void auto_free(char **p) {
+    free(*p);
 }
 void auto_bson_free(char **p) {
     r2t_free(*p);
