@@ -353,6 +353,25 @@ char *join(const json_t *values, const char *delimiter) {
     }
     return buffer_take(&out);
 }
+json_t *split_text(const char *s, const char *delimiter) {
+    json_t *out = json_array();
+    if (!out)
+        abort();
+    size_t n = strlen(delimiter);
+    if (!n) {
+        json_array_append_new(out, js(s).p);
+        return out;
+    }
+    const char *start = s, *end;
+    while ((end = strstr(start, delimiter))) {
+        json_t *v = json_stringn(start, (size_t)(end - start));
+        if (!v || json_array_append_new(out, v))
+            abort();
+        start = end + n;
+    }
+    json_array_append_new(out, js(start).p);
+    return out;
+}
 struct tm time_parts(double stamp, bool utc) {
     time_t time = (time_t)stamp;
     struct tm tm = {0};

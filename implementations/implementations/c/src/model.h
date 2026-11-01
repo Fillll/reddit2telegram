@@ -137,4 +137,10 @@ size_t config_pending(const Config *config);
 size_t config_batch(const Config *config);
 char *config_cron_path(const Config *config);
 typedef enum { SUPPLY_SENT, SUPPLY_REJECT, SUPPLY_SKIP, SUPPLY_STOP } Supply;
+static inline bool supply_result(Supply *out, Supply value) {
+    if (out)
+        *out = value;
+    return true;
+}
+json_t *split_text(const char *value, const char *delimiter);
 #endif
