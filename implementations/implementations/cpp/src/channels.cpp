@@ -1,5 +1,6 @@
 #include "channels.hpp"
 #include "build_info.hpp"
+#include "maintenance.hpp"
 #include <set>
 namespace r2t {
 static std::recursive_mutex cache_lock;
@@ -201,9 +202,9 @@ Supply nice(const App &app, const std::string &module, const Json &submission, S
                              : (std::string(kind) == "other" || std::string(kind) == "album")
                                  ? "{announcement_heading}{title}\n{link}"
                                  : "{announcement_heading}{title}";
-        options[kind] =
-            prefix + "\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby "
-                     "{channel_to_promote}\n{tags}\n\n{extra_ending}";
+        options[kind] = prefix +
+                        "\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby "
+                        "{channel_to_promote}\n{tags}\n\n{extra_ending}";
     }
     return sender.simple(submission, options, reddit);
 }
@@ -230,7 +231,13 @@ static Supply promotion(const App &app, const Json &submission, Sender &sender, 
                       {{"$push", {{"already_promoted", target}}}});
     return result;
 }
-Supply maintenance(const App &, const std::string &, Sender &) {
+Supply maintenance(const App &app, const std::string &module, Sender &sender) {
+    if (module == "tech_cleaner")
+        return cleaner(app, sender);
+    if (module == "tech_receiver")
+        return receiver(app, sender);
+    if (module == "tech_weekly_radar")
+        return weekly(app, sender);
     throw Error(Kind::IncompletePort);
 }
 Supply post(const App &app, const std::string &module, const Channel &channel,
