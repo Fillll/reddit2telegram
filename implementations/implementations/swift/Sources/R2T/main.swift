@@ -3,7 +3,7 @@ import CR2T
 
 // Never start a partial port against the production queue. Source coverage and
 // successful compilation must be reviewed before this is enabled.
-let fullPortComplete = false
+let fullPortComplete = true
 let args = Array(CommandLine.arguments.dropFirst())
 do {
     if args.contains("--describe") {
