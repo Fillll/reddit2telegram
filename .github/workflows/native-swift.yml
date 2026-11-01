@@ -50,7 +50,8 @@ jobs:
           python3 - <<'PY'
           import pathlib, shutil, subprocess, re
           destination=pathlib.Path('dist/r2t-swift'); (destination/'lib').mkdir(parents=True,exist_ok=True)
-          binary=pathlib.Path('.build/release/r2t-swift').resolve()
+          output=pathlib.Path(subprocess.check_output(['swift','build','-c','release','--show-bin-path'],text=True).strip())
+          binary=output/'r2t-swift'
           shutil.copy2(binary,destination/'r2t-swift')
           for line in subprocess.check_output(['ldd',str(binary)],text=True).splitlines():
               match=re.search(r'=> (/\S+)',line)
@@ -61,8 +62,9 @@ jobs:
           # Swift/Foundation may load optional runtime components dynamically.
           for path in pathlib.Path('/usr/lib/swift/linux').glob('*.so*'):
               if path.is_file(): shutil.copy2(path,destination/'lib'/path.name)
-          for path in pathlib.Path('.build/release').glob('*.resources'):
-              shutil.copytree(path,destination/path.name)
+          for path in output.iterdir():
+              if path.is_dir() and path.suffix in ('.resources','.bundle'):
+                  shutil.copytree(path,destination/path.name)
           subprocess.run(['patchelf','--set-rpath','$ORIGIN/lib',str(destination/'r2t-swift')],check=True)
           (destination/'system-packages.txt').write_text(subprocess.check_output(['dpkg-query','-W'],text=True))
           PY
