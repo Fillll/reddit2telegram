@@ -94,7 +94,10 @@ enum Channels {
     static func post(_ app: App, module: String, channel: Channel, submission: Doc, sender: Sender, reddit: Reddit) throws -> Supply {
         switch module {
         case "reddit2telegram": return try promotion(app, submission: submission, sender: sender, reddit: reddit)
-        case "tech_cleaner", "tech_receiver", "tech_weekly_radar", "tech_store_stat", "tech_anniversary":
+        case "tech_cleaner": return try Maintenance.cleaner(app, sender: sender)
+        case "tech_receiver": return try Maintenance.receiver(app, sender: sender)
+        case "tech_weekly_radar": return try Maintenance.weekly(app, sender: sender)
+        case "tech_store_stat", "tech_anniversary":
             return try maintenance(app, module: module, sender: sender)
         default: return try sender.simple(submission, options: channel.options, reddit: reddit)
         }
