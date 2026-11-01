@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends cmake ninja-build pkg-config libmongoc-dev libcurl4-openssl-dev libyaml-dev libssl-dev libtinfo6 libzstd1 libxml2 libz3-4 patchelf
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         id: llvm
         with:
           path: ~/.cache/r2t-llvm-23.1.4
@@ -40,13 +40,18 @@ jobs:
           tar -tJf /tmp/r2t-llvm.tar.xz | python3 -c 'import sys; from pathlib import PurePosixPath as P; bins={"clang","clang++","clang-23","clang-format","lld","ld.lld","llvm-ar","llvm-ranlib"}; names=[s.strip() for s in sys.stdin]; print("\n".join(s for s in names if ("/bin/" in s and P(s).name in bins) or "/lib/clang/" in s or ("/lib/" in s and P(s).name.startswith(("libLLVM","libclang-cpp")))))' > /tmp/r2t-llvm-members.txt
           tar -xJf /tmp/r2t-llvm.tar.xz -C "$HOME/.cache/r2t-llvm-23.1.4" --strip-components=1 -T /tmp/r2t-llvm-members.txt
           rm /tmp/r2t-llvm.tar.xz
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        if: steps.llvm.outputs.cache-hit != 'true'
+        with:
+          path: ~/.cache/r2t-llvm-23.1.4
+          key: llvm-23.1.4-linux-x64-25d814fda50d5fb0
       - name: Compile optimized native application without app traffic
         env:
           PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
         run: |
           export PATH="$HOME/.cache/r2t-llvm-23.1.4/bin:$PATH"
-          clang++ --version
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_FLAGS=-fuse-ld=lld -DCMAKE_CXX_FLAGS=-fuse-ld=lld -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld
+          "$HOME/.cache/r2t-llvm-23.1.4/bin/clang++" --version
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="$HOME/.cache/r2t-llvm-23.1.4/bin/clang" -DCMAKE_CXX_COMPILER="$HOME/.cache/r2t-llvm-23.1.4/bin/clang++" -DCMAKE_C_FLAGS=-fuse-ld=lld -DCMAKE_CXX_FLAGS=-fuse-ld=lld -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld
           cmake --build build -j 2
       - name: Package binary and required runtime libraries
         run: |

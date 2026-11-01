@@ -1,4 +1,6 @@
 #include "channels.hpp"
+#include "achievements.hpp"
+#include "anniversaries.hpp"
 #include "build_info.hpp"
 #include "maintenance.hpp"
 #include <set>
@@ -232,6 +234,10 @@ static Supply promotion(const App &app, const Json &submission, Sender &sender, 
     return result;
 }
 Supply maintenance(const App &app, const std::string &module, Sender &sender) {
+    if (module == "tech_store_stat")
+        return achievements(app, sender);
+    if (module == "tech_anniversary")
+        return anniversaries(app, sender);
     if (module == "tech_cleaner")
         return cleaner(app, sender);
     if (module == "tech_receiver")
