@@ -1,7 +1,7 @@
 #ifndef R2T_CPP_PLATFORM_H
 #define R2T_CPP_PLATFORM_H
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -42,10 +42,10 @@ typedef struct {
 void *r2t_http_open(void);
 void r2t_http_close(void *client);
 r2t_response *r2t_http_request(void *client, const char *method, const char *url,
-    const char *headers, const void *body, size_t body_length,
-    const char *multipart, const char *output_path, uint64_t maximum_bytes,
-    long connect_seconds, long read_seconds, int follow_redirects,
-    const char *digest_algorithm);
+                               const char *headers, const void *body, size_t body_length,
+                               const char *multipart, const char *output_path,
+                               uint64_t maximum_bytes, long connect_seconds, long read_seconds,
+                               int follow_redirects, const char *digest_algorithm);
 void r2t_response_free(r2t_response *response);
 #ifdef __cplusplus
 }
