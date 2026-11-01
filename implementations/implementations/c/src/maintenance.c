@@ -1,4 +1,5 @@
 #include "maintenance.h"
+#include <ctype.h>
 #include <math.h>
 #include <regex.h>
 #include <stdio.h>
