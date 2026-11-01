@@ -4,6 +4,7 @@ use crate::{
     model::{
         self, Config, Error, Result, Supply, date, format, human, long_sleep, short_sleep, text,
     },
+    reddit::Reddit,
 };
 use async_trait::async_trait;
 use futures_util::StreamExt;
@@ -144,6 +145,7 @@ impl Sender {
     }
     pub async fn send_img(&self, url: &str, body: &str) -> Result<Supply> {
         if body.chars().count() > 1024 {
+            model::info(format!("Long pic in {}.", self.channel()));
             return self
                 .send_text(
                     &format!("<a href=\"{url}\">&#160;</a>{body}"),
@@ -170,6 +172,7 @@ impl Sender {
     }
     pub async fn send_gif(&self, url: &str, body: &str) -> Result<Supply> {
         if self.url_size(url).await? > MEDIA_LIMIT {
+            model::info("Too big.");
             return Ok(Supply::Reject);
         }
         let (caption, tail) = split_caption(body);
@@ -192,7 +195,10 @@ impl Sender {
         long_sleep(1.).await;
         for (index, items) in groups.iter().enumerate() {
             // The Python implementation logs an album API failure and proceeds.
-            let _ = self.api("sendMediaGroup", json!({"media":items})).await;
+            match self.api("sendMediaGroup", json!({"media":items})).await {
+                Ok(_) => model::info("Successful gallery sent."),
+                Err(error) => model::warning(format!("Gallery sent failed: {error}")),
+            }
             long_sleep((index + 2) as f64).await;
         }
         Ok(Supply::Sent)
@@ -362,6 +368,7 @@ impl Sender {
         let before=self.db.collection::<Document>("contents").find_one_and_update(doc!{"channel":self.channel().to_lowercase(),"md5_sum":&digest},
             doc!{"$setOnInsert":{"channel":self.channel().to_lowercase(),"md5_sum":digest,"ts":date()}}).upsert(true).return_document(ReturnDocument::Before).await?;
         if before.is_some() {
+            model::info("Duplicated found!");
             self.metrics.count("duplicate_media_candidates", 1);
         }
         Ok(before.is_some())
@@ -628,7 +635,19 @@ impl Sender {
         }
         Ok(Media::link("other", url))
     }
-    pub async fn simple(&self, submission: &Value, options: &Value) -> Result<Supply> {
+    pub async fn simple(
+        &self,
+        submission: &Value,
+        options: &Value,
+        reddit: &mut Reddit,
+    ) -> Result<Supply> {
+        let initial =
+            if options["min_upvotes_limit"].is_number() && submission.get("score").is_none() {
+                Some(reddit.hydrate(submission).await?)
+            } else {
+                None
+            };
+        let submission = initial.as_ref().unwrap_or(submission);
         let score = model::number(submission, "score", 0);
         if options["min_upvotes_limit"]
             .as_i64()
@@ -636,10 +655,41 @@ impl Sender {
         {
             return Ok(Supply::Skip);
         }
+        let missing_media = submission.get("url").is_none()
+            || submission.get("is_self").is_none()
+            || (submission["is_gallery"] == true && submission.get("gallery_data").is_none())
+            || (submission["gallery_data"]["items"].is_array()
+                && submission.get("media_metadata").is_none())
+            || (submission["is_video"] == true && submission.get("media").is_none());
+        let hydrated = if missing_media {
+            match reddit.hydrate(submission).await {
+                Ok(data) => Some(data),
+                Err(_) => {
+                    model::info(format!("HTTP fail prevented at {}", self.channel()));
+                    return Ok(Supply::Skip);
+                }
+            }
+        } else {
+            None
+        };
+        let submission = hydrated.as_ref().unwrap_or(submission);
         let media = match self.classify(submission).await {
             Ok(media) => media,
-            Err(_) => return Ok(Supply::Skip),
+            Err(_) => {
+                model::info(format!("HTTP fail prevented at {}", self.channel()));
+                return Ok(Supply::Skip);
+            }
         };
+        let missing_fields = ["title", "selftext", "score", "subreddit", "over_18"]
+            .iter()
+            .any(|key| submission.get(*key).is_none());
+        let fields = if missing_fields {
+            Some(reddit.hydrate(submission).await?)
+        } else {
+            None
+        };
+        let submission = fields.as_ref().unwrap_or(submission);
+        let score = model::number(submission, "score", 0);
         if options
             .get("nsfw_filter_out")
             .map(model::truth)
@@ -718,6 +768,10 @@ impl Sender {
             )?;
             return match self.send_text(&markdown, preview, Some("Markdown")).await {
                 Err(Error::Rejected) => {
+                    model::info(format!(
+                        "Markdown fail in {}; sending as plain text.",
+                        self.channel()
+                    ));
                     self.send_text(&format(template, &fields)?, preview, None)
                         .await
                 }

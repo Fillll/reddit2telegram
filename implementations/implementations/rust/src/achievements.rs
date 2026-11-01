@@ -112,6 +112,7 @@ impl Milestones<'_> {
                     &heading,
                     "",
                     Some(channel),
+                    &mut reddit,
                 )
                 .await?;
                 if !checkpoint.ids()?.is_empty() && result != Supply::Sent {

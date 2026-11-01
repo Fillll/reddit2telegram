@@ -157,4 +157,24 @@ impl Reddit {
         self.get(&format!("/r/{subreddit}/{ranking}"), &params)
             .await
     }
+    pub async fn hydrate(&mut self, submission: &Value) -> Result<Value> {
+        let id = submission["id"]
+            .as_str()
+            .filter(|s| !s.is_empty())
+            .ok_or(Error::Reddit)?;
+        let response = self
+            .get(
+                &format!("/comments/{id}"),
+                &[
+                    ("limit".into(), "2048".into()),
+                    ("sort".into(), "confidence".into()),
+                ],
+            )
+            .await?;
+        let data = &response[0]["data"]["children"][0]["data"];
+        if !data.is_object() {
+            return Err(Error::Reddit);
+        }
+        Ok(data.clone())
+    }
 }

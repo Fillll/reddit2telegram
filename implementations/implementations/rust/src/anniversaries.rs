@@ -223,7 +223,12 @@ impl Anniversary<'_> {
                     seen.insert(channel.clone());
                     channels.push((channel, birthday));
                 }
-                Ok(Some((channel, None))) => skipped.push(channel),
+                Ok(Some((channel, None))) => {
+                    crate::model::warning(format!(
+                        "Anniversary skipped: {channel} has no successful posting history"
+                    ));
+                    skipped.push(channel);
+                }
                 Ok(None) => {}
                 Err(error) => errors.push(doc! {"submodule":module,"error_type":error.to_string()}),
             }

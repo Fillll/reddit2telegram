@@ -38,14 +38,12 @@ impl Reporter {
             .filter(|dsn| !dsn.is_empty())
         {
             let dsn = dsn.parse().map_err(|_| Error::Config)?;
-            let options = sentry::ClientOptions {
-                dsn: Some(dsn),
-                transport: Some(Arc::new(sentry::transports::DefaultTransportFactory)),
-                release: Some(include_str!("../../../../VERSION").trim().into()),
-                debug: false,
-                send_default_pii: false,
-                ..Default::default()
-            };
+            let mut options = sentry::ClientOptions::default();
+            options.dsn = Some(dsn);
+            options.transport = Some(Arc::new(sentry::transports::DefaultTransportFactory));
+            options.release = Some(include_str!("../../../../VERSION").trim().into());
+            options.debug = false;
+            options.send_default_pii = false;
             Some(sentry::Client::from_config(options))
         } else {
             None

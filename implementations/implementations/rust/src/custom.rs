@@ -4,6 +4,7 @@ use crate::{
     maintenance,
     model::{self, Error, Result, Supply},
     queue::{self, App},
+    reddit::Reddit,
     sender::Sender,
 };
 use chrono::{Datelike, Local, TimeZone, Timelike, Utc};
@@ -190,14 +191,15 @@ pub async fn post(
     channel: &Channel,
     submission: &Value,
     sender: &Sender,
+    reddit: &mut Reddit,
 ) -> Result<Supply> {
     match module {
-        "reddit2telegram" => promotion(app, submission, sender).await,
+        "reddit2telegram" => promotion(app, submission, sender, reddit).await,
         "tech_cleaner" => maintenance::cleaner(app, sender).await,
         "tech_receiver" => maintenance::receiver(app, sender).await,
         "tech_weekly_radar" => maintenance::weekly(app, sender).await,
         "tech_store_stat" | "tech_anniversary" => maintenance(app, module, sender).await,
-        _ => sender.simple(submission, &channel.options).await,
+        _ => sender.simple(submission, &channel.options, reddit).await,
     }
 }
 pub async fn tags(app: &App, module: &str) -> Result<Option<String>> {
@@ -233,6 +235,7 @@ pub async fn nice(
     heading: &str,
     ending: &str,
     channel: Option<&str>,
+    reddit: &mut Reddit,
 ) -> Result<Supply> {
     let destination = if let Some(channel) = channel {
         channel.to_owned()
@@ -268,7 +271,7 @@ pub async fn nice(
                 "{announcement_heading}{title}\n\n{upvotes} upvotes\n/r/{subreddit_name}\n{date}\n{short_link}\nby {channel_to_promote}\n{tags}\n\n{extra_ending}",
         });
     }
-    sender.simple(submission, &options).await
+    sender.simple(submission, &options, reddit).await
 }
 async fn update_order(app: &App) -> Result<()> {
     let mut order = Document::new();
@@ -348,7 +351,12 @@ async fn promotion_target(app: &App) -> Result<String> {
         .await
         .cloned()
 }
-async fn promotion(app: &App, submission: &Value, sender: &Sender) -> Result<Supply> {
+async fn promotion(
+    app: &App,
+    submission: &Value,
+    sender: &Sender,
+    reddit: &mut Reddit,
+) -> Result<Supply> {
     let now = Local::now();
     let weekday = now.weekday().num_days_from_monday();
     if weekday == 5 && [0, 23].contains(&now.hour()) && now.minute() == 1 {
@@ -365,7 +373,7 @@ async fn promotion(app: &App, submission: &Value, sender: &Sender) -> Result<Sup
         return Ok(Supply::Stop);
     }
     let target = promotion_target(app).await?;
-    let result = nice(app, &target, submission, sender, "", "", None).await?;
+    let result = nice(app, &target, submission, sender, "", "", None, reddit).await?;
     if result == Supply::Sent && weekday < 5 {
         app.db
             .collection::<Document>("settings")

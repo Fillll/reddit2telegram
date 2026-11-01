@@ -68,6 +68,18 @@ pub fn now() -> f64 {
 pub fn date() -> bson::DateTime {
     bson::DateTime::from_millis((now() * 1000.) as i64)
 }
+pub fn info(message: impl fmt::Display) {
+    eprintln!(
+        "{} - r2t.rust - INFO - {message}",
+        chrono::Local::now().format("%Y-%m-%d %H:%M:%S%.3f")
+    );
+}
+pub fn warning(message: impl fmt::Display) {
+    eprintln!(
+        "{} - r2t.rust - WARNING - {message}",
+        chrono::Local::now().format("%Y-%m-%d %H:%M:%S%.3f")
+    );
+}
 pub fn text<'a>(v: &'a Value, key: &str) -> &'a str {
     v.get(key).and_then(Value::as_str).unwrap_or("")
 }
@@ -93,7 +105,7 @@ pub fn numeric(doc: &Document, key: &str) -> Option<f64> {
     }
 }
 pub fn json_doc(doc: Document) -> Result<Value> {
-    bson::from_document(doc).map_err(|_| Error::Config)
+    Ok(Bson::Document(doc).into_relaxed_extjson())
 }
 
 pub async fn short_sleep(coef: f64) {

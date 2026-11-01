@@ -34,6 +34,10 @@ impl App {
                 config.values["pool"]["malloc_arenas"].as_i64().unwrap_or(4) as i32,
             );
         }
+        model::info(format!(
+            "Limited native allocator to {} arenas",
+            config.values["pool"]["malloc_arenas"].as_i64().unwrap_or(4)
+        ));
         let reporter = Reporter::new(&config)?;
         let db = match config.database().await {
             Ok(db) => db,
@@ -75,12 +79,13 @@ impl App {
         );
         let tasks = self.db.collection::<Document>("tasks");
         let result: Result<()> = async {
-            tasks
+            let changed = tasks
                 .update_one(
                     doc! {"_id":&id},
                     doc! {"$set":{"status":2,"updated_at":now()}},
                 )
                 .await?;
+            model::info(format!("Modified {} docs", changed.modified_count));
             if task.get_str("name").unwrap_or("") != "supply" {
                 return Err(Error::UnknownTask);
             }
@@ -118,17 +123,36 @@ impl App {
             result
         }
         .await;
-        let stored = tasks
-            .update_one(
-                doc! {"_id":&id},
-                doc! {"$set":{"status":if result.is_ok(){3}else{4},"updated_at":now()}},
-            )
-            .await;
-        let result = result.and(stored.map(|_| ()).map_err(Error::from));
-        metrics.finish(result);
-        if let Err(error) = result {
-            eprintln!("task {task_id}: {error}");
+        let mut result = result;
+        if result.is_ok() {
+            match tasks
+                .update_one(
+                    doc! {"_id":&id},
+                    doc! {"$set":{"status":3,"updated_at":now()}},
+                )
+                .await
+            {
+                Ok(changed) => {
+                    model::info(format!("Modified {} docs", changed.modified_count));
+                    model::info("Task supply successfully executed.");
+                }
+                Err(_) => result = Err(Error::Database),
+            }
         }
+        if let Err(error) = result {
+            model::warning(format!("Task supply failed: {error}"));
+            match tasks
+                .update_one(
+                    doc! {"_id":&id},
+                    doc! {"$set":{"status":4,"updated_at":now()}},
+                )
+                .await
+            {
+                Ok(changed) => model::info(format!("Modified {} docs", changed.modified_count)),
+                Err(_) => result = Err(Error::Database),
+            }
+        }
+        metrics.finish(result);
         result
     }
     pub async fn supply(
@@ -198,7 +222,9 @@ impl App {
                     if sender.was_before(&link).await? || sender.too_many_errors(&link).await? {
                         continue;
                     }
-                    let result = custom::post(self, module, &channel, submission, &sender).await?;
+                    let result =
+                        custom::post(self, module, &channel, submission, &sender, &mut reddit)
+                            .await?;
                     last = Some(result);
                     match result {
                         Supply::Sent => {
@@ -239,12 +265,22 @@ pub async fn consumer(app: App) -> Result<()> {
         return Err(Error::Config);
     }
     let tasks = app.db.collection::<Document>("tasks");
-    tasks
+    let recovered = tasks
         .update_many(
             doc! {"status":{"$in":[2,5]},"updated_at":{"$lt":now()-60.}},
             doc! {"$set":{"status":1,"updated_at":now()}},
         )
         .await?;
+    if recovered.modified_count > 0 {
+        model::warning(format!(
+            "Recovered {} abandoned tasks",
+            recovered.modified_count
+        ));
+    }
+    model::info(format!(
+        "Starting consumer Rust/Tokio with {} workers",
+        app.config.worker_size()
+    ));
     let workers = Arc::new(Semaphore::new(app.config.worker_size()));
     let mut pending = JoinSet::new();
     let mut next_memory_check = tokio::time::Instant::now();
@@ -271,17 +307,19 @@ pub async fn consumer(app: App) -> Result<()> {
             }
         }
         while pending.try_join_next().is_some() {}
-        tasks
+            let expired=tasks
             .update_many(
                 doc! {"status":1,"created_at":{"$lt":now()-25.*60.}},
                 doc! {"$set":{"status":4,"updated_at":now()}},
             )
             .await?;
+            if expired.modified_count>0{model::warning(format!("Failed {} expired new tasks",expired.modified_count));}
         let available = app.config.max_pending().saturating_sub(pending.len());
+            let cutoff=now()-25.*60.;let mut batch=Vec::new();
         for _ in 0..available.min(app.config.batch_size()) {
             let claimed = tasks
                 .find_one_and_update(
-                    doc! {"status":1,"created_at":{"$gte":now()-25.*60.}},
+                        doc! {"status":1,"created_at":{"$gte":cutoff}},
                     doc! {"$set":{"status":5,"updated_at":now()}},
                 )
                 .sort(doc! {"created_at":1})
@@ -291,6 +329,10 @@ pub async fn consumer(app: App) -> Result<()> {
             let Some(task) = claimed else {
                 break;
             };
+                batch.push(task);
+            }
+            model::info(format!("Claimed {} new tasks",batch.len()));
+            for task in batch{
             let app = app.clone();
             let workers = workers.clone();
             pending.spawn(async move {
@@ -302,7 +344,10 @@ pub async fn consumer(app: App) -> Result<()> {
       }
       Ok(())
     }.await;
-    eprintln!("draining {} pending jobs", pending.len());
+    model::info(format!(
+        "Stopped claiming tasks; draining {} pending jobs",
+        pending.len()
+    ));
     while pending.join_next().await.is_some() {}
     outcome
 }
@@ -345,7 +390,7 @@ pub async fn scheduler(app: App) -> Result<()> {
     if let Some(run) = metrics::active(&app.config.root) {
         metrics::emit(&run, "scheduler_submitted", json!({"submitted_jobs":count}));
     }
-    eprintln!("inserted {count} scheduled tasks");
+    model::info(format!("Inserted {count} tasks"));
     Ok(())
 }
 
