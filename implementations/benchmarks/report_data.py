@@ -225,7 +225,7 @@ def note_receipts(notes):
 def process_summary(rows, start, end):
     rows = [r for r in rows if finite(r.get('ts')) and start <= r['ts'] <= end]
     if not rows:
-        return dict(available=False, samples=0, coverage_seconds=0, coverage_fraction=0,
+        return dict(available=False, samples=0, coverage_seconds=0, coverage_fraction=0 if end > start else None,
                     ffmpeg_cpu_scope='unavailable')
     good = [r for r in rows if r.get('worker_identities') and r.get('unreadable_processes', 0) == 0]
     intervals, rates, weights = [], defaultdict(list), []
@@ -291,7 +291,7 @@ def process_summary(rows, start, end):
         root_identity_changes=resets, helper_snapshot_decreases=helper_snapshot_decreases)
 
 
-def event_summary(events):
+def event_summary(events, available=True):
     starts = defaultdict(list)
     ends, matched, completed_ids = [], [], Counter()
     counters, errors, modules = Counter(), Counter(), defaultdict(Counter)
@@ -332,7 +332,7 @@ def event_summary(events):
     successes = sum(row.get('status') == 'success' for row in ends)
     scheduler = [r for r in events if r.get('event') == 'scheduler_end']
     posts = [r.get('post_key') for r in events if r.get('event') == 'post_record' and isinstance(r.get('post_key'), str)]
-    return dict(started=sum(r.get('event') == 'job_start' for r in events),
+    result = dict(telemetry_available=available, started=sum(r.get('event') == 'job_start' for r in events),
         completed=len(ends), successful=successes, failed=len(ends)-successes,
         success_fraction=successes/len(ends) if ends else None,
         paired_executions=len(matched), orphan_end_records=orphan_ends,
@@ -345,12 +345,21 @@ def event_summary(events):
         scheduler_wall_seconds=distribution([r.get('wall_seconds') for r in scheduler]),
         submitted_jobs=sum(r.get('submitted_jobs', 0) for r in events if r.get('event') == 'scheduler_submitted'),
         post_records=len(posts), repeated_source_channel_records=len(posts)-len(set(posts)))
+    if not available:
+        for key in ('started', 'completed', 'successful', 'failed', 'paired_executions',
+                    'orphan_end_records', 'starts_without_observed_end', 'task_ids_with_multiple_completions',
+                    'scheduler_runs', 'scheduler_failures', 'submitted_jobs', 'post_records',
+                    'repeated_source_channel_records'):
+            result[key] = None
+    return result
 
 
 def analyze_run(directory):
     receipts = {}
     manifest = read_manifest(directory / 'manifest.json', receipts)
     label, start, deadline = manifest.get('label'), manifest.get('started_at'), manifest.get('deadline')
+    if manifest.get('run_id') != directory.name:
+        raise EvidenceError('Run directory identity does not match the manifest')
     if label not in LABELS or not finite(start) or not finite(deadline) or abs(deadline-start-86400) > .001:
         raise EvidenceError('Run identity or original 24-hour bounds are invalid')
     if manifest.get('selected_runtime', {}).get('label') != label:
@@ -358,6 +367,8 @@ def analyze_run(directory):
     status = manifest.get('status')
     finished = parse_iso(manifest.get('finished_iso'))
     end = min(deadline, finished) if status == 'interrupted' and finished is not None else deadline
+    if status == 'launch_failed':
+        end = start
     raw_samples = read_records(directory / 'samples.jsonl', receipts)
     samples = [s for s in raw_samples if isinstance(s.get('components'), dict)
                and finite(s.get('ts')) and start <= s['ts'] <= end]
@@ -378,7 +389,7 @@ def analyze_run(directory):
             memory_bytes=distribution(component_values(samples, group, 'memory_bytes')),
             rss_bytes=distribution(component_values(samples, group, 'rss_bytes')),
             file_cache_bytes=distribution(component_values(samples, group, 'file_cache_bytes')))
-    jobs = event_summary(events)
+    jobs = event_summary(events, receipts['events.jsonl']['present'])
     cpu_seconds = components['application']['cpu']['seconds']
     bins = defaultdict(list)
     for sample in samples:
@@ -404,6 +415,7 @@ def analyze_run(directory):
         cpu_seconds_per_successful_job=cpu_seconds/jobs['successful'] if finite(cpu_seconds) and jobs['successful'] else None,
         memory_linear_trend_bytes_per_hour=slope(samples),
         hourly_application_memory_bytes=[statistics.mean(bins[h]) if bins[h] else None for h in range(24)],
+        hourly_application_memory_sample_counts=[len(bins[h]) for h in range(24)],
         worker_fds=distribution([s.get('fds') for s in worker]),
         worker_threads=distribution([s.get('threads') for s in worker]),
         worker_unavailable_samples=sum(s['components'].get('worker') is None for s in samples),
@@ -436,7 +448,9 @@ METHODS = dict(cpu='Percent of one logical core. Means weight short-interval CPU
              'Post-deadline boundary reads are excluded; no post-deadline work is interpolated into results.',
     processes='Supplementary process snapshots separate observed RSS. FFmpeg-specific CPU is an observed lower bound; '
               'short lifetimes can be missed. Helpers CPU includes ffmpeg and other maintenance subprocesses.',
-    http='Consumed decoded HTTP body bytes from completed jobs; excludes TLS/framing and Telegram remote URL downloads.',
+    http='Common comparison: non-Telegram consumed decoded response bodies and Telegram request bodies from completed jobs. '
+         'Python does not count Telegram response bodies; additional native response counters remain separate. '
+         'Excludes TLS/framing and Telegram remote URL downloads; not total wire bandwidth.',
     reliability='Job success is the application task outcome, not proof of a delivered post. '
                 'Repeated source/channel records are observed records, not a direct audit of Telegram duplicates.',
     comparison='One fresh sequential live window per configuration; no replay, historical baseline or repeats. '
@@ -477,6 +491,14 @@ def analyze_experiment(runs_directory):
 
 
 def require_final(bundle):
-    if not bundle['final_ready']:
+    runs = bundle.get('runs', [])
+    labels = [run.get('label') for run in runs]
+    terminal = (len(labels) == len(LABELS) and set(labels) == set(LABELS)
+        and all(run.get('status') in FINAL_STATUSES and finite(run.get('started_at'))
+                and finite(run.get('deadline')) and abs(run['deadline']-run['started_at']-86400) <= .001
+                for run in runs))
+    ordered = sorted(runs, key=lambda r: r.get('started_at', 0))
+    overlap = any(after['started_at'] < before['effective_end'] for before, after in zip(ordered, ordered[1:]))
+    if not terminal or overlap or not bundle.get('final_ready'):
         raise EvidenceError('Final image requires seven finalized, non-overlapping fresh windows; '
-            f"missing={','.join(bundle['missing_labels'])}; unfinished={','.join(bundle['unfinished_labels'])}")
+            f"missing={','.join(bundle.get('missing_labels', []))}; unfinished={','.join(bundle.get('unfinished_labels', []))}")
