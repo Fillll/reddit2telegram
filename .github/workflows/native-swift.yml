@@ -1,0 +1,76 @@
+name: Native Swift build
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'implementations/implementations/swift/**'
+      - '.github/workflows/native-swift.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-swift-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  swift-release:
+    runs-on: ubuntu-24.04
+    container: swift:6.4.2-noble
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: implementations/implementations/swift
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install library headers and artifact tooling
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends libmongoc-dev libcurl4-openssl-dev libyaml-dev libssl-dev patchelf python3
+      - name: Record compiler and checked source
+        env:
+          R2T_BUILD_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          root=pathlib.Path('../../../')
+          values={'commit':os.environ['R2T_BUILD_COMMIT'],
+                  'compiler':subprocess.check_output(['swift','--version'],text=True).strip(),
+                  'version':(root/'VERSION').read_text().strip()}
+          pathlib.Path('Sources/R2T/BuildInfo.swift').write_text('enum BuildInfo {\n'+''.join('    static let '+k+' = '+json.dumps(v)+'\n' for k,v in values.items())+'}\n')
+          PY
+      - name: Compile optimized native application without app traffic
+        run: swift build -c release -j 2
+      - name: Package binary and required runtime libraries
+        run: |
+          python3 - <<'PY'
+          import pathlib, shutil, subprocess, re
+          destination=pathlib.Path('dist/r2t-swift'); (destination/'lib').mkdir(parents=True,exist_ok=True)
+          binary=pathlib.Path('.build/release/r2t-swift').resolve()
+          shutil.copy2(binary,destination/'r2t-swift')
+          for line in subprocess.check_output(['ldd',str(binary)],text=True).splitlines():
+              match=re.search(r'=> (/\S+)',line)
+              if not match: continue
+              path=pathlib.Path(match[1])
+              if path.name.startswith(('libc.so','libm.so','libpthread.so','libdl.so','librt.so')): continue
+              shutil.copy2(path,destination/'lib'/path.name)
+          # Swift/Foundation may load optional runtime components dynamically.
+          for path in pathlib.Path('/usr/lib/swift/linux').glob('*.so*'):
+              if path.is_file(): shutil.copy2(path,destination/'lib'/path.name)
+          for path in pathlib.Path('.build/release').glob('*.resources'):
+              shutil.copytree(path,destination/path.name)
+          subprocess.run(['patchelf','--set-rpath','$ORIGIN/lib',str(destination/'r2t-swift')],check=True)
+          (destination/'system-packages.txt').write_text(subprocess.check_output(['dpkg-query','-W'],text=True))
+          PY
+          LD_LIBRARY_PATH="$PWD/dist/r2t-swift/lib" dist/r2t-swift/r2t-swift --describe > dist/r2t-swift/swift-build.json
+          sha256sum dist/r2t-swift/r2t-swift > dist/r2t-swift/swift-build.sha256
+          tar -C dist -czf dist/r2t-swift-linux-x86_64.tar.gz r2t-swift
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: r2t-swift-linux-x86_64-${{ github.event.pull_request.head.sha || github.sha }}
+          path: implementations/implementations/swift/dist/r2t-swift-linux-x86_64.tar.gz
+          retention-days: 14
