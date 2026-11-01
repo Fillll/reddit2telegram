@@ -402,13 +402,19 @@ def collect(directory):
         if next_tick < time.time():
             next_tick = time.time() + INTERVAL
         time.sleep(max(0, min(next_tick-time.time(), remaining)))
-    # Final cumulative counter read at the boundary. No workload is run longer.
-    try:
-        final = sample(manifest)
-        final['boundary_read_lateness_seconds'] = max(0, final['ts']-manifest['deadline'])
-        append(directory / 'samples.jsonl', final)
-    except Exception as exc:
-        append(directory / 'sampling_errors.jsonl', dict(ts=time.time(), error_type=type(exc).__name__))
+    # A delayed restart must never attribute post-deadline work to the window.
+    # Allow only the immediate boundary counter read, with explicit lateness.
+    boundary_lateness = max(0, time.time()-manifest['deadline'])
+    if boundary_lateness <= 1:
+        try:
+            final = sample(manifest)
+            final['boundary_read_lateness_seconds'] = max(0, final['ts']-manifest['deadline'])
+            append(directory / 'samples.jsonl', final)
+        except Exception as exc:
+            append(directory / 'sampling_errors.jsonl', dict(ts=time.time(), error_type=type(exc).__name__))
+    else:
+        append(directory / 'sampling_errors.jsonl', dict(ts=time.time(), error_type='missed_deadline_boundary',
+                                                         lateness_seconds=boundary_lateness))
     manifest['finished_iso'] = stamp()
     manifest['status'] = 'interrupted' if terminated else 'finished'
     manifest['source_at_end'] = fingerprint(root)

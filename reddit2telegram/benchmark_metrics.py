@@ -116,6 +116,8 @@ async def telegram_response(response):
 
 
 def delivery(result):
+    if not measuring():
+        return
     from telegram import Message
 
     for message in result if isinstance(result, (tuple, list)) else [result]:
