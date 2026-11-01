@@ -1,5 +1,6 @@
 #include "channels.h"
 #include "build_info.h"
+#include "maintenance.h"
 #include <math.h>
 #include <openssl/rand.h>
 #include <stdlib.h>
@@ -386,6 +387,12 @@ static bool promotion(const App *app, const json_t *submission, Sender *sender, 
 }
 bool channel_maintenance(const App *app, const char *module, Sender *sender, Supply *result,
                          Error *error) {
+    if (!strcmp(module, "tech_cleaner"))
+        return maintenance_cleaner(app, sender, result, error);
+    if (!strcmp(module, "tech_receiver"))
+        return maintenance_receiver(app, sender, result, error);
+    if (!strcmp(module, "tech_weekly_radar"))
+        return maintenance_weekly(app, sender, result, error);
     (void)app;
     (void)module;
     (void)sender;
