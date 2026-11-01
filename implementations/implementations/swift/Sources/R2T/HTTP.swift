@@ -22,7 +22,8 @@ final class HTTP {
     deinit { r2t_http_close(handle) }
     func request(_ method: String, _ url: String, headers: [String: String] = [:],
                  body: Data = Data(), multipart: Doc? = nil,
-                 output: URL? = nil, limit: UInt64 = 0, digest: String? = nil) throws -> HTTPResponse {
+                 output: URL? = nil, limit: UInt64 = 0, digest: String? = nil,
+                 allowInitialFailure: Bool = false) throws -> HTTPResponse {
         let prefix = telegram ? "telegram" : "http"
         let head = method == "HEAD"
         let connect = telegram ? 30 : (head ? 3 : 5)
@@ -46,7 +47,9 @@ final class HTTP {
         if response.error != 0 && response.too_large == 0 {
             metrics.count(prefix + "_transport_errors")
             // CURLE_OPERATION_TIMEDOUT=28, or our idle-progress callback=42.
-            throw response.error == 28 || response.error == 42 ? R2TError.timeout : R2TError.network
+            if !allowInitialFailure || (200..<300).contains(Int(response.status)) {
+                throw response.error == 28 || response.error == 42 ? R2TError.timeout : R2TError.network
+            }
         }
         var fields: [String: String] = [:]
         if let rawHeaders = response.headers {

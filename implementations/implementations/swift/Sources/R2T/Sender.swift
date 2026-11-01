@@ -202,8 +202,8 @@ final class Sender {
         metrics.post(channel: channel, url: url, sent: sent)
     }
     func duplicate(_ url: String) throws -> Bool {
-        guard let response = try? media.request("GET", url, limit: mediaLimit, digest: "MD5"),
-              (200..<300).contains(response.status), !response.tooLarge, let hash = response.digest else { return false }
+        let response = try media.request("GET", url, limit: mediaLimit, digest: "MD5", allowInitialFailure: true)
+        guard (200..<300).contains(response.status), !response.tooLarge, let hash = response.digest else { return false }
         let filter: Doc = ["channel": channel.lowercased(), "md5_sum": hash]
         // Return the pre-update document in a single atomic operation.
         let result = try db.command("findAndModify", "contents", ["query": filter,
