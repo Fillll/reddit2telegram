@@ -1,3 +1,7 @@
+if __name__ == '__main__':
+    from runtime_dispatch import dispatch
+    dispatch('consumer')
+
 import logging
 logging.basicConfig(
     level=logging.INFO,

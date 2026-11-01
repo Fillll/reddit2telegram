@@ -6,6 +6,7 @@ import threading
 
 import requests
 from requests.adapters import HTTPAdapter
+import benchmark_metrics
 
 
 # Requests/urllib3 otherwise parse a separate CA store for every TLS connection.
@@ -15,6 +16,25 @@ _LOCAL = threading.local()
 
 
 class SharedTLSAdapter(HTTPAdapter):
+    def send(self, request, **kwargs):
+        benchmark_metrics.count('http_request_attempts')
+        try:
+            response = super().send(request, **kwargs)
+        except Exception:
+            benchmark_metrics.count('http_transport_errors')
+            raise
+        benchmark_metrics.request_status('http', response.status_code)
+        if benchmark_metrics.measuring():
+            original = response.iter_content
+
+            def measured_content(*args, **kw):
+                for chunk in original(*args, **kw):
+                    benchmark_metrics.count('http_response_body_bytes', len(chunk))
+                    yield chunk
+
+            response.iter_content = measured_content
+        return response
+
     def build_connection_pool_key_attributes(self, request, verify, cert=None):
         host, options = super().build_connection_pool_key_attributes(request, verify, cert)
         if verify is True and cert is None:

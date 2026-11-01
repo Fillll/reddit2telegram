@@ -18,6 +18,7 @@ import asyncio
 import threading
 import tempfile
 import json
+import benchmark_metrics
 
 from imgurpython import ImgurClient
 import yaml
@@ -81,8 +82,18 @@ _VIDEO_UPLOAD_SLOTS = threading.BoundedSemaphore(2)
 
 
 class _TelegramRequest(HTTPXRequest):
+    async def do_request(self, *args, **kwargs):
+        try:
+            return await super().do_request(*args, **kwargs)
+        except Exception:
+            benchmark_metrics.count('telegram_transport_errors')
+            raise
+
     def _build_client(self):
-        return httpx.AsyncClient(verify=_TELEGRAM_SSL_CONTEXT, **self._client_kwargs)
+        return httpx.AsyncClient(verify=_TELEGRAM_SSL_CONTEXT,
+                                 event_hooks={'request': [benchmark_metrics.telegram_request],
+                                              'response': [benchmark_metrics.telegram_response]},
+                                 **self._client_kwargs)
 
 
 @enum.unique
@@ -501,10 +512,13 @@ class Reddit2TelegramSender(object):
         except RuntimeError:
             loop = None
         if loop and loop.is_running():
-            return asyncio.run_coroutine_threadsafe(coro, loop).result()
-        if self._loop.is_closed():
-            self._loop = asyncio.new_event_loop()
-        return self._loop.run_until_complete(coro)
+            result = asyncio.run_coroutine_threadsafe(coro, loop).result()
+        else:
+            if self._loop.is_closed():
+                self._loop = asyncio.new_event_loop()
+            result = self._loop.run_until_complete(coro)
+        benchmark_metrics.delivery(result)
+        return result
 
     def _send_message(self, coro):
         """Expose acknowledged message IDs to jobs that need durable delivery state."""
@@ -652,6 +666,7 @@ class Reddit2TelegramSender(object):
         if result is None:
             return False
         else:
+            benchmark_metrics.count('previously_seen_candidates')
             return True
 
     def mark_as_was_before(self, url, sent=True):
@@ -662,6 +677,7 @@ class Reddit2TelegramSender(object):
             'channel': self.t_channel.lower(),
             'sent': sent
         })
+        benchmark_metrics.post_record(self.t_channel, url, sent)
 
     def dup_check_and_mark(self, url):
         md5_sum = md5_sum_from_url(url)
@@ -685,6 +701,7 @@ class Reddit2TelegramSender(object):
         )
         if result is not None:
             logging.info('Duplicated found!')
+            benchmark_metrics.count('duplicate_media_candidates')
             return True
         return False
 

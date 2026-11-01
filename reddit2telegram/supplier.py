@@ -6,6 +6,7 @@ import yaml
 import praw
 from praw.models import ListingGenerator
 import requests
+import benchmark_metrics
 
 import utils
 from utils.http_resources import session as http_session
@@ -29,6 +30,7 @@ def submissions_safe(submissions):
         except StopIteration:
             return
         except Exception as e:
+            benchmark_metrics.count('reddit_listing_retries')
             long_sleep(2.818281828 * 3.14159 / 2)
 
 
