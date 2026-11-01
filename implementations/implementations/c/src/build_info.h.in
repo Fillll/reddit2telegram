@@ -1,0 +1,9 @@
+#ifndef R2T_C_BUILD_INFO_H
+#define R2T_C_BUILD_INFO_H
+#define R2T_VERSION "@R2T_VERSION@"
+#define R2T_COMMIT "@R2T_COMMIT@"
+#define R2T_COMPILER "@CMAKE_C_COMPILER_ID@ @CMAKE_C_COMPILER_VERSION@"
+#define R2T_LOCAL_CHANNELS "@R2T_local_channels@"
+#define R2T_WEIGHTED_CHANNEL "@R2T_weighted_channel@"
+#define R2T_MILESTONES "@R2T_milestones@"
+#endif

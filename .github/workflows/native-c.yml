@@ -1,0 +1,79 @@
+name: Native C build
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'implementations/implementations/c/**'
+      - '.github/workflows/native-c.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-c-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  c-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: implementations/implementations/c
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install library headers
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends cmake ninja-build pkg-config libmongoc-dev libcurl4-openssl-dev libyaml-dev libssl-dev libjansson-dev libtinfo6 libzstd1 libxml2 libz3-4 patchelf
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        id: llvm
+        with:
+          path: ~/.cache/r2t-llvm-23.1.4
+          key: llvm-23.1.4-linux-x64-25d814fda50d5fb0
+      - name: Install checksum-pinned stable compiler
+        if: steps.llvm.outputs.cache-hit != 'true'
+        run: |
+          curl --fail --location --retry 3 https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.4/LLVM-23.1.4-Linux-X64.tar.xz -o /tmp/r2t-llvm.tar.xz
+          echo '25d814fda50d5fb0084b42be09605d8b1595d49d5e2e03a3345d7e112ff6f9f3  /tmp/r2t-llvm.tar.xz' | sha256sum -c -
+          mkdir -p "$HOME/.cache/r2t-llvm-23.1.4"
+          tar -tJf /tmp/r2t-llvm.tar.xz | python3 -c 'import sys; from pathlib import PurePosixPath as P; bins={"clang","clang++","clang-23","clang-format","lld","ld.lld","llvm-ar","llvm-ranlib"}; names=[s.strip() for s in sys.stdin]; print("\n".join(s for s in names if ("/bin/" in s and P(s).name in bins) or "/lib/clang/" in s or ("/lib/" in s and P(s).name.startswith(("libLLVM","libclang-cpp")))))' > /tmp/r2t-llvm-members.txt
+          tar -xJf /tmp/r2t-llvm.tar.xz -C "$HOME/.cache/r2t-llvm-23.1.4" --strip-components=1 --no-recursion -T /tmp/r2t-llvm-members.txt
+          rm /tmp/r2t-llvm.tar.xz
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        if: steps.llvm.outputs.cache-hit != 'true'
+        with:
+          path: ~/.cache/r2t-llvm-23.1.4
+          key: llvm-23.1.4-linux-x64-25d814fda50d5fb0
+      - name: Compile optimized native application without app traffic
+        env:
+          PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
+        run: |
+          export PATH="$HOME/.cache/r2t-llvm-23.1.4/bin:$PATH"
+          "$HOME/.cache/r2t-llvm-23.1.4/bin/clang" --version
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="$HOME/.cache/r2t-llvm-23.1.4/bin/clang" -DCMAKE_C_FLAGS=-fuse-ld=lld -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld
+          cmake --build build -j 2
+      - name: Package binary and required runtime libraries
+        run: |
+          python3 - <<'PY'
+          import pathlib, shutil, subprocess, re
+          destination=pathlib.Path('dist/r2t-c'); (destination/'lib').mkdir(parents=True,exist_ok=True)
+          binary=pathlib.Path('build/r2t-c').resolve(); shutil.copy2(binary,destination/'r2t-c')
+          for line in subprocess.check_output(['ldd',str(binary)],text=True).splitlines():
+              match=re.search(r'=> (/\S+)',line)
+              if not match: continue
+              path=pathlib.Path(match[1])
+              if path.name.startswith(('libc.so','libm.so','libpthread.so','libdl.so','librt.so')): continue
+              shutil.copy2(path,destination/'lib'/path.name)
+          # DT_RPATH also reaches transitive dependencies of bundled libraries.
+          subprocess.run(['patchelf','--force-rpath','--set-rpath','$ORIGIN/lib',str(destination/'r2t-c')],check=True)
+          (destination/'system-packages.txt').write_text(subprocess.check_output(['dpkg-query','-W'],text=True))
+          PY
+          env -u LD_LIBRARY_PATH dist/r2t-c/r2t-c --describe > dist/r2t-c/c-build.json
+          sha256sum dist/r2t-c/r2t-c > dist/r2t-c/c-build.sha256
+          tar -C dist -czf dist/r2t-c-linux-x86_64.tar.gz r2t-c
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: r2t-c-linux-x86_64-${{ github.event.pull_request.head.sha || github.sha }}
+          path: implementations/implementations/c/dist/r2t-c-linux-x86_64.tar.gz
+          retention-days: 14
