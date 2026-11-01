@@ -287,7 +287,19 @@ static char *normalize(const char *input, const char *kind) {
     return trim(trimmed, "/");
 }
 static char *normalize_tags(const char *input) {
-    STR(flat) = replace(input, ",", " ");
+    STR(value) = trim(input, NULL);
+    char *colon = strchr(value, ':');
+    if (colon) {
+        STR(prefix) = strndup(value, (size_t)(colon - value));
+        STR(clean) = trim(prefix, NULL);
+        STR(low) = lower(clean);
+        if (!strcmp(low, "tags")) {
+            char *next = trim(colon + 1, NULL);
+            free(value);
+            value = next;
+        }
+    }
+    STR(flat) = replace(value, ",", " ");
     json_auto_t *parts = words(flat);
     json_auto_t *seen = json_object();
     json_auto_t *tags = json_array();
