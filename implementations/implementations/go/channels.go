@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math"
 	"os"
 	"path/filepath"
@@ -20,8 +19,8 @@ type Channel struct {
 }
 
 var channelCache struct {
-	sync.Mutex
-	weighted, promotion string
+	weightedMu, promotionMu sync.Mutex
+	weighted, promotion     string
 }
 
 func (a *App) publicModules() ([]string, error) {
@@ -43,8 +42,8 @@ func (a *App) publicModules() ([]string, error) {
 	return names, nil
 }
 func weightedSource() (string, error) {
-	channelCache.Lock()
-	defer channelCache.Unlock()
+	channelCache.weightedMu.Lock()
+	defer channelCache.weightedMu.Unlock()
 	if channelCache.weighted != "" {
 		return channelCache.weighted, nil
 	}
@@ -130,8 +129,8 @@ func (a *App) updatePromotionOrder() error {
 	return e
 }
 func (a *App) promotionTarget() (string, error) {
-	channelCache.Lock()
-	defer channelCache.Unlock()
+	channelCache.promotionMu.Lock()
+	defer channelCache.promotionMu.Unlock()
 	if channelCache.promotion != "" {
 		return channelCache.promotion, nil
 	}
@@ -188,7 +187,12 @@ func (a *App) promotionTarget() (string, error) {
 		stamp, _ := timestamp(value)
 		values = append(values, ordered{name, stamp})
 	}
-	sort.SliceStable(values, func(i, j int) bool { return values[i].date > values[j].date })
+	sort.SliceStable(values, func(i, j int) bool {
+		if values[i].date == values[j].date {
+			return values[i].name < values[j].name
+		}
+		return values[i].date > values[j].date
+	})
 	for _, value := range values {
 		if active[value.name] && !done[value.name] {
 			channelCache.promotion = value.name
@@ -380,6 +384,14 @@ func channelPost(app *App, module string, channel *Channel, submission D, sender
 	return sender.simple(submission, channel.Options, reddit)
 }
 func channelMaintenance(app *App, module string, sender *Sender) (Supply, error) {
-	// Completion guard remains false until every scheduled role below is ported.
-	return Skip, Fault{Kind: "IncompletePort", Code: len(fmt.Sprint(app, module, sender))}
+	switch module {
+	case "tech_cleaner":
+		return cleaner(app, sender)
+	case "tech_receiver":
+		return receiver(app, sender)
+	case "tech_weekly_radar":
+		return weekly(app, sender)
+	}
+	// Completion guard remains false until durable announcements are ported.
+	return Skip, fault("IncompletePort")
 }
