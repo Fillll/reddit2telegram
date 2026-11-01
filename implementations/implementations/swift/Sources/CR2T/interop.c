@@ -254,6 +254,8 @@ r2t_response *r2t_http_request(void *client,const char *method,const char *url,c
     curl_easy_setopt(curl,CURLOPT_FOLLOWLOCATION,(long)redirects);
     curl_easy_setopt(curl,CURLOPT_MAXREDIRS,30L);
     curl_easy_setopt(curl,CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);
+    /* Proxy CONNECT negotiation is transport framing, not an app response. */
+    curl_easy_setopt(curl,CURLOPT_SUPPRESS_CONNECT_HEADERS,1L);
     curl_easy_setopt(curl,CURLOPT_PROTOCOLS_STR,"http,https");
     curl_easy_setopt(curl,CURLOPT_REDIR_PROTOCOLS_STR,"http,https");
     struct curl_slist *list=NULL;
