@@ -55,16 +55,38 @@ func (h *Http) count(key string, n uint64) {
 
 type readDeadlineConn struct {
 	net.Conn
-	read time.Duration
+	read   time.Duration
+	mu     sync.Mutex
+	active bool
 }
 
 func (c *readDeadlineConn) Read(p []byte) (int, error) {
-	_ = c.Conn.SetReadDeadline(time.Now().Add(c.read))
+	c.mu.Lock()
+	deadline := time.Time{}
+	if c.active {
+		deadline = time.Now().Add(c.read)
+	}
+	_ = c.Conn.SetReadDeadline(deadline)
+	c.mu.Unlock()
 	return c.Conn.Read(p)
 }
 func (c *readDeadlineConn) Write(p []byte) (int, error) {
+	c.mu.Lock()
+	c.active = true
+	_ = c.Conn.SetReadDeadline(time.Now().Add(c.read))
 	_ = c.Conn.SetWriteDeadline(time.Now().Add(c.read))
+	c.mu.Unlock()
 	return c.Conn.Write(p)
+}
+func (c *readDeadlineConn) setActive(active bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.active = active
+	deadline := time.Time{}
+	if active {
+		deadline = time.Now().Add(c.read)
+	}
+	_ = c.Conn.SetDeadline(deadline)
 }
 func (h *Http) client(head bool) *http.Client {
 	h.mu.Lock()
@@ -89,7 +111,7 @@ func (h *Http) client(head bool) *http.Client {
 		if e != nil {
 			return nil, e
 		}
-		return &readDeadlineConn{Conn: connection, read: read}, nil
+		return &readDeadlineConn{Conn: connection, read: read, active: true}, nil
 	}
 	transport.TLSHandshakeTimeout = connect
 	transport.ResponseHeaderTimeout = read
@@ -137,7 +159,30 @@ type countedTransport struct {
 func (t countedTransport) RoundTrip(request *http.Request) (*http.Response, error) {
 	t.h.count("request_attempts", 1)
 	var writes atomic.Int64
+	var connection atomic.Pointer[readDeadlineConn]
 	request = request.WithContext(httptrace.WithClientTrace(request.Context(), &httptrace.ClientTrace{
+		GotConn: func(info httptrace.GotConnInfo) {
+			conn := info.Conn
+			for {
+				if native, ok := conn.(*readDeadlineConn); ok {
+					connection.Store(native)
+					native.setActive(true)
+					break
+				}
+				if wrapped, ok := conn.(interface{ NetConn() net.Conn }); ok {
+					conn = wrapped.NetConn()
+				} else {
+					break
+				}
+			}
+		},
+		PutIdleConn: func(err error) {
+			if err == nil {
+				if conn := connection.Load(); conn != nil {
+					conn.setActive(false)
+				}
+			}
+		},
 		WroteHeaders: func() {
 			if writes.Add(1) > 1 {
 				t.h.count("request_attempts", 1)
