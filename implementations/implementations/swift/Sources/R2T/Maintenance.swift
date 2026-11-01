@@ -98,9 +98,9 @@ enum Maintenance {
         return value.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
     static func normalizeTags(_ input: String) -> String {
+        let value = input.replacingOccurrences(of: "(?i)^\\s*tags\\s*:\\s*", with: "", options: .regularExpression)
         var seen = Set<String>(); var tags: [String] = []
-        // Retain the reference's treatment of a literal 'tags:' prefix.
-        for part in input.split(whereSeparator: { $0.isWhitespace || $0 == "," }) {
+        for part in value.split(whereSeparator: { $0.isWhitespace || $0 == "," }) {
             let tag = part.hasPrefix("#") ? String(part) : "#" + part
             if seen.insert(tag).inserted { tags.append(tag) }
         }
