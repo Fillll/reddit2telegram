@@ -177,8 +177,11 @@ pub async fn resolve(app: &App, module: &str) -> Result<Channel> {
         options,
     })
 }
-pub async fn maintenance(_app: &App, _module: &str, _sender: &Sender) -> Result<Supply> {
-    Err(Error::IncompletePort)
+pub async fn maintenance(app: &App, module: &str, sender: &Sender) -> Result<Supply> {
+    match module {
+        "tech_anniversary" => crate::anniversaries::run(app, sender).await,
+        _ => Err(Error::IncompletePort),
+    }
 }
 pub async fn post(
     app: &App,

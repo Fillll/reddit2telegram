@@ -227,6 +227,10 @@ impl Http {
         if !status.is_success() || body["ok"] != true {
             return Err(if status == StatusCode::BAD_REQUEST {
                 Error::Rejected
+            } else if status == StatusCode::FORBIDDEN {
+                Error::Forbidden
+            } else if status == StatusCode::TOO_MANY_REQUESTS {
+                Error::RateLimit
             } else {
                 Error::Telegram
             });

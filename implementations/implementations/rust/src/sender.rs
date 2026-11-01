@@ -157,9 +157,14 @@ impl Sender {
             .await
         {
             Ok(_) => Ok(Supply::Sent),
-            Err(Error::Rejected | Error::Telegram | Error::Network | Error::Timeout) => {
-                Ok(Supply::Skip)
-            }
+            Err(
+                Error::Rejected
+                | Error::Telegram
+                | Error::Network
+                | Error::Timeout
+                | Error::Forbidden
+                | Error::RateLimit,
+            ) => Ok(Supply::Skip),
             Err(error) => Err(error),
         }
     }

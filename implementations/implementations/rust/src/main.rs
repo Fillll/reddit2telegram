@@ -1,4 +1,6 @@
+mod anniversaries;
 mod custom;
+mod durable;
 mod http;
 mod maintenance;
 mod metrics;
