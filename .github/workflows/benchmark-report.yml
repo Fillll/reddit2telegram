@@ -23,7 +23,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install hash-pinned plotting wheels
-        run: python -m pip install --only-binary=:all: --require-hashes -r implementations/benchmarks/report-requirements.txt
+        run: |
+          python -m pip install --only-binary=:all: --require-hashes -r implementations/benchmarks/report-requirements.txt
       - name: Check tooling without application traffic or fabricated report values
         run: |
           python -m py_compile implementations/benchmarks/process_sampler.py implementations/benchmarks/report_data.py implementations/benchmarks/report.py implementations/benchmarks/render_report.py implementations/benchmarks/verify_report.py
