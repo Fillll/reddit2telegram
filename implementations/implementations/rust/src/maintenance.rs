@@ -282,7 +282,9 @@ fn normalize(input: &str, kind: &str) -> String {
     }
 }
 fn normalize_tags(input: &str) -> String {
-    let value = input.trim();
+    let value = regex::Regex::new(r"(?i)^\s*tags\s*:\s*")
+        .expect("literal prefix regex")
+        .replace(input.trim(), "");
     let mut seen = BTreeSet::new();
     let mut tags = Vec::new();
     for part in value
