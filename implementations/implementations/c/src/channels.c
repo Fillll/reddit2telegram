@@ -1,4 +1,6 @@
 #include "channels.h"
+#include "achievements.h"
+#include "anniversaries.h"
 #include "build_info.h"
 #include "maintenance.h"
 #include <math.h>
@@ -393,11 +395,11 @@ bool channel_maintenance(const App *app, const char *module, Sender *sender, Sup
         return maintenance_receiver(app, sender, result, error);
     if (!strcmp(module, "tech_weekly_radar"))
         return maintenance_weekly(app, sender, result, error);
-    (void)app;
-    (void)module;
-    (void)sender;
-    (void)result;
-    return error_set(error, E_INCOMPLETE_PORT, 0);
+    if (!strcmp(module, "tech_anniversary"))
+        return anniversaries(app, sender, result, error);
+    if (!strcmp(module, "tech_store_stat"))
+        return achievements(app, sender, result, error);
+    return error_set(error, E_UNKNOWN_TASK, 0);
 }
 bool channel_post(const App *app, const char *module, const Channel *channel,
                   const json_t *submission, Sender *sender, Reddit *reddit, Supply *result,
