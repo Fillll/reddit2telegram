@@ -38,7 +38,7 @@ jobs:
           echo '25d814fda50d5fb0084b42be09605d8b1595d49d5e2e03a3345d7e112ff6f9f3  /tmp/r2t-llvm.tar.xz' | sha256sum -c -
           mkdir -p "$HOME/.cache/r2t-llvm-23.1.4"
           tar -tJf /tmp/r2t-llvm.tar.xz | python3 -c 'import sys; from pathlib import PurePosixPath as P; bins={"clang","clang++","clang-23","clang-format","lld","ld.lld","llvm-ar","llvm-ranlib"}; names=[s.strip() for s in sys.stdin]; print("\n".join(s for s in names if ("/bin/" in s and P(s).name in bins) or "/lib/clang/" in s or ("/lib/" in s and P(s).name.startswith(("libLLVM","libclang-cpp")))))' > /tmp/r2t-llvm-members.txt
-          tar -xJf /tmp/r2t-llvm.tar.xz -C "$HOME/.cache/r2t-llvm-23.1.4" --strip-components=1 -T /tmp/r2t-llvm-members.txt
+          tar -xJf /tmp/r2t-llvm.tar.xz -C "$HOME/.cache/r2t-llvm-23.1.4" --strip-components=1 --no-recursion -T /tmp/r2t-llvm-members.txt
           rm /tmp/r2t-llvm.tar.xz
       - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         if: steps.llvm.outputs.cache-hit != 'true'
