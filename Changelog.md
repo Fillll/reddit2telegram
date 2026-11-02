@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.2.2] - 2026-11-01
+
+### Fixed
+
+- Prepare the main Python implementation for CPython 3.15.2 without changing application dependency versions.
+
 ## [1.2.1] - 2026-11-01
 
 ### Fixed

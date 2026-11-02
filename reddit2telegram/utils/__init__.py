@@ -6,7 +6,6 @@ import requests
 import httpx
 from requests.exceptions import InvalidSchema, MissingSchema, RequestException
 import os
-import imghdr
 import random
 import re
 import hashlib
