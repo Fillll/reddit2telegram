@@ -9,6 +9,7 @@ The history before this initial versioned snapshot remains in Git.
 ### Added
 
 - Add per-process observation and a reproducible live-comparison report
+- Label collector-query overhead in MongoDB totals and retain in-process event logging in application measurements.
 
 ## [1.2.1] - 2026-11-01
 

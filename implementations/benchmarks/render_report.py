@@ -251,9 +251,10 @@ def render(bundle, path):
           ['Runtime', 'Parent\nCPU %*', 'Helpers\nCPU %*', 'Scheduler\nCPU %', 'MongoDB\nCPU %', 'FFmpeg\nmax RSS*', 'Combined\nP95 MiB'],
           [.18, .13, .13, .14, .13, .14, .15], size=9.0)
     text_block(figure, .525, .198,
-        '* Process split uses P coverage above. Helpers include ffmpeg and maintenance subprocesses; '
-        'short ffmpeg lifetimes can be missed. FFmpeg RSS is the maximum seen in five-second snapshots, in MiB.',
-        width=110, size=9.2)
+        '* P coverage applies to process splits. Helpers include ffmpeg and maintenance utilities. '
+        'Short ffmpeg lifetimes may be missed; its RSS is the max observed every 5s (MiB). '
+        'MongoDB includes collector queries. Application totals exclude collector processes and include event logging.',
+        width=150, size=9.2)
 
     figure.text(.045, .162, 'Runtime builds', fontsize=15, color=INK, fontweight='bold')
     build_text = '\n'.join(build_line(run) for run in runs)

@@ -39,8 +39,11 @@ Counts are observational: acknowledged messages do not prove absence of every
 possible duplicate. Check posting records for observed duplicate deliveries.
 
 Application attribution includes the consumer and ffmpeg children, plus
-scheduler executions. MongoDB is reported separately. Benchmark tooling is
-excluded. Worker cgroup memory includes file cache. A kernel peak that predates
+scheduler executions. MongoDB is reported separately. Collector processes run
+outside application accounting; in-process event logging remains included.
+MongoDB and combined totals include the database work from read-only collector
+queue queries. That server-side observation overhead is not isolated or
+subtracted. Worker cgroup memory includes file cache. A kernel peak that predates
 the window must be labeled as lifetime, never presented as a window peak.
 Combined sampled memory and independent component kernel peaks are different
 metrics. HTTP body bytes exclude TLS/framing; URL-based Telegram media transfers

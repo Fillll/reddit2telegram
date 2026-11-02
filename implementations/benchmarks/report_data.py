@@ -439,6 +439,9 @@ METHODS = dict(cpu='Percent of one logical core. Means weight short-interval CPU
                   'Cumulative CPU totals retain valid monotonic deltas across longer gaps.',
     memory='Sampled cgroup memory includes file cache and ffmpeg/helper children. '
            'RSS is process resident memory. Sample maxima are window observations; kernel peaks are cgroup lifetime values.',
+    instrumentation='Collector processes run outside application accounting. In-process event logging remains included. '
+                    'MongoDB and combined totals include database work from read-only collector queue queries; '
+                    'that server-side observation overhead is not isolated or subtracted.',
     percentiles='Nearest-rank P95. Memory/timing means and medians describe eligible observations, not confidence intervals.',
     timing='Processing/queue distributions use matched start/end executions inside the window. '
            'Unfinished boundary jobs are censored. Counters summarize observed job-end records.',
