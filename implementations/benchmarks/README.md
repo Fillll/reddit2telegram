@@ -136,6 +136,14 @@ Only allowlisted aggregate/build metadata is exported, not raw process/job IDs,
 arguments, configuration values, payloads or URLs. A reviewed portable JSON
 bundle can also be rendered with `--bundle /path/comparison.json`.
 
+Portable build receipts retain captured executable hashes and distinguish the
+checked source head from its deployed merge commit. For Python the executable
+hash identifies the interpreter; native variants identify the application
+binary. Existing `interpreter_sha256`, `binary_sha256` and `source_checked_head`
+fields are normalized when exporting, while original manifests stay unchanged.
+An identity that was not captured remains unavailable; the current host or
+checkout is not used to reconstruct it.
+
 ## Interpretation
 
 All variants use actual Reddit, Telegram and MongoDB. Sequential live days have

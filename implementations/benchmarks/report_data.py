@@ -163,9 +163,19 @@ def build_receipt(manifest):
     for key in ('gil_enabled', 'jit_enabled'):
         if isinstance(selected.get(key), bool):
             safe[key] = selected[key]
-    for key in ('artifact_sha256', 'source_commit'):
-        value = selected.get(key, detail.get(key))
-        if isinstance(value, str) and re.fullmatch(r'[a-f0-9]{40}|[a-f0-9]{64}', value):
+    # Older selections used explicit interpreter/native field names. Preserve
+    # those captured identities without editing completed run manifests or
+    # substituting a hash from the current checkout or host.
+    for key, aliases in (
+            ('artifact_sha256', ('artifact_sha256', 'binary_sha256', 'interpreter_sha256')),
+            ('source_commit', ('source_commit', 'source_checked_head', 'reviewed_pr_head', 'commit')),
+            ('merged_commit', ('merged_commit',)),
+            ('source_git_tree', ('source_git_tree',))):
+        pattern = r'[a-f0-9]{64}' if key == 'artifact_sha256' else r'[a-f0-9]{40}|[a-f0-9]{64}'
+        values = (record.get(alias) for record in (selected, detail) for alias in aliases)
+        value = next((value for value in values
+                      if isinstance(value, str) and re.fullmatch(pattern, value)), None)
+        if value is not None:
             safe[key] = value
     dependencies = detail.get('dependencies', selected.get('dependencies'))
     if isinstance(dependencies, dict):
