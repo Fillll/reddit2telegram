@@ -135,6 +135,11 @@ values before delivery; an import/build check does not prove visual quality.
 The image and curated notes retain observed partial anniversary deliveries:
 a failed task may include acknowledged messages, and an inherited pending event
 is kept distinct from work first created by the measured runtime.
+Failed-job error counts retain class names and native numeric database codes,
+such as `Database(86)`. Other labels are counted as `Unclassified` while their
+original text stays private; exported error counts reconcile with failed jobs.
+The image includes Go's captured allocator policy when available and identifies
+the GC performed by `FreeOSMemory`, alongside its RSS release threshold.
 Only allowlisted aggregate/build metadata is exported, not raw process/job IDs,
 arguments, configuration values, payloads or URLs. A reviewed portable JSON
 bundle can also be rendered with `--bundle /path/comparison.json`.

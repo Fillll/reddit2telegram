@@ -334,9 +334,14 @@ def event_summary(events, available=True):
                       if isinstance(key, str) and re.fullmatch(r'[a-z][a-z0-9_]{0,79}', key)
                       and finite(value) and value >= 0}
             counters.update(values)
-            error = row.get('error_type')
-            if isinstance(error, str) and SAFE_KEY.fullmatch(error):
-                errors[error] += 1
+            if row.get('status') != 'success':
+                error = row.get('error_type')
+                # Native MongoDB errors carry a numeric diagnostic code. Keep
+                # that narrow format without permitting arbitrary error text.
+                safe_error = isinstance(error, str) and (
+                    SAFE_KEY.fullmatch(error)
+                    or re.fullmatch(r'Database\(-?[0-9]{1,10}\)', error))
+                errors[error if safe_error else 'Unclassified'] += 1
             module = row.get('module')
             if isinstance(module, str) and re.fullmatch(r'[a-zA-Z0-9_]{1,80}', module):
                 modules[module]['completed'] += 1

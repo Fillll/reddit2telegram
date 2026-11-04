@@ -112,6 +112,7 @@ def verify(runs):
                 assert len(ends) == model['jobs']['completed']
                 assert sum(r.get('status') == 'success' for r in ends) == model['jobs']['successful']
                 assert model['jobs']['failed'] + model['jobs']['successful'] == len(ends)
+                assert sum(model['jobs']['errors'].values()) == model['jobs']['failed']
                 for metric in ('http_response_body_bytes', 'telegram_request_body_bytes', 'telegram_messages'):
                     expected = sum(r.get('counters', {}).get(metric, 0) for r in ends)
                     close(model['jobs']['counters'].get(metric, 0), expected)
@@ -138,7 +139,7 @@ def verify(runs):
                     assert hashlib.sha256((directory / filename).read_bytes()).hexdigest() == receipt['sha256']
             results.append(dict(label=model['label'], samples=len(samples), completed_jobs=len(ends),
                 checked=['memory mean/median/P95/min/max', 'CPU cumulative/weighted mean/median/P95',
-                         'job outcomes/body counters/CPU per completed job', 'queue backlog',
+                         'job outcomes/error-count reconciliation/body counters/CPU per completed job', 'queue backlog',
                          'window boundaries/source hashes/kernel-peak scope'],
                 unique_execution_timing_verified=full_unique_pairing,
                 timing_limit=None if full_unique_pairing else (

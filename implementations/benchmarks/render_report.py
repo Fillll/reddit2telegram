@@ -131,7 +131,13 @@ def build_line(run):
         if build.get('standard'):
             detail += ' | '+build['standard']
         if run['label'] == 'go':
-            detail += ' | native GC / HTTP / TLS'
+            allocator = build.get('allocator', '')
+            if allocator:
+                detail += ' | '+allocator
+                if 'FreeOSMemory' in allocator:
+                    detail += ' (includes GC; malloc_trim releases allocator pages)'
+            else:
+                detail += ' | native GC / HTTP / TLS'
     return run['name']+': '+detail
 
 
