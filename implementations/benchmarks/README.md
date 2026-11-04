@@ -132,6 +132,9 @@ produces `r2t-live-comparison.png`, `comparison.json`, `distributions.csv`,
 `windows.csv`, `counters.csv` and a rendering receipt. The PNG is 4800 by 4400
 pixels. Inspect the exported image for readable labels, clipping and faithful
 values before delivery; an import/build check does not prove visual quality.
+The image and curated notes retain observed partial anniversary deliveries:
+a failed task may include acknowledged messages, and an inherited pending event
+is kept distinct from work first created by the measured runtime.
 Only allowlisted aggregate/build metadata is exported, not raw process/job IDs,
 arguments, configuration values, payloads or URLs. A reviewed portable JSON
 bundle can also be rendered with `--bundle /path/comparison.json`.

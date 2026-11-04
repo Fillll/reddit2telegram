@@ -212,6 +212,9 @@ NOTE_DESCRIPTIONS = {
     'process_sampler_started': 'Supplementary process-role observations began after the original window start.',
     'process_sampler_finished': 'Supplementary process observations stopped; the original deadline was retained.',
     'process_sampler_source': 'Supplementary sampler source identity was recorded.',
+    'partial_anniversary_delivery': 'An anniversary sweep reported a partial outcome for an event that predates this runtime window. '
+                                    'Acknowledged parts remained sent, an explicit rejection remained pending, and no uncertain messages were observed. '
+                                    'No retry was forced; task failure does not mean zero acknowledged deliveries.',
 }
 
 

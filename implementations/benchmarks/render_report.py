@@ -267,6 +267,8 @@ def render(bundle, path):
     ]
     if any(n['event'] == 'deployment_environment_correction' for r in runs for n in r['notes']):
         limits.append('Python 3.12: the first accounted cron call failed due to a missing user-bus environment. The cron environment was corrected; the window was not restarted.')
+    if any(n['event'] == 'partial_anniversary_delivery' for r in runs for n in r['notes']):
+        limits.append('Rust: an anniversary task reported partial delivery for an inherited event. Acknowledged parts remained sent; an explicit rejection remained pending. No retry was forced.')
     if any(r['source_changed'] for r in runs):
         limits.append('At least one run changed tracked source or configuration during observation; inspect its source_changed flag before comparing results.')
     if any(r['status'] != 'finished' for r in runs):

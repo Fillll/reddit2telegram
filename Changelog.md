@@ -11,6 +11,7 @@ The history before this initial versioned snapshot remains in Git.
 - Add per-process observation and a reproducible live-comparison report
 - Label collector-query overhead in MongoDB totals and retain in-process event logging in application measurements.
 - Retain captured executable hashes and checked/merged source identities in portable report receipts without rewriting original manifests.
+- Explain observed partial anniversary delivery in the image and curated notes while withholding private incident details.
 
 ## [1.3.0] - 2026-11-02
 
