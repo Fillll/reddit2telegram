@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.5.0] - 2026-11-04
+
+### Added
+
+- Add an independent native C++ implementation for the live language comparison
+
 ## [1.4.0] - 2026-11-03
 
 ### Added
