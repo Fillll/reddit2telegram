@@ -259,7 +259,7 @@ def render(bundle, path):
     text_block(figure, .525, .198,
         '* P coverage applies to process splits. Helpers include ffmpeg and maintenance utilities. '
         'Short ffmpeg lifetimes may be missed; its RSS is the max observed every 5s (MiB). '
-        'MongoDB includes collector queries. Application totals exclude collector processes and include event logging.',
+        'MongoDB includes collector and operator read-only queries. Application totals exclude collector processes and include event logging.',
         width=150, size=9.2)
 
     figure.text(.045, .162, 'Runtime builds', fontsize=15, color=INK, fontweight='bold')
@@ -273,8 +273,11 @@ def render(bundle, path):
     ]
     if any(n['event'] == 'deployment_environment_correction' for r in runs for n in r['notes']):
         limits.append('Python 3.12: the first accounted cron call failed due to a missing user-bus environment. The cron environment was corrected; the window was not restarted.')
-    if any(n['event'] == 'partial_anniversary_delivery' for r in runs for n in r['notes']):
-        limits.append('Rust: an anniversary task reported partial delivery for an inherited event. Acknowledged parts remained sent; an explicit rejection remained pending. No retry was forced.')
+    anniversary_runtimes = [r['name'] for r in runs
+                           if any(n['event'] == 'partial_anniversary_delivery' for n in r['notes'])]
+    if anniversary_runtimes:
+        limits.append(', '.join(anniversary_runtimes) + ': anniversary sweeps ended partially. '
+                      'Acknowledged deliveries remained sent; inherited rejected parts remained pending. No retry was forced.')
     if any(r['source_changed'] for r in runs):
         limits.append('At least one run changed tracked source or configuration during observation; inspect its source_changed flag before comparing results.')
     if any(r['status'] != 'finished' for r in runs):

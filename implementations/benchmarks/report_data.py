@@ -231,6 +231,19 @@ def note_receipts(notes):
             if finite(row.get(key)):
                 item[key] = row[key]
         item['description'] = NOTE_DESCRIPTIONS.get(event, 'An operator incident or change was recorded; review the private source note.')
+        if event == 'partial_anniversary_delivery':
+            for key in ('partial_run_count', 'job_acknowledged_telegram_messages', 'uncertain_messages',
+                        'sweep_completed_events', 'sweep_pending_events', 'sweep_database_errors'):
+                value = row.get(key)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    item[key] = value
+            for key in ('retry_forced', 'production_changed'):
+                if isinstance(row.get(key), bool):
+                    item[key] = row[key]
+            # The first reviewed Rust receipt used a runtime-specific key.
+            inherited = row.get('pending_event_predates_window', row.get('pending_event_predates_rust'))
+            if isinstance(inherited, bool):
+                item['pending_event_predates_window'] = inherited
         result.append(item)
     return result
 

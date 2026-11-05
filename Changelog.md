@@ -11,7 +11,7 @@ The history before this initial versioned snapshot remains in Git.
 - Add per-process observation and a reproducible live-comparison report
 - Label collector-query overhead in MongoDB totals and retain in-process event logging in application measurements.
 - Retain captured executable hashes and checked/merged source identities in portable report receipts without rewriting original manifests.
-- Explain observed partial anniversary delivery in the image and curated notes while withholding private incident details.
+- Attribute observed partial anniversary delivery to the affected runtimes in the image and retain reviewed sweep counters while withholding private incident details.
 - Reconcile exported failure counts, retain numeric database diagnostics, and show the captured Go allocator policy in the image.
 
 ## [1.4.0] - 2026-11-03
