@@ -43,6 +43,15 @@ _© from [infomate.club](https://github.com/vas3k/infomate.club)_
 Running it
 ----------
 
+The target runtime is CPython 3.15.2 (normal GIL build, JIT disabled). The live
+language experiment preserves Python 3.12 in its existing environment until its
+single 24-hour baseline finishes. Do not switch an active measurement early.
+The Python 3.15 environment uses the same installed dependency versions,
+including the PyMongo/BSON C extensions; see
+`implementations/benchmarks/configurations/python315-requirements.lock`.
+Interpreter distributions and optimization flags are recorded in run metadata,
+so the comparison includes the deployed build, not just the version number.
+
 Easiest way is to ask for new channel at [@r_channels](https://t.me/r_channels). Or follow the manual as stated above. :)
 
 But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
