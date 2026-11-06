@@ -4,11 +4,41 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
-## [1.3.0] - 2026-11-01
+## [1.7.0] - 2026-11-06
 
 ### Added
 
-- Add an independent Go implementation for the live runtime comparison
+- Add a native Go implementation of the complete scheduled worker and cron workload for the fresh live comparison.
+
+## [1.6.0] - 2026-11-05
+
+### Added
+
+- Add an independent plain C implementation for the live language comparison
+
+## [1.5.0] - 2026-11-04
+
+### Added
+
+- Add an independent native C++ implementation for the live language comparison
+
+## [1.4.0] - 2026-11-03
+
+### Added
+
+- Add an independent native Swift implementation for the live language comparison
+
+## [1.3.0] - 2026-11-02
+
+### Added
+
+- Add an independent Rust implementation and release-build workflow for the live language experiment.
+
+## [1.2.2] - 2026-11-01
+
+### Fixed
+
+- Prepare the main Python implementation for CPython 3.15.2 without changing application dependency versions.
 
 ## [1.2.1] - 2026-11-01
 
