@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.6.0] - 2026-11-05
+
+### Added
+
+- Add an independent plain C implementation for the live language comparison
+
 ## [1.5.0] - 2026-11-04
 
 ### Added
