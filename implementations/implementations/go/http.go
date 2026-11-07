@@ -5,6 +5,7 @@ import (
 	"compress/gzip"
 	"context"
 	"crypto/md5"
+	"crypto/tls"
 	"encoding/hex"
 	"errors"
 	"hash"
@@ -129,6 +130,14 @@ func (h *Http) client(head bool) *http.Client {
 	transport := http.DefaultTransport.(*http.Transport).Clone()
 	transport.DisableCompression = true // Explicit decompression gives body counters the reference's decoded-byte definition.
 	transport.ForceAttemptHTTP2 = false // Socket idle deadlines apply to one job's HTTP/1 request.
+	transport.Protocols = new(http.Protocols)
+	transport.Protocols.SetHTTP1(true)
+	if transport.TLSClientConfig == nil {
+		transport.TLSClientConfig = &tls.Config{}
+	}
+	// Clone may retain the default transport's h2 ALPN advertisement even
+	// though our custom dialer disables automatic HTTP/2 handler installation.
+	transport.TLSClientConfig.NextProtos = []string{"http/1.1"}
 	transport.DialContext = func(ctx context.Context, network, address string) (net.Conn, error) {
 		connection, e := (&net.Dialer{Timeout: connect, KeepAlive: 30 * time.Second}).DialContext(ctx, network, address)
 		if e != nil {

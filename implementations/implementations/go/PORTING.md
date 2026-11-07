@@ -56,6 +56,13 @@ downloads remain outside this counter. Upload producer/body cleanup completes
 before final job metrics, including early request rejection. Native automatic
 HTTP resend header writes and redirects are counted at their transport hooks.
 
+The HTTP/1 protocol set and TLS ALPN advertisement are explicit after cloning
+the standard transport. Disabling ForceAttemptHTTP2 with a custom dialer does
+not clear inherited h2 ALPN values in the pinned toolchain. The --describe
+receipt initializes and reports regular, HEAD and Telegram client policies
+without opening connections or loading application configuration; remote
+packaging verifies that all three advertise only http/1.1 with HTTP/2 disabled.
+
 The checksum-pinned toolchain is Go 1.27.3 with the default optimizing compiler,
 trimpath, stripped debug tables and cgo disabled. Dependencies include the
 official MongoDB v2.9.2 driver and stable YAML v3.0.6; go.sum pins transitive
