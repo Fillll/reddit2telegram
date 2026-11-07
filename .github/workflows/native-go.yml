@@ -1,0 +1,61 @@
+name: Native Go build
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'implementations/implementations/go/**'
+      - '.github/workflows/native-go.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-go-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  go-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: implementations/implementations/go
+    env:
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: local
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install checksum-pinned stable toolchain
+        run: |
+          curl --fail --location --retry 3 https://go.dev/dl/go1.27.3.linux-amd64.tar.gz -o /tmp/r2t-go.tar.gz
+          echo '65efbc80fdc1fa2cd2631cad5b481777a68e8725f34e89f50fc6ac714e379b40  /tmp/r2t-go.tar.gz' | sha256sum -c -
+          mkdir -p "$HOME/.local/r2t-go"
+          tar -xzf /tmp/r2t-go.tar.gz -C "$HOME/.local/r2t-go"
+          echo "$HOME/.local/r2t-go/go/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: go-1.27.3-${{ runner.os }}-${{ hashFiles('implementations/implementations/go/go.sum') }}
+          restore-keys: go-1.27.3-${{ runner.os }}-
+      - name: Verify formatting and pinned modules
+        run: |
+          test -z "$(gofmt -l .)"
+          go mod download
+          go mod verify
+      - name: Compile optimized native application without app traffic
+        run: |
+          go vet ./...
+          mkdir -p dist
+          version=$(cat ../../../VERSION)
+          revision=$(git rev-parse HEAD)
+          go build -trimpath -buildvcs=false -ldflags "-s -w -X main.version=$version -X main.sourceCommit=$revision" -o dist/r2t-go .
+          dist/r2t-go --describe > dist/go-build.json
+          go version -m dist/r2t-go > dist/go-modules.txt
+          sha256sum dist/r2t-go > dist/go-build.sha256
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: r2t-go-linux-x86_64-${{ github.event.pull_request.head.sha || github.sha }}
+          path: implementations/implementations/go/dist/*
+          retention-days: 14

@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.7.0] - 2026-11-06
+
+### Added
+
+- Add a native Go implementation of the complete scheduled worker and cron workload for the fresh live comparison.
+
 ## [1.6.0] - 2026-11-05
 
 ### Added
