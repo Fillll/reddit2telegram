@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.7.1] - 2026-11-07
+
+### Fixed
+
+- Keep Go TLS protocol negotiation consistent with its HTTP/1 transport.
+
 ## [1.7.0] - 2026-11-06
 
 ### Added
