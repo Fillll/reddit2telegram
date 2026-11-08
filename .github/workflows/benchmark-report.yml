@@ -4,6 +4,7 @@ on:
     branches: [master]
     paths:
       - 'implementations/benchmarks/**'
+      - 'tests/test_benchmark_campaigns.py'
       - '.github/workflows/benchmark-report.yml'
   workflow_dispatch:
 permissions:
