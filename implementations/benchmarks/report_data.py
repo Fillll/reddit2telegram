@@ -221,8 +221,10 @@ NOTE_DESCRIPTIONS = {
                                                   'No HTTP response or acknowledgement was recorded; task status does not establish per-channel API success or delivery.',
     'uncertain_anniversary_delivery': 'A natural anniversary sweep ended partially with message parts marked uncertain. '
                                       'Missing acknowledgements leave delivery unresolved. Previously sent checkpoints were retained; no retry was forced.',
+    'worker_already_running_at_window_start': 'The corrected Go worker was already running when the fresh measurement began. '
+                                              'No consumer restart was performed. In-flight boundary jobs are censored from paired job timings; resource totals include their work.',
     'transport_policy_repair_deployed': 'Go 1.7.1 was deployed after the original measurement cutoff and the original worker drained naturally. '
-                                        'Normal production posting resumed; the corrected runtime was not benchmarked. '
+                                        'Normal production posting resumed. At this deployment checkpoint, the corrected runtime had not yet been benchmarked. '
                                         'Uncertain anniversary parts and prior sent checkpoints were preserved.',
 }
 
@@ -240,6 +242,13 @@ def note_receipts(notes):
             if finite(row.get(key)):
                 item[key] = row[key]
         item['description'] = NOTE_DESCRIPTIONS.get(event, 'An operator incident or change was recorded; review the private source note.')
+        if event == 'worker_already_running_at_window_start':
+            age = row.get('worker_age_at_start_seconds')
+            if finite(age) and age >= 0:
+                item['worker_age_at_start_seconds'] = age
+            for key in ('consumer_restarted_for_measurement', 'inflight_boundary_jobs_censored'):
+                if isinstance(row.get(key), bool):
+                    item[key] = row[key]
         if event == 'partial_anniversary_delivery':
             for key in ('partial_run_count', 'job_acknowledged_telegram_messages', 'uncertain_messages',
                         'sweep_completed_events', 'sweep_pending_events', 'sweep_database_errors'):
@@ -516,6 +525,9 @@ def analyze_run(directory):
         queue_observation_count=len(queues), kernel_peaks=peaks,
         processes=process_summary(process, start, end), notes=note_receipts(notes),
         source_receipts=receipts)
+    campaign = manifest.get('campaign')
+    if isinstance(campaign, str) and re.fullmatch(r'[a-z][a-z0-9-]{0,39}', campaign):
+        result['campaign'] = campaign
     return result
 
 
@@ -553,7 +565,7 @@ METHODS = dict(cpu='Percent of one logical core. Means weight short-interval CPU
                'Workloads, upstream latency, media and libraries differ. This is not a causal language-speed experiment.')
 
 
-def analyze_experiment(runs_directory):
+def analyze_experiment(runs_directory, go_followup=None):
     ledger_path = runs_directory.parent / 'state' / 'experiment.json'
     if not ledger_path.exists():
         raise EvidenceError('The original experiment ledger is required')
@@ -572,6 +584,44 @@ def analyze_experiment(runs_directory):
             raise EvidenceError('Multiple runs for a configuration; repetitions cannot be silently selected')
         by_label[result['label']] = result
     ordered = [by_label[label] for label in LABELS if label in by_label]
+    supplementary = []
+    selection = None
+    if go_followup is not None:
+        if set(by_label) != set(LABELS) or any(r['status'] != 'finished' for r in ordered):
+            raise EvidenceError('A Go follow-up requires the intact, finished original seven-run experiment')
+        followup_ledger_path = go_followup.parent / 'state/experiment.json'
+        followup_ledger_raw = followup_ledger_path.read_bytes()
+        followup_ledger = json.loads(followup_ledger_raw)
+        candidates = list(go_followup.glob('*/manifest.json'))
+        if set(followup_ledger.get('runs', {})) != {'go'} or len(candidates) != 1:
+            raise EvidenceError('Select exactly one separately recorded Go follow-up window')
+        corrected = analyze_run(candidates[0].parent)
+        entry = followup_ledger['runs']['go']
+        if corrected['label'] != 'go' or not corrected.get('campaign'):
+            raise EvidenceError('Follow-up input must be an explicitly named Go campaign')
+        if any(entry.get(key) != corrected[key] for key in ('run_id', 'started_at', 'deadline', 'status')):
+            raise EvidenceError('The Go follow-up does not match its original campaign ledger')
+        original = by_label['go']
+        if corrected['started_at'] < original['deadline'] or corrected['run_id'] == original['run_id']:
+            raise EvidenceError('The corrected Go window must be separate and later than the original window')
+        if (not corrected['build'].get('artifact_sha256')
+                or corrected['build']['artifact_sha256'] == original['build'].get('artifact_sha256')):
+            raise EvidenceError('The follow-up must identify a different captured Go executable')
+        if corrected['build']['configuration_sha256'] != original['build']['configuration_sha256']:
+            raise EvidenceError('The corrected Go run must retain the original configuration and schedule')
+        if corrected['status'] in FINAL_STATUSES and corrected['status'] != 'finished':
+            raise EvidenceError('The requested corrected Go comparison requires its full 24-hour window')
+        corrected['name'] = 'Go '+corrected['build'].get('version', '(corrected)')
+        by_label['go'] = corrected
+        ordered = [by_label[label] for label in LABELS]
+        supplementary = [original]
+        original['comparison_role'] = 'supplementary_original_go'
+        selection = dict(reason='User explicitly requested a full corrected-Go measurement and report update',
+                         selected_go_run_id=corrected['run_id'],
+                         supplementary_original_go_run_id=original['run_id'],
+                         followup_ledger_sha256=hashlib.sha256(followup_ledger_raw).hexdigest(),
+                         original_ledger_sha256=hashlib.sha256(ledger_raw).hexdigest(),
+                         windows_pooled=False, other_six_runs_unchanged=True)
     missing = [label for label in LABELS if label not in by_label]
     active = [r['label'] for r in ordered if r['status'] not in FINAL_STATUSES]
     overlaps = []
@@ -579,11 +629,19 @@ def analyze_experiment(runs_directory):
     for before, after in zip(chronological, chronological[1:]):
         if after['started_at'] < before['effective_end']:
             overlaps.append([before['label'], after['label']])
-    return dict(schema=1, expected_labels=list(LABELS), runs=ordered, missing_labels=missing,
+    result = dict(schema=1, expected_labels=list(LABELS), runs=ordered, missing_labels=missing,
         unfinished_labels=active, overlapping_windows=overlaps,
         final_ready=not missing and not active and not overlaps,
         methods=METHODS, ledger_sha256=hashlib.sha256(ledger_raw).hexdigest(), evidence_cutoff=max((r['effective_end'] for r in ordered
             if r['status'] in FINAL_STATUSES), default=None))
+    if selection:
+        result['go_followup_selection'] = selection
+        result['supplementary_runs'] = supplementary
+        result['methods'] = {**METHODS,
+            'comparison': 'The main comparison uses the original six non-Go live windows and one separately authorized corrected-Go full 24-hour window. '
+                          'The failed original Go window is retained as supplementary evidence and is not pooled with the corrected window. '
+                          'Workloads, upstream latency, media, libraries and dates differ; this is not a causal language-speed experiment.'}
+    return result
 
 
 def require_final(bundle):
@@ -595,6 +653,17 @@ def require_final(bundle):
                 for run in runs))
     ordered = sorted(runs, key=lambda r: r.get('started_at', 0))
     overlap = any(after['started_at'] < before['effective_end'] for before, after in zip(ordered, ordered[1:]))
+    selection = bundle.get('go_followup_selection')
+    if selection:
+        corrected = next((run for run in runs if run.get('label') == 'go'), {})
+        supplementary = bundle.get('supplementary_runs', [])
+        if (corrected.get('status') != 'finished' or corrected.get('exposure_seconds') != 86400
+                or corrected.get('run_id') != selection.get('selected_go_run_id')
+                or len(supplementary) != 1 or supplementary[0].get('label') != 'go'
+                or supplementary[0].get('run_id') != selection.get('supplementary_original_go_run_id')
+                or corrected.get('started_at', 0) < supplementary[0].get('deadline', math.inf)
+                or selection.get('windows_pooled') is not False):
+            raise EvidenceError('A corrected-Go final report requires its complete separate window and retained original evidence')
     if not terminal or overlap or not bundle.get('final_ready'):
         raise EvidenceError('Final image requires seven finalized, non-overlapping fresh windows; '
             f"missing={','.join(bundle.get('missing_labels', []))}; unfinished={','.join(bundle.get('unfinished_labels', []))}")

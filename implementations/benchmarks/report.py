@@ -37,6 +37,27 @@ def distributions(value, path=''):
                 yield from distributions(item, f'{path}.{key}' if path else key)
 
 
+def window_rows(runs, role=None):
+    rows = []
+    for run in runs:
+        jobs = run['jobs']
+        row = dict(label=run['label'], status=run['status'],
+            started_utc=run['started_iso'], ended_utc=run['ended_iso'],
+            exposure_hours=run['exposure_seconds']/3600,
+            sample_coverage_fraction=run['sampling_coverage_fraction'],
+            process_coverage_fraction=run['processes']['coverage_fraction'],
+            completed_jobs=jobs['completed'], successful_jobs=jobs['successful'], failed_jobs=jobs['failed'],
+            telegram_messages=(jobs['counters'].get('telegram_messages', 0)
+                               if jobs['telemetry_available'] else None),
+            application_cpu_seconds=run['components']['application']['cpu']['seconds'],
+            cpu_seconds_per_completed_job=run['cpu_seconds_per_completed_job'],
+            cpu_seconds_per_successful_job=run['cpu_seconds_per_successful_job'])
+        if role:
+            row.update(comparison_role=role, configuration=run['name'], run_id=run['run_id'])
+        rows.append(row)
+    return rows
+
+
 def export(bundle, output):
     require_final(bundle)
     # Lazy import: inspecting active evidence needs no plotting dependencies.
@@ -52,21 +73,11 @@ def export(bundle, output):
             rows.append(dict(label=run['label'], metric=metric, **values))
     atomic_write(output / 'distributions.csv', csv_bytes(rows,
         ['label', 'metric', 'count', 'average', 'median', 'p95', 'maximum', 'minimum']))
-    overview = []
-    for run in bundle['runs']:
-        jobs = run['jobs']
-        overview.append(dict(label=run['label'], status=run['status'],
-            started_utc=run['started_iso'], ended_utc=run['ended_iso'],
-            exposure_hours=run['exposure_seconds']/3600,
-            sample_coverage_fraction=run['sampling_coverage_fraction'],
-            process_coverage_fraction=run['processes']['coverage_fraction'],
-            completed_jobs=jobs['completed'], successful_jobs=jobs['successful'], failed_jobs=jobs['failed'],
-            telegram_messages=(jobs['counters'].get('telegram_messages', 0)
-                               if jobs['telemetry_available'] else None),
-            application_cpu_seconds=run['components']['application']['cpu']['seconds'],
-            cpu_seconds_per_completed_job=run['cpu_seconds_per_completed_job'],
-            cpu_seconds_per_successful_job=run['cpu_seconds_per_successful_job']))
+    overview = window_rows(bundle['runs'], 'main_comparison' if bundle.get('go_followup_selection') else None)
     atomic_write(output / 'windows.csv', csv_bytes(overview, list(overview[0])))
+    if bundle.get('supplementary_runs'):
+        supplementary = window_rows(bundle['supplementary_runs'], 'supplementary_original_go')
+        atomic_write(output / 'supplementary-windows.csv', csv_bytes(supplementary, list(supplementary[0])))
     counters = [dict(label=run['label'], counter=key, value=value)
                 for run in bundle['runs'] for key, value in sorted(run['jobs']['counters'].items())]
     atomic_write(output / 'counters.csv', csv_bytes(counters, ['label', 'counter', 'value']))
@@ -82,10 +93,14 @@ def main():
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument('--runs', type=Path, help='Original ignored runs directory with its adjacent ledger')
     source.add_argument('--bundle', type=Path, help='Previously reviewed portable comparison.json')
+    parser.add_argument('--go-followup', type=Path, help='Separate corrected-Go campaign runs directory; retain original Go as supplementary evidence')
     parser.add_argument('--output', type=Path)
     parser.add_argument('--inspect', action='store_true', help='Show evidence readiness without writing a report')
     args = parser.parse_args()
-    bundle = analyze_experiment(args.runs.resolve()) if args.runs else json.loads(args.bundle.read_text())
+    if args.go_followup and not args.runs:
+        parser.error('--go-followup requires --runs for the original experiment')
+    bundle = (analyze_experiment(args.runs.resolve(), args.go_followup.resolve() if args.go_followup else None)
+              if args.runs else json.loads(args.bundle.read_text()))
     if args.inspect:
         print(json.dumps(dict(final_ready=bundle['final_ready'], missing=bundle['missing_labels'],
             unfinished=bundle['unfinished_labels'], overlaps=bundle['overlapping_windows'],

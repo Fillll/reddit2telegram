@@ -199,6 +199,24 @@ the process sampler and inspect the actual services as for the original runs.
 The updated comparison must disclose the selected corrected Go run and retain
 the original failed run as supplementary evidence, rather than pooling them.
 
+To inspect or produce that revised comparison, provide both original sources:
+
+```sh
+report-env/bin/python implementations/benchmarks/report.py --runs /absolute/path/original/runs --go-followup /absolute/path/state/campaigns/go-http1/runs --inspect
+report-env/bin/python implementations/benchmarks/verify_report.py --runs /absolute/path/original/runs --go-followup /absolute/path/state/campaigns/go-http1/runs --receipt /private/path/followup-arithmetic.json
+report-env/bin/python implementations/benchmarks/report.py --runs /absolute/path/original/runs --go-followup /absolute/path/state/campaigns/go-http1/runs --output implementations/benchmarks/results
+```
+
+The main seven rows use the unchanged six non-Go measurements and the corrected
+Go window. `comparison.json` retains the original failed Go aggregate in
+`supplementary_runs`, alongside both ledger hashes and the explicit selection
+reason. `supplementary-windows.csv` keeps its overview separate from main totals.
+The verifier freezes the original and campaign inputs separately and checks
+all eight windows, including the supplementary failed run. Final image export
+refuses a running or interrupted corrected-Go window; it must finish its own
+full 24 hours. A worker already running at the start is identified as warm,
+and in-flight boundary work keeps the same censoring rules.
+
 After deploying instrumentation and restarting the existing worker, launch the
 fresh baseline from the production virtual environment:
 
