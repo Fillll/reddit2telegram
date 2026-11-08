@@ -1,0 +1,19 @@
+{
+  "arithmetic_reconciliation": "passed for all seven original live windows; unique execution timings verified",
+  "comparison_sha256": "ac7c8e76b0c784f22db7cb370e58b151b96eb8ad36cd08426c5426e441300665",
+  "dpi": 200,
+  "figure_narrative_blocks_do_not_overlap": true,
+  "figure_text_inside_canvas": true,
+  "image_sha256": "8f8de4653ee40fa90c587837f18fc6d83ed44d90b215c6aa0693aca3fed101f0",
+  "matplotlib": "3.11.2",
+  "numpy": "2.5.4",
+  "pixels": [
+    4800,
+    6000
+  ],
+  "portable_evidence_privacy_review": "passed; raw job/process identifiers, configuration values, payloads, URLs and private evidence paths excluded",
+  "python": "3.12.3",
+  "rendered_visual_inspection": "passed: full exported image and resource, workload, component and methodology panels inspected",
+  "table_text_inside_cells": true,
+  "visual_inspection_utc": "2026-11-08T16:49:00.941925+00:00"
+}

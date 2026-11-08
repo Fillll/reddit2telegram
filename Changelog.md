@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.8.0] - 2026-11-08
+
+### Added
+
+- Add a verified single-image comparison and portable aggregate data for seven fresh live runtime windows, with coverage and reliability limitations.
+
 ## [1.7.1] - 2026-11-07
 
 ### Fixed

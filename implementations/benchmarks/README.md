@@ -5,6 +5,21 @@ Python 3.12, Python 3.15, Rust, Swift, C++, C, Go. No replay, simulated traffic,
 historical baseline, repeated runs, or extended windows. The final deliverable
 includes one high-resolution comparison image, plus inspectable summaries.
 
+The original experiment finished on 8 November 2026 at 16:28:30 UTC: seven
+24-hour windows, 128,859 recorded job ends and 96,578 acknowledged Telegram
+messages. See the [single-image report](results/r2t-live-comparison.png),
+[portable evidence](results/comparison.json), [metric distributions](results/distributions.csv),
+[window overview](results/windows.csv) and [request counters](results/counters.csv).
+The report retains sampling gaps, the incomplete early Python 3.12 process
+split, different daily workloads and the observed failures.
+
+The measured Go application was 1.7.0: 4,783 of 4,787 recorded jobs failed,
+with no recorded Telegram acknowledgement. Its resource measurements do not
+establish delivery efficiency. Go 1.7.1 corrected the client protocol policy
+after the original cutoff, and normal posting resumed; that corrected runtime
+was not benchmarked. The 17 uncertain anniversary parts remain unresolved and
+blocked from automatic resend. Prior sent checkpoints were preserved.
+
 Python remains in `reddit2telegram/`. Other languages belong in
 `implementations/implementations/{rust,swift,cpp,c,go}/`.
 
@@ -39,8 +54,11 @@ Counts are observational: acknowledged messages do not prove absence of every
 possible duplicate. Check posting records for observed duplicate deliveries.
 
 Application attribution includes the consumer and ffmpeg children, plus
-scheduler executions. MongoDB is reported separately. Benchmark tooling is
-excluded. Worker cgroup memory includes file cache. A kernel peak that predates
+scheduler executions. MongoDB is reported separately. Collector processes run
+outside application accounting; in-process event logging remains included.
+MongoDB and combined totals include the database work from read-only collector
+queue queries. That server-side observation overhead is not isolated or
+subtracted. Worker cgroup memory includes file cache. A kernel peak that predates
 the window must be labeled as lifetime, never presented as a window peak.
 Combined sampled memory and independent component kernel peaks are different
 metrics. HTTP body bytes exclude TLS/framing; URL-based Telegram media transfers
@@ -63,6 +81,91 @@ processes and children remain accounted in cumulative slice counters.
 
 Runtime control and raw data are local-only in ignored `state/` and `runs/`.
 `results/` contains only curated, reviewed summaries and the final report.
+
+### Supplementary process observations
+
+`process_sampler.py --directory /absolute/path/to/run` observes only the worker
+cgroup and its existing processes. It never starts application work, changes
+the schedule or extends a window. Run it in its own user service, outside the
+scheduler accounting slice, immediately after each new window begins. It holds
+a per-run lock, appends observations across a crash restart and always retains
+the original deadline.
+
+The Python 3.12 supplement began partway through its window; earlier process
+detail is unavailable. The primary cgroup collector retains its original full
+window. Separate process RSS is sampled; short ffmpeg lifetimes can be missed.
+Parent reaped-child CPU plus live child CPU includes work between polls, but it
+cannot identify every short child's executable. Report that CPU as helpers,
+including ffmpeg and maintenance utilities. FFmpeg-specific observed CPU is a
+lower bound, not an exact total. These limits belong in the final image.
+
+### Single-image report
+
+The report uses original manifests, samples, events, queue snapshots, notes,
+process observations and the experiment ledger. Missing values remain missing.
+CPU distributions use valid intervals of at most ten seconds; cumulative CPU
+totals can retain monotonic deltas across longer gaps. Post-deadline boundary
+reads are excluded. Timings require paired in-window start/end events; counters
+describe observed job ends. Memory includes cgroup file cache, and kernel
+lifetime peaks remain separate from sampled window maxima.
+
+The common body comparison uses non-Telegram decoded response bytes and
+Telegram request bytes. Python does not count Telegram response bodies; the
+extra native counters remain available without being added to the common
+comparison. Body bytes exclude TLS/framing and remote Telegram URL fetches.
+
+Install plotting wheels into an independent tooling environment, not the
+measured production environment:
+
+```sh
+python3 -m venv /absolute/path/report-env
+/absolute/path/report-env/bin/pip install --only-binary=:all: --require-hashes -r implementations/benchmarks/report-requirements.txt
+```
+
+Inspect current evidence without generating a final artifact:
+
+```sh
+python3 implementations/benchmarks/report.py --runs /absolute/path/runs --inspect
+python3 implementations/benchmarks/verify_report.py --runs /absolute/path/runs --receipt /private/path/arithmetic-check.json
+```
+
+The verifier independently reconciles consequential statistics against a
+temporary private copy of the fresh live observations; it creates no benchmark
+traffic or fabricated inputs. It checks counts, CPU deltas/weighted means,
+memory/timing percentiles, backlog, source hashes and window boundaries. Its
+receipt states the actual scope, including whether repeated execution IDs
+need a separate pairing review. The private raw copy is removed afterwards.
+
+After all seven windows finalize, generate the image and portable evidence:
+
+```sh
+/absolute/path/report-env/bin/python implementations/benchmarks/report.py --runs /absolute/path/runs --output implementations/benchmarks/results
+```
+
+The renderer refuses an unfinished, repeated or overlapping experiment. It
+produces `r2t-live-comparison.png`, `comparison.json`, `distributions.csv`,
+`windows.csv`, `counters.csv` and a rendering receipt. The PNG is 4800 by 6000
+pixels. Inspect the exported image for readable labels, clipping and faithful
+values before delivery; an import/build check does not prove visual quality.
+The image and curated notes retain observed partial anniversary deliveries:
+a failed task may include acknowledged messages, and an inherited pending event
+is kept distinct from work first created by the measured runtime.
+Failed-job error counts retain class names and native numeric database codes,
+such as `Database(86)`. Other labels are counted as `Unclassified` while their
+original text stays private; exported error counts reconcile with failed jobs.
+The image includes Go's captured allocator policy when available and identifies
+the GC performed by `FreeOSMemory`, alongside its RSS release threshold.
+Only allowlisted aggregate/build metadata is exported, not raw process/job IDs,
+arguments, configuration values, payloads or URLs. A reviewed portable JSON
+bundle can also be rendered with `--bundle /path/comparison.json`.
+
+Portable build receipts retain captured executable hashes and distinguish the
+checked source head from its deployed merge commit. For Python the executable
+hash identifies the interpreter; native variants identify the application
+binary. Existing `interpreter_sha256`, `binary_sha256` and `source_checked_head`
+fields are normalized when exporting, while original manifests stay unchanged.
+An identity that was not captured remains unavailable; the current host or
+checkout is not used to reconstruct it.
 
 ## Interpretation
 
