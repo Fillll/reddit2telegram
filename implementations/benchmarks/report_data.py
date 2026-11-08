@@ -215,6 +215,12 @@ NOTE_DESCRIPTIONS = {
     'partial_anniversary_delivery': 'An anniversary sweep reported a partial outcome for an event that predates this runtime window. '
                                     'Acknowledged parts remained sent, an explicit rejection remained pending, and no uncertain messages were observed. '
                                     'No retry was forced; task failure does not mean zero acknowledged deliveries.',
+    'transport_policy_mismatch': 'Offline metadata inspection reproduced HTTP/2 advertised without its handler in the measured Go client configuration. '
+                                 'The measured source stayed unchanged; a separate correction was prepared without application requests or another benchmark.',
+    'maintenance_success_with_transport_failures': 'A naturally scheduled subscriber-statistics task returned success while its recorded Telegram attempts all ended in transport errors. '
+                                                  'No HTTP response or acknowledgement was recorded; task status does not establish per-channel API success or delivery.',
+    'uncertain_anniversary_delivery': 'A natural anniversary sweep ended partially with message parts marked uncertain. '
+                                      'Missing acknowledgements leave delivery unresolved. Previously sent checkpoints were retained; no retry was forced.',
 }
 
 
@@ -244,6 +250,43 @@ def note_receipts(notes):
             inherited = row.get('pending_event_predates_window', row.get('pending_event_predates_rust'))
             if isinstance(inherited, bool):
                 item['pending_event_predates_window'] = inherited
+        if event == 'transport_policy_mismatch':
+            for key in ('confirmed_policy_mismatch', 'measured_source_unchanged',
+                        'repair_deployed_during_window', 'live_error_causes_individually_verified'):
+                if isinstance(row.get(key), bool):
+                    item[key] = row[key]
+            requests = row.get('diagnostic_app_requests')
+            if isinstance(requests, int) and not isinstance(requests, bool) and requests >= 0:
+                item['diagnostic_app_requests'] = requests
+            version = row.get('repair_version')
+            if isinstance(version, str) and re.fullmatch(r'[0-9]{1,5}\.[0-9]{1,5}\.[0-9]{1,5}', version):
+                item['repair_version'] = version
+            if row.get('repair_status') in ('prepared', 'deployed_after_window'):
+                item['repair_status'] = row['repair_status']
+        if event == 'maintenance_success_with_transport_failures':
+            for key in ('reviewed_jobs', 'recorded_request_attempts', 'recorded_transport_errors',
+                        'recorded_http_responses', 'job_acknowledged_telegram_messages'):
+                value = row.get(key)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    item[key] = value
+            for key in ('job_duration_seconds', 'queue_wait_seconds'):
+                if finite(row.get(key)) and row[key] >= 0:
+                    item[key] = row[key]
+            if isinstance(row.get('job_successful'), bool):
+                item['job_successful'] = row['job_successful']
+            if row.get('module') == 'tech_store_stat':
+                item['module'] = row['module']
+        if event == 'uncertain_anniversary_delivery':
+            for key in ('partial_run_count', 'uncertain_messages', 'sweep_channels', 'sweep_due_events',
+                        'sweep_completed_events', 'sweep_pending_events', 'job_acknowledged_telegram_messages',
+                        'job_telegram_transport_errors', 'pending_events_predating_window',
+                        'pending_events_created_in_window', 'previously_sent_parts_retained'):
+                value = row.get(key)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    item[key] = value
+            for key in ('retry_forced', 'production_changed'):
+                if isinstance(row.get(key), bool):
+                    item[key] = row[key]
         result.append(item)
     return result
 
@@ -471,10 +514,12 @@ METHODS = dict(cpu='Percent of one logical core. Means weight short-interval CPU
     memory='Sampled cgroup memory includes file cache and ffmpeg/helper children. '
            'RSS is process resident memory. Sample maxima are window observations; kernel peaks are cgroup lifetime values.',
     instrumentation='Collector processes run outside application accounting. In-process event logging remains included. '
-                    'MongoDB and combined totals include database work from read-only collector queue queries; '
-                    'that server-side observation overhead is not isolated or subtracted.',
+                    'MongoDB and combined totals include database work from collector queue queries and operator read-only reviews; '
+                    'that server-side observation overhead is not isolated or subtracted. '
+                    'Read-only analysis and other shared-host work are outside application accounting but can contend for host resources.',
     percentiles='Nearest-rank P95. Memory/timing means and medians describe eligible observations, not confidence intervals.',
     timing='Processing/queue distributions use matched start/end executions inside the window. '
+           'Job wall time includes I/O, configured sleeps and retry waits. '
            'Unfinished boundary jobs are censored. Counters summarize observed job-end records.',
     cpu_per_job='Application CPU includes worker/helpers/scheduler work, including censored jobs; '
                 'the denominator is observed completed or successful jobs as labeled.',
@@ -485,7 +530,13 @@ METHODS = dict(cpu='Percent of one logical core. Means weight short-interval CPU
     http='Common comparison: non-Telegram consumed decoded response bodies and Telegram request bodies from completed jobs. '
          'Python does not count Telegram response bodies; additional native response counters remain separate. '
          'Excludes TLS/framing and Telegram remote URL downloads; not total wire bandwidth.',
+    rate_limits='Recorded HTTP 429 responses from observed job-end counters, split into non-Telegram HTTP and Telegram. '
+                'Counts include retry attempts and jobs that succeed after throttling. Responses and job outcomes are counted separately.',
     reliability='Job success is the application task outcome, not proof of a delivered post. '
+                'The fraction divides successful recorded job ends by all recorded job ends. '
+                'Telegram acknowledgements count whole-job messages, including maintenance messages and error notices; '
+                'per-event delivery attribution requires separate evidence. '
+                'Uncertain milestone parts are unresolved deliveries; they are retained without automatic resend. '
                 'Repeated source/channel records are observed records, not a direct audit of Telegram duplicates.',
     comparison='One fresh sequential live window per configuration; no replay, historical baseline or repeats. '
                'Workloads, upstream latency, media and libraries differ. This is not a causal language-speed experiment.')

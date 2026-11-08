@@ -24,6 +24,13 @@ MUTED = '#5E7080'
 GRID = '#E3E9EF'
 BACKGROUND = '#F8FAFC'
 MIB = 1024**2
+WORKLOAD_NOTE = (
+    'S = complete cgroup sampling coverage; P = process-split coverage. '
+    'TG ack msgs = whole-job acknowledged messages, including maintenance messages and error notices. '
+    '429 = rate-limit responses, including retries. Job success = successful / all recorded job ends. '
+    'Body MiB = consumed non-TG decoded responses / TG requests; '
+    'TLS/framing and remote URL downloads are excluded.'
+)
 
 
 def number(value, precision=2):
@@ -51,6 +58,48 @@ def percent(value, precision=1):
 def triple(stats, divisor=1):
     return ' / '.join(number(stats.get(key)/divisor if finite(stats.get(key)) else None, 2)
                       for key in ('average', 'median', 'p95'))
+
+
+def receiver_job_note(runs):
+    observed = [run['jobs']['modules']['tech_receiver'] for run in runs
+                if run['jobs']['telemetry_available']
+                and 'tech_receiver' in run['jobs']['modules']]
+    completed = sum(module['completed'] for module in observed)
+    failed = sum(module['completed']-module['successful'] for module in observed)
+    if not failed:
+        return None
+    return (f'Receiver outcomes: {failed}/{completed} recorded jobs failed. '
+            'Per-runtime outcomes and error labels are in comparison.json; '
+            'a common cause is unproven.')
+
+
+def transport_failure_note(runs):
+    notes = []
+    for run in runs:
+        jobs = run['jobs']
+        if not jobs['telemetry_available'] or not jobs['completed']:
+            continue
+        counters = jobs['counters']
+        errors = counters.get('http_transport_errors', 0)+counters.get('telegram_transport_errors', 0)
+        if counters.get('telegram_messages', 0) == 0 and errors:
+            notes.append(f"{run['name']}: no recorded Telegram acknowledgements; "
+                         f"{jobs['failed']}/{jobs['completed']} jobs failed; {count(errors)} transport errors recorded.")
+    if not notes:
+        return None
+    return ' '.join(notes)+' Resource use includes these failures; delivery efficiency is unproven.'
+
+
+def uncertain_anniversary_note(runs):
+    observed = []
+    for run in runs:
+        parts = max((note.get('uncertain_messages', 0) for note in run['notes']
+                     if note['event'] == 'uncertain_anniversary_delivery'), default=0)
+        if parts:
+            observed.append(f"{run['name']}: {count(parts)} anniversary parts were marked uncertain")
+    if not observed:
+        return None
+    return ('; '.join(observed)+'. Delivery remains unresolved and these parts are blocked from automatic resend. '
+            'Earlier sent checkpoints remain sent; no retry was forced.')
 
 
 def text_block(figure, x, y, text, width, size=10.5, color=MUTED, line_spacing=1.45):
@@ -87,6 +136,9 @@ def distribution_chart(axis, runs, accessor, title, unit, divisor=1, labels=Fals
         axis.scatter([stats['p95']/divisor], [row], s=35, color=ORANGE, marker='D', zorder=4)
         axis.text(max(average, stats['p95']/divisor)+maximum*.025, row, number(average),
                   va='center', fontsize=10, color=INK)
+        detail = '   '.join(f"{label} {number(stats[key]/divisor) if finite(stats.get(key)) else 'N/A'}"
+                            for key, label in (('median', 'med'), ('p95', 'P95'), ('maximum', 'max')))
+        axis.text(0, row+.29, detail, va='top', fontsize=8.5, color=MUTED)
     axis.set_yticks(range(7), [r['name'] for r in runs] if labels else ['']*7)
     axis.set_xlabel(unit, loc='left', fontsize=10, color=MUTED, labelpad=10)
 
@@ -164,9 +216,12 @@ def render(bundle, path):
         f'{number(hours, 1)} window hours     {count(jobs)} observed completed jobs     '
         f'{count(messages)} acknowledged Telegram messages     {terminal}/7 windows reached their deadline',
         fontsize=15, fontweight='bold', color=INK, va='top')
-    figure.text(.045, .877,
-        'Observed implementation results: workload, media mix, upstream latency, libraries and runtime builds differ between days.',
-        fontsize=12, color=MUTED, va='top')
+    introduction = ('Observed implementation results: workload, media mix, upstream latency, '
+                    'libraries and runtime builds differ between days.')
+    transport_note = transport_failure_note(runs)
+    if transport_note:
+        introduction += '\n'+transport_note
+    text_block(figure, .045, .877, introduction, width=245, size=11.3, line_spacing=1.35)
 
     cpu_axis = figure.add_axes([.093, .637, .245, .180])
     memory_axis = figure.add_axes([.405, .637, .245, .180])
@@ -188,7 +243,7 @@ def render(bundle, path):
             cost_axis.text(0, row, 'Unavailable', color=MUTED, fontsize=10, va='center')
     cost_axis.set_yticks(range(7), ['']*7)
     cost_axis.set_xlabel('Application CPU seconds / observed job end', loc='left', fontsize=10, color=MUTED, labelpad=10)
-    handles = [Line2D([], [], color=BLUE, linewidth=6, label='Mean (number shown)'),
+    handles = [Line2D([], [], color=BLUE, linewidth=6, label='Mean (bar and dark number)'),
                Line2D([], [], color=INK, marker='o', linestyle='', label='Median'),
                Line2D([], [], color=ORANGE, marker='D', linestyle='', label='P95')]
     figure.legend(handles=handles, loc='upper left', bbox_to_anchor=(.043, .853), frameon=False,
@@ -208,16 +263,14 @@ def render(bundle, path):
             count(counters.get('telegram_messages', 0) if available else None),
             (count(counters.get('telegram_messages_video', 0))+' / '+count(counters.get('telegram_messages_photo', 0))) if available else 'N/A',
             (number(incoming/MIB, 1)+' / '+number(outgoing/MIB, 1)) if available else 'N/A',
+            (count(counters.get('http_rate_limits', 0))+' / '+count(counters.get('telegram_rate_limits', 0))) if available else 'N/A',
             triple(run['jobs']['processing_seconds']), triple(run['jobs']['queue_wait_seconds']),
             count(run['queued_backlog']['maximum'])])
     table(figure, [.043, .391, .914, .180], workload_rows,
-          ['Runtime', 'Exposure / coverage', 'Jobs', 'Task\nsuccess', 'TG msgs', 'Video /\nphoto msgs',
-           'Body MiB\nHTTP read / TG write', 'Job seconds\nmean / med / P95', 'Queue seconds\nmean / med / P95', 'Queue\nmax'],
-          [.106, .139, .064, .071, .070, .080, .112, .145, .145, .068], size=9.4)
-    figure.text(.045, .378,
-        'S = complete cgroup sampling coverage; P = supplementary process-split coverage. Task success is not delivery success. '
-        'Body read excludes Telegram responses; body write covers Telegram requests. TLS/framing and remote URL downloads are excluded.',
-        fontsize=9.5, color=MUTED)
+          ['Runtime', 'Exposure / coverage', 'Jobs', 'Job\nsuccess', 'TG ack\nmsgs', 'Video /\nphoto msgs',
+           'Body MiB\nHTTP read / TG write', 'HTTP 429\nnon-TG / TG', 'Job seconds\nmean / med / P95', 'Queue seconds\nmean / med / P95', 'Queue\nmax'],
+          [.100, .123, .060, .067, .070, .080, .100, .080, .130, .130, .060], size=9.4)
+    text_block(figure, .045, .378, WORKLOAD_NOTE, width=215, size=9.5, line_spacing=1.3)
 
     figure.text(.045, .346, 'Memory throughout each window', fontsize=16, color=INK, fontweight='bold')
     heat_axis = figure.add_axes([.093, .210, .340, .118])
@@ -267,9 +320,9 @@ def render(bundle, path):
     text_block(figure, .045, .149, build_text, width=92, size=9.7, line_spacing=1.5)
     figure.text(.525, .162, 'How to read the comparison', fontsize=15, color=INK, fontweight='bold')
     limits = [
-        'One fresh live window per configuration. Differences describe these deployments and days; they do not isolate language speed.',
+        'One fresh live window per configuration. Workloads, upstreams and shared-host load differ; these deployments and days do not isolate language speed.',
         'P95 is nearest rank, not a confidence interval. CPU distributions use intervals up to 10 seconds; memory includes cgroup file cache. Kernel lifetime peaks are kept separately in comparison.json.',
-        'Processing and queue timings require paired in-window start/end events. Incomplete boundary jobs are censored. CPU/job still includes application work from incomplete jobs.',
+        'Job/queue timings use paired in-window events. Job wall time includes I/O and retry waits. Boundary jobs are censored; CPU/job also includes their work.',
     ]
     if any(n['event'] == 'deployment_environment_correction' for r in runs for n in r['notes']):
         limits.append('Python 3.12: the first accounted cron call failed due to a missing user-bus environment. The cron environment was corrected; the window was not restarted.')
@@ -278,12 +331,36 @@ def render(bundle, path):
     if anniversary_runtimes:
         limits.append(', '.join(anniversary_runtimes) + ': anniversary sweeps ended partially. '
                       'Acknowledged deliveries remained sent; inherited rejected parts remained pending. No retry was forced.')
+    uncertainty_note = uncertain_anniversary_note(runs)
+    if uncertainty_note:
+        limits.append(uncertainty_note)
+    receiver_note = receiver_job_note(runs)
+    if receiver_note:
+        limits.append(receiver_note)
+    transport_note = transport_failure_note(runs)
+    if transport_note:
+        limits.append(transport_note)
+    protocol_runtimes = [run['name'] for run in runs
+                         if any(note['event'] == 'transport_policy_mismatch' for note in run['notes'])]
+    if protocol_runtimes:
+        limits.append(', '.join(protocol_runtimes)+': offline metadata found HTTP/2 advertised without its handler. '
+                      'A separate repair was prepared; it is not a measured performance result. '
+                      'Individual live error causes were not captured.')
     if any(r['source_changed'] for r in runs):
         limits.append('At least one run changed tracked source or configuration during observation; inspect its source_changed flag before comparing results.')
     if any(r['status'] != 'finished' for r in runs):
         limits.append('At least one window ended early or failed to launch. Exposure and unavailable values remain visible; no missing result is shown as zero.')
     if any(r['components']['application']['cpu']['counter_reset_intervals'] for r in runs):
         limits.append('CPU counter resets were observed. The affected CPU totals omit unresolvable intervals and must be treated as incomplete.')
+    component_gaps = []
+    for run in runs:
+        missing_cpu = run['components']['application']['cpu']['missing_component_intervals']
+        missing_memory = run['sample_count']-run['components']['application']['memory_bytes']['count']
+        if missing_cpu or missing_memory:
+            component_gaps.append(f"{run['name']} ({missing_cpu} CPU interval{'s' if missing_cpu != 1 else ''}; "
+                                  f"{missing_memory} memory sample{'s' if missing_memory != 1 else ''})")
+    if component_gaps:
+        limits.append('Incomplete component readings excluded: '+', '.join(component_gaps)+'. Coverage reflects these gaps.')
     text_block(figure, .525, .149, '\n\n'.join(limits), width=112, size=9.5, line_spacing=1.35)
     figure.text(.045, .018,
         'Evidence: comparison.json, distributions.csv, windows.csv, counters.csv and original-file SHA-256 receipts. '

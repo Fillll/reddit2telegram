@@ -113,11 +113,24 @@ def verify(runs):
                 assert sum(r.get('status') == 'success' for r in ends) == model['jobs']['successful']
                 assert model['jobs']['failed'] + model['jobs']['successful'] == len(ends)
                 assert sum(model['jobs']['errors'].values()) == model['jobs']['failed']
-                for metric in ('http_response_body_bytes', 'telegram_request_body_bytes', 'telegram_messages'):
+                receiver = [r for r in ends if r.get('module') == 'tech_receiver']
+                receiver_model = model['jobs']['modules'].get('tech_receiver')
+                if receiver:
+                    assert receiver_model['completed'] == len(receiver)
+                    assert receiver_model['successful'] == sum(r.get('status') == 'success' for r in receiver)
+                    close(receiver_model['telegram_messages'],
+                          sum(r.get('counters', {}).get('telegram_messages', 0) for r in receiver))
+                else:
+                    assert receiver_model is None
+                for metric in ('http_response_body_bytes', 'telegram_request_body_bytes', 'telegram_messages',
+                               'http_rate_limits', 'telegram_rate_limits'):
                     expected = sum(r.get('counters', {}).get(metric, 0) for r in ends)
                     close(model['jobs']['counters'].get(metric, 0), expected)
                 close(model['cpu_seconds_per_completed_job'],
                       float(cpu_total)/len(ends) if intervals and ends else None)
+                successes = sum(r.get('status') == 'success' for r in ends)
+                close(model['cpu_seconds_per_successful_job'],
+                      float(cpu_total)/successes if intervals and successes else None)
             start_counts = Counter(r.get('task_id') for r in beginnings)
             end_counts = Counter(r.get('task_id') for r in ends)
             event_data_present = (directory / 'events.jsonl').exists()
@@ -139,7 +152,9 @@ def verify(runs):
                     assert hashlib.sha256((directory / filename).read_bytes()).hexdigest() == receipt['sha256']
             results.append(dict(label=model['label'], samples=len(samples), completed_jobs=len(ends),
                 checked=['memory mean/median/P95/min/max', 'CPU cumulative/weighted mean/median/P95',
-                         'job outcomes/error-count reconciliation/body counters/CPU per completed job', 'queue backlog',
+                         'job outcomes/error-count reconciliation/body counters/CPU per completed and successful job',
+                         'non-Telegram HTTP and Telegram HTTP 429 response counters',
+                         'receiver module outcomes and acknowledged messages', 'queue backlog',
                          'window boundaries/source hashes/kernel-peak scope'],
                 unique_execution_timing_verified=full_unique_pairing,
                 timing_limit=None if full_unique_pairing else (
