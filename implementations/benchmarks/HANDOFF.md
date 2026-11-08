@@ -5,6 +5,12 @@ Each label has one fresh window capped at 86,400 seconds. Preparation and a
 graceful transition are outside those windows. Never restart a label, extend
 its deadline, run two consumers, or substitute a replay observation.
 
+An explicit later user request may authorize a separate corrected-runtime
+campaign. Use `runner.py start --campaign <name>` with a separate private ledger;
+retain every original run and use the same full 24-hour cap. Do not infer this
+authorization from a failed run. Identify the corrected run separately in the
+report and keep the failed original visible as supplementary evidence.
+
 ## During the current window
 
 Keep production source, dependencies, configuration, history and schedule

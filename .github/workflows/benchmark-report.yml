@@ -31,6 +31,7 @@ jobs:
           python implementations/benchmarks/report.py --help
           python implementations/benchmarks/verify_report.py --help
           python implementations/benchmarks/watch_window.py --help
+          python -m unittest discover -s tests -p test_benchmark_campaigns.py
           python -c 'import sys; sys.path.insert(0,"implementations/benchmarks"); import render_report; print("Static renderer imports:",render_report.matplotlib.__version__)'
       - name: Reproduce the reviewed report from its real aggregate evidence
         run: |

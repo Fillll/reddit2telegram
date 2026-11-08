@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.9.0] - 2026-11-08
+
+### Added
+
+- Allow explicitly authorized corrected-runtime measurements in separate 24-hour campaigns while preserving the original experiment evidence.
+
 ## [1.8.0] - 2026-11-08
 
 ### Added
