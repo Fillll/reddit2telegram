@@ -5,6 +5,7 @@ import (
 	"compress/gzip"
 	"context"
 	"crypto/md5"
+	"crypto/tls"
 	"encoding/hex"
 	"errors"
 	"hash"
@@ -45,6 +46,28 @@ func (h *Http) close() {
 	for _, t := range h.transports {
 		t.CloseIdleConnections()
 	}
+}
+
+// Describe the initialized transport policy without opening a connection or
+// loading application configuration. Clone initializes net/http's protocol
+// defaults, which can differ from the policy suggested by exported flags alone.
+func describeHTTPPolicy(telegram, head bool) D {
+	h := newHTTP(nil, telegram)
+	defer h.close()
+	transport := h.client(head).Transport.(*http.Transport)
+	_ = transport.Clone()
+	alpn := []string{}
+	if transport.TLSClientConfig != nil {
+		alpn = append(alpn, transport.TLSClientConfig.NextProtos...)
+	}
+	var protocols any
+	if transport.Protocols != nil {
+		protocols = D{"http1": transport.Protocols.HTTP1(), "http2": transport.Protocols.HTTP2(),
+			"unencrypted_http2": transport.Protocols.UnencryptedHTTP2()}
+	}
+	return D{"force_attempt_http2": transport.ForceAttemptHTTP2,
+		"custom_dial_context": transport.DialContext != nil, "explicit_protocols": protocols,
+		"tls_alpn": alpn, "tls_h2_handler": transport.TLSNextProto["h2"] != nil}
 }
 func (h *Http) count(key string, n uint64) {
 	prefix := "http_"
@@ -107,6 +130,14 @@ func (h *Http) client(head bool) *http.Client {
 	transport := http.DefaultTransport.(*http.Transport).Clone()
 	transport.DisableCompression = true // Explicit decompression gives body counters the reference's decoded-byte definition.
 	transport.ForceAttemptHTTP2 = false // Socket idle deadlines apply to one job's HTTP/1 request.
+	transport.Protocols = new(http.Protocols)
+	transport.Protocols.SetHTTP1(true)
+	if transport.TLSClientConfig == nil {
+		transport.TLSClientConfig = &tls.Config{}
+	}
+	// Clone may retain the default transport's h2 ALPN advertisement even
+	// though our custom dialer disables automatic HTTP/2 handler installation.
+	transport.TLSClientConfig.NextProtos = []string{"http/1.1"}
 	transport.DialContext = func(ctx context.Context, network, address string) (net.Conn, error) {
 		connection, e := (&net.Dialer{Timeout: connect, KeepAlive: 30 * time.Second}).DialContext(ctx, network, address)
 		if e != nil {

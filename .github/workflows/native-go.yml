@@ -54,6 +54,20 @@ jobs:
           dist/r2t-go --describe > dist/go-build.json
           go version -m dist/r2t-go > dist/go-modules.txt
           sha256sum dist/r2t-go > dist/go-build.sha256
+      - name: Verify initialized HTTP/1 policy without requests
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          policies = json.loads(Path('dist/go-build.json').read_text())['http_policy']
+          assert set(policies) == {'regular', 'head', 'telegram'}
+          for policy in policies.values():
+              assert policy['explicit_protocols'] == {'http1': True, 'http2': False, 'unencrypted_http2': False}
+              assert policy['tls_alpn'] == ['http/1.1']
+              assert policy['tls_h2_handler'] is False
+              assert policy['force_attempt_http2'] is False
+              assert policy['custom_dial_context'] is True
+          PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: r2t-go-linux-x86_64-${{ github.event.pull_request.head.sha || github.sha }}
