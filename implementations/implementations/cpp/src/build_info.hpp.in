@@ -1,0 +1,9 @@
+#pragma once
+namespace r2t::build {
+inline constexpr const char *version = "@R2T_VERSION@";
+inline constexpr const char *commit = "@R2T_COMMIT@";
+inline constexpr const char *compiler = "@CMAKE_CXX_COMPILER_ID@ @CMAKE_CXX_COMPILER_VERSION@";
+inline constexpr const char *local_channels = R"R2T_ASSET(@R2T_local_channels@)R2T_ASSET";
+inline constexpr const char *weighted_channel = R"R2T_ASSET(@R2T_weighted_channel@)R2T_ASSET";
+inline constexpr const char *milestones = R"R2T_ASSET(@R2T_milestones@)R2T_ASSET";
+}

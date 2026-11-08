@@ -4,15 +4,35 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.8.0] - 2026-11-08
+
+### Added
+
+- Add a verified single-image comparison and portable aggregate data for seven fresh live runtime windows, with coverage and reliability limitations.
+
+## [1.7.1] - 2026-11-07
+
+### Fixed
+
+- Keep Go TLS protocol negotiation consistent with its HTTP/1 transport.
+
+## [1.7.0] - 2026-11-06
+
+### Added
+
+- Add a native Go implementation of the complete scheduled worker and cron workload for the fresh live comparison.
+
+## [1.6.0] - 2026-11-05
+
+### Added
+
+- Add an independent plain C implementation for the live language comparison
+
 ## [1.5.0] - 2026-11-04
 
 ### Added
 
-- Add per-process observation and a reproducible live-comparison report
-- Label collector-query overhead in MongoDB totals and retain in-process event logging in application measurements.
-- Retain captured executable hashes and checked/merged source identities in portable report receipts without rewriting original manifests.
-- Attribute observed partial anniversary delivery to the affected runtimes in the image and retain reviewed sweep counters while withholding private incident details.
-- Reconcile exported failure counts, retain numeric database diagnostics, and show the captured Go allocator policy in the image.
+- Add an independent native C++ implementation for the live language comparison
 
 ## [1.4.0] - 2026-11-03
 
