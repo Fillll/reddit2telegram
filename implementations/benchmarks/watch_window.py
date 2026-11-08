@@ -58,8 +58,9 @@ def snapshot(directory, acknowledged_worker_pid=None):
         result['event'] = 'finalized'
         return result
     worker = service('r2t_consumer_app.service')
-    observers = {name: service(name, user=True) for name in
-                 (f"r2tbench-{manifest['label']}.service", f"r2tbench-process-{manifest['label']}.service")}
+    units = manifest.get('observer_units', dict(collector=f"r2tbench-{manifest['label']}.service",
+                                               processes=f"r2tbench-process-{manifest['label']}.service"))
+    observers = {name: service(name, user=True) for name in units.values()}
     result.update(worker=worker, observers=observers, sample_ages_seconds={})
     worker_pid = int(worker.get('MainPID', '0'))
     expected_pid = acknowledged_worker_pid or manifest['runtime']['worker_pid']

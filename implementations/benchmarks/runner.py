@@ -11,6 +11,7 @@ import math
 import os
 from pathlib import Path
 import platform
+import re
 import signal
 import statistics
 import subprocess
@@ -58,6 +59,40 @@ def command(args, cwd=None):
 
 def bench(root):
     return root / 'implementations/benchmarks'
+
+
+def campaign_base(root, campaign=None):
+    if campaign is None:
+        return bench(root)
+    if not isinstance(campaign, str) or not re.fullmatch(r'[a-z][a-z0-9-]{0,39}', campaign):
+        raise ValueError('Campaign must be a short lowercase name containing letters, digits or hyphens')
+    return bench(root) / 'state' / 'campaigns' / campaign
+
+
+def check_launch_available(root, state, label):
+    # Every campaign shares the production event pointer and global lock.
+    # A new name never permits replacing a collector that is still finalizing.
+    shared = bench(root) / 'state'
+    active_path = shared / 'active.json'
+    active = json.loads(active_path.read_text()) if active_path.exists() else None
+    if active is not None and not isinstance(active, dict):
+        raise ValueError('Invalid production measurement pointer; reconcile it before launch')
+    if active and active.get('status') == 'running':
+        raise ValueError('A production measurement is still active; reconcile its actual collectors first')
+    paths = {shared / 'experiment.json', state / 'experiment.json',
+             *shared.glob('campaigns/*/state/experiment.json')}
+    target = dict(runs={})
+    for path in paths:
+        ledger = json.loads(path.read_text()) if path.exists() else dict(runs={})
+        if not isinstance(ledger, dict) or not isinstance(ledger.get('runs'), dict):
+            raise ValueError('Invalid experiment ledger; reconcile it before launch')
+        if any(item.get('status') == 'running' for item in ledger['runs'].values()):
+            raise ValueError('A run is already active; reconcile it before starting another')
+        if path == state / 'experiment.json':
+            target = ledger
+    if label in target['runs']:
+        raise ValueError('This configuration already has a run in this campaign; repeating is prohibited')
+    return target
 
 
 def fingerprint(root):
@@ -298,27 +333,26 @@ def install_scheduler_slice():
 
 def start(args):
     root = args.root.resolve()
-    base = bench(root)
+    campaign = getattr(args, 'campaign', None)
+    base = campaign_base(root, campaign)
     state = base / 'state'
+    shared = bench(root) / 'state'
+    shared.mkdir(parents=True, exist_ok=True, mode=0o700)
     state.mkdir(parents=True, exist_ok=True, mode=0o700)
-    with (state / 'experiment.lock').open('w') as lock:
+    with (shared / 'experiment.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        ledger = read_json(state / 'experiment.json', dict(runs={}))
-        if args.label in ledger['runs']:
-            raise ValueError('This configuration already has a run; repeating is prohibited')
-        for item in ledger['runs'].values():
-            if item['status'] == 'running':
-                raise ValueError('A run is already active; reconcile it before starting another')
+        ledger = check_launch_available(root, state, args.label)
         # Verify required components before committing the one allowed run.
         worker_group = '/sys/fs/cgroup/system.slice/r2t_consumer_app.service'
         mongo_group = '/sys/fs/cgroup/system.slice/mongod.service'
         if not cgroup_stats(Path(worker_group)):
             raise ValueError('Production worker service is unavailable')
-        selected = read_json(state / 'runtime.json', dict(label='python312'))
+        selected = read_json(shared / 'runtime.json', dict(label='python312'))
         if selected.get('label') != args.label:
             raise ValueError('Requested label does not match the selected production runtime')
         scheduler_group = install_scheduler_slice()
-        run_id = args.label + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+        identity = args.label + ('-' + campaign if campaign else '')
+        run_id = identity + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
         directory = base / 'runs' / run_id
         directory.mkdir(parents=True, mode=0o700)
         started = time.time()
@@ -333,6 +367,10 @@ def start(args):
                                      dependencies={d.metadata['Name']: d.version for d in importlib.metadata.distributions()
                                                    if d.metadata['Name']}),
                         cgroups=dict(worker=worker_group, scheduler=scheduler_group, mongodb=mongo_group))
+        if campaign:
+            manifest['campaign'] = campaign
+        manifest['observer_units'] = dict(collector='r2tbench-' + identity + '.service',
+                                         processes='r2tbench-process-' + identity + '.service')
         worker_pid = int(command(['systemctl', 'show', 'r2t_consumer_app.service', '-p', 'MainPID', '--value']))
         worker_executable = str((Path('/proc') / str(worker_pid) / 'exe').resolve())
         expected = Path(selected.get('consumer', [sys.executable])[0]).resolve()
@@ -346,10 +384,10 @@ def start(args):
         ledger['runs'][args.label] = dict(run_id=run_id, directory=str(directory),
                                         started_at=started, deadline=manifest['deadline'], status='running')
         atomic_json(state / 'experiment.json', ledger)
-        atomic_json(state / 'active.json', manifest)
+        atomic_json(shared / 'active.json', manifest)
         script = Path(__file__).resolve()
         try:
-            subprocess.run(['systemd-run', '--user', '--unit=r2tbench-' + args.label,
+            subprocess.run(['systemd-run', '--user', '--unit=' + manifest['observer_units']['collector'],
                             '--property=Restart=on-failure', '--property=RestartSec=5',
                             '--property=RuntimeMaxSec=86520', '--property=UMask=0077',
                             sys.executable, str(script), 'collect', '--directory', str(directory)], check=True)
@@ -358,7 +396,9 @@ def start(args):
             atomic_json(directory / 'manifest.json', manifest)
             ledger['runs'][args.label]['status'] = 'launch_failed'
             atomic_json(state / 'experiment.json', ledger)
-            (state / 'active.json').unlink(missing_ok=True)
+            active = read_json(shared / 'active.json')
+            if active and active.get('run_id') == run_id:
+                (shared / 'active.json').unlink(missing_ok=True)
             raise
         print(json.dumps(dict(run_id=run_id, started=manifest['started_iso'],
                               deadline=datetime.fromtimestamp(manifest['deadline'],timezone.utc).isoformat(),
@@ -421,13 +461,19 @@ def collect(directory):
     manifest['source_changed'] = manifest['source_at_end'] != manifest['source']
     atomic_json(directory / 'manifest.json', manifest)
     summary = summarize(directory)
-    state = bench(root) / 'state'
-    ledger = read_json(state / 'experiment.json')
-    ledger['runs'][manifest['label']]['status'] = manifest['status']
-    atomic_json(state / 'experiment.json', ledger)
-    active = read_json(state / 'active.json')
-    if active and active['run_id'] == manifest['run_id']:
-        (state / 'active.json').unlink(missing_ok=True)
+    state = campaign_base(root, manifest.get('campaign')) / 'state'
+    shared = bench(root) / 'state'
+    with (shared / 'experiment.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        ledger = read_json(state / 'experiment.json')
+        entry = ledger['runs'][manifest['label']]
+        if entry['run_id'] != manifest['run_id'] or entry['deadline'] != manifest['deadline']:
+            raise ValueError('Collector does not match its original campaign ledger')
+        entry['status'] = manifest['status']
+        atomic_json(state / 'experiment.json', ledger)
+        active = read_json(shared / 'active.json')
+        if active and active['run_id'] == manifest['run_id']:
+            (shared / 'active.json').unlink(missing_ok=True)
     print(json.dumps(dict(run_id=manifest['run_id'], status=manifest['status'],
                           sample_count=summary['sample_count'], summary=str(directory/'summary.json'))), flush=True)
 
@@ -459,6 +505,7 @@ def main():
     launch = sub.add_parser('start')
     launch.add_argument('--root', type=Path, required=True)
     launch.add_argument('--label', choices=LABELS, required=True)
+    launch.add_argument('--campaign', help='Separate explicitly authorized follow-up campaign; retains original runs and ledger')
     observation = sub.add_parser('collect')
     observation.add_argument('--directory', type=Path, required=True)
     scheduler = sub.add_parser('schedule')

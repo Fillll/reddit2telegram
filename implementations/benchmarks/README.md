@@ -177,6 +177,28 @@ substituted for a live observation.
 
 ## Operation
 
+### Explicitly authorized corrected-runtime follow-up
+
+The original seven runs and their ledger remain intact. When the operator
+explicitly requests a new measurement after repairing an implementation, use
+a distinct named campaign:
+
+```sh
+.venv/bin/python implementations/benchmarks/runner.py start --root . --label go --campaign go-http1
+```
+
+This writes a separate ledger and runs directory below ignored
+`state/campaigns/go-http1/`. It uses the same selected production runtime,
+configuration, scheduler accounting, five-second sampling and fixed 86,400-second
+deadline. A global lock and shared event pointer prevent concurrent production
+measurements; an unfinalized run blocks another campaign even after its cutoff.
+Each label can run only once within a campaign. Campaigns require explicit
+authorization and do not permit discarding or editing the failed original.
+The manifest identifies the distinct primary/process observer services; attach
+the process sampler and inspect the actual services as for the original runs.
+The updated comparison must disclose the selected corrected Go run and retain
+the original failed run as supplementary evidence, rather than pooling them.
+
 After deploying instrumentation and restarting the existing worker, launch the
 fresh baseline from the production virtual environment:
 
