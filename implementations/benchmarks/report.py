@@ -20,7 +20,7 @@ def atomic_write(path, raw):
 
 def csv_bytes(rows, names):
     stream = io.StringIO(newline='')
-    writer = csv.DictWriter(stream, fieldnames=names)
+    writer = csv.DictWriter(stream, fieldnames=names, lineterminator='\n')
     writer.writeheader()
     writer.writerows(rows)
     return stream.getvalue().encode()
@@ -32,7 +32,7 @@ def distributions(value, path=''):
     if {'count', 'average', 'median', 'p95', 'maximum', 'minimum'} <= value.keys():
         yield path, value
     else:
-        for key, item in value.items():
+        for key, item in sorted(value.items()):
             if key not in ('modules', 'source_receipts', 'build'):
                 yield from distributions(item, f'{path}.{key}' if path else key)
 
@@ -61,7 +61,8 @@ def export(bundle, output):
             sample_coverage_fraction=run['sampling_coverage_fraction'],
             process_coverage_fraction=run['processes']['coverage_fraction'],
             completed_jobs=jobs['completed'], successful_jobs=jobs['successful'], failed_jobs=jobs['failed'],
-            telegram_messages=jobs['counters'].get('telegram_messages'),
+            telegram_messages=(jobs['counters'].get('telegram_messages', 0)
+                               if jobs['telemetry_available'] else None),
             application_cpu_seconds=run['components']['application']['cpu']['seconds'],
             cpu_seconds_per_completed_job=run['cpu_seconds_per_completed_job'],
             cpu_seconds_per_successful_job=run['cpu_seconds_per_successful_job']))
