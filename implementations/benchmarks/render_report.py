@@ -134,7 +134,7 @@ def distribution_chart(axis, runs, accessor, title, unit, divisor=1, labels=Fals
         axis.barh(row, average, height=.44, color=LIGHT, edgecolor=BLUE, linewidth=.8, zorder=2)
         axis.scatter([stats['median']/divisor], [row], s=24, color=INK, marker='o', zorder=4)
         axis.scatter([stats['p95']/divisor], [row], s=35, color=ORANGE, marker='D', zorder=4)
-        axis.text(max(average, stats['p95']/divisor)+maximum*.025, row, number(average),
+        axis.text(max(average, stats['p95']/divisor)+maximum*.025, row, 'mean '+number(average),
                   va='center', fontsize=10, color=INK)
         detail = '   '.join(f"{label} {number(stats[key]/divisor) if finite(stats.get(key)) else 'N/A'}"
                             for key, label in (('median', 'med'), ('p95', 'P95'), ('maximum', 'max')))
@@ -193,13 +193,36 @@ def build_line(run):
     return run['name']+': '+detail
 
 
+def observed_tradeoffs(by_label):
+    baseline, upgraded = by_label['python312'], by_label['python315']
+    changes = []
+    for metric, accessor in (
+        ('mean CPU', lambda run: run['components']['application']['cpu']['sampled_percent_one_core']['average']),
+        ('mean memory', lambda run: run['components']['application']['memory_bytes']['average']),
+    ):
+        before, after = accessor(baseline), accessor(upgraded)
+        if finite(before) and before > 0 and finite(after):
+            delta = (after/before-1)*100
+            changes.append(f"{metric} {abs(delta):.1f}% {'higher' if delta >= 0 else 'lower'}")
+    lines = []
+    if changes:
+        lines.append('Python 3.15 versus 3.12: '+', '.join(changes)+'. '
+                     'These are observations on different live days, not an isolated upgrade effect.')
+    rust = by_label['rust']
+    queue = rust['jobs']['queue_wait_seconds']['average']
+    if finite(queue):
+        lines.append(f"Rust used {number(rust['components']['application']['memory_bytes']['average']/MIB)} MiB mean application memory, "
+                     f"with {number(queue)} seconds mean queue wait. Assess latency and delivery beside resource use.")
+    return '\n\n'.join(lines)
+
+
 def render(bundle, path):
     require_final(bundle)
     by_label = {run['label']: run for run in bundle['runs']}
     runs = [by_label[label] for label in LABELS]
     plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 11,
         'axes.unicode_minus': False, 'savefig.facecolor': BACKGROUND})
-    figure = plt.figure(figsize=(24, 22), facecolor=BACKGROUND, dpi=200)
+    figure = plt.figure(figsize=(24, 30), facecolor=BACKGROUND, dpi=200)
     figure.text(.045, .966, 'r2t  |  Seven live runtime measurements', fontsize=31,
                 fontweight='bold', color=INK, va='top')
     start = min(r['started_at'] for r in runs)
@@ -207,12 +230,12 @@ def render(bundle, path):
     from report_data import iso
     subtitle = (f"{iso(start)[:10]} to {iso(end)[:10]} UTC  |  One production worker at a time  |  "
                 '24-hour cap per configuration  |  No replay or historical baseline')
-    figure.text(.045, .936, subtitle, fontsize=12, color=MUTED, va='top')
+    figure.text(.045, .943, subtitle, fontsize=12, color=MUTED, va='top')
     jobs = sum(r['jobs']['completed'] for r in runs if finite(r['jobs']['completed']))
     messages = sum(r['jobs']['counters'].get('telegram_messages', 0) for r in runs)
     hours = sum(r['exposure_seconds'] for r in runs)/3600
     terminal = sum(r['status'] == 'finished' for r in runs)
-    figure.text(.045, .902,
+    figure.text(.045, .918,
         f'{number(hours, 1)} window hours     {count(jobs)} observed completed jobs     '
         f'{count(messages)} acknowledged Telegram messages     {terminal}/7 windows reached their deadline',
         fontsize=15, fontweight='bold', color=INK, va='top')
@@ -221,11 +244,11 @@ def render(bundle, path):
     transport_note = transport_failure_note(runs)
     if transport_note:
         introduction += '\n'+transport_note
-    text_block(figure, .045, .877, introduction, width=245, size=11.3, line_spacing=1.35)
+    text_block(figure, .045, .896, introduction, width=245, size=11.3, line_spacing=1.35)
 
-    cpu_axis = figure.add_axes([.093, .637, .245, .180])
-    memory_axis = figure.add_axes([.405, .637, .245, .180])
-    cost_axis = figure.add_axes([.718, .637, .235, .180])
+    cpu_axis = figure.add_axes([.093, .695, .245, .150])
+    memory_axis = figure.add_axes([.405, .695, .245, .150])
+    cost_axis = figure.add_axes([.718, .695, .235, .150])
     distribution_chart(cpu_axis, runs, lambda r: r['components']['application']['cpu']['sampled_percent_one_core'],
                        'Application CPU', '% of one core; 100% = one full core', labels=True)
     distribution_chart(memory_axis, runs, lambda r: r['components']['application']['memory_bytes'],
@@ -246,10 +269,10 @@ def render(bundle, path):
     handles = [Line2D([], [], color=BLUE, linewidth=6, label='Mean (bar and dark number)'),
                Line2D([], [], color=INK, marker='o', linestyle='', label='Median'),
                Line2D([], [], color=ORANGE, marker='D', linestyle='', label='P95')]
-    figure.legend(handles=handles, loc='upper left', bbox_to_anchor=(.043, .853), frameon=False,
+    figure.legend(handles=handles, loc='upper left', bbox_to_anchor=(.043, .875), frameon=False,
                   ncol=3, fontsize=11, labelcolor=INK)
 
-    figure.text(.045, .593, 'Workload, delivery and timing', fontsize=17, color=INK, fontweight='bold')
+    figure.text(.045, .653, 'Workload, delivery and timing', fontsize=17, color=INK, fontweight='bold')
     workload_rows = []
     for run in runs:
         counters = run['jobs']['counters']
@@ -266,14 +289,14 @@ def render(bundle, path):
             (count(counters.get('http_rate_limits', 0))+' / '+count(counters.get('telegram_rate_limits', 0))) if available else 'N/A',
             triple(run['jobs']['processing_seconds']), triple(run['jobs']['queue_wait_seconds']),
             count(run['queued_backlog']['maximum'])])
-    table(figure, [.043, .391, .914, .180], workload_rows,
+    table(figure, [.043, .490, .914, .145], workload_rows,
           ['Runtime', 'Exposure / coverage', 'Jobs', 'Job\nsuccess', 'TG ack\nmsgs', 'Video /\nphoto msgs',
            'Body MiB\nHTTP read / TG write', 'HTTP 429\nnon-TG / TG', 'Job seconds\nmean / med / P95', 'Queue seconds\nmean / med / P95', 'Queue\nmax'],
           [.100, .123, .060, .067, .070, .080, .100, .080, .130, .130, .060], size=9.4)
-    text_block(figure, .045, .378, WORKLOAD_NOTE, width=215, size=9.5, line_spacing=1.3)
+    text_block(figure, .045, .478, WORKLOAD_NOTE, width=215, size=9.5, line_spacing=1.3)
 
-    figure.text(.045, .346, 'Memory throughout each window', fontsize=16, color=INK, fontweight='bold')
-    heat_axis = figure.add_axes([.093, .210, .340, .118])
+    figure.text(.045, .449, 'Memory throughout each window', fontsize=16, color=INK, fontweight='bold')
+    heat_axis = figure.add_axes([.093, .342, .340, .090])
     matrix = np.asarray([[v/MIB if finite(v) else np.nan for v in r['hourly_application_memory_bytes']]
                          for r in runs], dtype=float)
     cmap = LinearSegmentedColormap.from_list('r2t_memory', ['#EDF3F9', '#8FB6DB', BLUE])
@@ -281,7 +304,7 @@ def render(bundle, path):
     if np.isfinite(matrix).any():
         image = heat_axis.imshow(np.ma.masked_invalid(matrix), aspect='auto', cmap=cmap,
             vmin=0, vmax=max(1, float(np.nanmax(matrix))), extent=(0, 24, 6.5, -.5), interpolation='nearest')
-        color_axis = figure.add_axes([.448, .210, .010, .118])
+        color_axis = figure.add_axes([.448, .342, .010, .090])
         colorbar = figure.colorbar(image, cax=color_axis)
         colorbar.ax.tick_params(labelsize=9, colors=MUTED, length=0)
         colorbar.outline.set_visible(False)
@@ -292,7 +315,7 @@ def render(bundle, path):
     heat_axis.tick_params(length=0, colors=MUTED)
     heat_axis.spines[:].set_visible(False)
 
-    figure.text(.525, .346, 'CPU components and sampled memory', fontsize=16, color=INK, fontweight='bold')
+    figure.text(.525, .449, 'CPU components and sampled memory', fontsize=16, color=INK, fontweight='bold')
     component_rows = []
     for run in runs:
         process = run['processes']
@@ -306,19 +329,26 @@ def render(bundle, path):
             number(run['components']['mongodb']['cpu']['sampled_percent_one_core']['average']),
             ffmpeg_text, number(run['components']['combined']['memory_bytes']['p95']/MIB, 1)
             if finite(run['components']['combined']['memory_bytes']['p95']) else 'N/A'])
-    table(figure, [.523, .210, .434, .118], component_rows,
+    table(figure, [.523, .342, .434, .090], component_rows,
           ['Runtime', 'Parent\nCPU %*', 'Helpers\nCPU %*', 'Scheduler\nCPU %', 'MongoDB\nCPU %', 'FFmpeg\nmax RSS*', 'Combined\nP95 MiB'],
           [.18, .13, .13, .14, .13, .14, .15], size=9.0)
-    text_block(figure, .525, .198,
+    text_block(figure, .525, .330,
         '* P coverage applies to process splits. Helpers include ffmpeg and maintenance utilities. '
         'Short ffmpeg lifetimes may be missed; its RSS is the max observed every 5s (MiB). '
         'MongoDB includes collector and operator read-only queries. Application totals exclude collector processes and include event logging.',
         width=150, size=9.2)
 
-    figure.text(.045, .162, 'Runtime builds', fontsize=15, color=INK, fontweight='bold')
+    figure.text(.045, .287, 'Runtime builds', fontsize=15, color=INK, fontweight='bold')
     build_text = '\n'.join(build_line(run) for run in runs)
-    text_block(figure, .045, .149, build_text, width=92, size=9.7, line_spacing=1.5)
-    figure.text(.525, .162, 'How to read the comparison', fontsize=15, color=INK, fontweight='bold')
+    text_block(figure, .045, .275, build_text, width=92, size=9.7, line_spacing=1.5)
+    figure.text(.045, .205, 'Observed tradeoffs', fontsize=15, color=INK, fontweight='bold')
+    text_block(figure, .045, .194, observed_tradeoffs(by_label), width=103, size=10, line_spacing=1.4)
+    figure.text(.045, .125, 'Original measurement windows (UTC)', fontsize=15, color=INK, fontweight='bold')
+    table(figure, [.043, .045, .434, .068],
+          [[run['name'], run['started_iso'][:16].replace('T', ' '),
+            run['ended_iso'][:16].replace('T', ' ')] for run in runs],
+          ['Runtime', 'Start (minute shown)', 'End (minute shown)'], [.24, .38, .38], size=9.5)
+    figure.text(.525, .287, 'How to read the comparison', fontsize=15, color=INK, fontweight='bold')
     limits = [
         'One fresh live window per configuration. Workloads, upstreams and shared-host load differ; these deployments and days do not isolate language speed.',
         'P95 is nearest rank, not a confidence interval. CPU distributions use intervals up to 10 seconds; memory includes cgroup file cache. Kernel lifetime peaks are kept separately in comparison.json.',
@@ -343,9 +373,12 @@ def render(bundle, path):
     protocol_runtimes = [run['name'] for run in runs
                          if any(note['event'] == 'transport_policy_mismatch' for note in run['notes'])]
     if protocol_runtimes:
-        limits.append(', '.join(protocol_runtimes)+': offline metadata found HTTP/2 advertised without its handler. '
-                      'A separate repair was prepared; it is not a measured performance result. '
-                      'Individual live error causes were not captured.')
+        deployed = any(note['event'] == 'transport_policy_repair_deployed'
+                       for run in runs for note in run['notes'])
+        repair = ('Go 1.7.1 was deployed after the cutoff; normal posting resumed. The corrected runtime was not benchmarked. '
+                  if deployed else 'A separate repair was prepared; it is not a measured performance result. ')
+        limits.append(', '.join(protocol_runtimes)+': the measured application was 1.7.0. Offline metadata found HTTP/2 '
+                      'advertised without its handler. '+repair+'Individual live error causes were not captured.')
     if any(r['source_changed'] for r in runs):
         limits.append('At least one run changed tracked source or configuration during observation; inspect its source_changed flag before comparing results.')
     if any(r['status'] != 'finished' for r in runs):
@@ -361,7 +394,7 @@ def render(bundle, path):
                                   f"{missing_memory} memory sample{'s' if missing_memory != 1 else ''})")
     if component_gaps:
         limits.append('Incomplete component readings excluded: '+', '.join(component_gaps)+'. Coverage reflects these gaps.')
-    text_block(figure, .525, .149, '\n\n'.join(limits), width=112, size=9.5, line_spacing=1.35)
+    text_block(figure, .525, .275, '\n\n'.join(limits), width=112, size=9.5, line_spacing=1.35)
     figure.text(.045, .018,
         'Evidence: comparison.json, distributions.csv, windows.csv, counters.csv and original-file SHA-256 receipts. '
         'Separate process observations began partway through Python 3.12; no earlier process split is inferred.',

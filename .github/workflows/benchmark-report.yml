@@ -32,3 +32,9 @@ jobs:
           python implementations/benchmarks/verify_report.py --help
           python implementations/benchmarks/watch_window.py --help
           python -c 'import sys; sys.path.insert(0,"implementations/benchmarks"); import render_report; print("Static renderer imports:",render_report.matplotlib.__version__)'
+      - name: Reproduce the reviewed report from its real aggregate evidence
+        run: |
+          python implementations/benchmarks/report.py --bundle implementations/benchmarks/results/comparison.json --output "$RUNNER_TEMP/r2t-report"
+          for filename in comparison.json distributions.csv windows.csv counters.csv r2t-live-comparison.png; do
+            cmp "implementations/benchmarks/results/$filename" "$RUNNER_TEMP/r2t-report/$filename"
+          done

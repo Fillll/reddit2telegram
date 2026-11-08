@@ -5,6 +5,21 @@ Python 3.12, Python 3.15, Rust, Swift, C++, C, Go. No replay, simulated traffic,
 historical baseline, repeated runs, or extended windows. The final deliverable
 includes one high-resolution comparison image, plus inspectable summaries.
 
+The original experiment finished on 8 November 2026 at 16:28:30 UTC: seven
+24-hour windows, 128,859 recorded job ends and 96,578 acknowledged Telegram
+messages. See the [single-image report](results/r2t-live-comparison.png),
+[portable evidence](results/comparison.json), [metric distributions](results/distributions.csv),
+[window overview](results/windows.csv) and [request counters](results/counters.csv).
+The report retains sampling gaps, the incomplete early Python 3.12 process
+split, different daily workloads and the observed failures.
+
+The measured Go application was 1.7.0: 4,783 of 4,787 recorded jobs failed,
+with no recorded Telegram acknowledgement. Its resource measurements do not
+establish delivery efficiency. Go 1.7.1 corrected the client protocol policy
+after the original cutoff, and normal posting resumed; that corrected runtime
+was not benchmarked. The 17 uncertain anniversary parts remain unresolved and
+blocked from automatic resend. Prior sent checkpoints were preserved.
+
 Python remains in `reddit2telegram/`. Other languages belong in
 `implementations/implementations/{rust,swift,cpp,c,go}/`.
 
@@ -129,7 +144,7 @@ After all seven windows finalize, generate the image and portable evidence:
 
 The renderer refuses an unfinished, repeated or overlapping experiment. It
 produces `r2t-live-comparison.png`, `comparison.json`, `distributions.csv`,
-`windows.csv`, `counters.csv` and a rendering receipt. The PNG is 4800 by 4400
+`windows.csv`, `counters.csv` and a rendering receipt. The PNG is 4800 by 6000
 pixels. Inspect the exported image for readable labels, clipping and faithful
 values before delivery; an import/build check does not prove visual quality.
 The image and curated notes retain observed partial anniversary deliveries:

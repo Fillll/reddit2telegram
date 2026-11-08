@@ -221,6 +221,9 @@ NOTE_DESCRIPTIONS = {
                                                   'No HTTP response or acknowledgement was recorded; task status does not establish per-channel API success or delivery.',
     'uncertain_anniversary_delivery': 'A natural anniversary sweep ended partially with message parts marked uncertain. '
                                       'Missing acknowledgements leave delivery unresolved. Previously sent checkpoints were retained; no retry was forced.',
+    'transport_policy_repair_deployed': 'Go 1.7.1 was deployed after the original measurement cutoff and the original worker drained naturally. '
+                                        'Normal production posting resumed; the corrected runtime was not benchmarked. '
+                                        'Uncertain anniversary parts and prior sent checkpoints were preserved.',
 }
 
 
@@ -263,6 +266,14 @@ def note_receipts(notes):
                 item['repair_version'] = version
             if row.get('repair_status') in ('prepared', 'deployed_after_window'):
                 item['repair_status'] = row['repair_status']
+        if event == 'transport_policy_repair_deployed':
+            for key in ('deployed_after_original_cutoff', 'original_collectors_finished',
+                        'normal_posting_observed', 'benchmark_repeated_or_extended',
+                        'delivery_state_reset_or_forced_retry', 'anniversary_states_preserved'):
+                if isinstance(row.get(key), bool):
+                    item[key] = row[key]
+            if row.get('repair_version') == '1.7.1':
+                item['repair_version'] = row['repair_version']
         if event == 'maintenance_success_with_transport_failures':
             for key in ('reviewed_jobs', 'recorded_request_attempts', 'recorded_transport_errors',
                         'recorded_http_responses', 'job_acknowledged_telegram_messages'):
