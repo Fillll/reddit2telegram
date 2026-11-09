@@ -219,6 +219,9 @@ NOTE_DESCRIPTIONS = {
                                  'The measured source stayed unchanged; a separate correction was prepared without application requests or another benchmark.',
     'maintenance_success_with_transport_failures': 'A naturally scheduled subscriber-statistics task returned success while its recorded Telegram attempts all ended in transport errors. '
                                                   'No HTTP response or acknowledgement was recorded; task status does not establish per-channel API success or delivery.',
+    'maintenance_success_with_api_responses': 'A naturally scheduled subscriber-statistics task returned success and recorded HTTP responses alongside request errors. '
+                                             'A bounded read-only review also observed new persisted numeric statistics rows. '
+                                             'Task status, HTTP responses, whole-job acknowledgements and persisted rows have different scopes; none establishes success for every channel.',
     'uncertain_anniversary_delivery': 'A natural anniversary sweep ended partially with message parts marked uncertain. '
                                       'Missing acknowledgements leave delivery unresolved. Previously sent checkpoints were retained; no retry was forced.',
     'worker_already_running_at_window_start': 'The corrected Go worker was already running when the fresh measurement began. '
@@ -283,9 +286,10 @@ def note_receipts(notes):
                     item[key] = row[key]
             if row.get('repair_version') == '1.7.1':
                 item['repair_version'] = row['repair_version']
-        if event == 'maintenance_success_with_transport_failures':
+        if event in ('maintenance_success_with_transport_failures', 'maintenance_success_with_api_responses'):
             for key in ('reviewed_jobs', 'recorded_request_attempts', 'recorded_transport_errors',
-                        'recorded_http_responses', 'job_acknowledged_telegram_messages'):
+                        'recorded_http_responses', 'job_acknowledged_telegram_messages',
+                        'recorded_http_errors', 'recorded_http_rate_limits', 'persisted_statistics_rows'):
                 value = row.get(key)
                 if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
                     item[key] = value
