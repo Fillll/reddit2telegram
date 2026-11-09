@@ -4,12 +4,13 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
-## [1.10.0] - 2026-11-08
+## [1.10.0] - 2026-11-09
 
 ### Added
 
 - Select the explicitly authorized full corrected-Go window in the comparison while retaining the failed original as separate evidence.
 - Distinguish the corrected Go anniversary sweep's inherited uncertainty from new delivery uncertainty, retaining the recorded partial task outcome and prior sent checkpoints.
+- Publish the verified full 24-hour corrected-Go comparison image and inspectable summaries; preserve the six other measurements, recorded failures and missing-component exclusions.
 
 ## [1.9.0] - 2026-11-08
 

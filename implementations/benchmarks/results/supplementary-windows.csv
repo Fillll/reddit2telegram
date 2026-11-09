@@ -1,0 +1,2 @@
+label,status,started_utc,ended_utc,exposure_hours,sample_coverage_fraction,process_coverage_fraction,completed_jobs,successful_jobs,failed_jobs,telegram_messages,application_cpu_seconds,cpu_seconds_per_completed_job,cpu_seconds_per_successful_job,comparison_role,configuration,run_id
+go,finished,2026-11-07T16:28:30.021887+00:00,2026-11-08T16:28:30.021887+00:00,24.0,0.9999421327533545,0.9999421348477955,4787,4,4783,0,878.1462179999986,0.18344395613118836,219.53655449999965,supplementary_original_go,Go,go-20261107T162830Z

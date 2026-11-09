@@ -195,7 +195,7 @@ def build_line(run):
             if allocator:
                 detail += ' | '+allocator
                 if 'FreeOSMemory' in allocator:
-                    detail += ' (includes GC; malloc_trim releases allocator pages)'
+                    detail += ' (FreeOSMemory also runs GC)'
             else:
                 detail += ' | native GC / HTTP / TLS'
     return run['name']+': '+detail

@@ -1,24 +1,39 @@
 # Live implementation experiment
 
-One live measurement window of exactly 86,400 seconds for each configuration:
-Python 3.12, Python 3.15, Rust, Swift, C++, C, Go. No replay, simulated traffic,
-historical baseline, repeated runs, or extended windows. The final deliverable
-includes one high-resolution comparison image, plus inspectable summaries.
+One live measurement window of exactly 86,400 seconds per configuration:
+Python 3.12, Python 3.15, Rust, Swift, C++, C and Go. No replay, simulated traffic,
+historical baseline or extended windows. An explicitly authorized corrected-Go
+configuration received its own fresh 24-hour window; the original failed Go
+evidence is retained separately. The deliverable includes one high-resolution
+comparison image, plus inspectable summaries.
 
-The original experiment finished on 8 November 2026 at 16:28:30 UTC: seven
-24-hour windows, 128,859 recorded job ends and 96,578 acknowledged Telegram
-messages. See the [single-image report](results/r2t-live-comparison.png),
+The updated comparison finished on 9 November 2026 at 23:40:05 UTC: seven selected
+24-hour windows, 144,746 recorded job ends and 114,009 whole-job Telegram
+acknowledgements. These include maintenance messages and error notices. See the
+[single-image report](results/r2t-live-comparison.png),
 [portable evidence](results/comparison.json), [metric distributions](results/distributions.csv),
-[window overview](results/windows.csv) and [request counters](results/counters.csv).
+[window overview](results/windows.csv), [request counters](results/counters.csv)
+and [failed original Go overview](results/supplementary-windows.csv).
 The report retains sampling gaps, the incomplete early Python 3.12 process
 split, different daily workloads and the observed failures.
 
-The measured Go application was 1.7.0: 4,783 of 4,787 recorded jobs failed,
-with no recorded Telegram acknowledgement. Its resource measurements do not
-establish delivery efficiency. Go 1.7.1 corrected the client protocol policy
-after the original cutoff, and normal posting resumed; that corrected runtime
-was not benchmarked. The 17 uncertain anniversary parts remain unresolved and
-blocked from automatic resend. Prior sent checkpoints were preserved.
+The original seven-window campaign finished on 8 November at 16:28:30 UTC.
+Its Go application 1.7.0 recorded 4,783 failed jobs out of 4,787 and no Telegram
+acknowledgements. Its resource use does not establish delivery efficiency.
+The corrected Go application 1.7.1, built with Go 1.27.3, was measured from
+8 November 23:40:05 to 9 November 23:40:05 UTC: 20,674 job ends, 918 failures and
+17,431 whole-job Telegram acknowledgements. It replaces only the main Go row;
+the other six measurements are unchanged and the two Go windows are not pooled.
+
+Both corrected-Go collectors finished without restarts or source/configuration
+changes. One missing scheduler component reading excludes two CPU intervals and
+one memory sample from the final comparison. The worker was already running for
+6.95 hours at the start. All four scheduled statistics sweeps finished, with
+3,222 new numeric records observed across their job intervals; recorded API
+errors remain included, so task success does not imply every channel succeeded.
+The anniversary sweep remained partial: 17 inherited uncertain parts and three
+prior sent checkpoints kept their states and attempt counts, with no new
+uncertainty observed. The inherited parts remain blocked from automatic resend.
 
 Python remains in `reddit2telegram/`. Other languages belong in
 `implementations/implementations/{rust,swift,cpp,c,go}/`.

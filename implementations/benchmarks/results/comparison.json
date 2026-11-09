@@ -1,5 +1,5 @@
 {
-  "evidence_cutoff": 1794155310.0218873,
+  "evidence_cutoff": 1794267605.9078586,
   "expected_labels": [
     "python312",
     "python315",
@@ -10,9 +10,18 @@
     "go"
   ],
   "final_ready": true,
+  "go_followup_selection": {
+    "followup_ledger_sha256": "757a8e65259f2d2e7d5a1d4f67e23f9a06a82df10da8d60b0961c26383c929a2",
+    "original_ledger_sha256": "5f4c314a42a7b2df53bd13120a58df046b25f058afeb8548d61b6ecf7c9f72f2",
+    "other_six_runs_unchanged": true,
+    "reason": "User explicitly requested a full corrected-Go measurement and report update",
+    "selected_go_run_id": "go-go-http1-20261108T234005Z",
+    "supplementary_original_go_run_id": "go-20261107T162830Z",
+    "windows_pooled": false
+  },
   "ledger_sha256": "5f4c314a42a7b2df53bd13120a58df046b25f058afeb8548d61b6ecf7c9f72f2",
   "methods": {
-    "comparison": "One fresh sequential live window per configuration; no replay, historical baseline or repeats. Workloads, upstream latency, media and libraries differ. This is not a causal language-speed experiment.",
+    "comparison": "The main comparison uses the original six non-Go live windows and one separately authorized corrected-Go full 24-hour window. The failed original Go window is retained as supplementary evidence and is not pooled with the corrected window. Workloads, upstream latency, media, libraries and dates differ; this is not a causal language-speed experiment.",
     "coverage": "Fraction of the exposure spanned by consecutive complete-component samples at most 10 seconds apart. Post-deadline boundary reads are excluded; no post-deadline work is interpolated into results.",
     "cpu": "Percent of one logical core. Means weight short-interval CPU readings by interval seconds. Medians/P95 use the short-interval readings; intervals over 10 seconds are excluded from distributions. Cumulative CPU totals retain valid monotonic deltas across longer gaps.",
     "cpu_per_job": "Application CPU includes worker/helpers/scheduler work, including censored jobs; the denominator is observed completed or successful jobs as labeled.",
@@ -29488,6 +29497,4987 @@
             "version": "v0.39.0"
           }
         ],
+        "artifact_sha256": "290f741a277a082beef61a1a4ac379ee14760591877b27c53f80f62f624f2c06",
+        "compiler": "go1.27.3",
+        "configuration_sha256": {
+          "own.cron": "091a00407906c527e3b29a6a12eb624550bcbabd1d9b5e4d810ef50865dd8c06",
+          "prod.yml": "90191c0e560612b85f31513c03815b636f964f65f5d191ad9365a5e7156a80a0"
+        },
+        "host_logical_cpus": 4,
+        "merged_commit": "d9db41db9ddadf5e3bd529ccdf11ab346a48d484",
+        "observer_python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+        "profile": "optimized default gc compiler; trimpath; stripped debug tables; CGO_ENABLED=0",
+        "source": {
+          "commit": "2cdbeac3372d0c77faf24ab88ffbeac9e1e9d309",
+          "dirty_diff_sha256": "b18a83a0c673970ccf8ae65c3df1ed066cf916867e6ada46fc4b9fe96fff7c70",
+          "tracked_source_sha256": "34c28e0b08d03913b728f11b7eef2151fdd04d99d8e55131f35d36d2802b63a5"
+        },
+        "source_commit": "7547e09ce4e14b30980a1b437750e3d60f9200bf",
+        "source_git_tree": "2d6bb1c7008939a6768de4522c2c57ca0af07f5d",
+        "version": "1.7.1"
+      },
+      "campaign": "go-http1",
+      "components": {
+        "application": {
+          "cpu": {
+            "counter_reset_intervals": 0,
+            "long_gap_intervals": 0,
+            "missing_component_intervals": 2,
+            "nonpositive_intervals": 0,
+            "sampled_percent_one_core": {
+              "average": 6.157392908184236,
+              "count": 17277,
+              "maximum": 123.13461028352053,
+              "median": 2.7024483760807247,
+              "minimum": 0.043739851916814516,
+              "p95": 24.680830619275937
+            },
+            "seconds": 5319.063871999994,
+            "short_interval_coverage_seconds": 86385.00013422966,
+            "short_interval_seconds": 86385.00013422966,
+            "total_counter_coverage_seconds": 86385.00013422966,
+            "valid_counter_intervals": 17277
+          },
+          "file_cache_bytes": {
+            "average": 12776817.858440882,
+            "count": 17279,
+            "maximum": 146997248,
+            "median": 10518528,
+            "minimum": 3072000,
+            "p95": 25018368
+          },
+          "memory_bytes": {
+            "average": 50245653.097517215,
+            "count": 17279,
+            "maximum": 214499328,
+            "median": 48050176,
+            "minimum": 34816000,
+            "p95": 68542464
+          },
+          "rss_bytes": {
+            "average": 35061602.461538464,
+            "count": 78,
+            "maximum": 44298240,
+            "median": 36171776.0,
+            "minimum": 23384064,
+            "p95": 42803200
+          }
+        },
+        "combined": {
+          "cpu": {
+            "counter_reset_intervals": 0,
+            "long_gap_intervals": 0,
+            "missing_component_intervals": 2,
+            "nonpositive_intervals": 0,
+            "sampled_percent_one_core": {
+              "average": 9.767165452207637,
+              "count": 17277,
+              "maximum": 146.31812134856534,
+              "median": 5.636021657628669,
+              "minimum": 1.0339610600906566,
+              "p95": 33.54349911554607
+            },
+            "seconds": 8437.365888999966,
+            "short_interval_coverage_seconds": 86385.00013422966,
+            "short_interval_seconds": 86385.00013422966,
+            "total_counter_coverage_seconds": 86385.00013422966,
+            "valid_counter_intervals": 17277
+          },
+          "file_cache_bytes": {
+            "average": 104176838.58927022,
+            "count": 17279,
+            "maximum": 261685248,
+            "median": 107651072,
+            "minimum": 32923648,
+            "p95": 136970240
+          },
+          "memory_bytes": {
+            "average": 575011772.8553736,
+            "count": 17279,
+            "maximum": 765030400,
+            "median": 579796992,
+            "minimum": 498667520,
+            "p95": 613650432
+          },
+          "rss_bytes": {
+            "average": 478334030.7692308,
+            "count": 78,
+            "maximum": 488034304,
+            "median": 479123456.0,
+            "minimum": 465862656,
+            "p95": 486936576
+          }
+        },
+        "mongodb": {
+          "cpu": {
+            "counter_reset_intervals": 0,
+            "long_gap_intervals": 0,
+            "missing_component_intervals": 0,
+            "nonpositive_intervals": 0,
+            "sampled_percent_one_core": {
+              "average": 3.6099175414161078,
+              "count": 17279,
+              "maximum": 33.759694565246676,
+              "median": 2.591058146730795,
+              "minimum": 0.9416441794571634,
+              "p95": 9.33637123085961
+            },
+            "seconds": 3118.788266000003,
+            "short_interval_coverage_seconds": 86395.00016880035,
+            "short_interval_seconds": 86395.00016880035,
+            "total_counter_coverage_seconds": 86395.00016880035,
+            "valid_counter_intervals": 17279
+          },
+          "file_cache_bytes": {
+            "average": 91396918.28148147,
+            "count": 17280,
+            "maximum": 124588032,
+            "median": 93208576.0,
+            "minimum": 29851648,
+            "p95": 121540608
+          },
+          "memory_bytes": {
+            "average": 524762895.88148147,
+            "count": 17280,
+            "maximum": 558497792,
+            "median": 526981120.0,
+            "minimum": 460787712,
+            "p95": 554823680
+          },
+          "rss_bytes": {
+            "average": 443301550.6962963,
+            "count": 17280,
+            "maximum": 445677568,
+            "median": 443756544.0,
+            "minimum": 440475648,
+            "p95": 444149760
+          }
+        },
+        "scheduler": {
+          "cpu": {
+            "counter_reset_intervals": 0,
+            "long_gap_intervals": 0,
+            "missing_component_intervals": 2,
+            "nonpositive_intervals": 0,
+            "sampled_percent_one_core": {
+              "average": 0.1195700050234434,
+              "count": 17277,
+              "maximum": 2.4469320450081584,
+              "median": 0.0,
+              "minimum": 0.0,
+              "p95": 1.3642668956513853
+            },
+            "seconds": 103.29054899999994,
+            "short_interval_coverage_seconds": 86385.00013422966,
+            "short_interval_seconds": 86385.00013422966,
+            "total_counter_coverage_seconds": 86385.00013422966,
+            "valid_counter_intervals": 17277
+          },
+          "file_cache_bytes": {
+            "average": 857848.7551362927,
+            "count": 17279,
+            "maximum": 3092480,
+            "median": 499712,
+            "minimum": 8192,
+            "p95": 3092480
+          },
+          "memory_bytes": {
+            "average": 19347436.443312693,
+            "count": 17279,
+            "maximum": 27303936,
+            "median": 18944000,
+            "minimum": 18104320,
+            "p95": 21934080
+          },
+          "rss_bytes": {
+            "average": 8072375.794871795,
+            "count": 78,
+            "maximum": 11960320,
+            "median": 9558016.0,
+            "minimum": 0,
+            "p95": 11849728
+          }
+        },
+        "worker_cgroup": {
+          "cpu": {
+            "counter_reset_intervals": 0,
+            "long_gap_intervals": 0,
+            "missing_component_intervals": 0,
+            "nonpositive_intervals": 0,
+            "sampled_percent_one_core": {
+              "average": 6.038007974776111,
+              "count": 17279,
+              "maximum": 123.13461028352053,
+              "median": 2.221303022389332,
+              "minimum": 0.043739851916814516,
+              "p95": 24.680830619275937
+            },
+            "seconds": 5216.536999999988,
+            "short_interval_coverage_seconds": 86395.00016880035,
+            "short_interval_seconds": 86395.00016880035,
+            "total_counter_coverage_seconds": 86395.00016880035,
+            "valid_counter_intervals": 17279
+          },
+          "file_cache_bytes": {
+            "average": 11918473.718518518,
+            "count": 17280,
+            "maximum": 146550784,
+            "median": 10027008.0,
+            "minimum": 1921024,
+            "p95": 24264704
+          },
+          "memory_bytes": {
+            "average": 30897908.85925926,
+            "count": 17280,
+            "maximum": 192663552,
+            "median": 29020160.0,
+            "minimum": 13774848,
+            "p95": 48939008
+          },
+          "rss_bytes": {
+            "average": 28095030.51851852,
+            "count": 17280,
+            "maximum": 99917824,
+            "median": 27430912.0,
+            "minimum": 21303296,
+            "p95": 34680832
+          }
+        }
+      },
+      "cpu_seconds_per_completed_job": 0.2572827644384248,
+      "cpu_seconds_per_successful_job": 0.26923789593034997,
+      "deadline": 1794267605.9078586,
+      "effective_end": 1794267605.9078586,
+      "ended_iso": "2026-11-09T23:40:05.907859+00:00",
+      "excluded_after_window_samples": 1,
+      "exposure_seconds": 86400.0,
+      "hourly_application_memory_bytes": [
+        42003239.822222225,
+        49567937.42222222,
+        44724656.35555556,
+        43573492.62222222,
+        42453416.4116829,
+        41059458.844444446,
+        42803620.97777778,
+        43579670.755555555,
+        48715702.04444444,
+        47373203.91111111,
+        48309367.46666667,
+        48185622.755555555,
+        50411770.31111111,
+        52708323.55555555,
+        52023148.08888889,
+        54686503.822222225,
+        52534926.222222224,
+        55754740.62222222,
+        54246798.222222224,
+        56712618.666666664,
+        58241934.222222224,
+        57618090.666666664,
+        58942190.93333333,
+        59654417.06666667
+      ],
+      "hourly_application_memory_sample_counts": [
+        720,
+        720,
+        720,
+        720,
+        719,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720,
+        720
+      ],
+      "initial_worker_pid_absent_samples": 0,
+      "jobs": {
+        "completed": 20674,
+        "counters": {
+          "candidates_rejected": 223,
+          "http_http_errors": 6999,
+          "http_rate_limits": 1143,
+          "http_request_attempts": 117504,
+          "http_requests": 117450,
+          "http_response_body_bytes": 30094739946,
+          "http_transport_errors": 55,
+          "posts_recorded_sent": 10968,
+          "previously_seen_candidates": 1569967,
+          "reddit_listing_retries": 4222,
+          "telegram_http_errors": 110857,
+          "telegram_messages": 17431,
+          "telegram_messages_animation": 95,
+          "telegram_messages_document": 2,
+          "telegram_messages_photo": 9799,
+          "telegram_messages_text_or_other": 6165,
+          "telegram_messages_video": 1370,
+          "telegram_rate_limits": 17853,
+          "telegram_request_attempts": 131025,
+          "telegram_request_body_bytes": 15482289014,
+          "telegram_requests": 130795,
+          "telegram_response_body_bytes": 31829603,
+          "telegram_transport_errors": 230
+        },
+        "errors": {
+          "Announcement": 1,
+          "Database": 24,
+          "Forbidden": 1,
+          "Network": 53,
+          "RateLimit": 5,
+          "Reddit": 332,
+          "Rejected": 416,
+          "Timeout": 86
+        },
+        "failed": 918,
+        "modules": {
+          "aaaaagghhhh": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 21
+          },
+          "aapexlegends_game": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "admeme": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "aesthetic_waifu_wallpapers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "alltwitter": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "alternatereality": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "android": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "ani_bm": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 10
+          },
+          "animals_telegram": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 8
+          },
+          "anime_hot_wallpapers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "anime_streetwear": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "anime_titties": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "animehindimemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "animemaids_hot": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "animewaifuss": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "antimlms": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 15
+          },
+          "arkotonog": {
+            "completed": 6,
+            "successful": 6,
+            "telegram_messages": 6
+          },
+          "arma": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "artificialintelligence24x7": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 39
+          },
+          "asexualityonreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "asiangirlsbeingcute": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "assholedesign": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "asus_tuf": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "asuszpehyrusg14": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 33
+          },
+          "atbge": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 10
+          },
+          "attack_on_titan_topic": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 40
+          },
+          "avatarmemes": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 1
+          },
+          "awwducational": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "awwnime": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "azurlane_sub": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "beautifulfemalesbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "bestoftweets": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "bikinimoe": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "blackpeopletweets": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "boku_no_hero_academia_topic": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 32
+          },
+          "bollybng": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 76
+          },
+          "brandnewsentence": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 32
+          },
+          "brasildob": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "btd6": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "btechtards": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "callofdutymobile_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 37
+          },
+          "callofdutywarzone_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "canallixo": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "catmemes_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 19
+          },
+          "chainsawfolk": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 54
+          },
+          "channelzeronetwork": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "cheerleadersbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "chessmemesenglish": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "churchoftohsaka": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "cinema4dbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "ckreddit": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 29
+          },
+          "comedynecrophilia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "comics": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 118
+          },
+          "complete_anarchy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "coolguides": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "cosplayreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 66
+          },
+          "cricketshitpost": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "cricketshitpostreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "cringytiktok": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "crossfitgirlsbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "cryptocurrencies_news": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 16
+          },
+          "cryptoinstantnews2": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "cryptomoonpoop": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "cutie_kittycats": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 56
+          },
+          "dailydankmemes": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "dailyfoodporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "dailygratitudee": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "danknaruto": {
+            "completed": 24,
+            "successful": 20,
+            "telegram_messages": 4
+          },
+          "dankscpmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "dash_cams": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "datascientology": {
+            "completed": 1,
+            "successful": 1,
+            "telegram_messages": 1
+          },
+          "demonslayer_newz": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "denpasong": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "detroitbecomehumanbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "didntknowiwantedthat": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "doctorwhumour": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 23
+          },
+          "dogecoin_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "dongistansub": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "dreamcatcher_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 63
+          },
+          "durrmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "elitedanger0us": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 38
+          },
+          "engrish": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "env_chat": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "eristocracia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "eye_bleach": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "facepalmers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "failures_of_capitalism": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 22
+          },
+          "fakealbumcovers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "fakehistoryp0rn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "familyguymemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "fate_hot": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "femcelgrippysockjail": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 49
+          },
+          "fgrandorder": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "fightpornos": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "fitandnaturalbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "food_from_reddit": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 56
+          },
+          "footballmanagergames": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "fourtran": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 52
+          },
+          "foxgirls_hot": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "frameworkslaptop": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "frontlinegirls": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "fullegoism": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "fumofumoreddit": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "g4m3savisos": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "gamecubereddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 17
+          },
+          "gameofthronesbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 44
+          },
+          "genshin_impact_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "ggpoe": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 49
+          },
+          "gifffs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "giveaway_gift": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "gnarmains": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "goodboomerhumor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "greentext": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "grimdank": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 55
+          },
+          "grndordr": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "harrypotterbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "history": {
+            "completed": 6,
+            "successful": 5,
+            "telegram_messages": 6
+          },
+          "holdmycosmo": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "hololive_yuri": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "hub_posts": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "iamatotalpieceofshit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "ichimechtenleben": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "idiots_in_cars": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 9
+          },
+          "imaginary_maps": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 50
+          },
+          "imaginarylands": {
+            "completed": 120,
+            "successful": 120,
+            "telegram_messages": 8
+          },
+          "imaginarypics": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "imaginationexplorer": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 47
+          },
+          "indepthstories": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "indiancelebs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "indiandankmemesreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "indiasocialsubreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 53
+          },
+          "ingressprimefeedback": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "ingressreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "instant_regret": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "instareality": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "intensememes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "jeeneetards_official": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 29
+          },
+          "jeeneetardsreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "jeeneetardsreddit2": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 26
+          },
+          "jenkinsci": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "jojosbizarreshitposts": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "just_hmmm": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 24
+          },
+          "kingkillerchronicle": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "kstxi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "leagueofmemes": {
+            "completed": 96,
+            "successful": 96,
+            "telegram_messages": 15
+          },
+          "legalcatadvice": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 48
+          },
+          "livestreamfail": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "loliconsunite": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "lostbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 12
+          },
+          "lyricalquotes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "macappsbackup": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "macsetupsbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "mangareddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 144
+          },
+          "manpill": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 31
+          },
+          "mapporncirclejerk": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "marbleracing": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "mash_kyrie": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "medieval_memes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "memanon": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "memearea": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "miku_nakano111": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "miku_nakano_fandom": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "mikuichika_nakano": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "minecraft_en": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 49
+          },
+          "minecraft_posts": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 42
+          },
+          "minecraftmodded": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "minimalwallz": {
+            "completed": 1,
+            "successful": 1,
+            "telegram_messages": 1
+          },
+          "moonshotcryptos": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "mootivati0n": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "moviepostertg": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "msilaptops": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 18
+          },
+          "musictheorymemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "nature_eco": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 30
+          },
+          "natureislit": {
+            "completed": 8,
+            "successful": 8,
+            "telegram_messages": 8
+          },
+          "newgreentexts": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 0
+          },
+          "news": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 23
+          },
+          "news_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "next_level_skills": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 23
+          },
+          "nfl_reddit": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "nikonbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 76
+          },
+          "northkoreanews": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "notme_irl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "octoberstrike": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "odd_takes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 20
+          },
+          "oddly_satisfy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 23
+          },
+          "okbuddypersona": {
+            "completed": 96,
+            "successful": 96,
+            "telegram_messages": 49
+          },
+          "okbuddyretard": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "okbuddyretardd": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "oldschoolcool": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 32
+          },
+          "oldschoolrunescape2007": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 26
+          },
+          "onepunchmansubreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "oneshot": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 34
+          },
+          "onetruemegumin": {
+            "completed": 24,
+            "successful": 21,
+            "telegram_messages": 2
+          },
+          "oshinoko_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "passdenied": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "pc_gaming_memes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "politicalhumor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "praisethecameraman": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "premierleague_r": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "privacyguides": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "privacymemes1": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "proceduralgeneration": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 15
+          },
+          "programmer_humor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 22
+          },
+          "prolifetipss": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "ps2withmybroz": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 83
+          },
+          "pythondaily": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "qt_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "quotesporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_00ag9603": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_0sanitymemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_2meirl4meirl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_3dprinting": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 47
+          },
+          "r_52book": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 32
+          },
+          "r_abandoned": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 136
+          },
+          "r_adhd": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_adhdmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_adporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_africa": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 52
+          },
+          "r_algotrading": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_amongus": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_androidapps": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_animalcrossing": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 86
+          },
+          "r_anime_irl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 56
+          },
+          "r_animedubs": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 23
+          },
+          "r_animemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_antimeme": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_antiwork": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_apexlegends": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "r_apphookup": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 0
+          },
+          "r_apple": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_arabfunny": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_araragi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_arknights": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "r_askmen": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_askreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_atheism": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_atheismindia": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 24
+          },
+          "r_aviation": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "r_avicii": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_axieinfinity": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_badcode": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 0
+          },
+          "r_bakchodi": {
+            "completed": 48,
+            "successful": 0,
+            "telegram_messages": 48
+          },
+          "r_bangalore": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_bapcsalescanada": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "r_bash": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_battlecats": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 38
+          },
+          "r_battlestations": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_beamazed": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 33
+          },
+          "r_beeper": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_behindthegifs": {
+            "completed": 1,
+            "successful": 1,
+            "telegram_messages": 0
+          },
+          "r_bertra": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_bettereveryloop": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 1
+          },
+          "r_biganimetiddies": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_bikinibottomtwitter": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 15
+          },
+          "r_bitcoin": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_blackmagicfuckery": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_bloodborne": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_blueteamsec": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_blursedimages": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 19
+          },
+          "r_bodybuilding": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_bokunometaacademia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "r_bolehland": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 24
+          },
+          "r_books": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 17
+          },
+          "r_boxoffice": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_breadtube": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_bugbounty": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_buildapcsales": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_burdurland": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_catastrophicfailure": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_catgifs": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_celebs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_cgp": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 46
+          },
+          "r_changemyview": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 18
+          },
+          "r_channels_tifu": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_chargers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_chels": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_chemicalreactionsgifs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_chemistry": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "r_chessmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "r_chinadress": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_chodi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_churchofemma": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_citiesskylines": {
+            "completed": 48,
+            "successful": 0,
+            "telegram_messages": 47
+          },
+          "r_clashofclans": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_classicwow": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_climbing": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_climbingcirclejerk": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "r_coding": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_combatfootage": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 10
+          },
+          "r_comedycemetery": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "r_comedyheaven": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 23
+          },
+          "r_communism": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_computers": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 38
+          },
+          "r_confidentlyincorrect": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 5
+          },
+          "r_contrapoints": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_copypasta": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_corgi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 47
+          },
+          "r_coys": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_cozyplaces": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_cpp": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_crackwatch": {
+            "completed": 24,
+            "successful": 20,
+            "telegram_messages": 4
+          },
+          "r_crappydesign": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_crappyoffbrands": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_creepy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_creepyasterisks": {
+            "completed": 23,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "r_cricket": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_cryptocurrency": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_cryptomoonshot": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_cursed": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_cursedcomments": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_cutelittlefangs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_cyberpunk2077": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_dalle2": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_damnthatsinteresting": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 42
+          },
+          "r_danidev": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_dankmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_dark_humor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_datahoarder": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_davie504": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_deathstranding": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "r_deepfriedmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_deepintoutube": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_demisexuality": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 17
+          },
+          "r_denmark": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 32
+          },
+          "r_designporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_desktops": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_detroitpistons": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_devilmaycry": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "r_devops": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "r_dgb": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_digimon": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 51
+          },
+          "r_discoelysium": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 49
+          },
+          "r_disneyvacation": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_djs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_dndgreentext": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_dndmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_documentaries": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_dontdeadopeninside": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_dota2": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_dotnet": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "r_econ": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_edc": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 32
+          },
+          "r_edgerunners": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "r_educationalgifs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_egg_irl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "r_eldenring": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 47
+          },
+          "r_emacs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_embedded": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 17
+          },
+          "r_emulation": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_etymology": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_euroleague": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_evilbuildings": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_expanddong": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_explainmelikeimfive": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_f1": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_fallguysgame": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_fantasy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_fantasypl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_fantheories": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_fashion": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 81
+          },
+          "r_femalecelebritybiceps": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_ferrets": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 85
+          },
+          "r_fightporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_foxes": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 19
+          },
+          "r_fpv": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 48
+          },
+          "r_frankocean": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_freegamefindings": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_freegamesonsteam": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_frugalmalefashion": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_fumofumosub": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 122
+          },
+          "r_funny": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_funnystories": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_furry": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_furrypasta": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_gaming": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_gaminglaptops": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 39
+          },
+          "r_gamingmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_geopolitics": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 16
+          },
+          "r_getmotivated": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_gharkekalesh": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_gifs": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 2
+          },
+          "r_gintama": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 48
+          },
+          "r_goodanimemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_googleplaydeals": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_grandorder": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "r_granturismo": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "r_greenandpleasant": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_gtaonline": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 30
+          },
+          "r_gtnh": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "r_gunners": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 32
+          },
+          "r_hackintosh": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_hamsters": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 65
+          },
+          "r_hearthstone": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "r_hentaimemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_heraldry": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 47
+          },
+          "r_hermitcraft": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_highqualitygifs": {
+            "completed": 24,
+            "successful": 20,
+            "telegram_messages": 5
+          },
+          "r_historicalmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_historyanimemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_hoi4memes": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 35
+          },
+          "r_holdmybeer": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_hololive": {
+            "completed": 48,
+            "successful": 47,
+            "telegram_messages": 58
+          },
+          "r_homeassistant": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_honkaistarrail": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 50
+          },
+          "r_houkai3rd": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 46
+          },
+          "r_ihadastroke": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_ik_ihe": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 2
+          },
+          "r_ikeahacks": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "r_illegallysmolcats": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 63
+          },
+          "r_ilmasseo": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 0
+          },
+          "r_imaginary_network": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_imaginarylandscapes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "r_imgoingtohellforthis": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_indiandankmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_indiangaming": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 57
+          },
+          "r_indianmemes": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 23
+          },
+          "r_inoobchannel": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 0
+          },
+          "r_insidemollywood": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 32
+          },
+          "r_interestingasfuck": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_internetisbeautiful": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_invites": {
+            "completed": 23,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "r_islam": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_itemshop": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_iww": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_izlam": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_jacksepticeye": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_jailbreak": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 50
+          },
+          "r_japanpics": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 57
+          },
+          "r_jeles": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_jkreacts": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 31
+          },
+          "r_jokes": {
+            "completed": 8,
+            "successful": 7,
+            "telegram_messages": 8
+          },
+          "r_julia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_justcause": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_k12sysadmin": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_kait": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_kamenrider": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 57
+          },
+          "r_kanye": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 45
+          },
+          "r_kcv": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_kemonomimi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_kerala": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_kgbtr": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_kitchencels": {
+            "completed": 24,
+            "successful": 12,
+            "telegram_messages": 26
+          },
+          "r_kochin": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "r_komisan": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_kopyamakarna": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_kratom": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 16
+          },
+          "r_lain_sub": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_lal_salaam": {
+            "completed": 23,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "r_latestagecapitalism": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "r_leftistvexillology": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "r_libertarian": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "r_librandu": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_lifeprotips": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_linux": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_linuxmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_linuxmemes_1": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_listentothis": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "r_literature": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_literaturememes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_liverpoolfc": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_losercity": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 40
+          },
+          "r_lostgeneration": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 23
+          },
+          "r_lotrmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_lua": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_madokamagica": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_magiarecord": {
+            "completed": 23,
+            "successful": 23,
+            "telegram_messages": 1
+          },
+          "r_malaysia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_malazan": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_mapporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_marvelstudios": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "r_marvelunlimited": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "r_mashukyrielight": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_masterhacker": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_maxestla": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_maybe": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_mbti": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_mcfc": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 29
+          },
+          "r_me_irl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_mechanicalkeyboards": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 58
+          },
+          "r_megane": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_meirl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_memesita": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_memetemplatesofficial": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "r_metalgearsolid": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "r_metalmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_mild": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_mildlyinfuriating": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 39
+          },
+          "r_mildlypenis": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 38
+          },
+          "r_mildlyvagina": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 10
+          },
+          "r_military": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "r_minecraft": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 76
+          },
+          "r_minecraft_survival": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 22
+          },
+          "r_minecraftmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_miraculousladybug": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 54
+          },
+          "r_mlp": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 56
+          },
+          "r_modelmakers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 122
+          },
+          "r_moescape": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_morocco": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 38
+          },
+          "r_movieclub": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_moviequotes": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 17
+          },
+          "r_movies2": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 146
+          },
+          "r_moviescirclejerk": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "r_moviesuggestions": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_muscularcelebrities": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_mwii": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 12
+          },
+          "r_mwiii": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_naruto": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 67
+          },
+          "r_nichijou": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_nijisanji": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_nikkemobile": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_nofap": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_nootropics": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_nosafetysmokingfirst": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_notinteresting": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_nottheonion": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 20
+          },
+          "r_nuclearweapons": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_nvidia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_odsp": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "r_okaybuddyhololive": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 28
+          },
+          "r_okbuddybaka": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_okbuddychicanery": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_okbuddyfresca": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_okbuddyretard": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "r_okbuddyrintard": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "r_one_punch_man": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "r_onejob": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_oneorangebraincell": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 46
+          },
+          "r_onepiecer": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 37
+          },
+          "r_opensignups": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_opm": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_osha": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_osugame": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_otonokizaka": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_outerwilds": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 50
+          },
+          "r_outrun": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_overwatch": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 45
+          },
+          "r_padres": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_pcmasterrace": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 30
+          },
+          "r_perfecttiming": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_persona5": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_pewdiepiesubmissions": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_phoenixsc": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 34
+          },
+          "r_photoshopbattles": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_php": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 18
+          },
+          "r_piano": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "r_pics": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "r_pinetime": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_plipplip": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 15
+          },
+          "r_plsnobulli": {
+            "completed": 23,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "r_podcasts": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_pokemonmasters": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 54
+          },
+          "r_pokemonrmxp": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 19
+          },
+          "r_polandball": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_politicalcompassmemes": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 49
+          },
+          "r_politicalmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_pony_irl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_porn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_pornhubcomments": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_premiere": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 28
+          },
+          "r_preppers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 10
+          },
+          "r_privacy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_programmerhumor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 22
+          },
+          "r_programming": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 0
+          },
+          "r_progresspics": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_propagandaposters": {
+            "completed": 8,
+            "successful": 8,
+            "telegram_messages": 22
+          },
+          "r_proseporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_ps3": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 43
+          },
+          "r_psx": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "r_psychology1": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_pubgmobile": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 16
+          },
+          "r_publicfreakout": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_punny": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_puppylinux": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_quotesporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_radiocontrol": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_radiowaves": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 39
+          },
+          "r_rainbow6": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_ramen": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_ramiayana": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_raspberry_pi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "r_ratorix": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_reallifedoodles": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_reddeadonline": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 50
+          },
+          "r_reddevils": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_redpillmalayalam": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_redstone": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "r_remotejs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_rimesegate": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_rimworld": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 52
+          },
+          "r_riscv": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_robloxx": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 50
+          },
+          "r_rust": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_salesforce": {
+            "completed": 24,
+            "successful": 4,
+            "telegram_messages": 20
+          },
+          "r_sandman": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_satisfactorygame": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 56
+          },
+          "r_sbubby": {
+            "completed": 23,
+            "successful": 23,
+            "telegram_messages": 1
+          },
+          "r_scala": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_science": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_sciencegeeks": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_scp": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 31
+          },
+          "r_scrubs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "r_sdarksouls": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "r_selfhosted": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "r_shitpostcrusaders": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_shitposting0": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_shitposttc": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_shitpostxiv": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 17
+          },
+          "r_shittyramen": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_showerthoughts": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 8
+          },
+          "r_signalis": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 44
+          },
+          "r_silenthill": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 36
+          },
+          "r_simpsonshitpost": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 34
+          },
+          "r_sino": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 15
+          },
+          "r_siswimsuitgirls": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_slimerancher": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_smugs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 21
+          },
+          "r_softwaregore": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_space": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 22
+          },
+          "r_stardewvalley": {
+            "completed": 96,
+            "successful": 96,
+            "telegram_messages": 145
+          },
+          "r_starfield": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 39
+          },
+          "r_starterpacks": {
+            "completed": 6,
+            "successful": 6,
+            "telegram_messages": 6
+          },
+          "r_starwarsmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 13
+          },
+          "r_stonks": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_stray": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_streetwear": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_suddenlyultrakill": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 2
+          },
+          "r_suggest": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_suicidewatch": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_sweatypalms": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_sweden": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "r_switchhacks": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 53
+          },
+          "r_systemadmin": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_talesfromtechsupport": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_tamamo": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_technicallythetruth": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "r_technoblade": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "r_technology": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_technope": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_techsupportgore": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_teenagers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 38
+          },
+          "r_television": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_tensei": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "r_terraria": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 52
+          },
+          "r_texans": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 12
+          },
+          "r_tfirl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_thatsinsane": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 13
+          },
+          "r_thedivision": {
+            "completed": 24,
+            "successful": 2,
+            "telegram_messages": 22
+          },
+          "r_theexpanse": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 42
+          },
+          "r_thehatedone": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_thelastairbender": {
+            "completed": 48,
+            "successful": 48,
+            "telegram_messages": 29
+          },
+          "r_thenightfeeling": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "r_therewasanattempt": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_thesilphroad": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_thinkpad": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 42
+          },
+          "r_thinkpadsforsale": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_tihi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_tiktok_tits": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_til": {
+            "completed": 10,
+            "successful": 10,
+            "telegram_messages": 10
+          },
+          "r_tipovi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_toolband": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 30
+          },
+          "r_toonami": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_tottenham": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 3
+          },
+          "r_touhou": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_tourettesguy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_trackers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "r_trashpandas": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_trashtaste": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "r_traumacore": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_truefilm": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "r_truelit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "r_tupac": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 12
+          },
+          "r_turkey": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_turkeyjerky": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 7
+          },
+          "r_twinpeaks": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 38
+          },
+          "r_tylerthecreator": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 42
+          },
+          "r_udemyfreebies": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_ultraleft": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 42
+          },
+          "r_unexpectedhamilton": {
+            "completed": 2,
+            "successful": 2,
+            "telegram_messages": 2
+          },
+          "r_unity3d": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 43
+          },
+          "r_usenet": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 10
+          },
+          "r_valorant": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_vault_hunters": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "r_vexillology": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 39
+          },
+          "r_vexillologycirclejerk": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "r_videoengineering": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 20
+          },
+          "r_videomemes": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_vim": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_vinesauce": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 12
+          },
+          "r_vinyl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 51
+          },
+          "r_virginvschad": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "r_vitapiracy": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "r_voicesofthevoid": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "r_wallpapers": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "r_war": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 31
+          },
+          "r_watchpeopledieinside": {
+            "completed": 23,
+            "successful": 23,
+            "telegram_messages": 0
+          },
+          "r_weirdcore": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_wellthatsucks": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "r_wetlanderhumor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "r_wheredidthesodago": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_whitepeoplebluesky": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_wholesome": {
+            "completed": 120,
+            "successful": 116,
+            "telegram_messages": 149
+          },
+          "r_wholesomememes": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 59
+          },
+          "r_wikileaks": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_windows": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 19
+          },
+          "r_windows_redesign": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_wireguard": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_witcher3": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 42
+          },
+          "r_woooosh": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "r_wordington": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_workreform": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_wow": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_writingprompts": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 29
+          },
+          "r_xboxone": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "r_xxxtentacion": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 15
+          },
+          "r_yesyesyesyesno": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "r_youll_be_banned": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "r_youshouldknow": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "r_youtubehaiku": {
+            "completed": 6,
+            "successful": 6,
+            "telegram_messages": 1
+          },
+          "r_zargoryangalaksisi": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "ranalog": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 113
+          },
+          "ranarchism": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "ranimewallpaper": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "rantitrampo": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "rareinsults": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "rattit": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 51
+          },
+          "rcarporn": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 7
+          },
+          "rcarsindia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 54
+          },
+          "rdataisbeautiful": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 36
+          },
+          "rddit": {
+            "completed": 24,
+            "successful": 21,
+            "telegram_messages": 40
+          },
+          "rddlc": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "rdogelore": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "rdrawing": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "realmofsuisei": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "realracing3tg": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 6
+          },
+          "reddit196": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "reddit2telegram": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "reddit_all": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "reddit_androiddev": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 12
+          },
+          "reddit_animalsbeingderps": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 10
+          },
+          "reddit_argentina": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 26
+          },
+          "reddit_brasil": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "reddit_cartoons": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "reddit_clashofclans": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 26
+          },
+          "reddit_facepalm": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "reddit_gif": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "reddit_ich_iel": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 23
+          },
+          "reddit_infographic": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 14
+          },
+          "reddit_iwanttolearn": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 17
+          },
+          "reddit_lego": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 100
+          },
+          "reddit_lineart": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "reddit_nba": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "reddit_pride": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 32
+          },
+          "reddit_terraria": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 49
+          },
+          "reddit_trackballs": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "reddit_whatcouldgowrong": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 24
+          },
+          "reddit_wtf": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "redditart": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "redditcats": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 37
+          },
+          "redditgames": {
+            "completed": 72,
+            "successful": 72,
+            "telegram_messages": 71
+          },
+          "redditmovie": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 25
+          },
+          "redditoor": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "redditpiracy": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "redditshortfilms": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 11
+          },
+          "redditvideos": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 23
+          },
+          "redmeme": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "rexmuslim": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 48
+          },
+          "rfactorio": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 59
+          },
+          "rglitch_in_the_matrix": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "rgreenroomconfessions": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "rhyderabad": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 26
+          },
+          "rjacksucksatlife": {
+            "completed": 96,
+            "successful": 96,
+            "telegram_messages": 61
+          },
+          "rkolc": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 46
+          },
+          "rmallubabes": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 24
+          },
+          "rminecraftbuilds": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 111
+          },
+          "rnerds": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "rnosleep": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 81
+          },
+          "rprojectzomboid": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 28
+          },
+          "rselfie": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "rshittymoviedetails": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "rsoccerbetting": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 5
+          },
+          "rstablediffusion": {
+            "completed": 23,
+            "successful": 23,
+            "telegram_messages": 40
+          },
+          "rsurrealmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "rtf2memes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 37
+          },
+          "russianissohard": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "saber_fgo": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "sailingx": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 23
+          },
+          "sbr_army": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "sffpc": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 53
+          },
+          "shitliberalssay": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 45
+          },
+          "skinnywithabsbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "slavelabour": {
+            "completed": 95,
+            "successful": 95,
+            "telegram_messages": 16
+          },
+          "soccer_reddit": {
+            "completed": 48,
+            "successful": 46,
+            "telegram_messages": 48
+          },
+          "soccermemer": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 24
+          },
+          "spider_man_memes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 8
+          },
+          "sr_ena": {
+            "completed": 24,
+            "successful": 18,
+            "telegram_messages": 6
+          },
+          "stablediffusion_r": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 38
+          },
+          "stardewvalley_en": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 31
+          },
+          "streetmoe": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 18
+          },
+          "sub_eminem": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 51
+          },
+          "subgeniuschurch": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "subredditav1": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "subredditjxl": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "subredditmix": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 35
+          },
+          "tech_anniversary": {
+            "completed": 1,
+            "successful": 0,
+            "telegram_messages": 1
+          },
+          "tech_cleaner": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 23
+          },
+          "tech_receiver": {
+            "completed": 24,
+            "successful": 0,
+            "telegram_messages": 23
+          },
+          "tech_store_stat": {
+            "completed": 4,
+            "successful": 4,
+            "telegram_messages": 235
+          },
+          "tfbmemes": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "the100backup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "thefalconandthews_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 1
+          },
+          "therewasanattempt": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "thevampirediariesbackup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 41
+          },
+          "theydidthemath": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 28
+          },
+          "tnomod": {
+            "completed": 12,
+            "successful": 12,
+            "telegram_messages": 1
+          },
+          "trans_memes": {
+            "completed": 24,
+            "successful": 12,
+            "telegram_messages": 12
+          },
+          "trueoffmychest": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "tumblrcontent": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 2
+          },
+          "tyingherhairup": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "uminekoreddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 20
+          },
+          "unbgbbiivchidctiicbg": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 24
+          },
+          "unexpected_reddit": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 24
+          },
+          "vaporwaveaesthetics": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "vfxbackup": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 21
+          },
+          "wallpapers_desktop_mobile": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 26
+          },
+          "wallstreetnewsitalia": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 27
+          },
+          "wandavision_reddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "wasletztepreis": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 33
+          },
+          "watchpeoplevim": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          },
+          "weirddalle": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 31
+          },
+          "whatswrongwithyourdog": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 6
+          },
+          "whitepeopletweets": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 32
+          },
+          "wiireddit": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 9
+          },
+          "windows11group": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 16
+          },
+          "worldnews_reddit": {
+            "completed": 24,
+            "successful": 22,
+            "telegram_messages": 24
+          },
+          "wtf_pictures": {
+            "completed": 24,
+            "successful": 23,
+            "telegram_messages": 5
+          },
+          "wutttttttt": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 4
+          },
+          "ya_metro": {
+            "completed": 23,
+            "successful": 23,
+            "telegram_messages": 37
+          },
+          "youtubecompendium": {
+            "completed": 24,
+            "successful": 24,
+            "telegram_messages": 0
+          }
+        },
+        "orphan_end_records": 0,
+        "paired_executions": 20674,
+        "post_records": 10968,
+        "processing_seconds": {
+          "average": 44.042986253063894,
+          "count": 20674,
+          "maximum": 2410.04304011,
+          "median": 12.059401728000001,
+          "minimum": 5.736806782,
+          "p95": 131.300353946
+        },
+        "queue_wait_seconds": {
+          "average": 8.35805726511469,
+          "count": 20674,
+          "maximum": 124.26389050483704,
+          "median": 3.6753965616226196,
+          "minimum": 0.04209542274475098,
+          "p95": 42.025768995285034
+        },
+        "repeated_source_channel_records": 0,
+        "scheduler_failures": 0,
+        "scheduler_runs": 1440,
+        "scheduler_wall_seconds": {
+          "average": 0.09918444482189241,
+          "count": 1440,
+          "maximum": 0.16606941120699048,
+          "median": 0.09771815384738147,
+          "minimum": 0.07356129167601466,
+          "p95": 0.11986417463049293
+        },
+        "started": 20684,
+        "starts_without_observed_end": 10,
+        "submitted_jobs": 20684,
+        "success_fraction": 0.9555964012769662,
+        "successful": 19756,
+        "task_ids_with_multiple_completions": 0,
+        "telemetry_available": true
+      },
+      "kernel_peaks": {
+        "mongodb": {
+          "bytes": 817573888,
+          "scope": "cgroup_lifetime"
+        },
+        "scheduler": {
+          "bytes": 57196544,
+          "scope": "cgroup_lifetime"
+        },
+        "worker": {
+          "bytes": 248266752,
+          "scope": "cgroup_lifetime"
+        }
+      },
+      "label": "go",
+      "memory_linear_trend_bytes_per_hour": 795506.7028547374,
+      "name": "Go 1.7.1",
+      "notes": [
+        {
+          "description": "Supplementary sampler source identity was recorded.",
+          "event": "process_sampler_source",
+          "ts": 1794181206.312519
+        },
+        {
+          "delay_from_window_start_seconds": 0.46373534202575684,
+          "description": "Supplementary process-role observations began after the original window start.",
+          "event": "process_sampler_started",
+          "ts": 1794181206.371594
+        },
+        {
+          "consumer_restarted_for_measurement": false,
+          "description": "The corrected Go worker was already running when the fresh measurement began. No consumer restart was performed. In-flight boundary jobs are censored from paired job timings; resource totals include their work.",
+          "event": "worker_already_running_at_window_start",
+          "inflight_boundary_jobs_censored": true,
+          "ts": 1794181515.184733,
+          "worker_age_at_start_seconds": 25032.047858715057
+        },
+        {
+          "description": "A naturally scheduled subscriber-statistics task returned success and recorded HTTP responses alongside request errors. A bounded read-only review also observed new persisted numeric statistics rows. Task status, HTTP responses, whole-job acknowledgements and persisted rows have different scopes; none establishes success for every channel.",
+          "event": "maintenance_success_with_api_responses",
+          "job_acknowledged_telegram_messages": 58,
+          "job_duration_seconds": 2378.596753167,
+          "job_successful": true,
+          "module": "tech_store_stat",
+          "persisted_statistics_rows": 803,
+          "queue_wait_seconds": 2.770416021347046,
+          "recorded_http_errors": 68,
+          "recorded_http_rate_limits": 8,
+          "recorded_http_responses": 1731,
+          "recorded_request_attempts": 1735,
+          "recorded_transport_errors": 4,
+          "reviewed_jobs": 1,
+          "ts": 1794188971.554739
+        },
+        {
+          "description": "The corrected Go natural anniversary sweep remained partial because unresolved delivery parts predated this window. Read-only comparison retained the inherited uncertain and previously sent parts with identical attempt counts, and found no new uncertainty. The failed task and its whole-job acknowledgement remain separate measurements; no retry was forced.",
+          "event": "inherited_anniversary_uncertainty_preserved",
+          "guarded_parts_unchanged": 20,
+          "inherited_pending_parts_still_pending": 45,
+          "inherited_uncertain_messages": 17,
+          "job_acknowledged_telegram_messages": 1,
+          "job_error_type": "Announcement",
+          "job_successful": false,
+          "module": "tech_anniversary",
+          "new_uncertain_messages": 0,
+          "previously_sent_parts_retained": 3,
+          "production_changed": false,
+          "retry_forced": false,
+          "reviewed_jobs": 1,
+          "sweep_channels": 830,
+          "sweep_completed_events": 0,
+          "sweep_due_events": 0,
+          "sweep_pending_events": 5,
+          "ts": 1794225772.6920395
+        },
+        {
+          "description": "Supplementary process observations stopped; the original deadline was retained.",
+          "event": "process_sampler_finished",
+          "original_deadline": 1794267605.9078586,
+          "samples": 17280,
+          "sampling_errors": 0,
+          "ts": 1794267605.9083066
+        }
+      ],
+      "oldest_queued_seconds": {
+        "average": 3.1542200150373683,
+        "count": 2628,
+        "maximum": 109.91412138938904,
+        "median": 0.0,
+        "minimum": 0,
+        "p95": 19.317081212997437
+      },
+      "process_sampling_errors": 0,
+      "processes": {
+        "available": true,
+        "coverage_fraction": 0.9999421320965997,
+        "coverage_seconds": 86395.00021314621,
+        "ffmpeg_cpu_scope": "Lower bound from observed PIDs; unobserved child lifetimes and tails are missing. Helpers CPU includes ffmpeg plus maintenance helpers, including reaped work.",
+        "ffmpeg_observed_cpu_seconds_lower_bound": 6.7799999999999985,
+        "first_sample": 1794181206.3717132,
+        "first_sample_delay_seconds": 0.4638545513153076,
+        "helper_snapshot_decreases": 0,
+        "helpers_cpu_percent_one_core": {
+          "average": 0.41840384178272827,
+          "count": 17278,
+          "maximum": 45.800618056054425,
+          "median": 0.0,
+          "minimum": 0.0,
+          "p95": 3.600052014148294
+        },
+        "helpers_cpu_seconds": 361.48,
+        "last_sample": 1794267601.3719263,
+        "roles": {
+          "ffmpeg": {
+            "fds": {
+              "average": 0.011285375311071242,
+              "count": 17279,
+              "maximum": 6,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            },
+            "processes": {
+              "average": 0.002604317379477979,
+              "count": 17279,
+              "maximum": 1,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            },
+            "rss_bytes": {
+              "average": 90079.52404653047,
+              "count": 17279,
+              "maximum": 61136896,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            },
+            "samples_with_live_process": 45,
+            "threads": {
+              "average": 0.005208634758955958,
+              "count": 17279,
+              "maximum": 4,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            }
+          },
+          "other_helper": {
+            "fds": {
+              "average": 0.0,
+              "count": 17279,
+              "maximum": 0,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            },
+            "processes": {
+              "average": 0.0,
+              "count": 17279,
+              "maximum": 0,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            },
+            "rss_bytes": {
+              "average": 0.0,
+              "count": 17279,
+              "maximum": 0,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            },
+            "samples_with_live_process": 0,
+            "threads": {
+              "average": 0.0,
+              "count": 17279,
+              "maximum": 0,
+              "median": 0,
+              "minimum": 0,
+              "p95": 0
+            }
+          },
+          "worker": {
+            "fds": {
+              "average": 48.1651137218589,
+              "count": 17279,
+              "maximum": 119,
+              "median": 39,
+              "minimum": 31,
+              "p95": 86
+            },
+            "processes": {
+              "average": 1.0,
+              "count": 17279,
+              "maximum": 1,
+              "median": 1,
+              "minimum": 1,
+              "p95": 1
+            },
+            "rss_bytes": {
+              "average": 27989428.469703108,
+              "count": 17279,
+              "maximum": 49381376,
+              "median": 27426816,
+              "minimum": 21303296,
+              "p95": 34582528
+            },
+            "samples_with_live_process": 17279,
+            "threads": {
+              "average": 22.781237340123848,
+              "count": 17279,
+              "maximum": 23,
+              "median": 23,
+              "minimum": 14,
+              "p95": 23
+            }
+          }
+        },
+        "root_identity_changes": 0,
+        "samples": 17280,
+        "valid_samples": 17279,
+        "worker_cpu_percent_one_core": {
+          "average": 5.619503429622365,
+          "count": 17278,
+          "maximum": 95.59374606039472,
+          "median": 2.2000169946010946,
+          "minimum": 0.0,
+          "p95": 22.20026782358275
+        },
+        "worker_cpu_seconds": 4854.970000000001
+      },
+      "queue_observation_count": 2628,
+      "queued_backlog": {
+        "average": 1.6213850837138508,
+        "count": 2628,
+        "maximum": 52,
+        "median": 0.0,
+        "minimum": 0,
+        "p95": 13
+      },
+      "run_id": "go-go-http1-20261108T234005Z",
+      "sample_count": 17280,
+      "sampling_coverage_fraction": 0.9998263904424729,
+      "sampling_errors": 0,
+      "sampling_gaps_seconds": {
+        "average": 5.000000009769105,
+        "count": 17279,
+        "maximum": 5.014505863189697,
+        "median": 4.9999988079071045,
+        "minimum": 4.985484838485718,
+        "p95": 5.000170707702637
+      },
+      "scheduled_seconds": 86400,
+      "source_changed": false,
+      "source_receipts": {
+        "events.jsonl": {
+          "bytes": 17885327,
+          "incomplete_tail_records": 0,
+          "malformed_records": 0,
+          "present": true,
+          "records": 54971,
+          "sha256": "9a2001da9daae4d320874abdac702cab2f600a677cf0b49e324b0e436cef5056"
+        },
+        "manifest.json": {
+          "bytes": 9484,
+          "present": true,
+          "sha256": "228119f2c2be4c76d03454a8a0dc671e28ae4e78e246edc2356b57789b654d03"
+        },
+        "notes.jsonl": {
+          "bytes": 2417,
+          "incomplete_tail_records": 0,
+          "malformed_records": 0,
+          "present": true,
+          "records": 6,
+          "sha256": "d9d25dfb65fc6451f66590259f9e1d9f06e7dd14822a351f15e2230dff938114"
+        },
+        "process_sampling_errors.jsonl": {
+          "present": false
+        },
+        "processes.jsonl": {
+          "bytes": 10668070,
+          "incomplete_tail_records": 0,
+          "malformed_records": 0,
+          "present": true,
+          "records": 17280,
+          "sha256": "70ef95dd1906aa07e4f6f6d6c0e1385f17ab28086844f333420043717be6cd51"
+        },
+        "queue.jsonl": {
+          "bytes": 362424,
+          "incomplete_tail_records": 0,
+          "malformed_records": 0,
+          "present": true,
+          "records": 2628,
+          "sha256": "18042628c9c8fcd0b6a33ca6db20b30e09d3f6e962791fb6d29a77215d2a7624"
+        },
+        "samples.jsonl": {
+          "bytes": 15106943,
+          "incomplete_tail_records": 0,
+          "malformed_records": 0,
+          "present": true,
+          "records": 17281,
+          "sha256": "273150e44a3fdb31c3fbdd6bdfb5f239c02f468fcb190e96b9845edfea02d91e"
+        },
+        "sampling_errors.jsonl": {
+          "present": false
+        }
+      },
+      "started_at": 1794181205.9078586,
+      "started_iso": "2026-11-08T23:40:05.907859+00:00",
+      "status": "finished",
+      "temporary_file_bytes": {
+        "average": 40190990.10958904,
+        "count": 2628,
+        "maximum": 330053975,
+        "median": 37701728.0,
+        "minimum": 37701728,
+        "p95": 53397550
+      },
+      "temporary_file_count": {
+        "average": 2954.3135464231354,
+        "count": 2628,
+        "maximum": 3004,
+        "median": 2954.0,
+        "minimum": 2954,
+        "p95": 2957
+      },
+      "worker_established_connections": {
+        "average": 42.11506627307982,
+        "count": 17277,
+        "maximum": 113,
+        "median": 33,
+        "minimum": 25,
+        "p95": 80
+      },
+      "worker_fds": {
+        "average": 48.17771990740741,
+        "count": 17280,
+        "maximum": 119,
+        "median": 39.0,
+        "minimum": 31,
+        "p95": 86
+      },
+      "worker_threads": {
+        "average": 22.7875,
+        "count": 17280,
+        "maximum": 27,
+        "median": 23.0,
+        "minimum": 14,
+        "p95": 23
+      },
+      "worker_unavailable_samples": 0
+    }
+  ],
+  "schema": 1,
+  "supplementary_runs": [
+    {
+      "build": {
+        "allocator": "Go runtime GC; 60-second RSS check and FreeOSMemory at 256 MiB; libc arenas do not apply",
+        "application_dependencies": [
+          {
+            "module": "github.com/klauspost/compress",
+            "sum": "h1:hMRETovs/pu/dVWN7zIT1PGG8t509MwT6bO7XSi26R8=",
+            "version": "v1.19.2"
+          },
+          {
+            "module": "github.com/xdg-go/scram",
+            "sum": "h1:bYKF2AEwG5rqd1BumT4gAnvwU/M9nBp2pTSxeZw7Wvs=",
+            "version": "v1.2.0"
+          },
+          {
+            "module": "github.com/xdg-go/stringprep",
+            "sum": "h1:XLI/Ng3O1Atzq0oBs3TWm+5ZVgkq2aqdlvP9JtoZ6c8=",
+            "version": "v1.0.4"
+          },
+          {
+            "module": "github.com/youmark/pkcs8",
+            "sum": "h1:ilQV1hzziu+LLM3zUTJ0trRztfwgjqKnBWNtSRkbmwM=",
+            "version": "v0.0.0-20240726163527-a2c0da244d78"
+          },
+          {
+            "module": "go.mongodb.org/mongo-driver/v2",
+            "sum": "h1:OCAdjI37pC/SVxucz/9CM8zD4jCdegtsY5QcKzYFCgE=",
+            "version": "v2.9.2"
+          },
+          {
+            "module": "go.yaml.in/yaml/v3",
+            "sum": "h1:zcDfvjXEqTQmpjniUBLc91xYJMB2c4QOFxEF/LCEckM=",
+            "version": "v3.0.6"
+          },
+          {
+            "module": "golang.org/x/crypto",
+            "sum": "h1:QZ4Muo8THX6CizN2vPPd5fBGHyogrdK9fG4wLPFUsto=",
+            "version": "v0.53.0"
+          },
+          {
+            "module": "golang.org/x/sync",
+            "sum": "h1:HLII4xRRTtCRkxYp4HNFF0Js/Og6q2i++KXbg0gHCwM=",
+            "version": "v0.21.0"
+          },
+          {
+            "module": "golang.org/x/text",
+            "sum": "h1:UbZz4pLOvn600D6Oh6GGEI6VAmndrEBLv8/6BEXzyus=",
+            "version": "v0.39.0"
+          }
+        ],
         "artifact_sha256": "1b0732d3349e75e8f96409860db5940f05e5207e8ca06537ec95b9639b12f3bb",
         "compiler": "go1.27.3",
         "configuration_sha256": {
@@ -29507,6 +34497,7 @@
         "source_git_tree": "af88128de8da1b9f56ee9bb6791af3f1fdca78a9",
         "version": "1.7.0"
       },
+      "comparison_role": "supplementary_original_go",
       "components": {
         "application": {
           "cpu": {
@@ -33936,7 +38927,7 @@
           "benchmark_repeated_or_extended": false,
           "delivery_state_reset_or_forced_retry": false,
           "deployed_after_original_cutoff": true,
-          "description": "Go 1.7.1 was deployed after the original measurement cutoff and the original worker drained naturally. Normal production posting resumed; the corrected runtime was not benchmarked. Uncertain anniversary parts and prior sent checkpoints were preserved.",
+          "description": "Go 1.7.1 was deployed after the original measurement cutoff and the original worker drained naturally. Normal production posting resumed. At this deployment checkpoint, the corrected runtime had not yet been benchmarked. Uncertain anniversary parts and prior sent checkpoints were preserved.",
           "event": "transport_policy_repair_deployed",
           "normal_posting_observed": true,
           "original_collectors_finished": true,
@@ -34214,6 +39205,5 @@
       "worker_unavailable_samples": 0
     }
   ],
-  "schema": 1,
   "unfinished_labels": []
 }
