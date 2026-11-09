@@ -9,6 +9,7 @@ The history before this initial versioned snapshot remains in Git.
 ### Added
 
 - Select the explicitly authorized full corrected-Go window in the comparison while retaining the failed original as separate evidence.
+- Distinguish the corrected Go anniversary sweep's inherited uncertainty from new delivery uncertainty, retaining the recorded partial task outcome and prior sent checkpoints.
 
 ## [1.9.0] - 2026-11-08
 

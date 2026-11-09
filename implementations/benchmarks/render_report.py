@@ -91,15 +91,22 @@ def transport_failure_note(runs):
 
 def uncertain_anniversary_note(runs):
     observed = []
+    inherited = []
     for run in runs:
         parts = max((note.get('uncertain_messages', 0) for note in run['notes']
                      if note['event'] == 'uncertain_anniversary_delivery'), default=0)
         if parts:
             name = run['name']+(' (failed original)' if run.get('comparison_role') == 'supplementary_original_go' else '')
             observed.append(f"{name}: {count(parts)} anniversary parts were marked uncertain")
-    if not observed:
+        for note in run['notes']:
+            if note['event'] == 'inherited_anniversary_uncertainty_preserved':
+                inherited.append(f"{run['name']}: a later natural sweep retained "
+                                 f"{count(note.get('inherited_uncertain_messages', 0))} inherited uncertain parts and "
+                                 f"{count(note.get('previously_sent_parts_retained', 0))} prior sent checkpoints; "
+                                 f"{count(note.get('new_uncertain_messages', 0))} new uncertain parts were recorded")
+    if not observed and not inherited:
         return None
-    return ('; '.join(observed)+'. Delivery remains unresolved and these parts are blocked from automatic resend. '
+    return ('; '.join(observed+inherited)+'. Delivery remains unresolved and these parts are blocked from automatic resend. '
             'Earlier sent checkpoints remain sent; no retry was forced.')
 
 

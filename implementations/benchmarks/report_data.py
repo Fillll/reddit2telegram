@@ -224,6 +224,9 @@ NOTE_DESCRIPTIONS = {
                                              'Task status, HTTP responses, whole-job acknowledgements and persisted rows have different scopes; none establishes success for every channel.',
     'uncertain_anniversary_delivery': 'A natural anniversary sweep ended partially with message parts marked uncertain. '
                                       'Missing acknowledgements leave delivery unresolved. Previously sent checkpoints were retained; no retry was forced.',
+    'inherited_anniversary_uncertainty_preserved': 'The corrected Go natural anniversary sweep remained partial because unresolved delivery parts predated this window. '
+                                                  'Read-only comparison retained the inherited uncertain and previously sent parts with identical attempt counts, and found no new uncertainty. '
+                                                  'The failed task and its whole-job acknowledgement remain separate measurements; no retry was forced.',
     'worker_already_running_at_window_start': 'The corrected Go worker was already running when the fresh measurement began. '
                                               'No consumer restart was performed. In-flight boundary jobs are censored from paired job timings; resource totals include their work.',
     'transport_policy_repair_deployed': 'Go 1.7.1 was deployed after the original measurement cutoff and the original worker drained naturally. '
@@ -300,6 +303,21 @@ def note_receipts(notes):
                 item['job_successful'] = row['job_successful']
             if row.get('module') == 'tech_store_stat':
                 item['module'] = row['module']
+        if event == 'inherited_anniversary_uncertainty_preserved':
+            for key in ('reviewed_jobs', 'inherited_uncertain_messages', 'new_uncertain_messages',
+                        'previously_sent_parts_retained', 'guarded_parts_unchanged',
+                        'inherited_pending_parts_still_pending', 'sweep_channels', 'sweep_due_events',
+                        'sweep_completed_events', 'sweep_pending_events', 'job_acknowledged_telegram_messages'):
+                value = row.get(key)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    item[key] = value
+            for key in ('job_successful', 'retry_forced', 'production_changed'):
+                if isinstance(row.get(key), bool):
+                    item[key] = row[key]
+            if row.get('module') == 'tech_anniversary':
+                item['module'] = row['module']
+            if row.get('job_error_type') == 'Announcement':
+                item['job_error_type'] = row['job_error_type']
         if event == 'uncertain_anniversary_delivery':
             for key in ('partial_run_count', 'uncertain_messages', 'sweep_channels', 'sweep_due_events',
                         'sweep_completed_events', 'sweep_pending_events', 'job_acknowledged_telegram_messages',
