@@ -91,14 +91,22 @@ def transport_failure_note(runs):
 
 def uncertain_anniversary_note(runs):
     observed = []
+    inherited = []
     for run in runs:
         parts = max((note.get('uncertain_messages', 0) for note in run['notes']
                      if note['event'] == 'uncertain_anniversary_delivery'), default=0)
         if parts:
-            observed.append(f"{run['name']}: {count(parts)} anniversary parts were marked uncertain")
-    if not observed:
+            name = run['name']+(' (failed original)' if run.get('comparison_role') == 'supplementary_original_go' else '')
+            observed.append(f"{name}: {count(parts)} anniversary parts were marked uncertain")
+        for note in run['notes']:
+            if note['event'] == 'inherited_anniversary_uncertainty_preserved':
+                inherited.append(f"{run['name']}: a later natural sweep retained "
+                                 f"{count(note.get('inherited_uncertain_messages', 0))} inherited uncertain parts and "
+                                 f"{count(note.get('previously_sent_parts_retained', 0))} prior sent checkpoints; "
+                                 f"{count(note.get('new_uncertain_messages', 0))} new uncertain parts were recorded")
+    if not observed and not inherited:
         return None
-    return ('; '.join(observed)+'. Delivery remains unresolved and these parts are blocked from automatic resend. '
+    return ('; '.join(observed+inherited)+'. Delivery remains unresolved and these parts are blocked from automatic resend. '
             'Earlier sent checkpoints remain sent; no retry was forced.')
 
 
@@ -187,7 +195,7 @@ def build_line(run):
             if allocator:
                 detail += ' | '+allocator
                 if 'FreeOSMemory' in allocator:
-                    detail += ' (includes GC; malloc_trim releases allocator pages)'
+                    detail += ' (FreeOSMemory also runs GC)'
             else:
                 detail += ' | native GC / HTTP / TLS'
     return run['name']+': '+detail
@@ -220,6 +228,8 @@ def render(bundle, path):
     require_final(bundle)
     by_label = {run['label']: run for run in bundle['runs']}
     runs = [by_label[label] for label in LABELS]
+    followup = bundle.get('go_followup_selection')
+    supplementary = bundle.get('supplementary_runs', [])
     plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 11,
         'axes.unicode_minus': False, 'savefig.facecolor': BACKGROUND})
     figure = plt.figure(figsize=(24, 30), facecolor=BACKGROUND, dpi=200)
@@ -241,6 +251,9 @@ def render(bundle, path):
         fontsize=15, fontweight='bold', color=INK, va='top')
     introduction = ('Observed implementation results: workload, media mix, upstream latency, '
                     'libraries and runtime builds differ between days.')
+    if followup:
+        introduction += ('\nThe Go row uses the separately requested corrected 1.7.1 window. '
+                         'Its failed original 24-hour run is retained separately; the windows are not pooled.')
     transport_note = transport_failure_note(runs)
     if transport_note:
         introduction += '\n'+transport_note
@@ -343,8 +356,20 @@ def render(bundle, path):
     text_block(figure, .045, .275, build_text, width=92, size=9.7, line_spacing=1.5)
     figure.text(.045, .205, 'Observed tradeoffs', fontsize=15, color=INK, fontweight='bold')
     text_block(figure, .045, .194, observed_tradeoffs(by_label), width=103, size=10, line_spacing=1.4)
-    figure.text(.045, .125, 'Original measurement windows (UTC)', fontsize=15, color=INK, fontweight='bold')
-    table(figure, [.043, .045, .434, .068],
+    if followup:
+        original = supplementary[0]
+        figure.text(.045, .152, 'Failed original Go run · supplementary evidence', fontsize=14, color=INK, fontweight='bold')
+        text_block(figure, .045, .141,
+            f"Go {original['build'].get('version', 'original')}: {number(original['exposure_seconds']/3600, 0)} hours; "
+            f"{count(original['jobs']['failed'])}/{count(original['jobs']['completed'])} recorded jobs failed; "
+            f"{count(original['jobs']['counters'].get('telegram_messages', 0))} Telegram acknowledgements. "
+            'The main row uses the separate corrected run. Original counters and resource samples are not pooled. '
+            'Original data and hashes remain in comparison.json and supplementary-windows.csv.',
+            width=103, size=9.7, line_spacing=1.4)
+    figure.text(.045, .088 if followup else .125,
+                'Selected measurement windows (UTC)' if followup else 'Original measurement windows (UTC)',
+                fontsize=15, color=INK, fontweight='bold')
+    table(figure, [.043, .026 if followup else .045, .434, .052 if followup else .068],
           [[run['name'], run['started_iso'][:16].replace('T', ' '),
             run['ended_iso'][:16].replace('T', ' ')] for run in runs],
           ['Runtime', 'Start (minute shown)', 'End (minute shown)'], [.24, .38, .38], size=9.5)
@@ -354,6 +379,16 @@ def render(bundle, path):
         'P95 is nearest rank, not a confidence interval. CPU distributions use intervals up to 10 seconds; memory includes cgroup file cache. Kernel lifetime peaks are kept separately in comparison.json.',
         'Job/queue timings use paired in-window events. Job wall time includes I/O and retry waits. Boundary jobs are censored; CPU/job also includes their work.',
     ]
+    if followup:
+        limits.append('Go 1.7.1 uses its own complete 24-hour live window after the HTTP protocol repair. '
+                      'The six other windows are unchanged. The failed original Go window remains supplementary; '
+                      'it is excluded from main totals and charts.')
+        ages = [note['worker_age_at_start_seconds'] for note in by_label['go']['notes']
+                if note['event'] == 'worker_already_running_at_window_start'
+                and finite(note.get('worker_age_at_start_seconds'))]
+        if ages:
+            limits.append(f'Go 1.7.1 was already running for {number(max(ages)/3600, 2)} hours when measurement began; '
+                          'the consumer was not restarted for the window. This is a warm production observation.')
     if any(n['event'] == 'deployment_environment_correction' for r in runs for n in r['notes']):
         limits.append('Python 3.12: the first accounted cron call failed due to a missing user-bus environment. The cron environment was corrected; the window was not restarted.')
     anniversary_runtimes = [r['name'] for r in runs
@@ -361,7 +396,7 @@ def render(bundle, path):
     if anniversary_runtimes:
         limits.append(', '.join(anniversary_runtimes) + ': anniversary sweeps ended partially. '
                       'Acknowledged deliveries remained sent; inherited rejected parts remained pending. No retry was forced.')
-    uncertainty_note = uncertain_anniversary_note(runs)
+    uncertainty_note = uncertain_anniversary_note(runs+supplementary)
     if uncertainty_note:
         limits.append(uncertainty_note)
     receiver_note = receiver_job_note(runs)

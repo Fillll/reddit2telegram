@@ -40,3 +40,6 @@ jobs:
           for filename in comparison.json distributions.csv windows.csv counters.csv r2t-live-comparison.png; do
             cmp "implementations/benchmarks/results/$filename" "$RUNNER_TEMP/r2t-report/$filename"
           done
+          if [ -f implementations/benchmarks/results/supplementary-windows.csv ]; then
+            cmp implementations/benchmarks/results/supplementary-windows.csv "$RUNNER_TEMP/r2t-report/supplementary-windows.csv"
+          fi

@@ -1,10 +1,10 @@
 {
-  "arithmetic_reconciliation": "passed for all seven original live windows; unique execution timings verified",
-  "comparison_sha256": "ac7c8e76b0c784f22db7cb370e58b151b96eb8ad36cd08426c5426e441300665",
+  "arithmetic_reconciliation": "passed for all eight actual live windows; seven selected main rows plus supplementary failed original Go; unique execution timings verified",
+  "comparison_sha256": "a78925355e9bb4b11b8658679420cc9a390f47dc2db1d214db5ebbd7b9f4b92a",
   "dpi": 200,
   "figure_narrative_blocks_do_not_overlap": true,
   "figure_text_inside_canvas": true,
-  "image_sha256": "8f8de4653ee40fa90c587837f18fc6d83ed44d90b215c6aa0693aca3fed101f0",
+  "image_sha256": "26b149e6fc4dfc8600782e73d41a8c78a8d5660b149020562e7fea9f140edc4c",
   "matplotlib": "3.11.2",
   "numpy": "2.5.4",
   "pixels": [
@@ -13,7 +13,7 @@
   ],
   "portable_evidence_privacy_review": "passed; raw job/process identifiers, configuration values, payloads, URLs and private evidence paths excluded",
   "python": "3.12.3",
-  "rendered_visual_inspection": "passed: full exported image and resource, workload, component and methodology panels inspected",
+  "rendered_visual_inspection": "passed: full final exported image and resource, workload, component, methodology and supplementary-evidence panels inspected",
   "table_text_inside_cells": true,
-  "visual_inspection_utc": "2026-11-08T16:49:00.941925+00:00"
+  "visual_inspection_utc": "2026-11-09T23:50:48.753682+00:00"
 }

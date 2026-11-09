@@ -56,25 +56,33 @@ def records(path):
     return values
 
 
-def verify(runs):
+def verify(runs, go_followup=None):
     with tempfile.TemporaryDirectory(prefix='r2t-report-check-') as temporary:
         root = Path(temporary)
-        (root / 'state').mkdir()
-        (root / 'runs').mkdir()
-        shutil.copyfile(runs.parent / 'state/experiment.json', root / 'state/experiment.json')
-        for manifest in runs.glob('*/manifest.json'):
-            destination = root / 'runs' / manifest.parent.name
-            destination.mkdir()
-            shutil.copyfile(manifest, destination / 'manifest.json')
-            for filename in ('samples.jsonl', 'events.jsonl', 'queue.jsonl', 'notes.jsonl',
-                             'processes.jsonl', 'sampling_errors.jsonl', 'process_sampling_errors.jsonl'):
-                path = manifest.parent / filename
-                if path.exists():
-                    shutil.copyfile(path, destination / filename)
-        bundle = analyze_experiment(root / 'runs')
+        locations = {}
+        inputs = [(runs, 'original')]+([(go_followup, 'followup')] if go_followup else [])
+        for source, name in inputs:
+            target = root / name
+            (target / 'state').mkdir(parents=True)
+            (target / 'runs').mkdir()
+            shutil.copyfile(source.parent / 'state/experiment.json', target / 'state/experiment.json')
+            for manifest in source.glob('*/manifest.json'):
+                destination = target / 'runs' / manifest.parent.name
+                if manifest.parent.name in locations:
+                    raise EvidenceError('Original and follow-up run identities must be distinct')
+                locations[manifest.parent.name] = destination
+                destination.mkdir()
+                shutil.copyfile(manifest, destination / 'manifest.json')
+                for filename in ('samples.jsonl', 'events.jsonl', 'queue.jsonl', 'notes.jsonl',
+                                 'processes.jsonl', 'sampling_errors.jsonl', 'process_sampling_errors.jsonl'):
+                    path = manifest.parent / filename
+                    if path.exists():
+                        shutil.copyfile(path, destination / filename)
+        bundle = analyze_experiment(root / 'original/runs', root / 'followup/runs' if go_followup else None)
         results = []
-        for model in bundle['runs']:
-            directory = root / 'runs' / model['run_id']
+        selected_ids = {model['run_id'] for model in bundle['runs']}
+        for model in bundle['runs']+bundle.get('supplementary_runs', []):
+            directory = locations[model['run_id']]
             start, end = model['started_at'], model['effective_end']
             samples = [r for r in records(directory / 'samples.jsonl')
                        if 'components' in r and start <= r.get('ts', -1) <= end]
@@ -150,7 +158,9 @@ def verify(runs):
             for filename, receipt in model['source_receipts'].items():
                 if receipt['present']:
                     assert hashlib.sha256((directory / filename).read_bytes()).hexdigest() == receipt['sha256']
-            results.append(dict(label=model['label'], samples=len(samples), completed_jobs=len(ends),
+            results.append(dict(label=model['label'], run_id=model['run_id'],
+                selected_for_main_comparison=model['run_id'] in selected_ids,
+                samples=len(samples), completed_jobs=len(ends),
                 checked=['memory mean/median/P95/min/max', 'CPU cumulative/weighted mean/median/P95',
                          'job outcomes/error-count reconciliation/body counters/CPU per completed and successful job',
                          'non-Telegram HTTP and Telegram HTTP 429 response counters',
@@ -176,14 +186,15 @@ def verify(runs):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runs', type=Path, required=True)
+    parser.add_argument('--go-followup', type=Path, help='Separately recorded corrected-Go campaign runs')
     parser.add_argument('--receipt', type=Path)
     args = parser.parse_args()
-    result = verify(args.runs.resolve())
+    result = verify(args.runs.resolve(), args.go_followup.resolve() if args.go_followup else None)
     if args.receipt:
         args.receipt.parent.mkdir(parents=True, exist_ok=True)
         args.receipt.write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(dict(final_ready=result['final_ready'],
-        runs=[{key: row[key] for key in ('label', 'samples', 'completed_jobs', 'unique_execution_timing_verified')}
+        runs=[{key: row[key] for key in ('label', 'run_id', 'selected_for_main_comparison', 'samples', 'completed_jobs', 'unique_execution_timing_verified')}
               for row in result['runs']],
         unfinished_final_refusal_verified=result['unfinished_final_refusal_verified']), indent=2))
 
