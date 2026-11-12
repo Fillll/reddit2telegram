@@ -8,7 +8,7 @@ The history before this initial versioned snapshot remains in Git.
 
 ### Fixed
 
-- Add opt-in, isolated Go support live checks with guarded test-channel routing and a remote compile-only workflow.
+- Validate Go support delivery and live Reddit milestone selection with isolated, guarded local checks and remote-only compilation. Add a separate fixed-48-hour picture report and independent arithmetic verification while preserving the earlier comparison.
 
 ## [1.12.0] - 2026-11-11
 
