@@ -252,8 +252,30 @@ checkpoints separately. A scheduled task returning success does not establish
 success for every channel. If a weekly slot or milestone crossing does not
 occur inside the fixed window, retain it as unobserved in production. Controlled
 live functional cases must use only `@r_channels_test` and isolated test state;
-they are separate from organic production observations and resource accounting.
+their processes run outside worker/scheduler accounting. They share the host,
+MongoDB service and bot quota, so contention and database costs remain included
+and must be disclosed. Keep their receipts separate from organic job events.
 Never reset or automatically resend inherited uncertain production deliveries.
+
+The [live support harness](live-support/README.md) provides remote compilation
+and opt-in local checks. It never polls production bot updates. After the fixed
+window finishes, render a separate picture with its actual baseline, bounded
+post-cutoff support snapshot and controlled-case receipts:
+
+```sh
+report-env/bin/python implementations/benchmarks/support_report.py --directory /absolute/path/to/go-support-48h-run --support-before /private/path/production-support-before.json --support-after /private/path/final-support-snapshot.json --controlled-cases /private/path/controlled-live-cases.jsonl --controlled-review /private/path/controlled-live-review.json --output implementations/benchmarks/results/go-support-48h
+```
+
+`--inspect` reads the currently available observations without exporting a final
+image. Final export requires the original 172,800-second bounds, finalized
+manifest/ledger, unchanged source and complete controlled-case receipts. It
+writes a 4800 by 6000 pixel image, aggregate JSON and rendering hashes; inspect
+and independently verify the actual final output before publication. The
+original comparison exporter and its 24-hour guards remain unchanged.
+`verify_support_report.py` takes the same input paths and `--receipt /private/path/check.json`;
+it independently checks CPU, memory, paired timings, counters and scheduled job
+outcomes against a temporary private snapshot. `--allow-running` verifies only
+the observations currently available, without claiming the 48 hours are done.
 
 After deploying instrumentation and restarting the existing worker, launch the
 fresh baseline from the production virtual environment:

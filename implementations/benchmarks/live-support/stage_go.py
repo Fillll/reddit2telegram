@@ -40,6 +40,10 @@ def stage(root, destination):
                                   'staged_sha256': hashlib.sha256(text.encode()).hexdigest(),
                                   'replacement_count': len(replacements)}
     shutil.copyfile(Path(__file__).with_name('support_live_test.go'), destination / 'support_live_test.go')
+    # A Go test binary links the package differently from the application main.
+    # Embed its checked checkout directly instead of relying on main.-X labels.
+    (destination / 'support_revision_test.go').write_text(
+        'package main\n\nconst liveSourceRevision = '+json.dumps(receipt['source_commit'])+'\n')
     (destination / 'routing-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
 
 

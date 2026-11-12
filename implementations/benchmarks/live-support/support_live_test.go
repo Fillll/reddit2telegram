@@ -13,6 +13,7 @@ const liveTarget = "@r_channels_test"
 
 var liveChatID int64
 var liveCalls = D{}
+var liveDatabase string
 
 // This is inserted at the Telegram API boundary in the staged test package.
 // No getUpdates, arbitrary destinations, media uploads or unknown methods.
@@ -69,7 +70,7 @@ func liveCase(t *testing.T, name string, body func(*testing.T, D)) {
 	t.Run(name, func(t *testing.T) {
 		started := now()
 		before := doc(clone(liveCalls))
-		info := D{"case": name, "started_at": started}
+		info := D{"case": name, "started_at": started, "isolated_database": liveDatabase, "source_commit": liveSourceRevision}
 		defer func() {
 			info["ended_at"] = now()
 			info["passed"] = !t.Failed()
@@ -107,8 +108,10 @@ func TestLiveSupport(t *testing.T) {
 	if name == productionName || !strings.HasPrefix(name, "r2t_live_support_") {
 		t.Fatal("isolated database required")
 	}
+	liveDatabase = name
+	redditConfig := clone(at(config.Values, "reddit"))
 	config.Values = D{"db": D{"host": at(at(config.Values, "db"), "host"), "name": name},
-		"telegram": D{"token": at(at(config.Values, "telegram"), "token"), "dev_chat": liveTarget}}
+		"telegram": D{"token": at(at(config.Values, "telegram"), "token"), "dev_chat": liveTarget}, "reddit": redditConfig}
 	config.Root = t.TempDir()
 	config.App = config.Root
 	cron := filepath.Join(config.Root, "support.cron")
@@ -137,7 +140,6 @@ func TestLiveSupport(t *testing.T) {
 	defer func() { liveMust(t, lease.release()) }()
 
 	liveCase(t, "receiver_index_conflict", func(t *testing.T, info D) {
-		info["isolated_database"], info["source_commit"] = name, sourceCommit
 		_, e := db.command("createIndexes", "settings", D{"indexes": A{D{"key": D{"setting": 1}, "name": "setting_1"}}})
 		liveMust(t, e)
 		_, e = receiver(app, sender)
@@ -294,5 +296,33 @@ func TestLiveSupport(t *testing.T) {
 		}
 		info["fixture_tasks_deleted"], info["scope"] = 5, "isolated temporary directory and database; real test-channel report"
 	})
-	t.Logf("isolated database evidence retained; source=%s", sourceCommit)
+	liveCase(t, "milestone_live_reddit_candidate", func(t *testing.T, info D) {
+		// Query current Reddit listings and deliver a selected post through the
+		// actual announcement path. Only the test channel can pass the API guard.
+		_, e := db.update("channels", D{"submodule": "live_support"}, D{"$set": D{"subreddit": "Showerthoughts", "tags": "#live #support #candidate"}}, false, false)
+		liveMust(t, e)
+		s := &Milestones{App: app, Sender: sender, Lease: lease}
+		liveMust(t, s.queue("live_support", liveTarget, 500))
+		id := fmt.Sprintf("%s:%s:%d", achievementEventKind, liveTarget, 500)
+		row := liveRow(t, db, id)
+		checkpoint := newCheckpoint(db, D{"_id": id}, "", nil)
+		attempted := false
+		e = s.candidate(row, checkpoint, &attempted)
+		if e != nil {
+			info["error_kind"], info["error_code"] = safe(e).Kind, safe(e).Code
+		}
+		liveMust(t, e)
+		if !attempted || len(checkpoint.ids()) == 0 {
+			t.Fatal("no live Reddit candidate acknowledged; fallback is excluded in this case")
+		}
+		liveMust(t, s.deliver(liveRow(t, db, id)))
+		event := liveRow(t, db, id)
+		posts, e := db.count("urls", D{"channel": liveTarget, "sent": true})
+		liveMust(t, e)
+		if at(event, "complete") != true || posts == 0 || len(arr(at(event, "message_ids"))) == 0 {
+			t.Fatal("candidate delivery/post checkpoints missing")
+		}
+		info["selected_live_reddit_candidate"], info["acknowledged_parts"], info["controlled_threshold"], info["posts_recorded_sent"] = true, len(checkpoint.ids()), 500, posts
+	})
+	t.Logf("isolated database evidence retained; source=%s", liveSourceRevision)
 }

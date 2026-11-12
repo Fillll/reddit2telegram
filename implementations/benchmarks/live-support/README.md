@@ -26,8 +26,9 @@ delivery state or changes production indexes. Cases cover:
   resumption without duplicate sends, and inherited uncertainty holds.
 - Milestone crossing with a real current subscriber count and a controlled
   previous count and threshold; text fallback, checkpoint persistence and
-  forwarding/resumption within the same test channel. Reddit candidate selection
-  is excluded from this controlled fallback case.
+  forwarding/resumption within the same test channel. A separate case queries
+  current Reddit listings and requires a selected announcement post to receive a
+  real test-channel acknowledgement; fallback cannot make that case pass.
 - Weekly summary and directory delivery using controlled isolated statistics.
 - Receiver index-conflict reproduction in isolated MongoDB, plus direct channel
   intake and real test-channel replies. Production inbound polling is excluded.
@@ -40,3 +41,9 @@ attempts are recorded separately from production job acknowledgements. Run the
 artifact in its own service, outside the measured worker/scheduler cgroups, and
 retain its start/end times: it shares the host, MongoDB and bot quota with the
 production observation, which must be disclosed in the follow-up report.
+
+Use the native test runner's subtest filter to execute an additional case without
+repeating previously completed live sends. Preserve receipts and artifact hashes
+for each tested revision. Staging embeds the checked revision as a test-only
+constant: a test binary does not resolve application `main.-X` labels in the same
+way as the deployed application.
