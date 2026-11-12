@@ -23,7 +23,9 @@ cron fixture. It retains isolated database evidence. It never resets production
 delivery state or changes production indexes. Cases cover:
 
 - Anniversary delivery with persisted acknowledgements, yearly deduplication,
-  resumption without duplicate sends, and inherited uncertainty holds.
+  resumption without duplicate sends, and inherited uncertainty holds. A separate
+  paged-directory case uses a fresh read-only snapshot of current public handles
+  and requires every page to receive and persist a real Telegram acknowledgement.
 - Milestone crossing with a real current subscriber count and a controlled
   previous count and threshold; text fallback, checkpoint persistence and
   forwarding/resumption within the same test channel. A separate case queries
@@ -47,3 +49,11 @@ repeating previously completed live sends. Preserve receipts and artifact hashes
 for each tested revision. Staging embeds the checked revision as a test-only
 constant: a test binary does not resolve application `main.-X` labels in the same
 way as the deployed application.
+
+For the paged-directory case, create a new private snapshot with
+`snapshot_directory.py --root /absolute/repo --config /absolute/local/prod.yml --output /private/directory.json`
+under `R2T_LIVE_TESTS=1`, and pass that absolute path as `R2T_LIVE_DIRECTORY`.
+The helper only reads production channel identities and date caches. The case
+uses another unique isolated database so earlier yearly-delivery evidence is
+preserved even when the whole suite runs together. Only the test channel receives
+messages; directory entries are message content, not delivery destinations.

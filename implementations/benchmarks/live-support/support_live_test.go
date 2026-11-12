@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"testing"
@@ -323,6 +324,76 @@ func TestLiveSupport(t *testing.T) {
 			t.Fatal("candidate delivery/post checkpoints missing")
 		}
 		info["selected_live_reddit_candidate"], info["acknowledged_parts"], info["controlled_threshold"], info["posts_recorded_sent"] = true, len(checkpoint.ids()), 500, posts
+	})
+	liveCase(t, "anniversary_live_directory_delivery_resume", func(t *testing.T, info D) {
+		path := os.Getenv("R2T_LIVE_DIRECTORY")
+		if !filepath.IsAbs(path) {
+			t.Fatal("absolute live directory snapshot path required")
+		}
+		raw, e := os.ReadFile(path)
+		liveMust(t, e)
+		value, e := parse(raw)
+		liveMust(t, e)
+		channels := []string{}
+		valid := regexp.MustCompile(`^@[A-Za-z][A-Za-z0-9_]{4,31}$`)
+		for _, item := range arr(at(value, "channels")) {
+			channel, ok := item.(string)
+			if !ok || !valid.MatchString(channel) {
+				t.Fatal("invalid directory handle")
+			}
+			channels = append(channels, channel)
+		}
+		if len(channels) < 101 {
+			t.Fatal("live directory does not exercise pagination")
+		}
+		caseConfig := *config
+		caseConfig.Values = doc(clone(config.Values))
+		caseConfig.Values["db"] = D{"host": at(at(config.Values, "db"), "host"), "name": "r2t_live_support_directory_" + uuid()}
+		caseDB, e := newDatabase(&caseConfig)
+		liveMust(t, e)
+		defer caseDB.close()
+		caseLease := newLease(caseDB, "directory_live_lease")
+		acquired, e := caseLease.acquire()
+		liveMust(t, e)
+		if !acquired {
+			t.Fatal("directory lease not acquired")
+		}
+		defer func() { liveMust(t, caseLease.release()) }()
+		caseApp := &App{Config: &caseConfig, DB: caseDB, Videos: app.Videos}
+		caseSender := caseApp.sender(liveTarget, nil)
+		defer caseSender.close()
+		info["isolated_database"] = caseDB.Name
+		s := &Anniversary{App: caseApp, Sender: caseSender, Lease: caseLease}
+		today, e := midnight(timeText(now(), "2006-01-02", true))
+		liveMust(t, e)
+		liveMust(t, s.queue(liveTarget, 6, today, channels))
+		id := fmt.Sprintf("%s:%s:%d", anniversaryEventKind, liveTarget, parts(today, true).Year())
+		queued := liveRow(t, caseDB, id)
+		if len(arr(at(queued, "deliveries"))) < 3 {
+			t.Fatal("expected introduction and multiple directory pages")
+		}
+		complete, e := s.deliver(queued)
+		liveMust(t, e)
+		if !complete {
+			t.Fatal("paged anniversary delivery incomplete")
+		}
+		row := liveRow(t, caseDB, id)
+		deliveries := arr(at(row, "deliveries"))
+		for _, part := range deliveries {
+			if field(part, "state") != "sent" || len(arr(at(part, "message_ids"))) == 0 {
+				t.Fatal("page checkpoint not persisted")
+			}
+		}
+		before := num(at(liveCalls, "sendMessage"), 0)
+		complete, e = s.deliver(row)
+		liveMust(t, e)
+		if !complete || before != num(at(liveCalls, "sendMessage"), 0) {
+			t.Fatal("resume duplicated an acknowledged page")
+		}
+		if dump(at(liveRow(t, caseDB, id), "deliveries")) != dump(at(row, "deliveries")) {
+			t.Fatal("page checkpoint changed on resume")
+		}
+		info["directory_channels"], info["directory_snapshot_sha256"], info["acknowledged_parts"], info["duplicate_resends"] = len(channels), digest(raw), len(deliveries), 0
 	})
 	t.Logf("isolated database evidence retained; source=%s", liveSourceRevision)
 }

@@ -20,7 +20,8 @@ SUPPORT_MODULES = ('tech_anniversary', 'tech_store_stat', 'tech_weekly_radar',
 CASE_NAMES = ('receiver_index_conflict', 'anniversary_delivery_and_yearly_dedup',
               'anniversary_uncertainty_hold', 'milestone_crossing_delivery_and_resume',
               'weekly_report_delivery', 'receiver_channel_intake_delivery',
-              'cleaner_isolated_files_and_tasks', 'milestone_live_reddit_candidate')
+              'cleaner_isolated_files_and_tasks', 'milestone_live_reddit_candidate',
+              'anniversary_live_directory_delivery_resume')
 
 
 def load(path):
@@ -133,7 +134,7 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
     cases_raw = [json.loads(line) for line in cases_path.read_text().splitlines() if line]
     names = [r.get('case') for r in cases_raw]
     if len(names) != len(CASE_NAMES) or set(names) != set(CASE_NAMES):
-        raise EvidenceError('All eight distinct controlled-case receipts are required')
+        raise EvidenceError('All distinct controlled-case receipts are required')
     cases = []
     for row in cases_raw:
         if not start <= row['started_at'] <= row['ended_at'] < deadline:
@@ -144,7 +145,8 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
             'mongo_error_code', 'held_uncertain_parts', 'blocked_pending_parts',
             'acknowledged_messages', 'controlled_crossing', 'fallback_acknowledged',
             'forward_acknowledged', 'persisted', 'fixture_tasks_deleted', 'selected_live_reddit_candidate',
-            'controlled_threshold', 'posts_recorded_sent', 'error_kind', 'error_code') if k in row})
+            'controlled_threshold', 'posts_recorded_sent', 'error_kind', 'error_code',
+            'directory_channels', 'directory_snapshot_sha256') if k in row})
     if (review.get('cases') != len(CASE_NAMES) or review.get('passed') != sum(r['passed'] for r in cases)
             or review.get('production_get_updates_calls') != 0):
         raise EvidenceError('Controlled receipts and their readback review disagree')
@@ -307,12 +309,12 @@ def render(bundle, output):
     section(.310, 'Scheduled production support and controlled delivery evidence')
     names = {'tech_anniversary':'Anniversaries','tech_store_stat':'Statistics / milestones',
              'tech_weekly_radar':'Weekly report','tech_receiver':'Channel intake / receiver','tech_cleaner':'Cleanup'}
-    controlled = {'tech_anniversary':'Delivery, dedup and uncertainty hold',
+    controlled = {'tech_anniversary':'Paged delivery, dedup and uncertainty hold',
                   'tech_store_stat':'Crossing, Reddit selection, fallback and resume',
                   'tech_weekly_radar':'Summary and directory sent live',
                   'tech_receiver':'Direct intake passed; index conflict reproduced',
                   'tech_cleaner':'Isolated files/tasks cleaned; summary sent'}
-    related = {'tech_anniversary': CASE_NAMES[1:3], 'tech_store_stat': (CASE_NAMES[3], CASE_NAMES[7]),
+    related = {'tech_anniversary': CASE_NAMES[1:3]+CASE_NAMES[8:9], 'tech_store_stat': (CASE_NAMES[3], CASE_NAMES[7]),
                'tech_weekly_radar': CASE_NAMES[4:5], 'tech_receiver': (CASE_NAMES[0], CASE_NAMES[5]),
                'tech_cleaner': CASE_NAMES[6:7]}
     passed = {r['case']: r['passed'] for r in bundle['controlled_cases']}
