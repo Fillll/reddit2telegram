@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.11.0] - 2026-11-11
+
+### Added
+
+- Activate r/hatethissmug delivery to @r_hatethissmug hourly at minute 16 UTC.
+
 ## [1.10.0] - 2026-11-09
 
 ### Added
