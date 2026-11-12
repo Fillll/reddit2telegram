@@ -1,0 +1,56 @@
+name: Go support live-test build
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'implementations/benchmarks/live-support/**'
+      - '.github/workflows/go-support-live-build.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: local
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install the production checksum-pinned toolchain
+        run: |
+          curl --fail --location --retry 3 https://go.dev/dl/go1.27.3.linux-amd64.tar.gz -o /tmp/r2t-go.tar.gz
+          echo '65efbc80fdc1fa2cd2631cad5b481777a68e8725f34e89f50fc6ac714e379b40  /tmp/r2t-go.tar.gz' | sha256sum -c -
+          mkdir -p "$HOME/.local/r2t-go"
+          tar -xzf /tmp/r2t-go.tar.gz -C "$HOME/.local/r2t-go"
+          echo "$HOME/.local/r2t-go/go/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: go-1.27.3-${{ runner.os }}-${{ hashFiles('implementations/implementations/go/go.sum') }}
+          restore-keys: go-1.27.3-${{ runner.os }}-
+      - name: Stage guarded test-only routing and compile without app traffic
+        run: |
+          revision=$(git rev-parse HEAD)
+          python3 implementations/benchmarks/live-support/stage_go.py --root "$GITHUB_WORKSPACE" --destination "$RUNNER_TEMP/support-go"
+          cd "$RUNNER_TEMP/support-go"
+          gofmt -w anniversaries.go http.go support_live_test.go
+          go mod download
+          go mod verify
+          go vet ./...
+          mkdir -p "$GITHUB_WORKSPACE/support-artifact"
+          go test -c -trimpath -buildvcs=false -ldflags "-X main.version=live-support-test -X main.sourceCommit=$revision" -o "$GITHUB_WORKSPACE/support-artifact/r2t-go-support.test" .
+          sha256sum *.go go.mod go.sum assets/*.json > "$GITHUB_WORKSPACE/support-artifact/staged-source.sha256"
+          cp routing-receipt.json support_live_test.go "$GITHUB_WORKSPACE/support-artifact/"
+          go version -m "$GITHUB_WORKSPACE/support-artifact/r2t-go-support.test" > "$GITHUB_WORKSPACE/support-artifact/modules.txt"
+          cd "$GITHUB_WORKSPACE/support-artifact"
+          sha256sum r2t-go-support.test > binary.sha256
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: r2t-go-support-live-${{ github.event.pull_request.head.sha || github.sha }}
+          path: support-artifact/*
+          retention-days: 14
