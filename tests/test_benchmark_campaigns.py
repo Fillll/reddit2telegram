@@ -14,6 +14,27 @@ spec.loader.exec_module(runner)
 
 
 class CampaignLedgerSafety(unittest.TestCase):
+    def test_original_windows_keep_their_24_hour_default(self):
+        for label in runner.LABELS:
+            with self.subTest(label=label):
+                self.assertEqual(runner.window_duration(label), 86400)
+                self.assertEqual(runner.window_duration(label, 'followup'), 86400)
+
+    def test_48_hours_requires_a_separate_named_go_campaign(self):
+        self.assertEqual(runner.window_duration('go', 'go-support-48h', 172800), 172800)
+        for campaign in (None, '', '../escape', 'UPPER'):
+            with self.subTest(campaign=campaign), self.assertRaises(ValueError):
+                runner.window_duration('go', campaign, 172800)
+        for label in runner.LABELS:
+            if label != 'go':
+                with self.subTest(label=label), self.assertRaises(ValueError):
+                    runner.window_duration(label, 'followup', 172800)
+
+    def test_unbounded_or_fractional_durations_are_rejected(self):
+        for seconds in (0, 86399, 86401, 172801, 259200, 172800.0, True):
+            with self.subTest(seconds=seconds), self.assertRaises(ValueError):
+                runner.window_duration('go', 'go-support-48h', seconds)
+
     def test_campaign_cannot_escape_private_state(self):
         root = Path('/project')
         for name in ('', '../escape', '/tmp/escape', 'UPPER', 'a'*41):

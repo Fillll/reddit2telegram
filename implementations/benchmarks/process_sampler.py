@@ -17,6 +17,8 @@ import time
 
 import psutil
 
+from runner import window_duration
+
 
 def append(path, value):
     data = (json.dumps(value, separators=(',', ':')) + '\n').encode()
@@ -75,8 +77,10 @@ def collect(directory, interval=5):
     except BlockingIOError:
         raise ValueError('A process sampler is already running for this window')
     manifest = json.loads((directory / 'manifest.json').read_text())
-    if manifest['deadline'] - manifest['started_at'] != 86400:
-        raise ValueError('Expected the original 24-hour window')
+    duration = window_duration(manifest['label'], manifest.get('campaign'),
+                               manifest.get('duration_seconds', 86400))
+    if manifest['deadline'] - manifest['started_at'] != duration:
+        raise ValueError('The original recorded window bounds do not match its duration')
     if time.time() >= manifest['deadline']:
         return  # A delayed service restart must not collect beyond the deadline.
     stop = threading.Event()

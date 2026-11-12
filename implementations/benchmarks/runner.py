@@ -1,4 +1,4 @@
-"""Persistent, live-only 24-hour measurement runner (no application test traffic)."""
+"""Persistent live measurements with fixed deadlines and separate follow-up campaigns."""
 
 import argparse
 from collections import Counter
@@ -23,6 +23,16 @@ import uuid
 DURATION = 24 * 60 * 60
 INTERVAL = 5
 LABELS = ('python312', 'python315', 'rust', 'swift', 'cpp', 'c', 'go')
+
+
+def window_duration(label, campaign=None, seconds=DURATION):
+    """Keep original windows at 24h; allow an explicit named Go support soak."""
+    if type(seconds) is not int or seconds not in (DURATION, 2 * DURATION):
+        raise ValueError('Measurement duration must be exactly 24 or 48 hours')
+    if seconds != DURATION and (label != 'go' or not isinstance(campaign, str)
+                                or not re.fullmatch(r'[a-z][a-z0-9-]{0,39}', campaign)):
+        raise ValueError('A 48-hour window requires a separate named Go campaign')
+    return seconds
 
 
 def stamp():
@@ -334,6 +344,7 @@ def install_scheduler_slice():
 def start(args):
     root = args.root.resolve()
     campaign = getattr(args, 'campaign', None)
+    duration = window_duration(args.label, campaign, getattr(args, 'duration_hours', 24) * 3600)
     base = campaign_base(root, campaign)
     state = base / 'state'
     shared = bench(root) / 'state'
@@ -357,7 +368,8 @@ def start(args):
         directory.mkdir(parents=True, mode=0o700)
         started = time.time()
         manifest = dict(schema=1, run_id=run_id, label=args.label, status='running',
-                        root=str(root), started_at=started, deadline=started+DURATION,
+                        root=str(root), started_at=started, deadline=started+duration,
+                        duration_seconds=duration,
                         started_iso=stamp(), interval_seconds=INTERVAL,
                         events_path=str(directory / 'events.jsonl'),
                         source=fingerprint(root),
@@ -389,7 +401,7 @@ def start(args):
         try:
             subprocess.run(['systemd-run', '--user', '--unit=' + manifest['observer_units']['collector'],
                             '--property=Restart=on-failure', '--property=RestartSec=5',
-                            '--property=RuntimeMaxSec=86520', '--property=UMask=0077',
+                            '--property=RuntimeMaxSec=' + str(duration + 120), '--property=UMask=0077',
                             sys.executable, str(script), 'collect', '--directory', str(directory)], check=True)
         except BaseException:
             manifest['status'] = 'launch_failed'
@@ -506,6 +518,8 @@ def main():
     launch.add_argument('--root', type=Path, required=True)
     launch.add_argument('--label', choices=LABELS, required=True)
     launch.add_argument('--campaign', help='Separate explicitly authorized follow-up campaign; retains original runs and ledger')
+    launch.add_argument('--duration-hours', type=int, choices=(24, 48), default=24,
+                        help='Fixed window length; 48 requires an explicitly authorized named Go campaign')
     observation = sub.add_parser('collect')
     observation.add_argument('--directory', type=Path, required=True)
     scheduler = sub.add_parser('schedule')

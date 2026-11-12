@@ -232,6 +232,29 @@ refuses a running or interrupted corrected-Go window; it must finish its own
 full 24 hours. A worker already running at the start is identified as warm,
 and in-flight boundary work keeps the same censoring rules.
 
+### Explicitly authorized 48-hour Go support soak
+
+An operator may separately request a fixed two-day functional follow-up:
+
+```sh
+.venv/bin/python implementations/benchmarks/runner.py start --root . --label go --campaign go-support-48h --duration-hours 48
+```
+
+This creates its own 172,800-second window and ledger. The primary service's
+runtime limit follows that duration, and the supplementary process sampler
+checks the same immutable manifest bounds. The original seven configurations
+still default to 24 hours; a 48-hour launch requires Go and a named campaign.
+It neither extends a previous run nor replaces the published 24-hour comparison.
+The comparison exporter continues to reject a 48-hour replacement row.
+
+Observe natural support jobs, API acknowledgements and persisted delivery
+checkpoints separately. A scheduled task returning success does not establish
+success for every channel. If a weekly slot or milestone crossing does not
+occur inside the fixed window, retain it as unobserved in production. Controlled
+live functional cases must use only `@r_channels_test` and isolated test state;
+they are separate from organic production observations and resource accounting.
+Never reset or automatically resend inherited uncertain production deliveries.
+
 After deploying instrumentation and restarting the existing worker, launch the
 fresh baseline from the production virtual environment:
 
