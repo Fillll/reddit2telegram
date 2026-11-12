@@ -207,7 +207,8 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
             scope='Rows with document timestamps inside the window, observed at the stated snapshot time; timestamps are not MongoDB commit times.'),
         support_snapshot_utc=after['checked_utc'], controlled_cases=cases,
         controlled_build={k: review.get('source_identity', {}).get(k) for k in
-            ('runtime_linker_label', 'verified_external_ci_head', 'workflow_run', 'artifact_sha256', 'note', 'additional_live_builds')},
+            ('runtime_linker_label', 'verified_external_ci_head', 'workflow_run', 'artifact_sha256', 'note', 'additional_live_builds',
+             'production_go_source_tree', 'same_as_captured_selected_go_tree')},
         controlled_review={k: review.get(k) for k in ('cases', 'passed', 'telegram_send_message_api_successes',
             'telegram_forward_message_api_successes', 'production_get_updates_calls',
             'isolated_database_readback_verified', 'duplicate_resends', 'receiver_conflict_code', 'coverage_limits')},
@@ -259,7 +260,11 @@ def render(bundle, output):
     text(.055, .965, title, 25, weight='bold')
     a, b = (datetime.fromtimestamp(bundle[k], timezone.utc).strftime('%d %b %Y %H:%M:%S UTC')
             for k in ('started_at', 'deadline'))
-    text(.055, .935, f'{a}  →  {b}  |  Fixed 48-hour observation', 11, muted)
+    period = f'{a}  →  {b}  |  Fixed 48-hour observation'
+    if not bundle['final']:
+        observed = datetime.fromtimestamp(bundle['observed_through'], timezone.utc).strftime('%d %b %H:%M UTC')
+        period = f"Data through {observed}  |  {bundle['exposure_seconds']/3600:.2f} of 48 hours observed  |  Planned cutoff: {b}"
+    text(.055, .935, period, 11, muted)
     build = bundle['build']
     text(.055, .919, f"Application {build.get('version', 'unavailable')}  ·  {build.get('compiler', 'compiler unavailable')}  ·  "
          f"Worker already running for {value(bundle['warm_worker_age_seconds_at_start'], 3600)} hours at launch", 10, muted)
@@ -272,7 +277,8 @@ def render(bundle, output):
         text(x, .897, number, 25, blue, 'bold'); text(x, .869, label, 10, muted)
     text(.055, .848, 'Acknowledgements include posts, support messages and error notices. Task success does not prove every channel succeeded.', 10, muted)
     section(.819, 'CPU and memory across the observation')
-    hours = [r['hour']+.5 for r in bundle['hourly']]
+    elapsed = bundle['exposure_seconds']/3600
+    hours = [r['hour']+min(1,max(0,elapsed-r['hour']))/2 for r in bundle['hourly']]
     for bounds, key, label, chart_title, divisor, color in [([.085,.683,.855,.10], 'cpu_average', '% of one core', 'Application CPU', 1, blue),
             ([.085,.551,.855,.10], 'memory_average_bytes', 'MiB (includes cache)', 'Application memory', 1024**2, orange)]:
         ax = fig.add_axes(bounds, facecolor='white')
