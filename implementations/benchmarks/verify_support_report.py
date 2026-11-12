@@ -95,6 +95,13 @@ def verify(directory, before, after, cases, review, final=True):
         check_stats(model['jobs']['queue_wait_seconds'],reference_stats([r.get('queue_wait_seconds') for r in paired]))
         for name,actual in model['natural_support'].items():
             subset=[r for r in ends if r.get('module')==name]
+            coverage=model['natural_support_event_coverage'][name]
+            beginnings=[r for r in starts if r.get('module')==name]
+            assert coverage['started']==len(beginnings)
+            assert coverage['completed']==len(subset)
+            assert coverage['paired_executions']==sum(r.get('module')==name for r in paired)
+            assert coverage['starts_without_observed_end']==len(beginnings)-coverage['paired_executions']
+            assert coverage['orphan_end_records']==len(subset)-coverage['paired_executions']
             if not subset:assert actual is None
             else:
                 assert actual['completed']==len(subset)
@@ -113,7 +120,7 @@ def verify(directory, before, after, cases, review, final=True):
                     'Missing components, counter resets, long gaps and nonpositive intervals',
                     'Job outcomes, error totals and all recorded counters including acknowledgements and 429 responses',
                     'Execution-paired processing and queue timing distributions',
-                    'All five scheduled support-module outcomes and acknowledgements',
+                    'All five scheduled support-module starts, completions, censored counts, outcomes and acknowledgements',
                     'Queue-backlog distribution, exact bounds and frozen raw-file hashes'],
             source_receipts=model['source_receipts'],
             scope='Actual live observations only. A temporary private copy stabilizes arithmetic; it creates no app work, replay or synthetic traffic.')

@@ -106,6 +106,12 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
             rss_bytes=distribution(component_values(samples, group, 'rss_bytes')),
             file_cache_bytes=distribution(component_values(samples, group, 'file_cache_bytes')))
     jobs = event_summary(events, receipts['events.jsonl']['present'])
+    support_coverage = {}
+    for module in SUPPORT_MODULES:
+        subset = event_summary([r for r in events if r.get('module') == module],
+                               receipts['events.jsonl']['present'])
+        support_coverage[module] = {k: subset[k] for k in ('started', 'completed',
+            'paired_executions', 'starts_without_observed_end', 'orphan_end_records')}
     hourly = []
     for hour in range(48):
         a, b = start+3600*hour, start+3600*(hour+1)
@@ -190,6 +196,7 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
         temporary_file_bytes=distribution([r.get('temporary_files', {}).get('bytes') for r in queue]),
         temporary_file_count=distribution([r.get('temporary_files', {}).get('files') for r in queue]),
         natural_support={m: jobs['modules'].get(m) for m in SUPPORT_MODULES},
+        natural_support_event_coverage=support_coverage,
         anniversary=dict(runs=natural_runs, pending_events=after['anniversary_pending_events'],
             part_states=after['anniversary_part_states'], inherited_parts=holds(before, after)),
         milestones=dict(created_events=len(milestone_events), completed_inside_window=completed_in_window,
@@ -314,7 +321,9 @@ def render(bundle, output):
     for index,module in enumerate(SUPPORT_MODULES):
         y=.278-index*.024
         r=bundle['natural_support'][module]
-        outcome = f"{r['successful']}/{r['completed']} jobs succeeded" if r else 'No recorded completion in window'
+        started=bundle['natural_support_event_coverage'][module]['started']
+        outcome = (f"{r['successful']}/{r['completed']} ends succeeded; {started} starts"
+                   if r else f'{started} starts; no recorded completion')
         text(.055,y,names[module],10,weight='bold')
         text(.27,y,outcome,10)
         detail = controlled[module] if all(passed.get(c) for c in related[module]) else 'Controlled case failed; inspect receipt'
@@ -331,7 +340,7 @@ def render(bundle, output):
          f"Receiver index-conflict reproduction: MongoDB {review['receiver_conflict_code']}.",10,orange)
     note = ('Controlled cases use isolated records and a test-channel-routed build; production inbound polling remains outside those checks. Milestone crossing uses controlled inputs; the additional candidate case queries live Reddit listings. '
             'The weekly production slot is outside this window. Production failures and held deliveries remain visible. '
-            'The worker was already running at launch; boundary jobs are censored. CPU uses valid intervals up to 10 seconds; P95 uses nearest rank. '
+            'The worker was already running at launch; boundary jobs, including statistics sweeps, are censored. CPU uses valid intervals up to 10 seconds; P95 uses nearest rank. '
             'Memory includes file cache; sampled maxima are not lifetime kernel peaks. Shared MongoDB, host and bot-quota effects from observation and controlled checks remain included. '
             'This follow-up preserves the earlier 24-hour report and makes no new Rust-versus-Go speed claim.')
     text(.055,.120,'\n'.join(textwrap.wrap(note,145)),9,muted)
