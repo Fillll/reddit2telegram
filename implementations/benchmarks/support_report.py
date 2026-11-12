@@ -216,6 +216,12 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
         supplemental_receipts={name: source_receipt(path) for name, path in
             [('support_before', before_path), ('support_after', after_path),
              ('controlled_cases', cases_path), ('controlled_review', review_path), ('campaign_ledger', ledger_path)]})
+    result['methods']['http'] = ('Recorded Go request and consumed decoded response-body counters from observed job ends. '
+        'Excludes TLS/framing and remote media downloads performed by Telegram; not total wire bandwidth.')
+    result['methods']['reliability'] = ('Success means a successful recorded task end, not delivery to every channel. '
+        'Telegram acknowledgements include posts, support messages and error notices from whole jobs. '
+        'Per-event delivery needs its separate checkpoint evidence. Uncertain anniversary parts remain unresolved and held. '
+        'Observed duplicate source/channel records do not constitute a direct audit of Telegram duplicates.')
     return result
 
 
