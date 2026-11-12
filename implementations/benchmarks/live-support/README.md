@@ -31,6 +31,8 @@ delivery state or changes production indexes. Cases cover:
 - Weekly summary and directory delivery using controlled isolated statistics.
 - Receiver index-conflict reproduction in isolated MongoDB, plus direct channel
   intake and real test-channel replies. Production inbound polling is excluded.
+- Cleaner deletion and status bookkeeping using only isolated temporary files
+  and task records, followed by a real test-channel summary.
 
 Controlled counts, dates and fixture histories are labeled as such; a passing
 case does not prove a milestone or anniversary occurred organically. Test API

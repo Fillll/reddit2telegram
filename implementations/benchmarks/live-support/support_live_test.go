@@ -137,6 +137,7 @@ func TestLiveSupport(t *testing.T) {
 	defer func() { liveMust(t, lease.release()) }()
 
 	liveCase(t, "receiver_index_conflict", func(t *testing.T, info D) {
+		info["isolated_database"], info["source_commit"] = name, sourceCommit
 		_, e := db.command("createIndexes", "settings", D{"indexes": A{D{"key": D{"setting": 1}, "name": "setting_1"}}})
 		liveMust(t, e)
 		_, e = receiver(app, sender)
