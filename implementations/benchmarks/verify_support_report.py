@@ -112,6 +112,13 @@ def verify(directory, before, after, cases, review, final=True):
                     if '1' in r.get('counts',{}) and '5' in r['counts']]))
         for name,receipt in model['source_receipts'].items():
             if receipt['present']:assert hashlib.sha256((target/name).read_bytes()).hexdigest()==receipt['sha256']
+        milestones=json.loads(after.read_text())['milestone_events_created_in_window']
+        assert len(model['milestones']['events'])==len(milestones)
+        for actual,raw in zip(model['milestones']['events'],milestones):
+            for output_key,source_key in [('achievement','achievement'),('attempts','attempts'),
+                ('source_message_checkpoint_count','message_ids_count'),
+                ('forwarded_source_checkpoint_count','forwarded_ids_count')]:
+                assert actual[output_key]==raw.get(source_key)
         return dict(run_id=model['run_id'],final=final,verified=True,
             measurement_status=model['status'],window_seconds=172800,
             components=component_checks,completed_jobs=len(ends),paired_executions=len(paired),
@@ -121,6 +128,7 @@ def verify(directory, before, after, cases, review, final=True):
                     'Job outcomes, error totals and all recorded counters including acknowledgements and 429 responses',
                     'Execution-paired processing and queue timing distributions',
                     'All five scheduled support-module starts, completions, censored counts, outcomes and acknowledgements',
+                    'Curated natural milestone thresholds, attempts and delivery/forward checkpoints',
                     'Queue-backlog distribution, exact bounds and frozen raw-file hashes'],
             source_receipts=model['source_receipts'],
             scope='Actual live observations only. A temporary private copy stabilizes arithmetic; it creates no app work, replay or synthetic traffic.')
