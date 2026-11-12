@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.12.0] - 2026-11-11
+
+### Added
+
+- Allow a separately authorized fixed 48-hour Go support follow-up while preserving original 24-hour benchmark windows.
+
 ## [1.11.0] - 2026-11-11
 
 ### Added
