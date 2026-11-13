@@ -29,6 +29,10 @@ def verify(directory, before, after, cases, review, final=True):
         samples = [r for r in records(target/'samples.jsonl')
                    if 'components' in r and start <= r.get('ts',-1) <= end]
         assert len(samples) == model['sample_count']
+        process_rows=[r for r in records(target/'processes.jsonl') if start<=r.get('ts',-1)<=end
+                      and r.get('worker_identities') and r.get('unreadable_processes',0)==0]
+        check_stats(model['processes']['roles']['worker']['rss_bytes'],reference_stats(
+            [r.get('roles',{}).get('worker',{}).get('rss_bytes') for r in process_rows]))
         component_checks = {}
         for name, names in [('application',('worker','scheduler')),('worker',('worker',)),
                             ('scheduler',('scheduler',)),('mongodb',('mongodb',)),
@@ -138,6 +142,7 @@ def verify(directory, before, after, cases, review, final=True):
             measurement_status=model['status'],window_seconds=172800,
             components=component_checks,completed_jobs=len(ends),paired_executions=len(paired),
             checks=['All five component CPU cumulative totals and weighted mean/median/P95/min/max',
+                    'Supplementary worker process RSS mean/median/P95/min/max',
                     'All five component memory/RSS/file-cache mean/median/P95/min/max',
                     'Missing components, counter resets, long gaps and nonpositive intervals',
                     'Job outcomes, error totals and all recorded counters including acknowledgements and 429 responses',
