@@ -388,7 +388,9 @@ def render(bundle, output):
             'The worker was already running at launch; boundary jobs, including statistics sweeps, are censored. CPU uses valid intervals up to 10 seconds; P95 uses nearest rank. '
             'Cgroup memory includes file cache; process RSS is a separate measure. Sampled maxima are not lifetime kernel peaks. Shared MongoDB, host and bot-quota effects from observation and controlled checks remain included. '
             'This follow-up preserves the earlier 24-hour report and makes no new Rust-versus-Go speed claim.')
-    text(.055,.120,'\n'.join(textwrap.wrap(note,145)),9,muted)
+    failures = '  ·  '.join(f'{kind}: {count:,}' for kind,count in sorted(jobs['errors'].items(),key=lambda item:-item[1]))
+    text(.055,.128,'Failed job classes: '+failures,9,orange)
+    text(.055,.107,'\n'.join(textwrap.wrap(note,145)),9,muted)
     text(.055,.035, 'Inspect exact counts, distributions, coverage and source hashes in support-summary.json beside this image.',9,muted)
     output.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(output,dpi=300,facecolor=fig.get_facecolor(),metadata={'Title':title})
