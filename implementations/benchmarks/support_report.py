@@ -92,6 +92,8 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
     queue = [r for r in read_records(directory/'queue.jsonl', receipts)
              if finite(r.get('ts')) and start <= r['ts'] <= end]
     processes = read_records(directory/'processes.jsonl', receipts)
+    readable_processes=[r for r in processes if finite(r.get('ts')) and start<=r['ts']<=end
+                       and r.get('worker_identities') and r.get('unreadable_processes',0)==0]
     read_records(directory/'notes.jsonl', receipts)
     sampling_errors = read_records(directory/'sampling_errors.jsonl', receipts)
     process_errors = read_records(directory/'process_sampling_errors.jsonl', receipts)
@@ -123,8 +125,12 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
         cpu_rows = ([previous] if previous else [])+rows
         cpu = counter_series(cpu_rows, ('worker', 'scheduler'))
         mem = distribution(component_values(rows, ('worker', 'scheduler'), 'memory_bytes'))
+        cache = distribution(component_values(rows, ('worker', 'scheduler'), 'file_cache_bytes'))
+        process_rows=[r for r in readable_processes if a<=r['ts']<b]
+        worker_rss=distribution([r.get('roles',{}).get('worker',{}).get('rss_bytes') for r in process_rows])
         hourly.append(dict(hour=hour, cpu_average=cpu['sampled_percent_one_core']['average'],
                            memory_average_bytes=mem['average'], memory_p95_bytes=mem['p95'],
+                           file_cache_average_bytes=cache['average'],worker_rss_average_bytes=worker_rss['average'],
                            samples=len(rows)))
     before, after, review = load(before_path), load(after_path), load(review_path)
     if after.get('run_id') != manifest['run_id']:
@@ -305,6 +311,13 @@ def render(bundle, output):
         ax = fig.add_axes(bounds, facecolor='white')
         values = [r[key]/divisor if finite(r[key]) else math.nan for r in bundle['hourly']]
         ax.plot(hours, values, color=color, linewidth=1.8, marker='o', markersize=2)
+        if key=='memory_average_bytes':
+            ax.lines[-1].set_label('App cgroup (includes cache)')
+            cache=[r['file_cache_average_bytes']/divisor if finite(r['file_cache_average_bytes']) else math.nan for r in bundle['hourly']]
+            rss=[r['worker_rss_average_bytes']/divisor if finite(r['worker_rss_average_bytes']) else math.nan for r in bundle['hourly']]
+            ax.plot(hours,cache,color=muted,linestyle='--',linewidth=1.5,label='App file cache (subset)')
+            ax.plot(hours,rss,color=blue,linestyle=':',linewidth=1.5,label='Worker process RSS')
+            ax.legend(loc='upper left',fontsize=8,frameon=False,ncol=3)
         ax.set_xlim(0,48); ax.set_ylim(bottom=0); ax.set_xticks([0,12,24,36,48])
         ax.set_xlabel('Hours since launch'); ax.set_ylabel(label, fontsize=10)
         ax.grid(axis='y', color=grid, linewidth=.6); ax.spines[['top','right']].set_visible(False)
@@ -313,6 +326,8 @@ def render(bundle, output):
     app, mongo = bundle['components']['application'], bundle['components']['mongodb']
     rows = [('App CPU (% one core)', app['cpu']['sampled_percent_one_core'], 1),
             ('App memory (MiB)', app['memory_bytes'], 1024**2),
+            ('App file cache (MiB, subset)', app['file_cache_bytes'], 1024**2),
+            ('Worker process RSS (MiB)', bundle['processes'].get('roles',{}).get('worker',{}).get('rss_bytes',{}), 1024**2),
             ('MongoDB CPU (% one core)', mongo['cpu']['sampled_percent_one_core'], 1),
             ('MongoDB memory (MiB)', mongo['memory_bytes'], 1024**2),
             ('Job processing (seconds)', jobs['processing_seconds'], 1),
@@ -371,7 +386,7 @@ def render(bundle, output):
     note = ('Controlled cases use isolated records and a test-channel-routed build; production inbound polling remains outside those checks. Milestone crossing uses controlled inputs; the additional candidate case queries live Reddit listings. '
             'The weekly production slot is outside this window. Production failures and held deliveries remain visible. '
             'The worker was already running at launch; boundary jobs, including statistics sweeps, are censored. CPU uses valid intervals up to 10 seconds; P95 uses nearest rank. '
-            'Memory includes file cache; sampled maxima are not lifetime kernel peaks. Shared MongoDB, host and bot-quota effects from observation and controlled checks remain included. '
+            'Cgroup memory includes file cache; process RSS is a separate measure. Sampled maxima are not lifetime kernel peaks. Shared MongoDB, host and bot-quota effects from observation and controlled checks remain included. '
             'This follow-up preserves the earlier 24-hour report and makes no new Rust-versus-Go speed claim.')
     text(.055,.120,'\n'.join(textwrap.wrap(note,145)),9,muted)
     text(.055,.035, 'Inspect exact counts, distributions, coverage and source hashes in support-summary.json beside this image.',9,muted)
