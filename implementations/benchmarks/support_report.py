@@ -167,6 +167,18 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
             raise EvidenceError('Anniversary run counts are missing or invalid')
         natural_runs.append({k: row.get(k) for k in ('started_at', 'finished_at', 'status',
             'channels', 'due', 'completed', 'pending', 'uncertain_messages')})
+    if any(r['completed'] for r in natural_runs) and 'anniversary_events_created_in_window' not in after:
+        raise EvidenceError('Completed anniversaries require their new-event checkpoint snapshot')
+    new_anniversaries=[]
+    for event in after.get('anniversary_events_created_in_window',[]):
+        parts=event['parts']
+        sent=[p for p in parts if p.get('state')=='sent']
+        inside=[p for p in sent if start <= (mongo_utc(p.get('sent_at')) or math.inf) < deadline]
+        new_anniversaries.append(dict(created_at_utc=event.get('created_at'),updated_at_utc=event.get('updated_at'),
+            year=event.get('year'),years=event.get('years'),complete_at_snapshot=event.get('complete'),
+            parts=len(parts),sent_parts=len(sent),sent_parts_inside_window=len(inside),
+            message_checkpoints_inside_window=sum(p['message_id_count'] for p in inside),
+            all_attempts_one=all(p.get('attempts')==1 for p in parts)))
     milestone_events = after['milestone_events_created_in_window']
     completed_in_window = sum(start <= (mongo_utc(r.get('completed_at')) or math.inf) < deadline
                               for r in milestone_events if r.get('complete'))
@@ -200,7 +212,9 @@ def analyze(directory, before_path, after_path, cases_path, review_path, final=T
         natural_support={m: jobs['modules'].get(m) for m in SUPPORT_MODULES},
         natural_support_event_coverage=support_coverage,
         anniversary=dict(runs=natural_runs, pending_events=after['anniversary_pending_events'],
-            part_states=after['anniversary_part_states'], inherited_parts=holds(before, after)),
+            part_states=after['anniversary_part_states'], inherited_parts=holds(before, after),
+            new_events=new_anniversaries,
+            new_delivery_parts_acknowledged_inside_window=sum(e['message_checkpoints_inside_window'] for e in new_anniversaries)),
         milestones=dict(created_events=len(milestone_events), completed_inside_window=completed_in_window,
             incomplete_at_snapshot=sum(not r.get('complete') for r in milestone_events),
             events=[dict(achievement=r.get('achievement'), created_at_utc=r.get('created_at'),
@@ -346,7 +360,8 @@ def render(bundle, output):
     held = bundle['anniversary']['part_states'].get('uncertain',0)
     due = sum(r.get('due') or 0 for r in bundle['anniversary']['runs'])
     completed = sum(r.get('completed') or 0 for r in bundle['anniversary']['runs'])
-    text(.055,.157, f"Natural anniversary sweeps: {due} due, {completed} events completed. "
+    text(.055,.157, f"Anniversaries: {due} due, {completed} completed, "
+         f"{bundle['anniversary']['new_delivery_parts_acknowledged_inside_window']} delivery parts acknowledged. "
          f"New milestone events: {bundle['milestones']['created_events']}; "
          f"{bundle['milestones']['completed_inside_window']} completed inside the window.", 10)
     stat_rows = sum(r.get('rows',0) for r in bundle['statistics']['timestamped_rows'])

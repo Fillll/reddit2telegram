@@ -2,6 +2,7 @@
 import argparse
 from collections import Counter
 from decimal import Decimal
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -119,6 +120,20 @@ def verify(directory, before, after, cases, review, final=True):
                 ('source_message_checkpoint_count','message_ids_count'),
                 ('forwarded_source_checkpoint_count','forwarded_ids_count')]:
                 assert actual[output_key]==raw.get(source_key)
+        anniversaries=json.loads(after.read_text()).get('anniversary_events_created_in_window',[])
+        assert len(model['anniversary']['new_events'])==len(anniversaries)
+        anniversary_acknowledgements=0
+        for actual,raw in zip(model['anniversary']['new_events'],anniversaries):
+            assert actual['parts']==len(raw['parts'])
+            assert actual['sent_parts']==sum(p.get('state')=='sent' for p in raw['parts'])
+            assert actual['complete_at_snapshot']==raw.get('complete')
+            for part in raw['parts']:
+                if part.get('state')!='sent' or part.get('sent_at') is None:continue
+                sent=datetime.fromisoformat(part['sent_at'])
+                if sent.tzinfo is None:sent=sent.replace(tzinfo=timezone.utc)
+                if start<=sent.timestamp()<model['deadline']:
+                    anniversary_acknowledgements+=part['message_id_count']
+        assert model['anniversary']['new_delivery_parts_acknowledged_inside_window']==anniversary_acknowledgements
         return dict(run_id=model['run_id'],final=final,verified=True,
             measurement_status=model['status'],window_seconds=172800,
             components=component_checks,completed_jobs=len(ends),paired_executions=len(paired),
@@ -129,6 +144,7 @@ def verify(directory, before, after, cases, review, final=True):
                     'Execution-paired processing and queue timing distributions',
                     'All five scheduled support-module starts, completions, censored counts, outcomes and acknowledgements',
                     'Curated natural milestone thresholds, attempts and delivery/forward checkpoints',
+                    'New natural anniversary events and persisted part checkpoint counts',
                     'Queue-backlog distribution, exact bounds and frozen raw-file hashes'],
             source_receipts=model['source_receipts'],
             scope='Actual live observations only. A temporary private copy stabilizes arithmetic; it creates no app work, replay or synthetic traffic.')
