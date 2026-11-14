@@ -4,11 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
-## [1.12.1] - 2026-11-11
+## [1.12.1] - 2026-11-13
 
 ### Fixed
 
-- Validate Go support delivery and live Reddit milestone selection with isolated, guarded local checks and remote-only compilation. Add a separate fixed-48-hour picture report and independent arithmetic verification while preserving the earlier comparison.
+- Publish the separate full 48-hour Go support picture report, including five natural anniversaries, two natural subscriber milestones, nine guarded live checks, and CPU/memory distributions. Preserve the earlier comparison and retain receiver failures and held anniversary deliveries in the results.
+- Add remote-only compilation of opt-in support checks and independent verification of the actual report inputs. These maintenance changes do not repair the production receiver index conflict or resend uncertain deliveries.
 
 ## [1.12.0] - 2026-11-11
 

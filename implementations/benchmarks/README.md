@@ -234,6 +234,12 @@ and in-flight boundary work keeps the same censoring rules.
 
 ### Explicitly authorized 48-hour Go support soak
 
+The completed **12–14 November 2026** follow-up is available as a
+[single picture](results/go-support-48h/go-support-48h.png), with
+[results and limitations](results/go-support-48h/README.md) and
+[inspectable aggregate data](results/go-support-48h/support-summary.json).
+It remains separate from the original 24-hour comparison.
+
 An operator may separately request a fixed two-day functional follow-up:
 
 ```sh
