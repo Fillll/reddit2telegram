@@ -7,7 +7,7 @@ from unittest import mock
 import mongomock
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'reddit2telegram'))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'))
 import supplier
 import utils
 from utils.achievements import AchievementAnnouncements, EVENT_SETTING, LOCK_ID, SETTING_NAME

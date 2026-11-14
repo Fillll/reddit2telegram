@@ -9,7 +9,7 @@ import requests
 from praw.models import Listing, ListingGenerator, Submission
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'reddit2telegram'))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'))
 import supplier
 import utils
 

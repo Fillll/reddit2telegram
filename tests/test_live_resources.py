@@ -24,7 +24,7 @@ import requests
 from telegram import Bot, Message
 import yaml
 
-APP_DIR = Path(__file__).resolve().parent.parent / 'reddit2telegram'
+APP_DIR = Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'
 sys.path.insert(0, str(APP_DIR))
 import supplier
 import task_queue_consumer

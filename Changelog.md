@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.13.0] - 2026-11-13
+
+### Added
+
+- Make Go the default worker and scheduler; retain Python in the language implementations collection with explicit launch commands and compatible shared configuration.
+
 ## [1.12.1] - 2026-11-13
 
 ### Fixed

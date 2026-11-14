@@ -5,6 +5,10 @@ on:
     paths:
       - 'implementations/implementations/go/**'
       - '.github/workflows/native-go.yml'
+      - 'r2t'
+      - 'reddit2telegram/cron_thread_job.sh'
+      - 'reddit2telegram/task_queue_consumer.py'
+      - 'reddit2telegram/task_queue_cron_app.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -47,6 +51,7 @@ jobs:
       - name: Compile optimized native application without app traffic
         run: |
           go vet ./...
+          go test ./...
           mkdir -p dist
           version=$(cat ../../../VERSION)
           revision=$(git rev-parse HEAD)

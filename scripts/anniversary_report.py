@@ -13,7 +13,7 @@ import pymongo
 import yaml
 
 
-APP_DIR = Path(__file__).resolve().parent.parent / 'reddit2telegram'
+APP_DIR = Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'
 sys.path.insert(0, str(APP_DIR))
 from utils.anniversaries import AnniversaryAnnouncements, RUN_KIND, EVENT_KIND
 from utils.anniversaries import anniversary_age, announcement_messages

@@ -12,7 +12,7 @@ import requests
 
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-APP_DIR = os.path.join(REPO_ROOT, 'reddit2telegram')
+APP_DIR = os.path.join(REPO_ROOT, 'implementations', 'implementations', 'python', 'reddit2telegram')
 
 sys.path.insert(0, APP_DIR)
 

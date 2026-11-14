@@ -12,7 +12,7 @@ import json
 import pytest
 import requests
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'reddit2telegram'))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'))
 import supplier
 import task_queue
 import utils
@@ -230,7 +230,7 @@ finally:
     libc.fclose(stream)
 print(json.dumps({'arenas': Path(sys.argv[1]).read_text().count('<heap nr=')}))
 '''
-    app_dir = Path(__file__).resolve().parent.parent / 'reddit2telegram'
+    app_dir = Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'
     result = subprocess.run([sys.executable, '-c', code, str(tmp_path / 'malloc.xml')],
                             cwd=app_dir, capture_output=True, text=True, timeout=60)
     if result.returncode == 77:

@@ -35,8 +35,11 @@ The anniversary sweep remained partial: 17 inherited uncertain parts and three
 prior sent checkpoints kept their states and attempt counts, with no new
 uncertainty observed. The inherited parts remain blocked from automatic resend.
 
-Python remains in `reddit2telegram/`. Other languages belong in
-`implementations/implementations/{rust,swift,cpp,c,go}/`.
+Go is now the default application. The complete Python application has moved to
+`implementations/implementations/python/reddit2telegram/`, alongside the
+`rust`, `swift`, `cpp`, `c` and `go` implementations. Configuration and schedule
+paths remain under `reddit2telegram/`. Previous run receipts retain their
+original source paths and hashes.
 
 ## Workload contract
 
@@ -297,9 +300,10 @@ finalizes an interrupted result. No production worker is stopped at the end.
 The ledger refuses a second run for any label. A subsequent implementation may
 start only after the previous run has finalized.
 
-`state/runtime.json`, if present, selects consumer and scheduler argv arrays and
-a label. The existing system service and cron entry exec the selected native
-binary or Python interpreter before importing the Python application. This
+During an active measurement, `state/runtime.json` selects consumer and scheduler
+argv arrays and a label. The launcher execs the selected native binary or Python
+interpreter before importing the Python application. Outside an active window,
+the launcher defaults to Go and ignores this experiment-only selection. This
 avoids requiring administrator service changes or running a Python worker
 alongside a native worker. The file is local-only and must contain no secrets.
 

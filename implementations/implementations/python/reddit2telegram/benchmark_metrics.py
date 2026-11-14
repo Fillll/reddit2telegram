@@ -14,7 +14,7 @@ from pathlib import Path
 import time
 
 
-CONTROL = Path(__file__).resolve().parent.parent / 'implementations/benchmarks/state/active.json'
+CONTROL = Path(__file__).resolve().parents[4] / 'implementations/benchmarks/state/active.json'
 _JOB = ContextVar('benchmark_job', default=None)
 
 
