@@ -8,7 +8,7 @@ from pathlib import Path
 def dispatch(role):
     if os.environ.get('R2T_RUNTIME_DISPATCHED') == '1':
         return
-    control = Path(__file__).resolve().parent.parent / 'implementations/benchmarks/state/runtime.json'
+    control = Path(__file__).resolve().parents[4] / 'implementations/benchmarks/state/runtime.json'
     try:
         runtime = json.loads(control.read_text())
     except FileNotFoundError:

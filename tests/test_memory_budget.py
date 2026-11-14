@@ -19,7 +19,7 @@ import pytest
 import requests
 from telegram import Bot
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'reddit2telegram'))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'))
 import utils
 from utils import http_resources, memory
 

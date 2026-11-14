@@ -1,10 +1,3 @@
-pyyaml
-praw
-python-telegram-bot==21.11.1
-yandex.translate
-pymongo==3.12
-requests>=2.32.5
-sentry-sdk
-croniter
-imgurpython
-psutil
+# Compatibility include for Python implementation tests and operator tools.
+# The primary Go worker does not require these Python packages.
+-r implementations/implementations/python/requirements.txt

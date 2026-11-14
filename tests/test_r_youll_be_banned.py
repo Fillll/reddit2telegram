@@ -3,7 +3,7 @@ import sys
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-APP_DIR = REPO_ROOT / 'reddit2telegram'
+APP_DIR = REPO_ROOT / 'implementations/implementations/python/reddit2telegram'
 sys.path.insert(0, str(APP_DIR))
 
 from channels.r_youll_be_banned import app

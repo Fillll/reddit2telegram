@@ -1,5 +1,12 @@
 # Go implementation
 
+Go is the primary application. From the repository root use `./r2t consumer`
+and `./r2t scheduler`. Install the verified Native Go build artifact at
+`implementations/implementations/go/dist/r2t-go`, or set `R2T_GO_BINARY`.
+The launcher uses the existing configuration and schedule under
+`reddit2telegram/`. Normal operation needs MongoDB and ffmpeg, without Python
+application dependencies.
+
 This implementation ports the complete scheduled application to Go, using the
 official MongoDB driver, Go HTTP/TLS and the stable YAML library. It does not
 delegate application behavior to Python or another implementation executable.
@@ -19,7 +26,7 @@ The checksum-pinned Go 1.27.3 release uses the default optimizing compiler,
 trimpath, no cgo and stripped debug tables. Build receipts include the checked
 source, toolchain, dependencies, literal hashes and executable checksum.
 
-Keep the draft unmerged during preceding windows. Review the exact checked
-head and inspect the enabled artifact before the single fresh 24-hour live
-window. Only actual live observations enter the final image and supporting
-summaries in `implementations/benchmarks/results/`.
+The completed live comparison and separate 48-hour support report are retained
+in `implementations/benchmarks/results/`. Receiver failures and held uncertain
+anniversary parts are documented there. This launcher change does not migrate
+indexes or reset delivery state.

@@ -1,9 +1,8 @@
-#! /bin/bash
-BASEDIR=$(dirname "$0")
-cd $BASEDIR
-source ../.venv/bin/activate
-if [ -f ../implementations/benchmarks/state/active.json ]; then
-    python ../implementations/benchmarks/runner.py schedule --root ..
+#!/usr/bin/env bash
+set -euo pipefail
+root=$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+if [[ -f "$root/implementations/benchmarks/state/active.json" ]]; then
+    exec "${R2T_BENCH_PYTHON:-$root/.venv/bin/python}" "$root/implementations/benchmarks/runner.py" schedule --root "$root"
 else
-    python task_queue_cron_app.py
+    exec "$root/r2t" scheduler
 fi

@@ -12,7 +12,7 @@ If you want to obtain your own channel for `/r/%subreddit%`:
 
 1. Create new public telegram channel `@r_%subreddit%`.
 2. Add [`@reddit2telegram_bot`](https://t.me/reddit2telegram_bot) as administrator to this channel.
-3. Make a pull request to this repo with new script to make posts (use [`reddit2telegram/channels/r_funnny/app.py`](https://github.com/Fillll/reddit2telegram/blob/master/reddit2telegram/channels/r_funny/app.py) as draft), and the tags related (create a tags.txt containing at least 3 tags, separated by spaces and starting with #).
+3. Make a pull request with the channel configuration and schedule. Go is the primary implementation; its channel behavior is in [`channels.go`](implementations/implementations/go/channels.go), with channel records in MongoDB and legacy defaults in its literal assets.
 4. Then I will make it alive :)
 5. For any questions do not hesitate to contact me in [@r_channels](https://t.me/r_channels) group.
 
@@ -43,18 +43,36 @@ _© from [infomate.club](https://github.com/vas3k/infomate.club)_
 Running it
 ----------
 
-The target runtime is CPython 3.15.2 (normal GIL build, JIT disabled). The live
-language experiment preserves Python 3.12 in its existing environment until its
-single 24-hour baseline finishes. Do not switch an active measurement early.
-The Python 3.15 environment uses the same installed dependency versions,
-including the PyMongo/BSON C extensions; see
-`implementations/benchmarks/configurations/python315-requirements.lock`.
-Interpreter distributions and optimization flags are recorded in run metadata,
-so the comparison includes the deployed build, not just the version number.
+**Go is the default worker and scheduler.** Install MongoDB and ffmpeg, then
+download the checksum-verified artifact from the **Native Go build** workflow
+into `implementations/implementations/go/dist/r2t-go` and make it executable.
+`R2T_GO_BINARY` can instead name an installed Go executable.
+
+```sh
+./r2t --describe
+./r2t consumer
+./r2t scheduler
+```
+
+Configuration remains at `reddit2telegram/configs/prod.yml`, copied from the
+example and populated with local credentials. The schedule remains
+`reddit2telegram/own.cron`. Pass `--config /absolute/path/prod.yml` to override
+the configuration. Normal Go operation needs no Python environment.
+
+The complete Python application has moved to
+[`implementations/implementations/python/`](implementations/implementations/python/README.md),
+alongside the other language implementations. Choose it explicitly with its
+`run` launcher. The old Python-named root consumer/scheduler scripts are small
+compatibility entry points which exec Go for existing installations.
+
+Use the [systemd template](reddit2telegram/configs/r2t_consumer_app.service) for
+the Go consumer. Keep one live consumer. The cron wrapper runs the Go scheduler
+once per minute; explicitly selected active benchmark runtimes remain supported.
+[Completed benchmark reports](implementations/benchmarks/results/) are preserved.
 
 Easiest way is to ask for new channel at [@r_channels](https://t.me/r_channels). Or follow the manual as stated above. :)
 
-But if you are geek enough then install mongodb, ffmpeg, python and setup cron:
+Set up cron using the actual checkout path:
 
 ```cron
 46 * * * * /root/reddit2telegram/auto_update.sh
@@ -114,10 +132,9 @@ size). Two video jobs may download, mux, and upload concurrently. Uploads stream
 from disk, and every attempt removes its private files before returning a
 pipeline slot, including oversized rejections and interrupted uploads. Media
 HTTP sessions close after each job; verified TLS contexts are shared across
-connections. On glibc systems,
-`pool.malloc_arenas` defaults to four to reduce memory retained by native
-allocation pools. Once per minute, a consumer above 256 MiB collects dead job
-cycles and returns unused native heap pages to the OS. SIGTERM/SIGINT stop new
+connections. Go uses its runtime garbage collector; the retained Python version
+also tunes glibc allocation arenas. Once per minute, a Go worker above 256 MiB
+asks its runtime to return unused heap pages to the OS. SIGTERM/SIGINT stop new
 claims and drain submitted work.
 
 Reddit listings retain at most 25 candidates per page, while still scanning the
@@ -133,14 +150,18 @@ cron, or add `--seconds 86400 --interval 5` for a full-day observation:
 python3 scripts/monitor_resources.py --log logs/service_resources.jsonl
 ```
 
-Offline tests exercise real local TLS and a 49 MiB multipart upload without
-production credentials. Install test dependencies with
+Go compilation, vetting and tests run in the Native Go build workflow.
+The retained Python implementation's offline regression tests exercise real
+local TLS and a 49 MiB multipart upload without production credentials.
+Install compatibility-test and operator-tool dependencies with
 `python -m pip install -r requirements.txt -r tests/requirements.txt`.
 For a fresh checkout, copy `tests/offline-config.yml` to
 `reddit2telegram/configs/prod.yml` before `python -m pytest -q`. GitHub Actions
 does this automatically; live tests remain disabled.
 
-Live integration tests send real messages to `@r_channels_test` and use Reddit API.
+The following Python integration tests send real messages to `@r_channels_test`
+and use the Reddit API. Native Go support checks are documented in the
+[guarded live harness](implementations/benchmarks/live-support/README.md).
 
 ```bash
 R2T_LIVE_TESTS=1 /root/reddit2telegram/.venv/bin/python -m unittest tests/test_live_send.py
@@ -208,5 +229,5 @@ can conditionally update the event in `settings`: select its `_id` and
 `message_ids` to the verified IDs if it arrived, or reset it to `pending` if it
 did not. The next scheduled run resumes the remaining parts. A partial run is
 reported as a supply failure, with the retained run ID for diagnosis. The
-existing `supplier.py --test --sub tech_anniversary` path sends only a sample to
+retained Python `supplier.py --test --sub tech_anniversary` path sends only a sample to
 `@r_channels_test` and leaves production anniversary records untouched.

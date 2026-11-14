@@ -1,0 +1,10 @@
+pyyaml
+praw
+python-telegram-bot==21.11.1
+yandex.translate
+pymongo==3.12
+requests>=2.32.5
+sentry-sdk
+croniter
+imgurpython
+psutil

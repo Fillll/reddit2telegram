@@ -2,8 +2,8 @@
 Description=r2t_consumer
 
 [Service]
-WorkingDirectory=/home/olive/reddit2telegram/reddit2telegram
-ExecStart=/home/olive/reddit2telegram/env/bin/python task_queue_consumer.py --config configs/prod.yml
+WorkingDirectory=/home/r2t/reddit2telegram
+ExecStart=/home/r2t/reddit2telegram/r2t consumer
 Restart=always
 RestartSec=3
 

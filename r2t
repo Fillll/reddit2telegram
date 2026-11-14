@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Primary application entry point. Normal operation runs only the Go binary.
+set -euo pipefail
+root=$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+if [[ $# == 0 ]]; then set -- consumer; fi
+case "$1" in
+    --help|-h)
+        echo 'Usage: ./r2t [consumer|scheduler] [--config PATH]'
+        echo '       ./r2t --version | --describe'
+        echo 'Go binary: R2T_GO_BINARY or implementations/implementations/go/dist/r2t-go'
+        exit 0 ;;
+    consumer|scheduler|--version|--describe) ;;
+    *) echo 'Unknown role. Use ./r2t --help.' >&2; exit 64 ;;
+esac
+if [[ $1 == consumer || $1 == scheduler ]]; then
+    remaining=("${@:2}")
+    while (( ${#remaining[@]} )); do
+        case "${remaining[0]}" in
+            --help|-h) exec "$root/r2t" --help ;;
+            --config)
+                if (( ${#remaining[@]} < 2 )) || [[ -z ${remaining[1]} || ${remaining[1]} == --* ]]; then
+                    echo '--config requires a path.' >&2; exit 64
+                fi
+                remaining=("${remaining[@]:2}") ;;
+            --describe|--version) remaining=("${remaining[@]:1}") ;;
+            *) echo 'Unknown argument. Use ./r2t --help.' >&2; exit 64 ;;
+        esac
+    done
+fi
+if [[ -f "$root/implementations/benchmarks/state/active.json" && ${R2T_BENCHMARK_DISPATCHED:-0} != 1 && ( $1 == consumer || $1 == scheduler ) ]]; then
+    exec "${R2T_BENCH_PYTHON:-$root/.venv/bin/python}" "$root/implementations/benchmarks/runtime_dispatch.py" "$@"
+fi
+binary=${R2T_GO_BINARY:-$root/implementations/implementations/go/dist/r2t-go}
+if [[ $binary != /* ]]; then binary=$PWD/$binary; fi
+if [[ ! -x "$binary" ]]; then
+    echo 'Go executable missing. Install the verified Native Go build artifact at implementations/implementations/go/dist/r2t-go or set R2T_GO_BINARY.' >&2
+    exit 127
+fi
+cd "$root/reddit2telegram"
+case "$1" in
+    --version|--describe) exec "$binary" "$@" ;;
+esac
+role=$1
+shift
+exec "$binary" "$role" --config "$root/reddit2telegram/configs/prod.yml" "$@"

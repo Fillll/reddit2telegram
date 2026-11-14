@@ -24,12 +24,14 @@ def snapshot():
             processes.append({'pid': int(value), 'name': name})
         except FileNotFoundError:
             pass
-    main = next((p['pid'] for p in processes if p['name'].startswith('python')), None)
+    main = next((p['pid'] for p in processes if p['name'] == 'r2t-go'), None)
+    if main is None:
+        main = next((p['pid'] for p in processes if p['name'].startswith('python')), None)
     record.update(processes=processes, pid=main,
                   service_bytes=int((CGROUP / 'memory.current').read_text()),
                   service_peak_bytes=int((CGROUP / 'memory.peak').read_text()))
     if main is None:
-        record['status'] = 'no_python_process'
+        record['status'] = 'no_worker_process'
         return record
     proc = Path('/proc') / str(main)
     status = dict(line.split(':', 1) for line in (proc / 'status').read_text().splitlines() if ':' in line)

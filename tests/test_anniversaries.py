@@ -9,7 +9,7 @@ import pytest
 from pymongo.errors import AutoReconnect
 from telegram.error import BadRequest, Forbidden, RetryAfter, TimedOut
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'reddit2telegram'))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'implementations/implementations/python/reddit2telegram'))
 import supplier
 import reporting_stuff
 import utils

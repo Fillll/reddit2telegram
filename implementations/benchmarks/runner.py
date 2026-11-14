@@ -494,10 +494,10 @@ def schedule(root):
     root = root.resolve()
     manifest = read_json(bench(root) / 'state/active.json')
     app = root / 'reddit2telegram'
-    invocation = [sys.executable, str(app / 'task_queue_cron_app.py')]
+    invocation = [str(root / 'r2t'), 'scheduler']
     if not manifest or not manifest['started_at'] <= time.time() < manifest['deadline']:
         os.chdir(app)
-        os.execv(sys.executable, invocation)
+        os.execv(invocation[0], invocation)
     # Actual scheduler, in its own accounting group; no second scheduler is run.
     started = time.monotonic()
     status = subprocess.run(['systemd-run', '--user', '--quiet', '--wait', '--pipe', '--collect',
