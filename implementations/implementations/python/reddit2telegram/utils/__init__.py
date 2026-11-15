@@ -1002,17 +1002,29 @@ class Reddit2TelegramSender(object):
                     num = num[0:-1]
             return '{n}{m}'.format(n=num, m=['', 'k', 'M', 'G', 'T', 'P'][magnitude])
 
+        # Optional listing fields must not trigger a full comment-tree fetch.
+        if vars(submission).get('removed_by_category'):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
         max_selftext_len = kwargs.get('max_selftext_len', -1)
 
         min_upvotes_limit = kwargs.get('min_upvotes_limit', None)
-        if (min_upvotes_limit is not None) and (submission.score < min_upvotes_limit):
-            return SupplyResult.SKIP_FOR_NOW
+        if min_upvotes_limit is not None:
+            score = submission.score
+            if vars(submission).get('removed_by_category'):
+                return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+            if score < min_upvotes_limit:
+                return SupplyResult.SKIP_FOR_NOW
 
         try:
             what, url = get_url(submission)
         except Exception as e:
             logging.info('HTTP fail prevented at {}!'.format(self.t_channel))
             return SupplyResult.SKIP_FOR_NOW
+
+        # get_url may have hydrated an initially lazy submission.
+        if vars(submission).get('removed_by_category'):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         formatters = {
             'what': what,
@@ -1032,6 +1044,10 @@ class Reddit2TelegramSender(object):
             # Check if we want to filter out all NSFW submission.
             if submission.over_18:
                 return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION 
+
+        # Formatting/filter fields can hydrate an incomplete listing response.
+        if vars(submission).get('removed_by_category'):
+            return SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
 
         if kwargs.get('check_dups', False):
             # Check if there is a duplicate
