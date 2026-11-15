@@ -66,6 +66,64 @@ def test_full_image_sender_uses_only_cached_listing_fields(reddit):
     assert sender.send_img.call_args.args[0] == 'https://i.redd.it/image.jpg'
 
 
+@pytest.mark.parametrize('category', [
+    'content_takedown', 'copyright_takedown', 'moderator', 'deleted', 'future_category',
+])
+@pytest.mark.parametrize('kind', ['text', 'img', 'video', 'gif', 'gallery', 'album', 'other'])
+def test_removed_listing_rejected_before_score_media_or_send(reddit, category, kind):
+    post = Submission(reddit, _data={'id': 'removed', 'removed_by_category': category})
+    sender = object.__new__(utils.Reddit2TelegramSender)
+    # No other attributes or sender resources exist: accessing them would fail.
+    with mock.patch.object(Submission, '_fetch', side_effect=AssertionError('Fetched removed post')), \
+            mock.patch.object(utils, 'get_url', side_effect=AssertionError('Classified removed post')):
+        result = sender.send_simple(post, min_upvotes_limit=100, **{kind: True})
+    assert result == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+
+
+@pytest.mark.parametrize('metadata', [{}, {'removed_by_category': None}, {'removed_by_category': ''}])
+@pytest.mark.parametrize('is_self', [False, True])
+def test_unremoved_posts_still_send_without_fetching_optional_removal_field(reddit, metadata, is_self):
+    post = Submission(reddit, _data={
+        'id': 'normal', 'url': 'https://i.redd.it/image.jpg', 'is_self': is_self,
+        'is_video': False, 'media': None, 'title': 'Normal post', 'selftext': 'Body',
+        'subreddit': 'aww', 'score': 100, 'over_18': False, **metadata,
+    })
+    sender = object.__new__(utils.Reddit2TelegramSender)
+    sender.t_channel = '@test'
+    sender.send_img = mock.Mock(return_value=utils.SupplyResult.SUCCESSFULLY)
+    sender.send_text = mock.Mock(return_value=utils.SupplyResult.SUCCESSFULLY)
+    with mock.patch.object(Submission, '_fetch', side_effect=AssertionError('Fetched optional field')):
+        assert sender.send_simple(post) == utils.SupplyResult.SUCCESSFULLY
+    (sender.send_text if is_self else sender.send_img).assert_called_once()
+    (sender.send_img if is_self else sender.send_text).assert_not_called()
+
+
+@pytest.mark.parametrize('missing', ['score', 'url', 'title', 'over_18'])
+def test_removal_discovered_during_hydration_never_sends_or_marks_duplicate(reddit, missing):
+    data = {
+        'id': 'removed', 'url': 'https://i.redd.it/image.jpg', 'is_self': False,
+        'is_video': False, 'media': None, 'title': 'Removed by Reddit', 'selftext': '[removed]',
+        'subreddit': 'aww', 'score': 100, 'over_18': False,
+    }
+    initial = dict(data)
+    del initial[missing]
+    post = Submission(reddit, _data=initial)
+    sender = object.__new__(utils.Reddit2TelegramSender)
+    sender.t_channel = '@test'
+    sender.send_img = mock.Mock(side_effect=AssertionError('Sent removed post'))
+    sender.dup_check_and_mark = mock.Mock(side_effect=AssertionError('Marked removed post'))
+
+    def hydrate(self):
+        self.__dict__.update(data, removed_by_category='content_takedown', _fetched=True)
+
+    with mock.patch.object(Submission, '_fetch', autospec=True, side_effect=hydrate) as fetch:
+        options = {'min_upvotes_limit': 200} if missing == 'score' else {}
+        assert sender.send_simple(post, check_dups=True, **options) == utils.SupplyResult.DO_NOT_WANT_THIS_SUBMISSION
+    fetch.assert_called_once()
+    sender.send_img.assert_not_called()
+    sender.dup_check_and_mark.assert_not_called()
+
+
 def test_lazy_post_hydrates_once_before_optional_field_checks(reddit):
     post = Submission(reddit, id='abc123')
 

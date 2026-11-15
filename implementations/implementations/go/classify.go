@@ -248,12 +248,18 @@ func numeric(v any) bool {
 }
 func (s *Sender) simple(initial D, options D, reddit *Reddit) (Supply, error) {
 	submission := initial
+	if truth(at(submission, "removed_by_category")) {
+		return Reject, nil
+	}
 	var e error
 	minimum := at(options, "min_upvotes_limit")
 	if numeric(minimum) && at(submission, "score") == nil {
 		submission, e = reddit.hydrate(submission)
 		if e != nil {
 			return Skip, e
+		}
+		if truth(at(submission, "removed_by_category")) {
+			return Reject, nil
 		}
 	}
 	if numeric(minimum) && num(at(submission, "score"), 0) < num(minimum, 0) {
@@ -270,6 +276,9 @@ func (s *Sender) simple(initial D, options D, reddit *Reddit) (Supply, error) {
 			return Skip, nil
 		}
 	}
+	if truth(at(submission, "removed_by_category")) {
+		return Reject, nil
+	}
 	media, e := s.classify(submission)
 	if e != nil {
 		logInfo("HTTP fail prevented at " + s.channel())
@@ -283,6 +292,9 @@ func (s *Sender) simple(initial D, options D, reddit *Reddit) (Supply, error) {
 			}
 			break
 		}
+	}
+	if truth(at(submission, "removed_by_category")) {
+		return Reject, nil
 	}
 	_, hasNSFW := options["nsfw_filter_out"]
 	if (!hasNSFW || truth(at(options, "nsfw_filter_out"))) && at(submission, "over_18") == true {
