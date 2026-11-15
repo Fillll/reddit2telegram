@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.14.0] - 2026-11-14
+
+### Added
+
+- Schedule the database-backed r_ultrakillmemes channel hourly.
+
 ## [1.13.1] - 2026-11-14
 
 ### Fixed

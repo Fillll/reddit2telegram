@@ -1,6 +1,7 @@
 MASK	submodule_name
 00 * * * *	reddit2telegram	# Comments after tab.
 00 * * * *	r_gifs
+00 * * * *	r_ultrakillmemes
 00 * * * *	okbuddyretardd
 00 * * * *	stardewvalley_en
 00 * * * *	r_hermitcraft
