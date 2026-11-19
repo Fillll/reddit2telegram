@@ -4,6 +4,13 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.16.0] - 2026-11-19
+
+### Added
+
+- Schedule the GTA VI channel from r/gta6 hourly at minute 00 UTC.
+- Schedule the GTA6unmoderated channel from r/GTA6unmoderated hourly at minute 00 UTC.
+
 ## [1.15.0] - 2026-11-14
 
 ### Added
