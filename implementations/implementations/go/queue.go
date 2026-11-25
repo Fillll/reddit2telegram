@@ -102,6 +102,27 @@ func (a *App) supply(module string, metrics *Metrics, context *ErrorContext) err
 		return e
 	}
 	context.Channel = idString(channel.Destination)
+	if module == "reddit2telegram" {
+		current := parts(now(), false)
+		if current.Weekday() == time.Saturday {
+			if current.Hour() == 0 || current.Hour() == 23 {
+				return a.updatePromotionOrder()
+			}
+			return nil
+		}
+		if current.Hour() != promotionHour(current) {
+			return nil
+		}
+		channel.promotionTarget, e = a.selectPromotion(current.Weekday())
+		if e != nil {
+			return e
+		}
+		_, channel.Subreddit, e = a.identity(channel.promotionTarget)
+		if e != nil {
+			return e
+		}
+		channel.recordPromotion = current.Weekday() != time.Sunday
+	}
 	if !channel.RequiresSubmission {
 		sender := a.sender(channel.Destination, metrics)
 		defer sender.close()

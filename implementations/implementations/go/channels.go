@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 type Channel struct {
@@ -16,11 +17,13 @@ type Channel struct {
 	Subreddit, Ranking string
 	Limit              int
 	RequiresSubmission bool
+	promotionTarget    string
+	recordPromotion    bool
 }
 
 var channelCache struct {
-	weightedMu, promotionMu sync.Mutex
-	weighted, promotion     string
+	weightedMu sync.Mutex
+	weighted   string
 }
 
 func (a *App) publicModules() ([]string, error) {
@@ -99,7 +102,18 @@ func (a *App) identity(module string) (any, string, error) {
 	}
 	return at(value, "t_channel"), field(value, "subreddit"), nil
 }
+
+const promotionQueue = "r2t_promotion_queue"
+
 func (a *App) updatePromotionOrder() error {
+	rows, e := a.DB.find("view_with_first_dates", nil, nil, 0, D{"first_date": 1})
+	if e != nil || len(rows) == 0 {
+		return e
+	}
+	dates := D{}
+	for _, row := range rows {
+		dates[field(row, "_id")] = at(row, "first_date")
+	}
 	modules, e := a.publicModules()
 	if e != nil {
 		return e
@@ -113,47 +127,33 @@ func (a *App) updatePromotionOrder() error {
 		if e != nil {
 			return e
 		}
-		channel, ok := destination.(string)
-		if !ok {
-			return fault("Config")
-		}
-		record, e := a.DB.one("view_with_first_dates", D{"_id": lower(channel)}, nil)
-		if e != nil {
-			return e
-		}
-		if record != nil && at(record, "first_date") != nil {
-			order[module] = at(record, "first_date")
+		if value := dates[lower(str(destination))]; value != nil {
+			order[module] = value
 		}
 	}
-	_, e = a.DB.update("settings", D{"setting": "r2t_promotion_queue"}, D{"$setOnInsert": D{"already_promoted": A{}, "counter": 0}, "$set": D{"promotion_order": order}}, false, true)
+	_, e = a.DB.update("settings", D{"setting": promotionQueue}, D{"$setOnInsert": D{"already_promoted": A{}, "counter": 0}, "$set": D{"promotion_order": order}}, false, true)
 	return e
 }
-func (a *App) promotionTarget() (string, error) {
-	channelCache.promotionMu.Lock()
-	defer channelCache.promotionMu.Unlock()
-	if channelCache.promotion != "" {
-		return channelCache.promotion, nil
-	}
+
+func (a *App) selectPromotion(weekday time.Weekday) (string, error) {
 	modules, e := a.publicModules()
 	if e != nil {
 		return "", e
 	}
-	all := []string{}
-	active := map[string]bool{}
+	candidates := []string{}
 	for _, module := range modules {
 		if module != "reddit2telegram" {
-			all = append(all, module)
-			active[module] = true
+			candidates = append(candidates, module)
 		}
 	}
-	if len(all) == 0 {
+	if len(candidates) == 0 {
 		return "", fault("Config")
 	}
-	if parts(now(), false).Weekday() == 0 {
-		channelCache.promotion = all[randomIndex(len(all))]
-		return channelCache.promotion, nil
+	if weekday == time.Sunday {
+		return candidates[randomIndex(len(candidates))], nil
 	}
-	record, e := a.DB.one("settings", D{"setting": "r2t_promotion_queue"}, nil)
+	filter := D{"setting": promotionQueue}
+	record, e := a.DB.one("settings", filter, nil)
 	if e != nil {
 		return "", e
 	}
@@ -161,50 +161,54 @@ func (a *App) promotionTarget() (string, error) {
 		if e = a.updatePromotionOrder(); e != nil {
 			return "", e
 		}
-		record, e = a.DB.one("settings", D{"setting": "r2t_promotion_queue"}, nil)
+		record, e = a.DB.one("settings", filter, nil)
 		if e != nil {
 			return "", e
 		}
 	}
-	promoted, ok := at(record, "already_promoted").([]any)
-	if !ok {
-		return "", fault("Config")
+	target, reset := nextPromotion(candidates, doc(at(record, "promotion_order")), arr(at(record, "already_promoted")))
+	if reset {
+		_, e = a.DB.update("settings", filter, D{"$inc": D{"counter": 1}, "$set": D{"already_promoted": A{}}}, false, false)
 	}
-	order, ok := at(record, "promotion_order").(D)
-	if !ok {
-		return "", fault("Config")
-	}
+	return target, e
+}
+
+func nextPromotion(candidates []string, dates D, promoted A) (target string, reset bool) {
+	// The schedule is the source of eligible channels. A missing date only
+	// affects priority, so a missing or stale date view cannot stall rotation.
+	sort.Slice(candidates, func(i, j int) bool {
+		left, leftKnown := timestamp(dates[candidates[i]])
+		right, rightKnown := timestamp(dates[candidates[j]])
+		if leftKnown != rightKnown {
+			return leftKnown
+		}
+		if left != right {
+			return left > right
+		}
+		return candidates[i] < candidates[j]
+	})
 	done := map[string]bool{}
 	for _, value := range promoted {
 		done[str(value)] = true
 	}
-	type ordered struct {
-		name string
-		date float64
-	}
-	values := []ordered{}
-	for name, value := range order {
-		stamp, _ := timestamp(value)
-		values = append(values, ordered{name, stamp})
-	}
-	sort.SliceStable(values, func(i, j int) bool {
-		if values[i].date == values[j].date {
-			return values[i].name < values[j].name
-		}
-		return values[i].date > values[j].date
-	})
-	for _, value := range values {
-		if active[value.name] && !done[value.name] {
-			channelCache.promotion = value.name
-			return value.name, nil
+	for _, name := range candidates {
+		if !done[name] {
+			return name, false
 		}
 	}
-	_, e = a.DB.update("settings", D{"setting": "r2t_promotion_queue"}, D{"$inc": D{"counter": 1}, "$set": D{"already_promoted": A{}}}, false, false)
-	if e != nil {
-		return "", e
-	}
-	return "", fault("Config")
+	return candidates[0], true
 }
+
+func promotionHour(day time.Time) int {
+	hash := sha1Text(day.Format("2006 Jan 02"))
+	hour := 0
+	for i := 0; i < len(hash); i += 2 {
+		value, _ := strconv.ParseInt(hash[i:i+2], 16, 32)
+		hour = (hour*256 + int(value)) % 24
+	}
+	return hour
+}
+
 func (a *App) resolve(module string) (*Channel, error) {
 	if module == "r_porn" {
 		source, e := weightedSource()
@@ -228,15 +232,7 @@ func (a *App) resolve(module string) (*Channel, error) {
 		return &Channel{Destination: "@r_porn", Subreddit: source, Options: options, Limit: 100, RequiresSubmission: true}, nil
 	}
 	if module == "reddit2telegram" {
-		target, e := a.promotionTarget()
-		if e != nil {
-			return nil, e
-		}
-		_, source, e := a.identity(target)
-		if e != nil {
-			return nil, e
-		}
-		return &Channel{Destination: "@reddit2telegram", Subreddit: source, Ranking: "top", Options: D{}, Limit: 1000, RequiresSubmission: true}, nil
+		return &Channel{Destination: mainChannel, Ranking: "top", Options: D{}, Limit: 1000, RequiresSubmission: true}, nil
 	}
 	if strings.HasPrefix(module, "tech_") {
 		var destination any
@@ -343,40 +339,13 @@ func nice(app *App, module string, submission D, sender *Sender, reddit *Reddit,
 	}
 	return sender.simple(submission, options, reddit)
 }
-func promotion(app *App, submission D, sender *Sender, reddit *Reddit) (Supply, error) {
-	current := parts(now(), false)
-	weekday := (int(current.Weekday()) + 6) % 7
-	if weekday == 5 && (current.Hour() == 0 || current.Hour() == 23) && current.Minute() == 1 {
-		return Stop, app.updatePromotionOrder()
-	}
-	if weekday == 5 {
-		return Stop, nil
-	}
-	hash := sha1Text(current.Format("2006 Jan 02"))
-	hour := 0
-	for i := 0; i < len(hash); i += 2 {
-		value, _ := strconv.ParseInt(hash[i:i+2], 16, 32)
-		hour = (hour*256 + int(value)) % 24
-	}
-	if current.Hour() != hour {
-		return Stop, nil
-	}
-	target, e := app.promotionTarget()
-	if e != nil {
-		return Skip, e
-	}
-	result, e := nice(app, target, submission, sender, reddit, "", "", "")
-	if e != nil {
-		return Skip, e
-	}
-	if result == Sent && weekday < 5 {
-		_, e = app.DB.update("settings", D{"setting": "r2t_promotion_queue"}, D{"$push": D{"already_promoted": target}}, false, false)
-	}
-	return result, e
-}
 func channelPost(app *App, module string, channel *Channel, submission D, sender *Sender, reddit *Reddit) (Supply, error) {
 	if module == "reddit2telegram" {
-		return promotion(app, submission, sender, reddit)
+		result, e := nice(app, channel.promotionTarget, submission, sender, reddit, "", "", "")
+		if e == nil && result == Sent && channel.recordPromotion {
+			_, e = app.DB.update("settings", D{"setting": promotionQueue}, D{"$addToSet": D{"already_promoted": channel.promotionTarget}, "$setOnInsert": D{"counter": 0, "promotion_order": D{}}}, false, true)
+		}
+		return result, e
 	}
 	if strings.HasPrefix(module, "tech_") {
 		return channelMaintenance(app, module, sender)
