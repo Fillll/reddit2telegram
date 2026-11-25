@@ -4,6 +4,12 @@ All notable changes are recorded here, newest release first. Versions follow
 [Semantic Versioning](https://semver.org/). Dates use America/Los_Angeles.
 The history before this initial versioned snapshot remains in Git.
 
+## [1.16.1] - 2026-11-25
+
+### Fixed
+
+- Restore the main Telegram feed rotation so the Go worker selects a fresh channel for each promotion, including channels with missing first-post dates.
+
 ## [1.16.0] - 2026-11-19
 
 ### Added
